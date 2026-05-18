@@ -1,0 +1,13 @@
+# Planning and writing artifacts
+*.md
+.planning/
+idea-stage/
+refine-logs/
+
+# External or nested repositories
+TRC-23-02333/
+
+# Local/generated files
+__pycache__/
+*.py[cod]
+.DS_Store
