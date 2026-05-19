@@ -1,9 +1,3 @@
-# Planning and writing artifacts
-*.md
-.planning/
-idea-stage/
-refine-logs/
-
 # External or nested repositories
 TRC-23-02333/
 
