@@ -1,0 +1,7 @@
+budget,source,selected_count
+0.1,multistart_swap_by_validation,4
+0.1,swap_from_best_random_trace,1
+0.2,multistart_swap_by_validation,4
+0.2,swap_from_best_random_trace,1
+0.3,multistart_swap_by_validation,4
+0.3,robust_coverage_cvar,1

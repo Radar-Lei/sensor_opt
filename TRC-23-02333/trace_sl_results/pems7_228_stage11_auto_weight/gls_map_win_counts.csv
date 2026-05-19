@@ -1,0 +1,11 @@
+budget,best_layout,wins
+0.1,multistart_swap_by_validation,1
+0.1,scenario_cvar_a_trace,1
+0.1,swap_from_greedy_a_trace,1
+0.1,swap_from_scenario_average,1
+0.1,validation_swap_selected,1
+0.2,multistart_swap_by_validation,1
+0.2,random,1
+0.2,top_variance,2
+0.2,validation_swap_selected,1
+0.3,validation_swap_selected,5

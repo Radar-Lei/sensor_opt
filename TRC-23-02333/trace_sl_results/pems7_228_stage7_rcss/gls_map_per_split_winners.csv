@@ -1,0 +1,16 @@
+split_seed,budget,best_layout,mae
+20,0.1,swap_from_scenario_cvar,3.401102883003721
+20,0.2,random,3.23670031475523
+20,0.3,random,2.981832890545593
+21,0.1,swap_from_scenario_cvar,3.4310514046948186
+21,0.2,random,3.259542374986612
+21,0.3,random,3.06578412309379
+22,0.1,swap_from_scenario_cvar,3.357445969167268
+22,0.2,top_variance,3.2227775065190936
+22,0.3,multistart_swap_by_validation,3.0082243843714505
+23,0.1,swap_from_greedy_a_trace,3.233554521687834
+23,0.2,random,3.11405671303183
+23,0.3,swap_from_best_random_trace,2.9645129126943743
+24,0.1,multistart_swap_by_validation,3.3105085099606693
+24,0.2,top_variance,3.0445780984254336
+24,0.3,top_variance,2.8594446538041614

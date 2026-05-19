@@ -1,0 +1,16 @@
+                                                         mae     rmse
+budget layout_type               method
+0.1    best_random_by_trace      gls_map              3.5281   5.8891
+                                 gsp                  3.8891   6.4708
+                                 historical_tod_mean  3.8801   6.6802
+                                 neighbor_average     7.4472  11.1955
+       best_random_by_validation gls_map              3.6894   6.1237
+...                                                      ...      ...
+0.3    swap_from_scenario_cvar   neighbor_average     7.1348  10.9166
+       top_variance              gls_map              3.1874   5.2448
+                                 gsp                  3.4285   5.6493
+                                 historical_tod_mean  3.3630   5.7894
+                                 neighbor_average     9.9878  14.9519
+
+[204 rows x 2 columns]
+Wrote outputs to TRC-23-02333/trace_sl_results/pems7_228_stage7_rcss/seed_20

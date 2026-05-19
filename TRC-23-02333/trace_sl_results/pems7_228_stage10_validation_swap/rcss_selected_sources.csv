@@ -1,0 +1,9 @@
+budget,source,selected_count
+0.1,greedy_a_trace,1
+0.1,quality_coverage_sample,1
+0.1,swap_from_greedy_a_trace,2
+0.1,swap_from_scenario_average,1
+0.2,multistart_swap_by_validation,2
+0.2,quality_coverage_sample,3
+0.3,quality_coverage_sample,4
+0.3,random_validation_pool,1

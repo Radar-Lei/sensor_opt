@@ -1,0 +1,16 @@
+split_seed,budget,best_layout,mae
+25,0.1,swap_from_scenario_average,3.398187176024214
+25,0.2,validation_swap_selected,3.1779950957796244
+25,0.3,validation_swap_selected,2.863037060859235
+26,0.1,scenario_cvar_a_trace,3.762638564117853
+26,0.2,validation_swap_selected,3.48412474812257
+26,0.3,validation_swap_selected,3.30252814575265
+27,0.1,multistart_swap_by_validation,3.312116412353792
+27,0.2,multistart_swap_by_validation,3.1299938615660627
+27,0.3,validation_swap_selected,2.94098047110614
+28,0.1,validation_swap_selected,3.205677809680894
+28,0.2,top_variance,3.015254196531908
+28,0.3,validation_swap_selected,2.850774271754064
+29,0.1,validation_swap_selected,3.439544195802368
+29,0.2,validation_swap_selected,3.188858370645141
+29,0.3,validation_swap_selected,2.989406323749733
