@@ -99,50 +99,50 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLAIM-01 | TBD | Pending |
-| CLAIM-02 | TBD | Pending |
-| CLAIM-03 | TBD | Pending |
-| CLAIM-04 | TBD | Pending |
-| CLAIM-05 | TBD | Pending |
-| THEORY-01 | TBD | Pending |
-| THEORY-02 | TBD | Pending |
-| THEORY-03 | TBD | Pending |
-| THEORY-04 | TBD | Pending |
-| THEORY-05 | TBD | Pending |
-| THEORY-06 | TBD | Pending |
-| BASE-01 | TBD | Pending |
-| BASE-02 | TBD | Pending |
-| BASE-03 | TBD | Pending |
-| BASE-04 | TBD | Pending |
-| BASE-05 | TBD | Pending |
-| BASE-06 | TBD | Pending |
-| EXP-01 | TBD | Pending |
-| EXP-02 | TBD | Pending |
-| EXP-03 | TBD | Pending |
-| EXP-04 | TBD | Pending |
-| EXP-05 | TBD | Pending |
-| EXP-06 | TBD | Pending |
-| ROBUST-01 | TBD | Pending |
-| ROBUST-02 | TBD | Pending |
-| ROBUST-03 | TBD | Pending |
-| ROBUST-04 | TBD | Pending |
-| ROBUST-05 | TBD | Pending |
-| ROBUST-06 | TBD | Pending |
-| REPRO-01 | TBD | Pending |
-| REPRO-02 | TBD | Pending |
-| REPRO-03 | TBD | Pending |
-| REPRO-04 | TBD | Pending |
-| REPRO-05 | TBD | Pending |
-| PAPER-01 | TBD | Pending |
-| PAPER-02 | TBD | Pending |
-| PAPER-03 | TBD | Pending |
-| PAPER-04 | TBD | Pending |
-| PAPER-05 | TBD | Pending |
+| CLAIM-01 | Phase 1 | Pending |
+| CLAIM-02 | Phase 1 | Pending |
+| CLAIM-03 | Phase 1 | Pending |
+| CLAIM-04 | Phase 1 | Pending |
+| CLAIM-05 | Phase 1 | Pending |
+| THEORY-01 | Phase 2 | Pending |
+| THEORY-02 | Phase 2 | Pending |
+| THEORY-03 | Phase 2 | Pending |
+| THEORY-04 | Phase 2 | Pending |
+| THEORY-05 | Phase 2 | Pending |
+| THEORY-06 | Phase 2 | Pending |
+| BASE-01 | Phase 3 | Pending |
+| BASE-02 | Phase 3 | Pending |
+| BASE-03 | Phase 3 | Pending |
+| BASE-04 | Phase 3 | Pending |
+| BASE-05 | Phase 3 | Pending |
+| BASE-06 | Phase 3 | Pending |
+| EXP-01 | Phase 4 | Pending |
+| EXP-02 | Phase 4 | Pending |
+| EXP-03 | Phase 4 | Pending |
+| EXP-04 | Phase 4 | Pending |
+| EXP-05 | Phase 4 | Pending |
+| EXP-06 | Phase 4 | Pending |
+| ROBUST-01 | Phase 5 | Pending |
+| ROBUST-02 | Phase 5 | Pending |
+| ROBUST-03 | Phase 5 | Pending |
+| ROBUST-04 | Phase 5 | Pending |
+| ROBUST-05 | Phase 5 | Pending |
+| ROBUST-06 | Phase 5 | Pending |
+| REPRO-01 | Phase 6 | Pending |
+| REPRO-02 | Phase 6 | Pending |
+| REPRO-03 | Phase 6 | Pending |
+| REPRO-04 | Phase 6 | Pending |
+| REPRO-05 | Phase 6 | Pending |
+| PAPER-01 | Phase 7 | Pending |
+| PAPER-02 | Phase 7 | Pending |
+| PAPER-03 | Phase 7 | Pending |
+| PAPER-04 | Phase 7 | Pending |
+| PAPER-05 | Phase 7 | Pending |
 
 **Coverage:**
 - v1 requirements: 39 total
-- Mapped to phases: 0
-- Unmapped: 39 ⚠️
+- Mapped to phases: 39
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026/05/21*
