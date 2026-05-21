@@ -5,87 +5,65 @@
 ## Test Framework
 
 **Runner:**
-- Not detected. There is no `pytest.ini`, `pyproject.toml`, `tox.ini`, `setup.cfg`, `conftest.py`, `test_*.py`, `*_test.py`, `*.test.*`, or `*.spec.*` file under the scanned repository.
-- Current validation is script-based and artifact-based through `python -m py_compile`, sanity/experiment runs of `TRC-23-02333/transparent_estimator_eval.py`, and aggregation with `TRC-23-02333/summarize_trace_sl_rcss.py`.
-- Evidence: `.planning/quick/260518-trace-sl-cpu-pilot/SUMMARY.md` records `python -m py_compile TRC-23-02333/transparent_estimator_eval.py` plus sanity and full pilot runs; `.planning/quick/260518-trace-sl-cpu-pilot/SUMMARY_STAGE5_OR_GUIDED.md` records the same compile gate plus a Stage 5 OR sanity run.
+- Not detected. No `pytest`, `unittest`, `jest`, `vitest`, or other test runner configuration is present in `/home/samuel/projects/sensor_opt`.
+- Config: Not detected. No `pytest.ini`, `pyproject.toml`, `setup.cfg`, `tox.ini`, `jest.config.*`, or `vitest.config.*` was found in `/home/samuel/projects/sensor_opt`.
+- Test files: Not detected. No files matching common test patterns such as `test_*.py`, `*_test.py`, `*.test.*`, or `*.spec.*` were found under `/home/samuel/projects/sensor_opt`.
 
 **Assertion Library:**
-- Not detected. No unit-test assertion library is configured.
-- Statistical checks use Pandas/SciPy calculations and persisted CSV summaries rather than test assertions: `ttest_rel` and `wilcoxon` in `TRC-23-02333/summarize_trace_sl_rcss.py`; `pearsonr` and `spearmanr` in `TRC-23-02333/transparent_estimator_eval.py`.
+- Not detected. The repository does not currently use `pytest` assertions, `unittest`, or third-party assertion helpers.
+- Scientific checks are embedded in runtime exceptions and output summaries inside `TRC-23-02333/transparent_estimator_eval.py` and `TRC-23-02333/summarize_trace_sl_rcss.py`.
 
 **Run Commands:**
 ```bash
-python -m py_compile TRC-23-02333/transparent_estimator_eval.py TRC-23-02333/summarize_trace_sl_rcss.py  # Syntax check current Python scripts
-bash scripts/run_stage11_pems7_228.sh                                                                    # Full Stage 11 PeMS7_228 reproducibility run
-bash scripts/run_stage11_pems7_1026.sh                                                                   # Full Stage 11 PeMS7_1026 external-validation run
-bash scripts/run_stage11_seattle.sh                                                                      # Full Stage 11 Seattle validation run
-python TRC-23-02333/summarize_trace_sl_rcss.py --input-root <seed-result-dir> --output-dir <aggregate-dir> # Aggregate seed-level metrics
+python TRC-23-02333/transparent_estimator_eval.py --max-test-steps 1 --num-layouts 1 --budgets "0.10" --include-simple-baselines  # Smoke-run primary evaluator on default PeMS7_228 data
+bash scripts/run_stage11_pems7_228.sh                                                                                # Run stage 11 PeMS7_228 experiment batch
+python TRC-23-02333/summarize_trace_sl_rcss.py --input-root TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight --output-dir TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight  # Rebuild aggregate summaries
 ```
 
 ## Test File Organization
 
 **Location:**
-- No dedicated test directory or co-located test files are present.
-- Validation artifacts live under `TRC-23-02333/trace_sl_results/`, with curated Stage 6--11, PeMS7_1026, and Seattle outputs documented in `TRC-23-02333/trace_sl_results/README.md`.
-- Reproducibility launchers live under `scripts/`: `scripts/run_stage11_pems7_228.sh`, `scripts/run_stage11_pems7_1026.sh`, and `scripts/run_stage11_seattle.sh`.
-- Historical quick validation summaries live under `.planning/quick/260518-trace-sl-cpu-pilot/`.
+- Not detected. There is no dedicated `tests/` directory and no co-located test files in `/home/samuel/projects/sensor_opt`.
+- Existing validation is experiment-driven through CLI scripts and generated artifacts in `TRC-23-02333/trace_sl_results/`.
 
 **Naming:**
-- Use `seed_<N>/` subdirectories for split-level outputs: `TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight/seed_25/`.
-- Use `SUMMARY.md` for human-readable validation summaries inside each result directory: `TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_10split/SUMMARY.md`.
-- Use stable artifact names for machine-readable checks: `metrics.csv`, `metrics.json`, `layouts.json`, `swap_history.json`, `rcss_candidates.csv`, `certificate_correlations.csv`, and `config.json` written by `TRC-23-02333/transparent_estimator_eval.py`.
-- Use `combined_*` and summary CSV names for aggregate outputs: `combined_metrics.csv`, `gls_map_layout_summary.csv`, `gls_map_delta_summary.csv`, `gls_map_paired_delta_tests.csv`, `gls_map_win_counts.csv`, and `certificate_correlation_summary.csv` written by `TRC-23-02333/summarize_trace_sl_rcss.py`.
+- Not detected for test files.
+- If adding tests, follow Python conventions with `tests/test_transparent_estimator_eval.py` for functions in `TRC-23-02333/transparent_estimator_eval.py` and `tests/test_summarize_trace_sl_rcss.py` for `TRC-23-02333/summarize_trace_sl_rcss.py`.
 
 **Structure:**
 ```text
-TRC-23-02333/trace_sl_results/
-├── pems7_228_stage11_auto_weight/
-│   ├── seed_25/
-│   │   ├── metrics.csv
-│   │   ├── metrics.json
-│   │   ├── layouts.json
-│   │   ├── swap_history.json
-│   │   ├── rcss_candidates.csv
-│   │   ├── certificate_correlations.csv
-│   │   ├── config.json
-│   │   └── SUMMARY.md
-│   ├── seed_26/
-│   └── SUMMARY.md
-├── pems7_228_stage11_auto_weight_10split/
-│   ├── combined_metrics.csv
-│   ├── gls_map_layout_summary.csv
-│   ├── gls_map_delta_summary.csv
-│   ├── gls_map_paired_delta_tests.csv
-│   ├── gls_map_win_counts.csv
-│   └── SUMMARY.md
-├── pems7_1026_stage11_auto_weight/
-└── seattle_stage11_auto_weight_light/
+/home/samuel/projects/sensor_opt/
+├── TRC-23-02333/
+│   ├── transparent_estimator_eval.py       # Primary executable and algorithm functions
+│   └── summarize_trace_sl_rcss.py          # Result aggregation executable
+├── scripts/
+│   ├── run_stage11_pems7_228.sh            # Batch experiment runner
+│   ├── run_stage11_pems7_1026.sh           # Batch experiment runner
+│   └── run_stage11_seattle.sh              # Batch experiment runner
+└── tests/                                  # Not present; add here if formal tests are introduced
 ```
 
 ## Test Structure
 
 **Suite Organization:**
 ```python
-# Current script-based validation pattern in TRC-23-02333/transparent_estimator_eval.py
+# Recommended structure for future tests of TRC-23-02333/transparent_estimator_eval.py
 
-def main():
-    parser = argparse.ArgumentParser(description="TRACE-SL transparent estimator CPU pilot")
-    # parse deterministic seeds and hyperparameters
-    train, val, test, test_index, distance, val_days, test_days = load_pems_dataset(args.data_root, args.split_seed)
-    # build matrices, generate layouts, evaluate rows
-    frame.to_csv(output_dir / "metrics.csv", index=False)
-    (output_dir / "config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
-    write_summary(output_dir, args, rows, correlations, test_days)
+def test_metrics_returns_mae_rmse_mape_for_arrays():
+    pred = np.array([[1.0, 3.0]])
+    true = np.array([[2.0, 1.0]])
 
-if __name__ == "__main__":
-    main()
+    result = metrics(pred, true)
+
+    assert set(result) == {"mae", "rmse", "mape"}
+    assert result["mae"] >= 0.0
 ```
 
 **Patterns:**
-- Setup pattern: shell scripts define dataset path, output directory, split seeds, budget sweep, candidate counts, validation-swap parameters, and BLAS thread limits before invoking the Python driver. See `scripts/run_stage11_pems7_228.sh`, `scripts/run_stage11_pems7_1026.sh`, and `scripts/run_stage11_seattle.sh`.
-- Execution pattern: loop over split seeds, invoke `TRC-23-02333/transparent_estimator_eval.py` with deterministic `--split-seed` and `--layout-seed`, and stream output through `tee` to a per-seed log in the result directory.
-- Aggregation pattern: after seed runs finish, invoke `TRC-23-02333/summarize_trace_sl_rcss.py` with one or more `--input-root` directories and one `--output-dir` to create aggregate CSVs and `SUMMARY.md`.
-- Verification pattern: inspect persisted `SUMMARY.md`, `gls_map_layout_summary.csv`, `gls_map_delta_summary.csv`, paired tests, and certificate correlation summaries under `TRC-23-02333/trace_sl_results/...`.
+- Current pattern: CLI smoke execution and artifact inspection rather than unit test suites.
+- Setup pattern: create or point to dataset roots with `--data-root`; the default dataset path is computed in `TRC-23-02333/transparent_estimator_eval.py` as `TRC-23-02333/dataset/PeMS7_228`.
+- Teardown pattern: output directories are created by the scripts and not automatically removed. `TRC-23-02333/transparent_estimator_eval.py` writes to `--output-dir`; shell runners write under `TRC-23-02333/trace_sl_results/`.
+- Assertion pattern: verify existence and schema of generated files such as `metrics.csv`, `layouts.json`, `config.json`, `SUMMARY.md`, and `certificate_correlations.csv` produced by `TRC-23-02333/transparent_estimator_eval.py`.
 
 ## Mocking
 
@@ -93,45 +71,51 @@ if __name__ == "__main__":
 
 **Patterns:**
 ```python
-# No mocking pattern exists. Current validation uses real or locally placed datasets.
-# Dataset loader fallback pattern in TRC-23-02333/transparent_estimator_eval.py:
-value_files = sorted(data_root.glob("PeMSD7_V_*.csv"))
-distance_files = sorted(data_root.glob("PeMSD7_W_*.csv"))
-if not value_files or not distance_files:
-    return load_seattle_dataset(data_root, seed)
+# No mocking pattern currently exists in the repository.
+# Prefer small synthetic NumPy arrays/DataFrames over mocks for future tests.
+
+distance = np.array([[0.0, 1.0], [1.0, 0.0]])
+sensors = np.array([0], dtype=int)
 ```
 
 **What to Mock:**
-- If unit tests are added, mock filesystem inputs for loader edge cases in `TRC-23-02333/transparent_estimator_eval.py` only when tiny synthetic CSV/NPY fixtures cannot express the case.
-- For pure numerical helpers such as `parse_budgets`, `normalize_minmax`, `metrics`, `coverage_penalty`, `posterior_trace_for_layout`, and `parse_weight_grid` in `TRC-23-02333/transparent_estimator_eval.py`, use direct inputs rather than mocks.
+- Avoid mocks for NumPy, pandas, SciPy, and scikit-learn numerical operations in `TRC-23-02333/transparent_estimator_eval.py`; use small deterministic arrays instead.
+- Mock or isolate filesystem writes only when testing `write_summary` in `TRC-23-02333/transparent_estimator_eval.py` or the output generation in `TRC-23-02333/summarize_trace_sl_rcss.py`.
+- For CLI tests, prefer temporary directories for `--output-dir` instead of mocking `Path.write_text` or pandas `to_csv`.
 
 **What NOT to Mock:**
-- Do not mock NumPy, Pandas, SciPy, or scikit-learn numerical routines used by `TRC-23-02333/transparent_estimator_eval.py`; validate behavior through small deterministic arrays.
-- Do not mock the seed-level result structure when testing `TRC-23-02333/summarize_trace_sl_rcss.py`; use temporary directories containing minimal `seed_*/metrics.csv`, `certificate_correlations.csv`, and `rcss_candidates.csv` fixtures.
-- Do not mock full Stage 11 runs in reproducibility checks; use the real script entry points in `scripts/` when validating published artifacts.
+- Do not mock `linalg.solve`, `linalg.inv`, `shortest_path`, `LedoitWolf`, `pearsonr`, or `spearmanr` when validating numerical behavior in `TRC-23-02333/transparent_estimator_eval.py`; these are core behavior dependencies.
+- Do not mock the random number generator. Pass a deterministic `np.random.default_rng(seed)` to functions such as `quality_coverage_sample` in `TRC-23-02333/transparent_estimator_eval.py`.
+- Do not mock pandas groupby/pivot behavior in `TRC-23-02333/summarize_trace_sl_rcss.py`; use minimal DataFrames or CSV fixtures.
 
 ## Fixtures and Factories
 
 **Test Data:**
 ```python
-# Recommended minimal fixture shape for future unit tests around layout/evaluator helpers.
-# Keep arrays tiny, deterministic, and explicit.
-distance = np.array([
-    [0.0, 1.0, 2.0],
-    [1.0, 0.0, 1.0],
-    [2.0, 1.0, 0.0],
-])
-train = np.array([
-    [10.0, 11.0, 12.0],
-    [13.0, 14.0, 15.0],
-])
-sensors = np.array([0, 2], dtype=int)
+# Recommended fixture style for future tests
+train = np.array(
+    [
+        [10.0, 20.0, 30.0],
+        [11.0, 19.0, 29.0],
+        [12.0, 18.0, 28.0],
+    ],
+    dtype=float,
+)
+distance = np.array(
+    [
+        [0.0, 1.0, 2.0],
+        [1.0, 0.0, 1.0],
+        [2.0, 1.0, 0.0],
+    ],
+    dtype=float,
+)
+rng = np.random.default_rng(2026)
 ```
 
 **Location:**
-- Existing real data location is local-only and documented in `README.md`: `TRC-23-02333/dataset/PeMS7_228/`, `TRC-23-02333/dataset/PeMS7_1026/`, and `TRC-23-02333/dataset/Seattle/`.
-- Existing committed validation outputs are under `TRC-23-02333/trace_sl_results/`.
-- If adding automated unit tests, place test fixtures under a new test directory such as `tests/fixtures/` and keep them tiny enough to commit; do not commit real PeMS or Seattle datasets.
+- Current repository data fixtures are real research datasets in `TRC-23-02333/dataset/PeMS7_228`, `TRC-23-02333/dataset/PeMS7_1026`, and `TRC-23-02333/dataset/Seattle`.
+- Current result fixtures/artifacts are under `TRC-23-02333/trace_sl_results/`.
+- If formal tests are added, place small synthetic fixtures under `tests/fixtures/` and avoid copying large files from `TRC-23-02333/dataset/`.
 
 ## Coverage
 
@@ -139,65 +123,71 @@ sensors = np.array([0, 2], dtype=int)
 
 **View Coverage:**
 ```bash
-# Not configured. No coverage tool or threshold is present.
+# Not configured. If coverage is introduced, add pytest-cov to requirements and run:
+pytest --cov=TRC-23-02333 --cov-report=term-missing
 ```
 
 ## Test Types
 
 **Unit Tests:**
-- Not present.
-- Suitable future unit-test targets are pure helpers in `TRC-23-02333/transparent_estimator_eval.py`: `parse_budgets`, `adjacency_to_distance`, `metrics`, `normalize_minmax`, `coverage_layout`, `parse_weight_grid`, `rcss_candidate_scores`, and `summarize_correlations`.
-- Use deterministic arrays and seeds for any unit tests that exercise layout selection helpers such as `quality_coverage_sample` and `swap_trace_local_search` in `TRC-23-02333/transparent_estimator_eval.py`.
+- Not currently present.
+- Best candidates for unit tests in `TRC-23-02333/transparent_estimator_eval.py`: `parse_budgets`, `adjacency_to_distance`, `metrics`, `make_similarity`, `make_laplacian`, `normalize_minmax`, `coverage_penalty`, `parse_weight_grid`, and `rcss_candidate_scores`.
+- Use synthetic arrays and deterministic seeds. Keep tests fast and independent of `TRC-23-02333/dataset/` unless intentionally testing loaders.
 
 **Integration Tests:**
-- Current integration validation is performed by running experiment scripts and checking generated artifacts.
-- The main integration driver is `TRC-23-02333/transparent_estimator_eval.py`, which loads a dataset, splits train/validation/test days, builds Laplacian and GLS precision matrices, generates random/baseline/RCSS layouts, evaluates reconstruction metrics, and writes seed-level artifacts.
-- The aggregate integration driver is `TRC-23-02333/summarize_trace_sl_rcss.py`, which reads `seed_*/metrics.csv`, optional `certificate_correlations.csv`, optional `rcss_candidates.csv`, and writes combined summaries.
-- Evidence of successful integration checks is recorded in `.planning/quick/260518-trace-sl-cpu-pilot/SUMMARY.md`, `.planning/quick/260518-trace-sl-cpu-pilot/SUMMARY_STAGE5_OR_GUIDED.md`, `RESEARCH_PIPELINE_REPORT.md`, and the curated result directories listed in `TRC-23-02333/trace_sl_results/README.md`.
+- Current integration validation is performed by running `TRC-23-02333/transparent_estimator_eval.py` with dataset paths and checking generated artifacts.
+- Shell launchers in `scripts/run_stage11_pems7_228.sh`, `scripts/run_stage11_pems7_1026.sh`, and `scripts/run_stage11_seattle.sh` serve as reproducible experiment integration runners.
+- A lightweight integration test should run `TRC-23-02333/transparent_estimator_eval.py` with `--max-test-steps 1`, `--num-layouts 1`, and a temporary `--output-dir`, then assert `metrics.csv`, `metrics.json`, `layouts.json`, `config.json`, and `SUMMARY.md` exist.
 
 **E2E Tests:**
-- No separate E2E framework is used.
-- The closest E2E checks are full Stage 11 script runs:
-  - `scripts/run_stage11_pems7_228.sh` writes seed outputs and aggregates to `TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight/`.
-  - `scripts/run_stage11_pems7_1026.sh` writes seed outputs and aggregates to `TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/`.
-  - `scripts/run_stage11_seattle.sh` writes seed outputs and aggregates to `TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/`.
+- Not used as an automated framework.
+- Manual end-to-end experiment flow: run one of `scripts/run_stage11_pems7_228.sh`, `scripts/run_stage11_pems7_1026.sh`, or `scripts/run_stage11_seattle.sh`; inspect CSV/JSON outputs and generated `SUMMARY.md` under `TRC-23-02333/trace_sl_results/`.
 
 ## Common Patterns
 
 **Async Testing:**
-```bash
-# No async test runner is present. Parallelism is controlled by shell/process environment.
-THREADS_PER_JOB=1 SEEDS="25 26 27 28 29" bash scripts/run_stage11_pems7_228.sh
+```python
+# Not applicable. The codebase is synchronous Python and Bash.
 ```
-- The scripts set `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS`, `MKL_NUM_THREADS`, `NUMEXPR_NUM_THREADS`, and `VECLIB_MAXIMUM_THREADS` from `THREADS_PER_JOB` to avoid BLAS oversubscription: see `scripts/run_stage11_pems7_228.sh`, `scripts/run_stage11_pems7_1026.sh`, and `scripts/run_stage11_seattle.sh`.
-- The current scripts run seed jobs sequentially in a shell `for seed in ${SEEDS}; do ... done` loop.
 
 **Error Testing:**
 ```python
-# Existing code raises explicit exceptions for bad inputs in TRC-23-02333/transparent_estimator_eval.py.
-if tensor.ndim != 3 or tensor.shape[2] != SLOTS_PER_DAY:
-    raise ValueError(f"Expected Seattle tensor shape (nodes, days, {SLOTS_PER_DAY}), got {tensor.shape}")
+# Recommended future pattern for parser and validation errors
+with pytest.raises(ValueError):
+    parse_weight_grid("1 2 3")
 
-if not rows:
-    raise ValueError("RCSS requires at least one candidate layout")
+with pytest.raises(ValueError):
+    greedy_posterior_layout(base_matrix, sensor_count=1, obs_weight=1.0, objective="unsupported")
 ```
-- Future tests should assert `FileNotFoundError` for missing Seattle files in `load_seattle_dataset` in `TRC-23-02333/transparent_estimator_eval.py`.
-- Future tests should assert `ValueError` for invalid RCSS weight-grid entries in `parse_weight_grid` in `TRC-23-02333/transparent_estimator_eval.py`.
-- Future tests should assert `SystemExit` when `TRC-23-02333/summarize_trace_sl_rcss.py` receives an input root with no `seed_*/metrics.csv` files.
 
-## Reproducibility Checks
+## CLI Smoke Checks
 
-- Confirm scripts compile before running expensive experiments:
+**Primary evaluator:**
+- Use `TRC-23-02333/transparent_estimator_eval.py` for smoke checks. The script validates dataset files, computes train/validation/test splits, builds layouts, evaluates metrics, and writes outputs.
+- Minimum useful command:
 ```bash
-python -m py_compile TRC-23-02333/transparent_estimator_eval.py TRC-23-02333/summarize_trace_sl_rcss.py
+python TRC-23-02333/transparent_estimator_eval.py \
+  --data-root TRC-23-02333/dataset/PeMS7_228 \
+  --output-dir /tmp/trace_sl_smoke \
+  --budgets "0.10" \
+  --num-layouts 1 \
+  --max-test-steps 1 \
+  --include-simple-baselines
 ```
-- Confirm required local datasets exist before full runs. `README.md` documents expected paths:
-  - `TRC-23-02333/dataset/PeMS7_228/PeMSD7_V_228.csv`
-  - `TRC-23-02333/dataset/PeMS7_228/PeMSD7_W_228.csv`
-  - `TRC-23-02333/dataset/PeMS7_1026/PeMSD7_V_1026.csv`
-  - `TRC-23-02333/dataset/PeMS7_1026/PeMSD7_W_1026.csv`
-  - Seattle loader expects `tensor.npz` and `Loop_Seattle_2015_A.npy` under `TRC-23-02333/dataset/Seattle/`.
-- Confirm aggregate outputs contain the current primary method `validation_swap_selected` and baseline comparisons against `best_random_by_validation`, `random`, and `top_variance`, as directed by `TRC-23-02333/trace_sl_results/README.md`.
+
+**Summary aggregator:**
+- Use `TRC-23-02333/summarize_trace_sl_rcss.py` after one or more `seed_*/metrics.csv` outputs exist.
+- The aggregator writes `combined_metrics.csv`, `gls_map_layout_summary.csv`, `gls_map_delta_summary.csv`, `gls_map_paired_delta_tests.csv`, `gls_map_ablation_summary.csv`, `gls_map_per_split_winners.csv`, `gls_map_win_counts.csv`, optional RCSS/correlation CSVs, and `SUMMARY.md`.
+
+## Regression Signals
+
+**Numerical outputs:**
+- Track changes in `mae`, `rmse`, `mape`, `posterior_trace`, `condition_number`, and `information_logdet` produced by `TRC-23-02333/transparent_estimator_eval.py`.
+- Compare generated `metrics.csv` and `layouts.json` across fixed `--split-seed` and `--layout-seed` values for reproducibility.
+
+**Artifact schema:**
+- Preserve columns written in `metrics.csv`: dataset, budget, sensor_count, hidden_count, layout_type, layout_id, split_seed, layout_seed, validation_selected_mae, method, mae, rmse, mape, and certificate fields where applicable.
+- Preserve files written by `TRC-23-02333/transparent_estimator_eval.py`: `metrics.csv`, `metrics.json`, `layouts.json`, `swap_history.json`, `rcss_candidates.json`, `rcss_candidates.csv`, `certificate_correlations.csv`, `config.json`, and `SUMMARY.md`.
 
 ---
 
