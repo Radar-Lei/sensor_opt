@@ -12,7 +12,7 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 
 | # | Phase | Goal | Requirements |
 |---|-------|------|--------------|
-| 1 | Claim-Evidence Contract | Lock the strong claim set and define what evidence each claim needs | CLAIM-01..05 |
+| 1 | 1/1 | Complete   | 2026-05-21 |
 | 2 | Formulation and Theory Bridge | Convert RCSS from heuristic framing into a formal reconstruction-aware design method | THEORY-01..06 |
 | 3 | Baseline Portfolio | Add or justify reviewer-grade baselines and handle the multistart caveat | BASE-01..06 |
 | 4 | Core Experiment Evidence | Audit/regenerate main-dataset evidence and statistical comparisons | EXP-01..06 |
