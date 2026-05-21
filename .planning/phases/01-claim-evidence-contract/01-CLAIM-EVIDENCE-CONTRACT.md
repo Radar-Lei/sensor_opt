@@ -66,11 +66,49 @@ Validation MAE is selection evidence only, never final performance evidence. Fin
 
 ## Reserved Caveats and Guardrails
 
-_To be completed in Task 3 after the matrix rows are populated._
+- **No “best at all budgets” claim (D-08):** The contract prohibits unsupported wording that TRACE-SL is best at all budgets or against every comparator. Claims must be scoped to supported held-out test evidence and named baselines.
+- **No formal “certified” branding without theorem-level support (D-10, D-11):** Use certificate-guided, posterior-certificate-aware, or certificate diagnostics only. Posterior trace, condition number, and information logdet correlations are empirical guidance and interpretability evidence, not formal certified optimality or guaranteed reconstruction-error bounds.
+- **No validation MAE as final performance evidence (D-05):** Validation MAE can select, tune, or refine layouts; it cannot be cited as final performance evidence. Final performance claims require held-out test metrics and paired/statistical comparison evidence from curated artifacts.
+- **No non-curated Seattle result as core evidence (D-15):** Seattle evidence remains conditional/supporting-only unless Phase 4 curates repository-visible outputs, verifies documentation consistency, and confirms that paper-facing artifacts can trace the numbers.
+- **No post-hoc best-method-per-budget selection (D-07):** The 10% PeMS7_228 multistart-vs-RCSS issue must be handled as a predeclared comparator/portfolio issue or bounded low-budget caveat, not by selecting whichever method wins after seeing held-out test outcomes.
+- **No conflation of empirical correlation with theory (D-12):** Empirical certificate-error correlations and theoretical posterior-error derivations must remain separate evidence channels until Phase 2 establishes theorem-level support.
+- **No raw-data evidence dependency:** The contract may reference curated summaries and CSVs under `TRC-23-02333/trace_sl_results/`, but must not require reading raw dataset files as Phase 1 evidence sources.
 
 ## Downstream Phase Routing
 
-_To be completed in Task 3 after each claim row has a downstream owner._
+| Downstream phase | Routed responsibility | Related rows / decisions |
+|---|---|---|
+| Phase 2: Formulation and Theory Bridge | Formalize the reconstruction-aware sparse sensor design problem, define the TRACE-SL/RCSS surrogate, and decide whether posterior certificates support theorem-level language. | C-01, C-04; D-01, D-02, D-10, D-11, D-12 |
+| Phase 3: Baseline Portfolio | Resolve whether multistart validation refinement is a named comparator or predeclared portfolio member; strengthen reviewer-grade baselines without post-hoc selection. | C-03; D-07, D-08, D-09 |
+| Phase 4: Core Experiment Evidence | Audit PeMS7_228 held-out results, paired/statistical comparisons, PeMS7_1026 lower-power external evidence, certificate correlations, and Seattle curation if Seattle is retained. | C-01, C-02, C-03, C-04, C-05; D-04, D-05, D-13, D-15 |
+| Phase 5: Robustness and Generality | Add robustness evidence for sensor failure, observation noise, missing readings, nonuniform costs, temporal shift, and candidate-count sensitivity. | C-02; D-03, D-04 |
+| Phase 6: Reproducibility and Artifact Curation | Ensure all paper-visible evidence is traceable to curated scripts, summaries, and non-sensitive artifacts; preserve raw dataset hygiene. | C-02, C-05; D-04, D-15 |
+| Phase 7: Transportation Science Manuscript Package | Integrate the locked claim wording, caveats, positioning against TSLP and black-box imputation/forecasting, and limitation language into the manuscript. | C-01..C-05; D-01..D-15 |
+
+## Self-Check
+
+- [x] CLAIM-01 is covered by C-01.
+- [x] CLAIM-02 is covered by C-02.
+- [x] CLAIM-03 is covered by C-03.
+- [x] CLAIM-04 is covered by C-04.
+- [x] CLAIM-05 is covered by C-05.
+- [x] D-01 is covered: TRACE-SL is framed as transparent reconstruction-aware sparse traffic sensor placement, not candidate-pool tuning or an ad hoc empirical heuristic.
+- [x] D-02 is covered: the sparse sensor design problem is tied to transparent GLS/MAP/GSP-style full-network reconstruction under limited budgets.
+- [x] D-03 is covered: method contribution, performance evidence, certificate evidence, and scope/limitations are separated.
+- [x] D-04 is covered: every primary claim row maps to explicit evidence types.
+- [x] D-05 is covered: validation MAE is selection evidence only, not final performance evidence.
+- [x] D-06 is covered: evidence status taxonomy is present | needs audit | needs new experiment | theory-dependent | wording-only limitation.
+- [x] D-07 is covered: the 10% PeMS7_228 multistart issue is predeclared as comparator/portfolio or bounded-caveat work.
+- [x] D-08 is covered: unsupported “best at all budgets” wording is prohibited.
+- [x] D-09 is covered: C-03 reserves multistart validation refinement for later validation as comparator or portfolio member.
+- [x] D-10 is covered: certificate wording is limited to certificate-guided, posterior-certificate-aware, or certificate diagnostics unless Phase 2 adds theorem-level support.
+- [x] D-11 is covered: posterior trace, condition number, and information logdet correlations are interpretability and empirical guidance only.
+- [x] D-12 is covered: empirical certificate-error correlation and theoretical posterior-error derivation are separate evidence tracks.
+- [x] D-13 is covered: positioning against deterministic full-observability TSLP emphasizes partial-observation reconstruction quality, uncertainty, validation performance, and held-out error.
+- [x] D-14 is covered: positioning against black-box imputation/forecasting emphasizes transparent reconstruction models and sensor-layout design.
+- [x] D-15 is covered: Seattle evidence is conditional/supporting-only unless Phase 4 curation succeeds.
+- [x] Deferred ideas are excluded: no new experiments, algorithm changes, baseline implementation, raw dataset reads, or final manuscript writing are assigned to Phase 1.
+- [x] Raw dataset paths are not used as Phase 1 evidence sources.
 
 ## Non-Goals for Phase 1
 
