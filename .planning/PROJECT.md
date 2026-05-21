@@ -1,74 +1,75 @@
-# TRACE-SL Transportation Science Preparation
+# TRACE-SL Transportation Science Readiness
 
 ## What This Is
 
-TRACE-SL is a research codebase and reproducibility package for sparse traffic sensor placement aimed at full-network traffic state reconstruction. The project turns the current strong experimental prototype into a Transportation Science-ready methodological paper by strengthening the formulation, theory bridge, baselines, robustness evidence, and repository consistency.
-
-The intended paper positioning is not black-box traffic imputation or forecasting. It is transparent reconstruction-aware traffic sensor network design: given a traffic network, historical states, a sparse sensor budget, and a transparent GLS/MAP/GSP reconstruction model, choose sensor layouts that improve hidden-link reconstruction quality with interpretable posterior certificates.
+TRACE-SL is a research project on sparse traffic sensor placement for full-network traffic state reconstruction. The current codebase already contains a strong experimental prototype built around transparent GLS/MAP and GSP reconstruction, OR-guided candidate generation, posterior/certification diagnostics, RCSS selection, and validation-aware swap refinement. This project will turn that prototype into a Transportation Science-ready methodology paper, with TR Part B: Methodological kept as a higher-risk backup path if stronger theory and algorithmic analysis are completed.
 
 ## Core Value
 
-Maintain a strong TRACE-SL claim and make the method, theory, and experiments strong enough that the claim is supported by evidence rather than weakened by cautious wording.
+Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where the formulation, theory, baselines, robustness tests, and held-out evidence can support them.
 
 ## Requirements
 
 ### Validated
 
-- ✓ TRACE-SL experiment pipeline can run multi-split sparse sensor layout studies on PeMS7_228, PeMS7_1026, and Seattle-style datasets — existing
-- ✓ Current pipeline evaluates transparent reconstruction methods including historical mean, neighbor average, GSP, and GLS/MAP — existing
-- ✓ Current pipeline produces RCSS-style candidate diagnostics, validation-aware swap results, posterior certificates, paired summaries, and reproducibility artifacts — existing
-- ✓ Codebase already contains curated PeMS7_228 and PeMS7_1026 Stage 11 result artifacts and documentation for reproduction — existing
+- ✓ TRACE-SL has a runnable experiment pipeline for PeMS7_228, PeMS7_1026, and Seattle-style inputs — existing
+- ✓ The repository evaluates transparent reconstruction methods including historical mean, neighbor average, GSP, and GLS/MAP — existing
+- ✓ Stage 11 outputs show validation-swap RCSS improves over random, validation-selected random, and variance/topology baselines at moderate/high PeMS7_228 budgets — existing
+- ✓ PeMS7_228 has 10-split aggregate evidence and PeMS7_1026 has external validation evidence — existing
+- ✓ The method already emits posterior trace, condition number, logdet, scenario CVaR trace, coverage, and validation diagnostics — existing
 
 ### Active
 
-- [ ] Formalize TRACE-SL as a transparent reconstruction-aware stochastic sensor placement problem rather than an empirical candidate-search heuristic.
-- [ ] Establish a principled bridge between GLS/MAP posterior certificates and expected hidden-link reconstruction error.
-- [ ] Preserve the strong TRACE-SL claim by adding experiments and method evidence that support it directly.
-- [ ] Resolve the low-budget multistart-vs-RCSS issue without post-hoc cherry-picking, either by predefined portfolio selection or clearer algorithmic positioning backed by results.
-- [ ] Add stronger Transportation Science-level baselines: observability-inspired, A-/D-optimal design, graph sampling/GSP, QR/SVD/POD sparse placement, and at least one learning-based reconstruction check if feasible.
-- [ ] Expand external validation and statistical reporting so claims are supported by enough splits, confidence intervals, effect sizes, and paired tests.
-- [ ] Add robustness experiments for sensor failure, observation noise, missingness, non-uniform sensor costs, temporal distribution drift, and candidate-count sensitivity.
-- [ ] Fix repository/paper consistency around Seattle outputs and all narrative claims before paper drafting.
-- [ ] Generate publication-ready tables/figures directly from checked result artifacts.
-- [ ] Prepare a Transportation Science-first paper narrative, with TR Part B retained only if theory and algorithmic analysis become substantially stronger.
+- [ ] Reframe TRACE-SL as a transparent reconstruction-aware sensor placement problem rather than an empirical candidate-search heuristic
+- [ ] Preserve a strong contribution claim while aligning every claim with held-out results, robustness evidence, statistical support, and theory where applicable
+- [ ] Formalize the optimization objective, tractable surrogate, RCSS candidate/selection process, and validation-aware refinement
+- [ ] Establish a principled bridge between GLS/MAP posterior covariance certificates and expected hidden-link reconstruction error
+- [ ] Resolve the 10% budget issue where multistart validation refinement can outperform validation-swap RCSS, without post-hoc cherry-picking
+- [ ] Strengthen baselines with observability-inspired, A/D-optimal design, graph sampling, QR/SVD/POD sparse placement, and a simple learning-based reconstruction check where feasible
+- [ ] Expand external validation splits and report confidence intervals, effect sizes, paired tests, and bootstrap-style uncertainty instead of relying only on p-values
+- [ ] Add robustness experiments for sensor failure, observation noise, missing readings, nonuniform sensor costs, temporal distribution shift, candidate-count sensitivity, and runtime
+- [ ] Clean up Seattle evidence consistency: either curate and expose Seattle outputs or remove Seattle from the core paper claim
+- [ ] Produce paper-ready figures, tables, and narrative that support a Transportation Science submission
 
 ### Out of Scope
 
-- Directly submitting the current prototype without major strengthening — current evidence is promising but not yet sufficient for the target claim.
-- Narrowing TRACE-SL into a conservative “competitive candidate generator” claim — the user explicitly wants strong claims supported by stronger evidence.
-- Treating “certified” as a formal guarantee unless a matching theorem or bound is added — use certificate-guided/posterior-certificate-aware language otherwise.
-- Making Seattle a core paper claim while its outputs are not curated and consistent with the repository — either curate it or remove it from the main evidence line.
-- Replacing the transparent model-based story with a black-box GNN-only paper — learning baselines may be checks, not the main contribution.
+- Claiming TRACE-SL is best at every budget and against every strong baseline — current 10% PeMS7_228 evidence does not support that wording
+- Calling the method formally “certified” without a theorem or bound — current evidence supports certificate-guided or posterior-certificate-aware wording
+- Treating validation MAE as final test evidence — final claims must use held-out test evaluation and paired comparisons
+- Making TR Part B the primary target before theory and algorithmic analysis mature — current project priority is Transportation Science readiness
+- Deleting or committing raw traffic datasets — datasets are local inputs and must remain protected unless explicitly approved
 
 ## Context
 
-The current review-style guidance judges the direction as promising but not yet ready for Transportation Science or Transportation Research Part B in its current form. The main risk is that reviewers may see the current contribution as an empirical candidate pool plus validation search heuristic, not as an independent and generalizable transportation OR methodology.
+The research direction is strong because it connects sparse traffic sensor layout decisions directly to full-network reconstruction quality. The intended distinction from classical traffic sensor location problems is that TRACE-SL does not pursue deterministic full observability or minimum counting-point coverage; it optimizes partial-observation reconstruction quality, uncertainty, robustness, and validation performance under limited budgets.
 
-The recommended venue strategy is Transportation Science first, with TR Part B as a more ambitious backup only after adding harder mathematical modeling, properties, algorithmic analysis, and stronger generality. The project should frame TRACE-SL against classic traffic sensor location and observability work by emphasizing that TRACE-SL does not seek deterministic full observability; it optimizes reconstruction quality, uncertainty, and robustness under partial observation and finite budgets.
+The method’s current strengths are: transparent reconstruction via GLS/MAP/GSP rather than black-box imputation, OR-guided candidate generation, posterior/certificate diagnostics, validation-calibrated RCSS scoring, auto-weight selection using selector/tuner validation splits, and validation-aware local swap refinement. This is close to a Transportation Science framing if written as a stochastic reconstruction-aware sensor network design problem.
 
-The strongest current assets are the transparent reconstruction model, posterior diagnostics, OR-guided candidate generation, validation calibration, validation-aware swap refinement, multi-split PeMS evidence, and certificate-error empirical correlations. The main evidence gaps are low-budget competition against multistart validation refinement, limited external split count, missing/unclear Seattle curation, insufficient strong baselines, and lack of robustness experiments.
+The main paper risk is that reviewers may read the current method as an empirical candidate pool plus validation search heuristic. The project must therefore turn the implementation into a clear methodological contribution: formal objective, justified surrogate, algorithm definition fixed before evaluation, theory/intuition for posterior certificates, stronger baselines, robustness testing, and disciplined claim-evidence alignment.
 
-Existing code is a CPU-oriented Python research pipeline centered on `TRC-23-02333/transparent_estimator_eval.py`, `TRC-23-02333/summarize_trace_sl_rcss.py`, and shell launchers under `scripts/`. Existing codebase mapping is available under `.planning/codebase/` and should inform phase planning.
+Known evidence caveats:
+- PeMS7_228 10-split results support strong improvements at 20% and 30% budgets, but at 10% budget `multistart_swap_by_validation` can beat `validation_swap_selected`.
+- PeMS7_1026 external validation currently has fewer splits than PeMS7_228; 5/5 wins can still yield a Wilcoxon p-value around 0.0625.
+- Seattle results are referenced by narrative artifacts and scripts, but curated repository results must be synchronized before Seattle becomes a core paper claim.
 
 ## Constraints
 
-- **Claim strategy**: Strong TRACE-SL claims must be preserved and supported with experiments/theory; do not solve weaknesses by narrowing the contribution.
-- **Venue strategy**: Optimize first for Transportation Science; treat TR Part B as conditional on stronger formal analysis.
-- **Evidence standard**: Claims must trace to raw or curated result artifacts; paper narrative must not outrun repository evidence.
-- **Reproducibility**: Preserve local TRC datasets; they are ignored from Git and must not be deleted without confirmation.
-- **Transparency**: Keep GLS/MAP/GSP and posterior certificates central; learning baselines are comparison checks, not the identity of the method.
-- **Computation**: Current pipeline is CPU-oriented and uses dense matrix operations; large-network or high-candidate experiments need careful runtime planning.
-- **Artifact hygiene**: New curated results should live under `TRC-23-02333/trace_sl_results/<dataset>_<stage>/` and avoid overwriting published directories without traceability.
+- **Target venue:** Transportation Science is the primary submission target — it best matches transportation system design, optimization, computational experiments, and data-driven planning.
+- **Backup venue:** TR Part B is possible only if the project adds stronger mathematical modeling, posterior-error theory, algorithmic properties, and generality beyond PeMS tuning.
+- **Claim strategy:** Strong claims should be preserved and strengthened with evidence rather than narrowed prematurely — unsupported claims must be rephrased, tested, or moved to limitations.
+- **Evidence standard:** Core claims must be supported by held-out test results, paired comparisons, statistical uncertainty, robustness checks, and reproducible artifacts.
+- **Reproducibility:** Raw datasets stay local and ignored; curated result summaries, scripts, and non-sensitive artifacts should remain synchronized with paper claims.
+- **Implementation state:** The current evaluator is monolithic and experiment-driven; changes should avoid breaking reproducibility and should be validated with smoke runs or aggregate checks.
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Target Transportation Science first | Current work fits transportation system design, optimization, computational experiments, and transparent model-based sparse sensing better than a theory-heavy TR Part B submission. | — Pending |
-| Preserve strong TRACE-SL claim | User explicitly wants strong claims, provided the evidence is strengthened to support them. | — Pending |
-| Strengthen evidence rather than narrow narrative | Low-budget and baseline gaps should be fixed through method/experiment design, not rhetorical retreat. | — Pending |
-| Use “certificate-guided” unless formal guarantees are proven | Current certificate evidence is empirical and principled, but not yet a formal certificate. | — Pending |
-| Treat Seattle as conditional evidence | Seattle can strengthen cross-network generality only if outputs are curated and consistent with documentation. | — Pending |
+| Target Transportation Science first | The current contribution fits transportation network design and transparent optimization better than a theory-heavy TR Part B submission in its present state | — Pending |
+| Keep strong claims, but require evidence-backed wording | The research has real promise; the right response is to add evidence and sharpen claims, not dilute the contribution into a weak incremental story | — Pending |
+| Use “certificate-guided” unless formal certification is proved | Current posterior diagnostics correlate with MAE but are not yet formal certificates | — Pending |
+| Treat multistart validation refinement as a serious comparator or portfolio member | At 10% budget it can outperform validation-swap RCSS, so ignoring it would invite reviewer criticism | — Pending |
+| Make Seattle evidence either curated or non-core | Repository/paper consistency is necessary for reproducibility and reviewer trust | — Pending |
 
 ## Evolution
 
