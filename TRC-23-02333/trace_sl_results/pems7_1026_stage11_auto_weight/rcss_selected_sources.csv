@@ -1,0 +1,8 @@
+budget,source,selected_count
+0.1,greedy_a_trace,2
+0.1,multistart_swap_by_validation,2
+0.1,swap_from_greedy_a_trace,1
+0.2,greedy_a_trace,2
+0.2,swap_from_greedy_a_trace,3
+0.3,greedy_a_trace,1
+0.3,swap_from_greedy_a_trace,4

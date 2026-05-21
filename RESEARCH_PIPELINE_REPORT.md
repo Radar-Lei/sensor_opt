@@ -30,43 +30,96 @@ Generated handoff:
 
 - `NARRATIVE_REPORT.md`
 
-## Key Stage 10 Result
+## Key Stage 11 Ten-Split Result
 
 Primary result directory:
 
-- `TRC-23-02333/trace_sl_results/pems7_228_stage10_validation_swap/`
+- `TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_10split/`
 
 Mean GLS/MAP test MAE:
 
-| Budget | Validation-swap RCSS | Stage 9 RCSS | Best random by validation | Random mean | Top variance |
-|---:|---:|---:|---:|---:|---:|
-| 10% | 3.4630 | 3.4966 | 3.5677 | 3.7067 | 3.5780 |
-| 20% | 3.2340 | 3.2459 | 3.3105 | 3.4617 | 3.3188 |
-| 30% | 2.9893 | 3.0402 | 3.0919 | 3.3147 | 3.0982 |
+| Budget | Validation-swap RCSS | Best random by validation | Random mean | Top variance |
+|---:|---:|---:|---:|---:|
+| 10% | 3.6055 | 3.6913 | 3.8359 | 3.7304 |
+| 20% | 3.3095 | 3.3969 | 3.5648 | 3.4276 |
+| 30% | 3.0665 | 3.1832 | 3.4032 | 3.2004 |
 
-Validation-swap RCSS wins against best-random by validation:
+Validation-swap RCSS paired deltas against best-random by validation:
 
-- 10%: -0.1047 MAE
-- 20%: -0.0766 MAE
-- 30%: -0.1026 MAE
-
-Winner counts:
-
-- 10%: validation-swap RCSS wins 2/5 splits
-- 20%: validation-swap RCSS wins 3/5 splits
-- 30%: validation-swap RCSS wins 5/5 splits
+| Budget | Mean delta | Win count | paired t-test p | Wilcoxon p |
+|---:|---:|---:|---:|---:|
+| 10% | -0.0858 | 7/10 | 0.0343 | 0.0273 |
+| 20% | -0.0874 | 9/10 | 0.0025 | 0.0059 |
+| 30% | -0.1167 | 10/10 | 0.00008 | 0.0020 |
 
 Certificate stability remains strong:
 
-- GLS posterior trace Spearman with MAE: 0.8476
-- GLS condition number Spearman with MAE: 0.8529
-- GLS information logdet Spearman with MAE: -0.8096
+- GLS posterior trace Spearman with MAE: 0.8513
+- GLS condition number Spearman with MAE: 0.8592
+- GLS information logdet Spearman with MAE: -0.8130
+
+## PeMS7_1026 External Validation
+
+Primary result directory:
+
+- `TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/`
+
+Mean GLS/MAP test MAE:
+
+| Budget | Validation-swap RCSS | Best random by validation | Random mean | Top variance |
+|---:|---:|---:|---:|---:|
+| 10% | 3.6557 | 3.7437 | 3.8266 | 3.8602 |
+| 20% | 3.2547 | 3.4653 | 3.5317 | 3.5859 |
+| 30% | 2.9951 | 3.2483 | 3.3309 | 3.3266 |
+
+Validation-swap RCSS paired deltas against best-random by validation:
+
+| Budget | Mean delta | Win count | paired t-test p | Wilcoxon p |
+|---:|---:|---:|---:|---:|
+| 10% | -0.0879 | 5/5 | 0.0212 | 0.0625 |
+| 20% | -0.2105 | 5/5 | 0.0007 | 0.0625 |
+| 30% | -0.2531 | 5/5 | 0.0001 | 0.0625 |
+
+External certificate stability is very strong:
+
+- GLS posterior trace Spearman with MAE: 0.9315
+- GLS condition number Spearman with MAE: 0.8930
+- GLS information logdet Spearman with MAE: -0.8982
+
+## Seattle Heterogeneous-Network Validation
+
+Primary result directory:
+
+- `TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/`
+
+Mean GLS/MAP test MAE:
+
+| Budget | Validation-swap RCSS | Best random by validation | Random mean | Top variance |
+|---:|---:|---:|---:|---:|
+| 10% | 3.0677 | 3.1888 | 3.3204 | 3.5499 |
+| 20% | 2.8036 | 2.9488 | 3.0172 | 3.0796 |
+| 30% | 2.6182 | 2.7243 | 2.8449 | 2.8090 |
+
+Validation-swap RCSS paired deltas against best-random by validation:
+
+| Budget | Mean delta | Win count | paired t-test p | Wilcoxon p |
+|---:|---:|---:|---:|---:|
+| 10% | -0.1210 | 5/5 | 0.0013 | 0.0625 |
+| 20% | -0.1452 | 5/5 | 0.0032 | 0.0625 |
+| 30% | -0.1061 | 5/5 | 0.0025 | 0.0625 |
+
+Seattle GLS/MAP certificate stability remains strong:
+
+- GLS posterior trace Spearman with MAE: 0.8742
+- GLS condition number Spearman with MAE: 0.8846
+- GLS information logdet Spearman with MAE: -0.8307
 
 ## Writing Handoff
 
-- `NARRATIVE_REPORT.md`: generated.
-- Venue: not set in this run; paper writing can be invoked manually.
-- Manual figures needed: yes, generate from Stage 10 CSV files.
+- `NARRATIVE_REPORT.md`: generated and updated with Stage 11 auto-weight framing and Seattle validation.
+- Reproducibility entry points: `README.md`, `requirements.txt`, `scripts/run_stage11_pems7_228.sh`, `scripts/run_stage11_pems7_1026.sh`, `scripts/run_stage11_seattle.sh`, and `TRC-23-02333/trace_sl_results/README.md`.
+- Venue: Transportation Science is the working target, but final venue is not fixed in code.
+- Manual figures needed: yes, generate from PeMS7_228 ten-split, PeMS7_1026 external-validation, and Seattle heterogeneous-network CSV files.
 
 Suggested next command:
 
@@ -76,6 +129,5 @@ Suggested next command:
 
 ## Remaining TODOs
 
-- Run external validation on Seattle or PeMS7_1026.
-- Generate publication figures from Stage 10 outputs.
-- Consider increasing held-out split count from 5 to 10 for stronger p-values.
+- Generate publication figures from PeMS7_228 ten-split, PeMS7_1026 external-validation, and Seattle heterogeneous-network outputs.
+- Optional: increase PeMS7_1026 or Seattle split count if a reviewer demands stronger nonparametric tests.

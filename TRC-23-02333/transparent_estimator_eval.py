@@ -6,6 +6,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from scipy import linalg
+from scipy.sparse.csgraph import shortest_path
 from scipy.stats import pearsonr, spearmanr
 from sklearn.covariance import LedoitWolf
 
@@ -17,17 +18,7 @@ def parse_budgets(raw):
     return [float(x) for x in raw.replace(",", " ").split()]
 
 
-def load_pems7_228(data_root, seed):
-    data_root = Path(data_root)
-    values = pd.read_csv(data_root / "PeMSD7_V_228.csv", header=None).values.astype(float)
-    distance = pd.read_csv(data_root / "PeMSD7_W_228.csv", header=None).values.astype(float)
-
-    dates = pd.date_range(start="2012-05-01", end="2012-06-30", freq="D")
-    dates = dates[dates.to_series().dt.weekday < 5]
-    timestamps = pd.date_range(start="2012-05-01", end="2012-06-30", freq="5min")
-    timestamps = timestamps[timestamps.to_series().dt.weekday < 5]
-
-    frame = pd.DataFrame(values, index=pd.DatetimeIndex(timestamps))
+def split_daily_frame(frame, dates, seed):
     rng = np.random.default_rng(seed)
     train_days = rng.choice(dates.to_numpy(), size=len(dates) - 4, replace=False)
     remaining = np.array([d for d in dates.to_numpy() if d not in set(train_days)])
@@ -48,10 +39,64 @@ def load_pems7_228(data_root, seed):
         val,
         test,
         test_index,
-        distance,
         [str(pd.Timestamp(d).date()) for d in val_days],
         [str(pd.Timestamp(d).date()) for d in test_days],
     )
+
+
+def adjacency_to_distance(adjacency):
+    adjacency = np.asarray(adjacency, dtype=float)
+    graph = np.where(adjacency > 0, 1.0, np.inf)
+    np.fill_diagonal(graph, 0.0)
+    distance = shortest_path(graph, directed=False, unweighted=True)
+    finite = distance[np.isfinite(distance) & (distance > 0)]
+    fill_value = float(finite.max() + 1.0) if finite.size else 1.0
+    distance = np.where(np.isfinite(distance), distance, fill_value)
+    np.fill_diagonal(distance, 0.0)
+    return distance
+
+
+def load_seattle_dataset(data_root, seed):
+    data_root = Path(data_root)
+    tensor_path = data_root / "tensor.npz"
+    adjacency_path = data_root / "Loop_Seattle_2015_A.npy"
+    if not tensor_path.exists() or not adjacency_path.exists():
+        raise FileNotFoundError(f"Expected tensor.npz and Loop_Seattle_2015_A.npy under {data_root}")
+
+    tensor = np.load(tensor_path)["arr_0"].astype(float)
+    if tensor.ndim != 3 or tensor.shape[2] != SLOTS_PER_DAY:
+        raise ValueError(f"Expected Seattle tensor shape (nodes, days, {SLOTS_PER_DAY}), got {tensor.shape}")
+    values = np.transpose(tensor, (1, 2, 0)).reshape(tensor.shape[1] * tensor.shape[2], tensor.shape[0])
+    values = np.where(np.isfinite(values), values, np.nan)
+    column_mean = np.nanmean(values, axis=0)
+    values = np.where(np.isfinite(values), values, column_mean)
+
+    dates = pd.date_range(start="2015-01-01", periods=tensor.shape[1], freq="D")
+    timestamps = pd.date_range(start=dates[0], periods=values.shape[0], freq="5min")
+    frame = pd.DataFrame(values, index=pd.DatetimeIndex(timestamps))
+    distance = adjacency_to_distance(np.load(adjacency_path))
+    train, val, test, test_index, val_days, test_days = split_daily_frame(frame, dates, seed)
+    return train, val, test, test_index, distance, val_days, test_days
+
+
+def load_pems_dataset(data_root, seed):
+    data_root = Path(data_root)
+    value_files = sorted(data_root.glob("PeMSD7_V_*.csv"))
+    distance_files = sorted(data_root.glob("PeMSD7_W_*.csv"))
+    if not value_files or not distance_files:
+        return load_seattle_dataset(data_root, seed)
+    values = pd.read_csv(value_files[0], header=None).values.astype(float)
+    distance = pd.read_csv(distance_files[0], header=None).values.astype(float)
+
+    dates = pd.date_range(start="2012-05-01", end="2012-06-30", freq="D")
+    dates = dates[dates.to_series().dt.weekday < 5]
+    timestamps = pd.date_range(start="2012-05-01", end="2012-06-30", freq="5min")
+    timestamps = timestamps[timestamps.to_series().dt.weekday < 5]
+
+    frame = pd.DataFrame(values, index=pd.DatetimeIndex(timestamps))
+    train, val, test, test_index, val_days, test_days = split_daily_frame(frame, dates, seed)
+
+    return train, val, test, test_index, distance, val_days, test_days
 
 
 def time_of_day_mean(train, fallback):
@@ -700,7 +745,7 @@ def main():
     args = parser.parse_args()
     args.budgets = parse_budgets(args.budgets)
 
-    train, val, test, test_index, distance, val_days, test_days = load_pems7_228(args.data_root, args.split_seed)
+    train, val, test, test_index, distance, val_days, test_days = load_pems_dataset(args.data_root, args.split_seed)
     args.val_days = val_days
     if args.max_test_steps > 0:
         val = val[: args.max_test_steps]
@@ -923,7 +968,7 @@ def main():
         for layout_type, layout_id, sensors, validation_selected_mae in layouts:
             layout_records.append(
                 {
-                    "dataset": "PeMS7_228",
+                    "dataset": Path(args.data_root).name,
                     "budget": budget,
                     "sensor_count": sensor_count,
                     "layout_type": layout_type,
@@ -938,7 +983,7 @@ def main():
             for row in layout_rows:
                 row.update(
                     {
-                        "dataset": "PeMS7_228",
+                        "dataset": Path(args.data_root).name,
                         "budget": budget,
                         "sensor_count": sensor_count,
                         "hidden_count": hidden_count,

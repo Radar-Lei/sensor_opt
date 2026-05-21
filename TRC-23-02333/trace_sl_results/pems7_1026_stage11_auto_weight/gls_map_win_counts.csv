@@ -1,0 +1,7 @@
+budget,best_layout,wins
+0.1,greedy_a_trace,1
+0.1,swap_from_greedy_a_trace,4
+0.2,swap_from_greedy_a_trace,4
+0.2,validation_swap_selected,1
+0.3,greedy_a_trace,1
+0.3,validation_swap_selected,4

@@ -23,18 +23,27 @@ TRC-23-02333/*
 !TRC-23-02333/transparent_estimator_eval.py
 !TRC-23-02333/summarize_trace_sl_rcss.py
 !TRC-23-02333/trace_sl_results/
+!scripts/
+!scripts/run_stage11_pems7_228.sh
+!scripts/run_stage11_pems7_1026.sh
+!README.md
+!requirements.txt
 
-# Keep only confirmatory PeMS7_228 TRACE-SL stages.
+# Keep only confirmatory TRACE-SL stages.
 TRC-23-02333/trace_sl_results/*
+!TRC-23-02333/trace_sl_results/README.md
 !TRC-23-02333/trace_sl_results/pems7_228_stage6_multisplit_cvar/
 !TRC-23-02333/trace_sl_results/pems7_228_stage7_rcss/
 !TRC-23-02333/trace_sl_results/pems7_228_stage8_rcss_confirmatory/
 !TRC-23-02333/trace_sl_results/pems7_228_stage9_rcss_quality/
 !TRC-23-02333/trace_sl_results/pems7_228_stage10_validation_swap/
 !TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight/
+!TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_10split/
+!TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/
 !TRC-23-02333/trace_sl_results/pems7_228_stage6_multisplit_cvar_seed_*.log
 !TRC-23-02333/trace_sl_results/pems7_228_stage7_rcss_seed_*.log
 !TRC-23-02333/trace_sl_results/pems7_228_stage8_rcss_confirmatory_seed_*.log
 !TRC-23-02333/trace_sl_results/pems7_228_stage9_rcss_quality_seed_*.log
 !TRC-23-02333/trace_sl_results/pems7_228_stage10_validation_swap_seed_*.log
 !TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_seed_*.log
+!TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight_seed_*.log

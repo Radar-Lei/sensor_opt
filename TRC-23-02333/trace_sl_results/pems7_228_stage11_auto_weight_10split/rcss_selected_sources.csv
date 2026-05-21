@@ -1,0 +1,12 @@
+budget,source,selected_count
+0.1,multistart_swap_by_validation,4
+0.1,quality_coverage_sample,1
+0.1,robust_coverage_cvar,1
+0.1,swap_from_greedy_a_trace,2
+0.1,swap_from_scenario_average,1
+0.1,swap_from_scenario_cvar,1
+0.2,multistart_swap_by_validation,4
+0.2,quality_coverage_sample,5
+0.2,robust_coverage_cvar,1
+0.3,quality_coverage_sample,9
+0.3,random_validation_pool,1
