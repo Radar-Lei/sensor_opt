@@ -5,11 +5,11 @@ milestone_name: milestone
 status: ready_to_plan
 last_updated: 2026-05-22T15:10:19.579Z
 progress:
-  total_phases: 7
+  total_phases: 6
   completed_phases: 3
   total_plans: 4
   completed_plans: 4
-  percent: 43
+  percent: 50
 stopped_at: Phase 03 complete (1/1) — ready to discuss Phase 4
 ---
 
@@ -44,7 +44,6 @@ See: .planning/PROJECT.md (updated 2026/05/21)
 4. Core Experiment Evidence
 5. Robustness and Generality
 6. Reproducibility and Artifact Curation
-7. Transportation Science Manuscript Package
 
 ## Active Decisions
 

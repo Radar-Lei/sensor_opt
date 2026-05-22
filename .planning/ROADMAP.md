@@ -18,7 +18,6 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 | 4 | Core Experiment Evidence | Audit/regenerate main-dataset evidence and statistical comparisons | EXP-01..06 |
 | 5 | Robustness and Generality | Stress-test the method under deployment-like perturbations and sensitivity settings | ROBUST-01..06 |
 | 6 | Reproducibility and Artifact Curation | Make paper-visible evidence reproducible, curated, and repository-consistent | REPRO-01..05 |
-| 7 | Transportation Science Manuscript Package | Assemble the paper narrative, results, limitations, and submission-ready claim matrix | PAPER-01..05 |
 
 ## Phases
 
@@ -114,20 +113,6 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 
 **Dependencies:** Phases 4 and 5 evidence outputs.
 
-### Phase 7: Transportation Science Manuscript Package
-**Goal:** Assemble a coherent Transportation Science submission package with strong evidence-backed claims, method framing, results, limitations, and TR Part B extension notes.
-**Mode:** mvp
-
-**Requirements:** PAPER-01, PAPER-02, PAPER-03, PAPER-04, PAPER-05
-
-**Success Criteria:**
-1. The introduction frames sparse sensor layout as a transportation planning/design problem with transparent full-network reconstruction value.
-2. Related work positions TRACE-SL against traffic sensor location, observability, graph sampling, sparse reconstruction, experimental design, and traffic imputation.
-3. The method section defines TRACE-SL/RCSS as a predeclared algorithmic portfolio with fixed selection rules before held-out test evaluation.
-4. Results support the strong claim set using the Phase 1 claim-evidence matrix, including low-budget caveats.
-5. Limitations honestly describe empirical-certificate assumptions, dataset scope, dense-solver scaling limits, and remaining TR Part B theory gaps.
-
-**Dependencies:** Phases 1-6 complete.
 
 ## Requirement Coverage
 
@@ -139,9 +124,8 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 | Phase 4 | EXP-01, EXP-02, EXP-03, EXP-04, EXP-05, EXP-06 | 6 |
 | Phase 5 | ROBUST-01, ROBUST-02, ROBUST-03, ROBUST-04, ROBUST-05, ROBUST-06 | 6 |
 | Phase 6 | REPRO-01, REPRO-02, REPRO-03, REPRO-04, REPRO-05 | 5 |
-| Phase 7 | PAPER-01, PAPER-02, PAPER-03, PAPER-04, PAPER-05 | 5 |
 
-**Coverage:** 39 / 39 v1 requirements mapped.
+**Coverage:** 34 / 34 v1 requirements mapped.
 
 ## Next Step
 
