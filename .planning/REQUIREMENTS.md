@@ -22,7 +22,7 @@ Requirements for turning the current TRACE-SL prototype into a Transportation Sc
 - [x] **THEORY-03**: The manuscript provides a linear-Gaussian GLS/MAP posterior-error derivation connecting posterior covariance trace to expected hidden-state squared error.
 - [x] **THEORY-04**: The manuscript states when posterior variance can motivate MAE-oriented sensor selection and where real traffic data depart from the idealized assumptions.
 - [x] **THEORY-05**: The method section gives algorithmic complexity and local optimality conditions for fixed-candidate validation-aware swap refinement.
-- [ ] **THEORY-06**: TR Part B optional material identifies what additional monotonicity, submodularity-like, approximation, or stability analysis would be needed for a more mathematical submission.
+- [x] **THEORY-06**: TR Part B optional material identifies what additional monotonicity, submodularity-like, approximation, or stability analysis would be needed for a more mathematical submission.
 
 ### Baselines and Method Portfolio
 
@@ -109,7 +109,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | THEORY-03 | Phase 2 | Complete |
 | THEORY-04 | Phase 2 | Complete |
 | THEORY-05 | Phase 2 | Complete |
-| THEORY-06 | Phase 2 | Pending |
+| THEORY-06 | Phase 2 | Complete |
 | BASE-01 | Phase 3 | Pending |
 | BASE-02 | Phase 3 | Pending |
 | BASE-03 | Phase 3 | Pending |
