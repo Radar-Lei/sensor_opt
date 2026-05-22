@@ -18,11 +18,14 @@ class Phase4EvidenceValidatorTest(unittest.TestCase):
     def test_current_artifacts_have_no_failures_and_only_allowed_warnings(self):
         validator = load_validator()
         results = validator.run_checks()
-        by_requirement = {result.requirement: result for result in results}
+        requirement_results = [result for result in results if result.requirement in validator.REQUIREMENTS]
+        by_requirement = {result.requirement: result for result in requirement_results}
         self.assertEqual(set(validator.REQUIREMENTS), set(by_requirement))
         self.assertFalse([result for result in results if result.status == "FAIL"])
-        warn_requirements = {result.requirement for result in results if result.status == "WARN"}
+        warn_requirements = {result.requirement for result in requirement_results if result.status == "WARN"}
         self.assertLessEqual(warn_requirements, {"EXP-02", "EXP-03"})
+        raw_data = [result for result in results if result.requirement == "RAW-DATA"]
+        self.assertEqual("PASS", raw_data[0].status)
 
     def test_stage12_primary_evidence_labels_are_required(self):
         validator = load_validator()
