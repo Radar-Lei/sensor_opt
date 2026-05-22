@@ -77,5 +77,73 @@ class CertificateSummaryTest(unittest.TestCase):
         self.assertNotIn("certified optimal", text)
 
 
+class CandidateSensitivitySummaryTest(unittest.TestCase):
+    def test_candidate_sensitivity_summary_counts_sources_and_diagnostics(self):
+        candidates = pd.DataFrame(
+            {
+                "budget": [0.1, 0.1, 0.1, 0.2],
+                "source": ["random_validation_pool", "random_validation_pool", "quality_coverage_sample", "quality_coverage_sample"],
+                "selected": [True, False, True, False],
+                "validation_mae": [3.0, 5.0, 4.0, 6.0],
+                "posterior_trace": [10.0, 20.0, 30.0, 40.0],
+                "rcss_score": [0.1, 0.2, 0.3, 0.4],
+            }
+        )
+
+        summary = summarizer.build_candidate_sensitivity_summary(candidates)
+
+        self.assertTrue({"budget", "source", "candidate_row_count", "selected_count"}.issubset(summary.columns))
+        random_pool = summary[(summary["budget"] == 0.1) & (summary["source"] == "random_validation_pool")].iloc[0]
+        self.assertEqual(random_pool["candidate_row_count"], 2)
+        self.assertEqual(random_pool["selected_count"], 1)
+        self.assertEqual(random_pool["validation_mae_mean"], 4.0)
+        self.assertEqual(random_pool["selected_validation_mae_mean"], 3.0)
+        self.assertIn("posterior_trace_std", summary.columns)
+        self.assertIn("selected_rcss_score_mean", summary.columns)
+
+    def test_runtime_summary_only_uses_measured_runtime_fields(self):
+        candidates = pd.DataFrame(
+            {
+                "budget": [0.1, 0.2],
+                "source": ["random_validation_pool", "quality_coverage_sample"],
+                "candidate_count": [50, 100],
+                "runtime_seconds": [1.5, 2.5],
+            }
+        )
+        without_runtime = candidates.drop(columns=["runtime_seconds"])
+
+        runtime_summary = summarizer.build_runtime_candidate_sensitivity_summary(candidates)
+        missing_summary = summarizer.build_runtime_candidate_sensitivity_summary(without_runtime)
+
+        self.assertEqual(set(runtime_summary["candidate_count"]), {50, 100})
+        self.assertEqual(set(runtime_summary["runtime_seconds"]), {1.5, 2.5})
+        self.assertTrue(missing_summary.empty)
+
+    def test_candidate_sensitivity_markdown_frames_tractability_not_scalability(self):
+        candidate_summary = pd.DataFrame(
+            {
+                "budget": [0.1],
+                "source": ["random_validation_pool"],
+                "candidate_row_count": [2],
+                "selected_count": [1],
+            }
+        )
+        runtime_summary = pd.DataFrame(
+            {
+                "candidate_count": [50],
+                "runtime_seconds": [1.5],
+                "status": ["complete"],
+            }
+        )
+
+        text = "\n".join(summarizer.candidate_sensitivity_lines(candidate_summary, runtime_summary)).lower()
+
+        self.assertIn("candidate-count sensitivity", text)
+        self.assertIn("practical tractability", text)
+        self.assertIn("selection stability", text)
+        self.assertNotIn("scalability guarantee", text)
+        self.assertNotIn("runtime unavailable as complete", text)
+
+
 if __name__ == "__main__":
     unittest.main()
