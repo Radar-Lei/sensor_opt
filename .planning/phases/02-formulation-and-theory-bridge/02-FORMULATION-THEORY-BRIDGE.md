@@ -64,16 +64,88 @@ TRACE-SL uses a strict three-stage protocol so selection evidence and final evid
 
 This implements D-02 and preserves the Phase 1 guardrail that validation MAE is not final performance evidence.
 
+## TRACE-SL/RCSS Surrogate Objective
+
+The exact budgeted reconstruction objective is combinatorial and expensive because every candidate `S` changes the hidden reconstruction map. TRACE-SL therefore uses RCSS as a predeclared tractable surrogate and algorithmic portfolio, not as post-hoc tuning. For each candidate layout, `make_rcss_row` records five named diagnostics:
+
+1. **validation loss** — validation GLS/MAP reconstruction MAE from `validation_mae`, used only for layout selection;
+2. **posterior trace** — `posterior_trace_for_layout`, an A-style uncertainty diagnostic for the GLS/MAP posterior matrix;
+3. **scenario CVaR trace** — `scenario_cvar_trace_for_layout`, a tail-risk summary over train-derived scenario precision matrices;
+4. **condition number** — `posterior_condition_for_layout`, a numerical stability diagnostic for the observation-regularized system;
+5. **coverage** — `coverage_penalty`, a spatial dispersion term that discourages overly concentrated layouts.
+
+`rcss_candidate_scores` normalizes these diagnostics and applies a fixed five-term weight vector to obtain a scalar RCSS score. This covers THEORY-02 and D-04 by tying the surrogate to validation loss, posterior trace, scenario CVaR trace, condition number, and coverage.
+
+### Auto-Weight Selection
+
+When auto weights are enabled, `split_validation_for_tuning` divides validation data into selector and tuner validation splits. `parse_weight_grid` defines a fixed weight grid, and `select_auto_rcss_weights` performs inner-validation model selection: each candidate weight vector selects the best layout on the selector split, then the tuner split chooses the weight vector with the lowest tuner validation GLS/MAP MAE. The selected weight vector is then applied before held-out test evaluation.
+
+This implements D-05: auto-weight selection is a predeclared fixed weight grid procedure over selector/tuner validation splits, not manual coefficient tuning after seeing test outcomes.
+
+## Linear-Gaussian GLS/MAP Posterior-Error Bridge
+
+The GLS/MAP implementation in `solve_quadratic` solves a regularized quadratic problem. In standardized units, write a linear observation model for a fixed sensor set `S` as
+
+`y_S = P_S x + epsilon`, with `epsilon ~ N(0, sigma^2 W_S^{-1})`,
+
+and a Gaussian prior or precision model
+
+`x ~ N(mu, Q^{-1})`,
+
+where `Q` is train-derived from covariance or graph/precision structure and regularized for numerical stability. The posterior precision for a fixed observation pattern can be written schematically as
+
+`Q_S = Q + P_S^T W_S P_S`,
+
+matching the implementation pattern `matrix + diag(selector)` in `solve_quadratic`, `certificate`, and `posterior_inverse_for_layout`. The posterior covariance is
+
+`Sigma_{post}(S) = Q_S^{-1}`.
+
+For the hidden complement `H`, the posterior covariance block `Sigma_{HH|S}` gives the conditional uncertainty in hidden states after observing `S`. Under the Gaussian/linear model and squared-error loss, the posterior mean/MAP estimator satisfies the identity
+
+`E[ ||x_H - E[x_H | y_S]||_2^2 | y_S ] = trace(Sigma_{HH|S})`.
+
+Thus, the posterior covariance trace is an A-optimal proxy for expected hidden-state squared error under the idealized model. This covers THEORY-03 and D-07.
+
+### Assumptions and Scope of the Derivation
+
+The bridge requires these assumptions from D-08:
+
+- Gaussian/linear observation model for the selected sensors;
+- train-derived covariance or precision used as the reconstruction prior;
+- regularized graph/precision prior so the solve is numerically well-posed;
+- fixed sensor observations for a fixed `S` rather than adaptive deployment;
+- squared-error analysis, not direct MAE optimality.
+
+## MAE-Oriented Interpretation and Caveats
+
+Posterior trace and related certificates motivate MAE-oriented sensor selection because reducing posterior variance should reduce squared hidden-state reconstruction uncertainty under the linear-Gaussian bridge, and current curated evidence reports empirical certificate-error alignment. However, this remains an empirical bridge rather than a broad guarantee.
+
+Real traffic data can be non-Gaussian, temporally shifted, heteroskedastic, and affected by validation selection. The reported paper metric is often MAE, while the derivation is a squared-error identity. Therefore the correct terminology is **certificate-guided** or **posterior-certificate-aware** sensor placement: posterior trace, condition number, information logdet, scenario CVaR trace, and coverage are transparent diagnostics and surrogate terms, not broad project-level certification of optimality or guaranteed MAE dominance.
+
+This covers THEORY-04, D-09, and D-12.
+
 ## Requirement Traceability
 
 | Requirement | Coverage in this artifact |
 |---|---|
 | THEORY-01 | Covered by `Notation`, `Budgeted Reconstruction-Aware Sensor-Set Problem`, and `Protocol Separation`. |
+| THEORY-02 | Covered by `TRACE-SL/RCSS Surrogate Objective` with validation loss, posterior trace, scenario CVaR trace, condition number, and coverage. |
+| THEORY-03 | Covered by `Linear-Gaussian GLS/MAP Posterior-Error Bridge`. |
+| THEORY-04 | Covered by `MAE-Oriented Interpretation and Caveats`. |
 
 ## Self-Check
 
 - [x] THEORY-01 is covered by the formal problem statement and protocol boundary.
+- [x] THEORY-02 is covered by the RCSS surrogate objective and auto-weight selection text.
+- [x] THEORY-03 is covered by the posterior covariance trace to expected hidden-state squared error derivation.
+- [x] THEORY-04 is covered by the MAE-oriented caveats and certificate terminology scope.
 - [x] D-01 is covered: TRACE-SL is stated as budgeted sparse sensor-set design for hidden-node reconstruction.
 - [x] D-02 is covered: train-derived ingredients, validation selection, and held-out test evaluation are separated.
 - [x] D-03 is covered: traffic-network notation includes `G`, `S`, `H`, `x`, `y_S`, `\hat{x}_H(S)`, and `|S| <= k`.
+- [x] D-04 is covered: RCSS names validation loss, posterior trace, scenario CVaR trace, condition number, and coverage.
+- [x] D-05 is covered: auto weights use selector/tuner validation splits and fixed weight grid selection.
+- [x] D-07 is covered: posterior trace is connected to expected hidden-state squared error under linear-Gaussian assumptions.
+- [x] D-08 is covered: Gaussian/linear, train-derived prior, regularization, fixed observations, and squared-error assumptions are explicit.
+- [x] D-09 is covered: posterior variance is presented as MAE-oriented empirical guidance, not an MAE theorem.
+- [x] D-12 is covered: certificate terminology is scoped to certificate-guided or posterior-certificate-aware language.
 - [x] Raw dataset reads are excluded from this phase-local artifact.
