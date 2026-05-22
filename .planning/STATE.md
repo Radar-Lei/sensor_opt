@@ -3,26 +3,26 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-22T15:59:19.117Z"
+last_updated: "2026-05-22T16:07:28.742Z"
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 10
-  completed_plans: 4
-  percent: 40
+  completed_plans: 5
+  percent: 50
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
 
 **Initialized:** 2026/05/21
-**Status:** Ready to execute
+**Status:** Executing Phase 04
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026/05/21)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** Phase 4 — core experiment evidence
+**Current focus:** Phase 04 — core-experiment-evidence
 
 ## Workflow Configuration
 
@@ -51,7 +51,10 @@ See: .planning/PROJECT.md (updated 2026/05/21)
 - Use “certificate-guided” unless later theory justifies formal certification language.
 - Treat the low-budget multistart-vs-RCSS issue directly.
 - Seattle evidence must be curated or removed from the core claim set.
+- Phase 4 Plan 01 uses held-out GLS/MAP `combined_metrics.csv` rows as final performance evidence; validation MAE remains selection-only.
+- Phase 4 Plan 01 marks missing Phase 3 portfolio rows in PeMS7_228 Stage 11 as Stage 12 regeneration-required.
+- Phase 4 Plan 01 keeps PeMS7_1026 as lower-power external evidence and Seattle as curation-required until later Phase 4 plans close them.
 
 ## Next Action
 
-Run `/gsd:discuss-phase 1` to define the Phase 1 claim-evidence contract scope and execution plan.
+Execute Phase 04 Plan 02 to add statistical intervals/effect sizes for the audited held-out evidence.

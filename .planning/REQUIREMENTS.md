@@ -35,12 +35,12 @@ Requirements for turning the current TRACE-SL prototype into a Transportation Sc
 
 ### Experiment Evidence
 
-- [ ] **EXP-01**: PeMS7_228 10-split evidence is regenerated or audited for all core baselines and final method variants used in claims.
-- [ ] **EXP-02**: PeMS7_1026 external validation is extended to at least 10 splits or clearly framed as lower-power external evidence.
-- [ ] **EXP-03**: Seattle evidence is either curated into `trace_sl_results/` and synchronized with documentation, or removed from the core claim set.
-- [ ] **EXP-04**: All reported method comparisons include paired deltas, confidence intervals or bootstrap intervals, effect sizes, and paired significance tests where appropriate.
-- [ ] **EXP-05**: Certificate-error correlation results are reported with Spearman/Pearson-style summaries and interpreted as empirical validation unless formal theory is added.
-- [ ] **EXP-06**: Runtime and candidate-count sensitivity are reported for the main datasets and budget levels.
+- [x] **EXP-01**: PeMS7_228 10-split evidence is regenerated or audited for all core baselines and final method variants used in claims.
+- [x] **EXP-02**: PeMS7_1026 external validation is extended to at least 10 splits or clearly framed as lower-power external evidence.
+- [x] **EXP-03**: Seattle evidence is either curated into `trace_sl_results/` and synchronized with documentation, or removed from the core claim set.
+- [x] **EXP-04**: All reported method comparisons include paired deltas, confidence intervals or bootstrap intervals, effect sizes, and paired significance tests where appropriate.
+- [x] **EXP-05**: Certificate-error correlation results are reported with Spearman/Pearson-style summaries and interpreted as empirical validation unless formal theory is added.
+- [x] **EXP-06**: Runtime and candidate-count sensitivity are reported for the main datasets and budget levels.
 
 ### Robustness and Generality
 
@@ -116,12 +116,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BASE-04 | Phase 3 | Pending |
 | BASE-05 | Phase 3 | Pending |
 | BASE-06 | Phase 3 | Pending |
-| EXP-01 | Phase 4 | Pending |
-| EXP-02 | Phase 4 | Pending |
-| EXP-03 | Phase 4 | Pending |
-| EXP-04 | Phase 4 | Pending |
-| EXP-05 | Phase 4 | Pending |
-| EXP-06 | Phase 4 | Pending |
+| EXP-01 | Phase 4 | Complete |
+| EXP-02 | Phase 4 | Complete |
+| EXP-03 | Phase 4 | Complete |
+| EXP-04 | Phase 4 | Complete |
+| EXP-05 | Phase 4 | Complete |
+| EXP-06 | Phase 4 | Complete |
 | ROBUST-01 | Phase 5 | Pending |
 | ROBUST-02 | Phase 5 | Pending |
 | ROBUST-03 | Phase 5 | Pending |
