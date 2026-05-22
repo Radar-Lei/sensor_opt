@@ -3,12 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-22T16:15:54.848Z"
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-05-22T16:44:31.000Z"
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 10
-  completed_plans: 5
+  completed_plans: 7
   percent: 50
 ---
 
@@ -55,15 +56,17 @@ See: .planning/PROJECT.md (updated 2026/05/21)
 - Phase 4 Plan 01 marks missing Phase 3 portfolio rows in PeMS7_228 Stage 11 as Stage 12 regeneration-required.
 - Phase 4 Plan 01 keeps PeMS7_1026 as lower-power external evidence and Seattle as curation-required until later Phase 4 plans close them.
 - Phase 4 Plan 02 keeps the existing TRACE-SL summarizer as the main aggregation point while adding paired interval/effect-size statistics and empirical certificate-count summaries.
+- Phase 4 Plan 03 regenerated complete PeMS7_228 Stage 12 ten-split baseline-portfolio evidence because no prior Stage 12 seed metrics existed and local data was available.
+- Phase 4 Plan 03 keeps the 10% multistart caveat visible via Stage 12 paired layout-summary rows rather than hiding it with post-hoc method selection.
 
 ## Next Action
 
-Execute Phase 04 Plan 03.
+Execute Phase 04 Plan 04.
 
 ## Last Session
 
-- **Completed:** 2026-05-22T16:16:08Z
-- **Stopped At:** Completed 04-02-PLAN.md
+- **Completed:** 2026-05-22T16:44:31Z
+- **Stopped At:** Completed 04-03-PLAN.md
 - **Resume File:** None
 
 ## Performance Metrics
@@ -71,3 +74,4 @@ Execute Phase 04 Plan 03.
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 04-core-experiment-evidence | 02 | 12min | 2 | 2 |
+| 04-core-experiment-evidence | 03 | 25min | 2 | 113 |
