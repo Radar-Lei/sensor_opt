@@ -29,6 +29,14 @@ The strengthened method is **Robust Certified Sensor Search (RCSS)**:
 
 The final RCSS configuration was confirmed on held-out split seeds 25–29 after an earlier diagnostic stage on seeds 20–24. Stage 10 strengthens the method by adding validation-aware swap refinement; Stage 11 removes the manual-weight concern by selecting RCSS weights through inner validation.
 
+### Formulation and theory bridge
+
+Phase 2 frames TRACE-SL as **budgeted reconstruction-aware sensor-set design**: choose a sparse fixed sensor set `S` under `|S| <= k` so transparent GLS/MAP or GSP reconstruction can recover the hidden complement of the traffic network. The design protocol keeps three evidence channels separate: train-derived reconstruction ingredients such as priors, covariance/precision estimates, graph structure, and regularization; validation layout selection through RCSS scoring, auto-weight tuning, and validation-aware swap refinement; and held-out test evaluation after the layout rule is fixed.
+
+The RCSS surrogate combines validation reconstruction loss with posterior-certificate-aware diagnostics: posterior covariance trace, scenario CVaR trace, condition number, and spatial coverage. Under the scoped linear-Gaussian GLS/MAP derivation, the posterior covariance trace is tied to expected squared hidden-state error, giving an A-optimal uncertainty proxy for the hidden complement. Because the reported traffic metric is MAE and real traffic data can depart from Gaussian squared-error assumptions, this bridge motivates certificate-guided selection but does not turn posterior diagnostics into a broad MAE guarantee.
+
+Detailed paper-writing support is in `.planning/phases/02-formulation-and-theory-bridge/02-FORMULATION-THEORY-BRIDGE.md`. Optional TR Part B extension requirements are separated in `.planning/phases/02-formulation-and-theory-bridge/02-TR-PART-B-THEORY-GAP-NOTE.md`, including deferred v2 monotonicity, approximate-submodularity, approximation, stability, and stochastic/bilevel analysis needs.
+
 ## Key Evidence
 
 ### Stage 9 confirmatory experiment
