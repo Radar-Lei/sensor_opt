@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-22T16:07:28.742Z"
+last_updated: "2026-05-22T16:15:54.848Z"
 progress:
   total_phases: 6
   completed_phases: 3
@@ -54,7 +54,20 @@ See: .planning/PROJECT.md (updated 2026/05/21)
 - Phase 4 Plan 01 uses held-out GLS/MAP `combined_metrics.csv` rows as final performance evidence; validation MAE remains selection-only.
 - Phase 4 Plan 01 marks missing Phase 3 portfolio rows in PeMS7_228 Stage 11 as Stage 12 regeneration-required.
 - Phase 4 Plan 01 keeps PeMS7_1026 as lower-power external evidence and Seattle as curation-required until later Phase 4 plans close them.
+- Phase 4 Plan 02 keeps the existing TRACE-SL summarizer as the main aggregation point while adding paired interval/effect-size statistics and empirical certificate-count summaries.
 
 ## Next Action
 
-Execute Phase 04 Plan 02 to add statistical intervals/effect sizes for the audited held-out evidence.
+Execute Phase 04 Plan 03.
+
+## Last Session
+
+- **Completed:** 2026-05-22T16:16:08Z
+- **Stopped At:** Completed 04-02-PLAN.md
+- **Resume File:** None
+
+## Performance Metrics
+
+| Phase | Plan | Duration | Tasks | Files |
+|-------|------|----------|-------|-------|
+| 04-core-experiment-evidence | 02 | 12min | 2 | 2 |
