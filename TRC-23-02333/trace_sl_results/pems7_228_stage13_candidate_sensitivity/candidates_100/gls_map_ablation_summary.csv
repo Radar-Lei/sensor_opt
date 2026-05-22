@@ -1,0 +1,9 @@
+budget,layout_type,mean,std,count
+0.2,validation_swap_selected,3.1581368428972865,,1
+0.2,rcss_selected,3.1753954521693903,,1
+0.2,top_variance,3.208908806354434,,1
+0.2,best_random_by_validation,3.3164694124917644,,1
+0.2,multistart_swap_by_validation,3.316485715178541,,1
+0.2,greedy_a_trace,3.3361253911477613,,1
+0.2,scenario_cvar_a_trace,3.5272214891804867,,1
+0.2,greedy_d_logdet,3.913042402747825,,1

@@ -1,0 +1,3 @@
+candidate_count,seed,runtime_seconds,status,output_dir
+50,25,71,complete,TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25
+100,25,69,complete,TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25
