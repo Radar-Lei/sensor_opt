@@ -108,10 +108,11 @@ def time_of_day_mean(train, fallback):
 
 
 def make_similarity(distance):
-    positive = distance[distance > 0]
-    sigma = np.median(positive)
+    positive = distance[np.isfinite(distance) & (distance > 0)]
+    sigma = float(np.median(positive)) if positive.size else 1.0
+    sigma = max(sigma, 1e-6)
     similarity = np.exp(-distance / sigma)
-    similarity[distance <= 0] = 0.0
+    similarity[~np.isfinite(distance) | (distance <= 0)] = 0.0
     similarity = (similarity + similarity.T) / 2.0
     return similarity
 
@@ -373,7 +374,9 @@ def normalize_minmax(values):
 
 def quality_coverage_sample(distance, quality, sensor_count, rng, coverage_power):
     n_nodes = distance.shape[0]
-    positive = distance[distance > 0]
+    if sensor_count < 0 or sensor_count > n_nodes:
+        raise ValueError(f"sensor_count must be in [0, {n_nodes}], got {sensor_count}")
+    positive = distance[np.isfinite(distance) & (distance > 0)]
     fill_value = float(positive.max()) if positive.size else 1.0
     dist = np.where(distance > 0, distance, fill_value)
     quality = np.asarray(quality, dtype=float)
@@ -800,8 +803,11 @@ def main():
     args = parser.parse_args()
     args.budgets = parse_budgets(args.budgets)
     if args.include_baseline_portfolio:
+        args.include_simple_baselines = True
         args.include_greedy = True
         args.include_swap = True
+        args.include_scenario_greedy = True
+        args.include_rcss = True
         args.include_observability_proxy = True
         args.include_graph_sampling_baseline = True
         args.include_qr_pod_baseline = True
