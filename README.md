@@ -1,6 +1,6 @@
 # TRACE-SL: Transparent Reconstruction-Aware Sensor Layout
 
-TRACE-SL studies sparse traffic sensor placement for transparent full-network reconstruction. The current implementation uses GLS/MAP and GSP reconstruction evaluators, then searches for sensor layouts with Robust Certified Sensor Search (RCSS): an OR-guided candidate pool plus validation-calibrated selection and validation-aware swap refinement.
+TRACE-SL studies sparse traffic sensor placement for transparent full-network reconstruction. The current implementation uses GLS/MAP and GSP reconstruction evaluators, then searches for sensor layouts with Robust Certificate-guided Sensor Search (RCSS): an OR-guided candidate pool plus validation-calibrated selection and validation-aware swap refinement.
 
 ## Current claim
 

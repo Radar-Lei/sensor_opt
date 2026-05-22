@@ -2,7 +2,7 @@
 
 **Project**: TRACE-SL — Transparent Reconstruction-Aware Sensor Layout
 **Date**: 2026-05-18
-**Current stage**: Method strengthened with Robust Certified Sensor Search (RCSS) plus validation-aware swap refinement; PeMS7_228 confirmatory evidence complete.
+**Current stage**: Method strengthened with Robust Certificate-guided Sensor Search (RCSS) plus validation-aware swap refinement; PeMS7_228 confirmatory evidence complete.
 
 ## Core Claim
 
@@ -12,7 +12,7 @@ TRACE-SL improves full-network traffic state reconstruction by optimizing sensor
 
 TRACE-SL uses GLS/MAP and GSP as transparent full-network reconstruction models. Given a candidate sensor set, the hidden-link reconstruction error is evaluated under deployment simulation: only selected sensors are observed, while non-sensor nodes are held out for MAE/RMSE evaluation.
 
-The strengthened method is **Robust Certified Sensor Search (RCSS)**:
+The strengthened method is **Robust Certificate-guided Sensor Search (RCSS)**:
 
 1. Build a candidate pool from multiple OR-guided layout generators:
    - greedy A-optimal posterior trace;
@@ -135,7 +135,7 @@ Auto-weight validation-swap deltas across 10 splits, negative is better:
 | 20% | -0.2553 | -0.0874 | -0.1181 | 0.0025 | 0.0059 |
 | 30% | -0.3367 | -0.1167 | -0.1339 | 0.00008 | 0.0020 |
 
-Selected weight distribution:
+Selected weight distribution in the original five-split Stage 11 run:
 
 | Budget | Dominant selected weight |
 |---:|---|
@@ -191,7 +191,7 @@ Validation-swap RCSS deltas against best-random by validation:
 | 20% | -0.1452 | 5/5 | 0.0032 | 0.0625 |
 | 30% | -0.1061 | 5/5 | 0.0025 | 0.0625 |
 
-Seattle strengthens the cross-network claim: validation-swap RCSS wins against validation-selected random on every split and every budget, while GLS/MAP certificates remain strongly aligned with hidden reconstruction error.
+Seattle is supporting, conditional evidence rather than a core claim until Phase 4 curates repository-visible outputs and synchronizes the documentation. In the current lightweight run, validation-swap RCSS wins against validation-selected random on every split and every budget, while GLS/MAP certificates remain strongly aligned with hidden reconstruction error.
 
 ### Certificate validity
 
@@ -203,7 +203,7 @@ GLS/MAP posterior certificates are stable predictors of hidden reconstruction er
 | condition number | 0.8327 | 0.8592 |
 | information logdet | -0.8209 | -0.8130 |
 
-This supports the interpretability claim: the OR certificates are not decorative; they are strongly aligned with empirical hidden-link reconstruction quality. On PeMS7_1026, the GLS/MAP certificate correlations are even stronger: posterior trace Spearman 0.9315, condition number Spearman 0.8930, and information logdet Spearman -0.8982. On Seattle, the corresponding Spearman correlations are also strong: posterior trace 0.8742, condition number 0.8846, and information logdet -0.8307.
+This supports the interpretability claim: the OR certificates are not decorative; they are strongly aligned with empirical hidden-link reconstruction quality. On PeMS7_1026, the GLS/MAP certificate correlations are even stronger: posterior trace Spearman 0.9315, condition number Spearman 0.8930, and information logdet Spearman -0.8982. Seattle correlations are currently supporting-only pending Phase 4 curation of repository-visible outputs.
 
 ### Mechanism evidence
 
@@ -220,8 +220,8 @@ This suggests the improvement comes from adding an OR-guided, certificate-aware 
 ## Claim Status
 
 - C1: Transparent GLS/MAP reconstruction from sparse sensors is viable — supported.
-- C2: OR-guided RCSS layouts improve reconstruction over random placement and validation-selected random placement — strengthened by the PeMS7_228 Stage 11 ten-split aggregate and externally supported on PeMS7_1026 and Seattle.
-- C3: Certificates explain layout quality — strongly supported by stable correlation on PeMS7_228, PeMS7_1026, and Seattle.
+- C2: OR-guided RCSS layouts improve reconstruction over random placement and validation-selected random placement — strengthened by the PeMS7_228 Stage 11 ten-split aggregate and externally supported on PeMS7_1026; Seattle remains supporting-only until Phase 4 curation.
+- C3: Certificates explain layout quality — strongly supported by stable correlation on PeMS7_228 and PeMS7_1026, with Seattle treated as supporting-only pending curation.
 - C4: RL is not yet needed for the core claim — RCSS currently provides an OR-guided non-DL method; RL can remain optional for amortizing repeated search later.
 - C5: Regime-aware TS insight remains a paper extension, not required for the current core evidence.
 
@@ -233,8 +233,8 @@ Ready from existing CSV outputs:
 2. Delta table vs random/baselines: `gls_map_delta_summary.csv`.
 3. Main ablation table: `gls_map_ablation_summary.csv`.
 4. Script-generated paired tests: `gls_map_paired_delta_tests.csv`.
-5. Validation-swap paired tests from Stage 11 handoff: `validation_swap_delta_tests.csv`.
-6. Auto-weight selection summary: `auto_weight_selection_summary.csv`.
+5. Validation-swap paired tests in the main ten-split aggregate: use `gls_map_paired_delta_tests.csv` rows for `validation_swap_selected` comparisons.
+6. Auto-weight selection summary: `auto_weight_selection_summary.csv` in the original five-split Stage 11 output; use with directory-qualified provenance until regenerated for the ten-split aggregate.
 7. Certificate stability table: `certificate_correlation_summary.csv`.
 8. Selected-source mechanism table: `rcss_selected_sources.csv`.
 9. Candidate-level analysis: `combined_rcss_candidates.csv`.
@@ -248,6 +248,6 @@ Recommended figures:
 
 ## Remaining Follow-up
 
-1. Generate final paper figures from PeMS7_228 ten-split, PeMS7_1026 external-validation, and Seattle heterogeneous-network CSV files.
+1. Generate final paper figures from PeMS7_228 ten-split and PeMS7_1026 external-validation CSV files; include Seattle only after Phase 4 curates repository-visible outputs.
 2. Consider increasing PeMS7_1026 or Seattle split count only if the target venue demands stronger nonparametric tests; all five current external-validation splits already beat validation-selected random at every budget.
 3. If RL is retained, frame it as optional amortized search over the RCSS candidate-generation process, not as the estimator.
