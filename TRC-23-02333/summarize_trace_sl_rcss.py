@@ -66,6 +66,32 @@ def build_paired_comparisons(pivot, comparison_layouts, baseline_layouts):
     return pd.DataFrame(delta_rows), pd.DataFrame(paired_rows)
 
 
+def build_certificate_summary(corr):
+    return corr.groupby(["method", "certificate"])[["pearson_mae", "spearman_mae"]].agg(["mean", "std", "min", "max", "count"])
+
+
+def flatten_certificate_summary(corr_summary):
+    flat = corr_summary.reset_index()
+    flat.columns = [
+        "_".join(str(part) for part in column if str(part)) if isinstance(column, tuple) else str(column)
+        for column in flat.columns
+    ]
+    return flat
+
+
+def certificate_summary_lines(corr_summary):
+    return [
+        "## Empirical certificate-error correlation summary",
+        "",
+        "These correlations are empirical support for certificate-guided selection, not formal optimality guarantees.",
+        "",
+        "```",
+        corr_summary.to_string(),
+        "```",
+        "",
+    ]
+
+
 def collect_input_frames(input_roots):
     metrics = []
     correlations = []
@@ -176,8 +202,8 @@ def main():
     if correlations:
         corr = pd.concat(correlations, ignore_index=True)
         corr.to_csv(output_dir / "combined_certificate_correlations.csv", index=False)
-        corr_summary = corr.groupby(["method", "certificate"])[["pearson_mae", "spearman_mae"]].agg(["mean", "std", "min", "max"])
-        corr_summary.to_csv(output_dir / "certificate_correlation_summary.csv")
+        corr_summary = build_certificate_summary(corr)
+        flatten_certificate_summary(corr_summary).to_csv(output_dir / "certificate_correlation_summary.csv", index=False)
 
     if rcss_candidates:
         rcss = pd.concat(rcss_candidates, ignore_index=True)
@@ -224,16 +250,7 @@ def main():
         "",
     ]
     if correlations:
-        lines.extend(
-            [
-                "## Certificate stability",
-                "",
-                "```",
-                corr_summary.to_string(),
-                "```",
-                "",
-            ]
-        )
+        lines.extend(certificate_summary_lines(corr_summary))
     if rcss_candidates:
         lines.extend(
             [
