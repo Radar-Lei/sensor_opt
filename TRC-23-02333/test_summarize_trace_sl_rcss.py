@@ -53,5 +53,29 @@ class PairedComparisonStatsTest(unittest.TestCase):
         self.assertTrue(pd.isna(insufficient["cohens_dz"]))
 
 
+
+class CertificateSummaryTest(unittest.TestCase):
+    def test_certificate_summary_includes_counts_and_empirical_markdown_wording(self):
+        corr = pd.DataFrame(
+            {
+                "method": ["gls_map", "gls_map", "gsp"],
+                "certificate": ["posterior_trace", "posterior_trace", "condition_number"],
+                "pearson_mae": [0.8, 0.9, 0.2],
+                "spearman_mae": [0.7, 0.6, 0.1],
+                "n": [100, 100, 50],
+            }
+        )
+
+        summary = summarizer.build_certificate_summary(corr)
+        lines = summarizer.certificate_summary_lines(summary)
+        text = "\n".join(lines).lower()
+
+        self.assertIn(("pearson_mae", "count"), summary.columns)
+        self.assertIn(("spearman_mae", "count"), summary.columns)
+        self.assertIn("empirical certificate-error correlation", text)
+        self.assertNotIn("guaranteed optimal", text)
+        self.assertNotIn("certified optimal", text)
+
+
 if __name__ == "__main__":
     unittest.main()
