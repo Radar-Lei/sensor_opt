@@ -92,6 +92,115 @@ def certificate_summary_lines(corr_summary):
     ]
 
 
+def selected_candidate_mask(frame):
+    if "selected" not in frame.columns:
+        return pd.Series(False, index=frame.index)
+    selected = frame["selected"]
+    if selected.dtype == bool:
+        return selected.fillna(False)
+    return selected.astype(str).str.lower().isin(["true", "1", "yes"])
+
+
+def build_candidate_sensitivity_summary(rcss_candidates):
+    diagnostics = [
+        "validation_mae",
+        "posterior_trace",
+        "scenario_cvar_trace",
+        "condition_number",
+        "coverage_penalty",
+        "rcss_score",
+    ]
+    available_diagnostics = [name for name in diagnostics if name in rcss_candidates.columns]
+    rows = []
+    selected_mask = selected_candidate_mask(rcss_candidates)
+    for (budget, source), sub in rcss_candidates.groupby(["budget", "source"], dropna=False):
+        selected = sub[selected_mask.loc[sub.index]]
+        row = {
+            "budget": budget,
+            "source": source,
+            "candidate_row_count": int(sub.shape[0]),
+            "selected_count": int(selected.shape[0]),
+        }
+        for name in available_diagnostics:
+            values = pd.to_numeric(sub[name], errors="coerce")
+            row[f"{name}_mean"] = values.mean()
+            row[f"{name}_std"] = values.std()
+            selected_values = pd.to_numeric(selected[name], errors="coerce") if not selected.empty else pd.Series(dtype=float)
+            row[f"selected_{name}_mean"] = selected_values.mean()
+            row[f"selected_{name}_std"] = selected_values.std()
+        rows.append(row)
+    return pd.DataFrame(rows).sort_values(["budget", "source"]).reset_index(drop=True)
+
+
+def build_runtime_candidate_sensitivity_summary(frame):
+    if frame.empty or "runtime_seconds" not in frame.columns:
+        return pd.DataFrame()
+    if "candidate_count" not in frame.columns:
+        return pd.DataFrame()
+    runtime = frame.copy()
+    runtime["runtime_seconds"] = pd.to_numeric(runtime["runtime_seconds"], errors="coerce")
+    runtime["candidate_count"] = pd.to_numeric(runtime["candidate_count"], errors="coerce")
+    runtime = runtime.dropna(subset=["candidate_count", "runtime_seconds"])
+    if runtime.empty:
+        return pd.DataFrame()
+    group_cols = ["candidate_count"]
+    optional_cols = ["budget", "source", "status"]
+    group_cols.extend([name for name in optional_cols if name in runtime.columns])
+    out = runtime.groupby(group_cols, dropna=False)["runtime_seconds"].agg(["mean", "std", "min", "max", "count"]).reset_index()
+    out = out.rename(columns={"mean": "runtime_seconds"})
+    out["candidate_count"] = out["candidate_count"].astype(int)
+    return out.sort_values(group_cols).reset_index(drop=True)
+
+
+def collect_runtime_candidate_frames(input_roots, rcss_candidates):
+    frames = []
+    for input_root in input_roots:
+        for name in ["runtime_candidate_sensitivity.csv", "stage13_timing.csv"]:
+            path = input_root / name
+            if path.exists():
+                frames.append(pd.read_csv(path))
+    for frame in rcss_candidates:
+        if {"candidate_count", "runtime_seconds"}.issubset(frame.columns):
+            frames.append(frame)
+    return frames
+
+
+def candidate_sensitivity_lines(candidate_summary, runtime_summary):
+    lines = [
+        "## Candidate-count sensitivity and practical tractability",
+        "",
+        "Candidate-count sensitivity is summarized as practical tractability and selection stability evidence, not as a broad scalability claim.",
+        "",
+        "### Candidate source and diagnostic stability",
+        "",
+        "```",
+        candidate_summary.to_string(index=False),
+        "```",
+        "",
+    ]
+    if not runtime_summary.empty:
+        lines.extend(
+            [
+                "### Measured runtime / tractability evidence",
+                "",
+                "```",
+                runtime_summary.to_string(index=False),
+                "```",
+                "",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "### Runtime / tractability evidence",
+                "",
+                "No measured timing artifact was present in these inputs, so EXP-06 runtime closure must come from Stage 13 measured outputs.",
+                "",
+            ]
+        )
+    return lines
+
+
 def collect_input_frames(input_roots):
     metrics = []
     correlations = []
@@ -139,6 +248,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     metrics, correlations, rcss_candidates = collect_input_frames(input_roots)
+    runtime_candidate_frames = collect_runtime_candidate_frames(input_roots, rcss_candidates)
 
     if not metrics:
         roots = ", ".join(str(path) for path in input_roots)
@@ -208,8 +318,17 @@ def main():
     if rcss_candidates:
         rcss = pd.concat(rcss_candidates, ignore_index=True)
         rcss.to_csv(output_dir / "combined_rcss_candidates.csv", index=False)
-        selected = rcss[rcss["selected"] == True]
+        selected = rcss[selected_candidate_mask(rcss)]
         selected.groupby(["budget", "source"]).size().reset_index(name="selected_count").to_csv(output_dir / "rcss_selected_sources.csv", index=False)
+        candidate_summary = build_candidate_sensitivity_summary(rcss)
+        candidate_summary.to_csv(output_dir / "candidate_sensitivity_summary.csv", index=False)
+
+    runtime_summary = pd.DataFrame()
+    if runtime_candidate_frames:
+        runtime_inputs = pd.concat(runtime_candidate_frames, ignore_index=True)
+        runtime_summary = build_runtime_candidate_sensitivity_summary(runtime_inputs)
+        if not runtime_summary.empty:
+            runtime_summary.to_csv(output_dir / "runtime_candidate_sensitivity.csv", index=False)
 
     lines = [
         "---",
@@ -262,19 +381,27 @@ def main():
                 "",
             ]
         )
+        lines.extend(candidate_sensitivity_lines(candidate_summary, runtime_summary))
+    output_files = [
+        "combined_metrics.csv",
+        "gls_map_layout_summary.csv",
+        "gls_map_delta_summary.csv",
+        "gls_map_paired_delta_tests.csv",
+        "gls_map_ablation_summary.csv",
+        "gls_map_per_split_winners.csv",
+        "gls_map_win_counts.csv",
+    ]
+    if correlations:
+        output_files.extend(["combined_certificate_correlations.csv", "certificate_correlation_summary.csv"])
+    if rcss_candidates:
+        output_files.extend(["combined_rcss_candidates.csv", "rcss_selected_sources.csv", "candidate_sensitivity_summary.csv"])
+    if not runtime_summary.empty:
+        output_files.append("runtime_candidate_sensitivity.csv")
     lines.extend(
         [
             "## Output files",
             "",
-            "- combined_metrics.csv",
-            "- gls_map_layout_summary.csv",
-            "- gls_map_delta_summary.csv",
-            "- gls_map_paired_delta_tests.csv",
-            "- gls_map_ablation_summary.csv",
-            "- gls_map_per_split_winners.csv",
-            "- gls_map_win_counts.csv",
-            "- combined_rcss_candidates.csv",
-            "- rcss_selected_sources.csv",
+            *[f"- {name}" for name in output_files],
         ]
     )
     (output_dir / "SUMMARY.md").write_text("\n".join(lines), encoding="utf-8")
