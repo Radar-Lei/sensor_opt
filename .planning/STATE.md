@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-03-PLAN.md
-last_updated: "2026-05-22T17:04:09.835Z"
+stopped_at: Completed 04-06-PLAN.md
+last_updated: "2026-05-22T17:33:18.000Z"
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 10
-  completed_plans: 8
-  percent: 50
+  completed_plans: 10
+  percent: 67
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -58,15 +58,17 @@ See: .planning/PROJECT.md (updated 2026/05/21)
 - Phase 4 Plan 02 keeps the existing TRACE-SL summarizer as the main aggregation point while adding paired interval/effect-size statistics and empirical certificate-count summaries.
 - Phase 4 Plan 03 regenerated complete PeMS7_228 Stage 12 ten-split baseline-portfolio evidence because no prior Stage 12 seed metrics existed and local data was available.
 - Phase 4 Plan 03 keeps the 10% multistart caveat visible via Stage 12 paired layout-summary rows rather than hiding it with post-hoc method selection.
+- Phase 4 Plan 06 uses `validate_phase4_evidence.py` as the final smoke/schema/status gate for EXP-01..EXP-06.
+- Phase 4 Plan 06 limits final WARN statuses to PeMS7_1026 lower-power external evidence and Seattle supporting/conditional evidence.
 
 ## Next Action
 
-Execute Phase 04 Plan 04.
+Execute Phase 05 Plan 01.
 
 ## Last Session
 
-- **Completed:** 2026-05-22T16:44:31Z
-- **Stopped At:** Completed 04-03-PLAN.md
+- **Completed:** 2026-05-22T17:33:18Z
+- **Stopped At:** Completed 04-06-PLAN.md
 - **Resume File:** None
 
 ## Performance Metrics
@@ -75,3 +77,4 @@ Execute Phase 04 Plan 04.
 |-------|------|----------|-------|-------|
 | 04-core-experiment-evidence | 02 | 12min | 2 | 2 |
 | 04-core-experiment-evidence | 03 | 25min | 2 | 113 |
+| 04-core-experiment-evidence | 06 | 6min | 2 | 4 |
