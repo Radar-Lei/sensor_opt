@@ -24,7 +24,6 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 
 ### Phase 1: Claim-Evidence Contract
 **Goal:** Define the strongest defensible TRACE-SL claim set and the exact evidence required for each claim before adding experiments or writing.
-**Mode:** mvp
 
 **Requirements:** CLAIM-01, CLAIM-02, CLAIM-03, CLAIM-04, CLAIM-05
 
