@@ -17,11 +17,11 @@ Requirements for turning the current TRACE-SL prototype into a Transportation Sc
 
 ### Formulation and Theory
 
-- [ ] **THEORY-01**: The manuscript defines the sensor layout optimization problem with budgeted sensor set, hidden-node reconstruction, held-out loss, and transparent reconstruction model.
-- [ ] **THEORY-02**: The manuscript defines the tractable TRACE-SL/RCSS surrogate objective, including validation loss, posterior trace, scenario CVaR trace, condition number, and coverage terms.
-- [ ] **THEORY-03**: The manuscript provides a linear-Gaussian GLS/MAP posterior-error derivation connecting posterior covariance trace to expected hidden-state squared error.
-- [ ] **THEORY-04**: The manuscript states when posterior variance can motivate MAE-oriented sensor selection and where real traffic data depart from the idealized assumptions.
-- [ ] **THEORY-05**: The method section gives algorithmic complexity and local optimality conditions for fixed-candidate validation-aware swap refinement.
+- [x] **THEORY-01**: The manuscript defines the sensor layout optimization problem with budgeted sensor set, hidden-node reconstruction, held-out loss, and transparent reconstruction model.
+- [x] **THEORY-02**: The manuscript defines the tractable TRACE-SL/RCSS surrogate objective, including validation loss, posterior trace, scenario CVaR trace, condition number, and coverage terms.
+- [x] **THEORY-03**: The manuscript provides a linear-Gaussian GLS/MAP posterior-error derivation connecting posterior covariance trace to expected hidden-state squared error.
+- [x] **THEORY-04**: The manuscript states when posterior variance can motivate MAE-oriented sensor selection and where real traffic data depart from the idealized assumptions.
+- [x] **THEORY-05**: The method section gives algorithmic complexity and local optimality conditions for fixed-candidate validation-aware swap refinement.
 - [ ] **THEORY-06**: TR Part B optional material identifies what additional monotonicity, submodularity-like, approximation, or stability analysis would be needed for a more mathematical submission.
 
 ### Baselines and Method Portfolio
@@ -104,11 +104,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLAIM-03 | Phase 1 | Pending |
 | CLAIM-04 | Phase 1 | Pending |
 | CLAIM-05 | Phase 1 | Pending |
-| THEORY-01 | Phase 2 | Pending |
-| THEORY-02 | Phase 2 | Pending |
-| THEORY-03 | Phase 2 | Pending |
-| THEORY-04 | Phase 2 | Pending |
-| THEORY-05 | Phase 2 | Pending |
+| THEORY-01 | Phase 2 | Complete |
+| THEORY-02 | Phase 2 | Complete |
+| THEORY-03 | Phase 2 | Complete |
+| THEORY-04 | Phase 2 | Complete |
+| THEORY-05 | Phase 2 | Complete |
 | THEORY-06 | Phase 2 | Pending |
 | BASE-01 | Phase 3 | Pending |
 | BASE-02 | Phase 3 | Pending |

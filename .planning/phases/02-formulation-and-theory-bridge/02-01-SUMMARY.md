@@ -67,7 +67,7 @@ Each task was committed atomically:
 2. **Task 2: Add RCSS surrogate and posterior-error derivation slice** - `2e4901d` (docs)
 3. **Task 3: Add validation-swap analysis, guardrails, and source coverage audit** - `867fc5b` (docs)
 
-**Plan metadata:** pending final metadata commit
+**Plan metadata:** final metadata commit records this summary plus GSD state, roadmap, and requirement updates.
 
 ## Files Created/Modified
 
