@@ -62,7 +62,8 @@ if [ "${DRY_RUN}" = "1" ]; then
       --output-dir "${OUTPUT_DIR}/candidates_${candidate_count}"
   done
   run_or_print "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
-    --input-root "${OUTPUT_DIR}" "${OUTPUT_DIR}"/candidates_* \
+    --input-root "${OUTPUT_DIR}"/candidates_* \
+    --runtime-root "${OUTPUT_DIR}" \
     --output-dir "${OUTPUT_DIR}"
   exit 0
 fi
@@ -107,8 +108,7 @@ for candidate_count in ${CANDIDATE_COUNTS}; do
     --output-dir "${candidate_dir}"
 done
 
-cp "${OUTPUT_DIR}/stage13_timing.csv" "${OUTPUT_DIR}/runtime_candidate_sensitivity.csv"
-
 "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
-  --input-root "${OUTPUT_DIR}" "${OUTPUT_DIR}"/candidates_* \
+  --input-root "${OUTPUT_DIR}"/candidates_* \
+  --runtime-root "${OUTPUT_DIR}" \
   --output-dir "${OUTPUT_DIR}"

@@ -14,6 +14,7 @@ This directory contains checked-in TRACE-SL reproducibility outputs for PeMS7_22
 | 11 | `pems7_228_stage11_auto_weight/` | historical/supporting | Replaces fixed RCSS weights with inner-validation weight selection plus validation-aware swap on the original five held-out split seeds. |
 | 11-10split | `pems7_228_stage11_auto_weight_10split/` | core in-domain evidence | Aggregates Stage 11 seeds 25--34 for stronger statistics. |
 | 12 | `pems7_228_stage12_baseline_portfolio/` | core in-domain baseline-portfolio evidence | Adds Phase 3 reviewer-facing portfolio baselines to ten held-out PeMS7_228 splits. |
+| 13 | `pems7_228_stage13_candidate_sensitivity/` | core tractability/sensitivity evidence | Adds candidate-count sensitivity, selected-source diagnostics, and measured runtime evidence for PeMS7_228. |
 | External | `pems7_1026_stage11_auto_weight/` | lower-power external evidence | Runs the Stage 11 pipeline on five held-out PeMS7_1026 splits; use uncertainty/effect-size language until a ten-split extension is generated. |
 | Supporting | `seattle_stage11_auto_weight_light/` | supporting/conditional evidence | Runs the Stage 11 pipeline on five held-out Seattle splits with light candidate defaults; do not treat as a core claim unless a stronger synchronized bundle is generated and reviewed. |
 
@@ -29,11 +30,13 @@ This directory contains checked-in TRACE-SL reproducibility outputs for PeMS7_22
 - `certificate_correlation_summary.csv`: aggregate certificate stability table.
 - `combined_rcss_candidates.csv`: candidate-level RCSS diagnostics.
 - `rcss_selected_sources.csv`: selected candidate source counts.
+- `candidate_sensitivity_summary.csv`: candidate-source diagnostic stability by budget and, for Stage 13, candidate count.
+- `runtime_candidate_sensitivity.csv`: measured runtime summary by candidate count where present.
 - `validation_swap_delta_tests.csv`: paired tests for validation-swap RCSS against validation-selected random where present.
 - `auto_weight_selection_summary.csv`: selected auto-weight patterns by budget and split where present.
 
 ## Reading the results
 
-Use `validation_swap_selected` as the current main method label. Use `pems7_228_stage12_baseline_portfolio/` and `pems7_228_stage11_auto_weight_10split/` for the main in-domain evidence, preserving the documented 10% multistart caveat. Use `pems7_1026_stage11_auto_weight/` only as lower-power external evidence unless regenerated with a ten-split Stage 12 extension. Use `seattle_stage11_auto_weight_light/` only as supporting/conditional evidence; it is synchronized with scripts and summaries, but it is not part of the core claim set.
+Use `validation_swap_selected` as the current main method label. Use `pems7_228_stage12_baseline_portfolio/` and `pems7_228_stage11_auto_weight_10split/` for the main in-domain evidence, preserving the documented 10% multistart caveat. Use `pems7_228_stage13_candidate_sensitivity/` for candidate-count sensitivity and measured runtime/tractability evidence, not as a broad scalability guarantee. Use `pems7_1026_stage11_auto_weight/` only as lower-power external evidence unless regenerated with a ten-split Stage 12 extension. Use `seattle_stage11_auto_weight_light/` only as supporting/conditional evidence; it is synchronized with scripts and summaries, but it is not part of the core claim set.
 
 See `.planning/phases/04-core-experiment-evidence/04-DATASET-CLAIM-STATUS.md` for the PeMS7_1026 and Seattle claim-status decision record.

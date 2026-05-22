@@ -101,6 +101,42 @@ class CandidateSensitivitySummaryTest(unittest.TestCase):
         self.assertIn("posterior_trace_std", summary.columns)
         self.assertIn("selected_rcss_score_mean", summary.columns)
 
+    def test_candidate_sensitivity_summary_preserves_candidate_count_dimension(self):
+        candidates = pd.DataFrame(
+            {
+                "budget": [0.2, 0.2],
+                "candidate_count": [50, 100],
+                "source": ["quality_coverage_sample", "quality_coverage_sample"],
+                "selected": [True, True],
+                "validation_mae": [3.0, 4.0],
+            }
+        )
+
+        summary = summarizer.build_candidate_sensitivity_summary(candidates)
+
+        self.assertEqual(set(summary["candidate_count"]), {50, 100})
+        self.assertEqual(summary["candidate_row_count"].tolist(), [1, 1])
+
+    def test_paired_comparisons_preserve_candidate_count_dimension(self):
+        pivot = pd.DataFrame(
+            {
+                "split_seed": [25, 25],
+                "budget": [0.2, 0.2],
+                "candidate_count": [50, 100],
+                "validation_swap_selected": [3.0, 2.8],
+                "rcss_selected": [3.1, 2.9],
+            }
+        ).set_index(["split_seed", "budget", "candidate_count"])
+
+        delta_summary, paired = summarizer.build_paired_comparisons(
+            pivot,
+            comparison_layouts=["validation_swap_selected"],
+            baseline_layouts=["rcss_selected"],
+        )
+
+        self.assertEqual(set(delta_summary["candidate_count"]), {50, 100})
+        self.assertEqual(set(paired["candidate_count"]), {50, 100})
+
     def test_runtime_summary_only_uses_measured_runtime_fields(self):
         candidates = pd.DataFrame(
             {
@@ -118,6 +154,23 @@ class CandidateSensitivitySummaryTest(unittest.TestCase):
         self.assertEqual(set(runtime_summary["candidate_count"]), {50, 100})
         self.assertEqual(set(runtime_summary["runtime_seconds"]), {1.5, 2.5})
         self.assertTrue(missing_summary.empty)
+
+    def test_runtime_collection_prefers_raw_timing_over_existing_summary(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            raw = pd.DataFrame({"candidate_count": [50], "runtime_seconds": [7], "seed": [25]})
+            stale = pd.DataFrame({"candidate_count": [50], "runtime_seconds": [99], "count": [2]})
+            raw.to_csv(root / "stage13_timing.csv", index=False)
+            stale.to_csv(root / "runtime_candidate_sensitivity.csv", index=False)
+
+            frames = summarizer.collect_runtime_candidate_frames([root], [])
+            runtime_summary = summarizer.build_runtime_candidate_sensitivity_summary(pd.concat(frames, ignore_index=True))
+
+        self.assertEqual(len(frames), 1)
+        self.assertEqual(runtime_summary.iloc[0]["runtime_seconds"], 7)
+        self.assertEqual(runtime_summary.iloc[0]["count"], 1)
 
     def test_candidate_sensitivity_markdown_frames_tractability_not_scalability(self):
         candidate_summary = pd.DataFrame(
