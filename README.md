@@ -6,6 +6,8 @@ TRACE-SL studies sparse traffic sensor placement for transparent full-network re
 
 TRACE-SL is not framed as an RL estimator or a black-box imputation model. The core claim is that OR-guided candidate generation, transparent GLS/MAP reconstruction, and validation-calibrated swap selection produce interpretable sensor layouts that improve full-network reconstruction over strong random and topology baselines.
 
+Method formulation: TRACE-SL is reconstruction-aware sensor-set design: choose a sparse fixed sensor set for hidden-node reconstruction using transparent GLS/MAP or GSP reconstruction, RCSS validation-calibrated selection, and posterior-certificate-aware diagnostics. The compact public pointer is here; detailed formulation and theory notes are in `.planning/phases/02-formulation-and-theory-bridge/02-FORMULATION-THEORY-BRIDGE.md` and the optional `.planning/phases/02-formulation-and-theory-bridge/02-TR-PART-B-THEORY-GAP-NOTE.md`.
+
 ## Main PeMS7_228 result
 
 The strongest current configuration is Stage 11: automatic RCSS weight selection with validation-aware swap refinement. The 10-split aggregate is in `TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_10split/`.
@@ -38,6 +40,8 @@ Validation-swap RCSS wins against validation-selected random in all five PeMS7_1
 - `scripts/run_stage11_pems7_228.sh`: reproduces Stage 11 PeMS7_228 split runs and aggregation.
 - `scripts/run_stage11_pems7_1026.sh`: launches the same Stage 11 pipeline on PeMS7_1026 for external validation.
 - `NARRATIVE_REPORT.md`: writing handoff with method framing and current evidence.
+- `.planning/phases/02-formulation-and-theory-bridge/02-FORMULATION-THEORY-BRIDGE.md`: Phase 2 budgeted reconstruction-aware formulation, RCSS surrogate, posterior-error bridge, and validation-swap analysis.
+- `.planning/phases/02-formulation-and-theory-bridge/02-TR-PART-B-THEORY-GAP-NOTE.md`: optional TR Part B theory-gap note for deferred v2 monotonicity, approximation, stability, and stochastic/bilevel analysis.
 - `RESEARCH_PIPELINE_REPORT.md`: research pipeline progress log.
 
 ## Data placement
