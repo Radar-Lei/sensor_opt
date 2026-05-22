@@ -298,6 +298,56 @@ def coverage_layout(distance, sensor_count):
     return np.array(selected, dtype=int)
 
 
+def observability_proxy_layout(distance, sensor_count):
+    similarity = make_similarity(distance)
+    degree_score = normalize_minmax(similarity.sum(axis=1))
+    positive = distance[distance > 0]
+    fill_value = float(positive.max()) if positive.size else 1.0
+    dist = np.where(distance > 0, distance, fill_value)
+    selected = []
+    nearest = np.full(distance.shape[0], fill_value, dtype=float)
+    remaining = np.ones(distance.shape[0], dtype=bool)
+    while len(selected) < sensor_count:
+        coverage_score = normalize_minmax(nearest)
+        scores = 0.6 * degree_score + 0.4 * coverage_score
+        scores[~remaining] = -np.inf
+        node = int(np.argmax(scores))
+        selected.append(node)
+        remaining[node] = False
+        nearest = np.minimum(nearest, dist[node])
+    return np.array(sorted(selected), dtype=int)
+
+
+def graph_sampling_laplacian_layout(laplacian, distance, sensor_count):
+    n_nodes = laplacian.shape[0]
+    mode_count = min(n_nodes, max(2, sensor_count + 1))
+    _, vectors = linalg.eigh(laplacian)
+    modes = vectors[:, 1:mode_count]
+    if modes.size == 0:
+        return degree_layout(distance, sensor_count).astype(int)
+    leverage = np.sum(modes**2, axis=1)
+    centrality = make_similarity(distance).sum(axis=1)
+    scores = normalize_minmax(leverage) + 0.1 * normalize_minmax(centrality)
+    selected = np.argsort(-scores, kind="mergesort")[:sensor_count]
+    return np.array(sorted(int(x) for x in selected), dtype=int)
+
+
+def qr_pod_layout(train, sensor_count):
+    centered = train - train.mean(axis=0)
+    scaled = centered / (train.std(axis=0) + 1e-6)
+    _, _, vh = linalg.svd(scaled, full_matrices=False)
+    mode_count = min(sensor_count, vh.shape[0])
+    modes = vh[:mode_count]
+    if modes.size == 0:
+        return top_variance_layout(train, sensor_count).astype(int)
+    _, _, pivots = linalg.qr(modes, pivoting=True, mode="economic")
+    selected = pivots[:sensor_count]
+    if len(selected) < sensor_count:
+        remaining = [node for node in np.argsort(-np.var(train, axis=0)) if node not in set(selected)]
+        selected = np.concatenate([selected, np.asarray(remaining[: sensor_count - len(selected)], dtype=int)])
+    return np.array(sorted(int(x) for x in selected), dtype=int)
+
+
 def coverage_penalty(distance, sensors):
     positive = distance[distance > 0]
     fill_value = float(positive.max()) if positive.size else 1.0
@@ -664,6 +714,7 @@ def write_summary(output_dir, args, rows, correlations, test_days):
         f"Budgets: {args.budgets}",
         f"Random layouts per budget: {args.num_layouts}",
         f"Selection method: {args.selection_method}",
+        "Phase 3 baseline portfolio: observability_proxy is an observability/coverage-style proxy for TSLP-style reviewer comparison; all implemented Phase 3 rows are still judged by held-out hidden-node reconstruction metrics.",
         "",
         "## Mean metrics by budget and method",
         "",
@@ -707,6 +758,10 @@ def main():
     parser.add_argument("--include-simple-baselines", action="store_true")
     parser.add_argument("--include-scenario-greedy", action="store_true")
     parser.add_argument("--include-rcss", action="store_true")
+    parser.add_argument("--include-baseline-portfolio", action="store_true", help="Enable Phase 3 reviewer-facing baseline portfolio rows")
+    parser.add_argument("--include-observability-proxy", action="store_true", help="Add observability/TSLP-style proxy layout row evaluated by reconstruction metrics")
+    parser.add_argument("--include-graph-sampling-baseline", action="store_true", help="Add Laplacian graph-sampling layout row")
+    parser.add_argument("--include-qr-pod-baseline", action="store_true", help="Add QR/SVD/POD sparse-placement layout row from training traffic modes")
     parser.add_argument("--scenario-count", type=int, default=8)
     parser.add_argument("--cvar-tail-fraction", type=float, default=0.25)
     parser.add_argument("--swap-max-iter", type=int, default=20)
@@ -744,6 +799,12 @@ def main():
     parser.add_argument("--max-test-steps", type=int, default=0)
     args = parser.parse_args()
     args.budgets = parse_budgets(args.budgets)
+    if args.include_baseline_portfolio:
+        args.include_greedy = True
+        args.include_swap = True
+        args.include_observability_proxy = True
+        args.include_graph_sampling_baseline = True
+        args.include_qr_pod_baseline = True
 
     train, val, test, test_index, distance, val_days, test_days = load_pems_dataset(args.data_root, args.split_seed)
     args.val_days = val_days
@@ -808,6 +869,12 @@ def main():
         if args.include_greedy:
             layouts.append(("greedy_a_trace", 0, greedy_a, np.nan))
             layouts.append(("greedy_d_logdet", 0, greedy_posterior_layout(gls_matrix, sensor_count, args.obs_weight, "d_logdet"), np.nan))
+        if args.include_observability_proxy:
+            layouts.append(("observability_proxy", 0, observability_proxy_layout(distance, sensor_count), np.nan))
+        if args.include_graph_sampling_baseline:
+            layouts.append(("graph_sampling_laplacian", 0, graph_sampling_laplacian_layout(laplacian, distance, sensor_count), np.nan))
+        if args.include_qr_pod_baseline:
+            layouts.append(("qr_pod_modes", 0, qr_pod_layout(train, sensor_count), np.nan))
         swap_outputs = []
         if args.include_swap:
             swap_greedy, greedy_history = swap_trace_local_search(gls_matrix, greedy_a, args.obs_weight, args.swap_max_iter)
@@ -888,6 +955,12 @@ def main():
                     ),
                 ]
             )
+            if args.include_observability_proxy:
+                rcss_candidates.append(("observability_proxy", 0, observability_proxy_layout(distance, sensor_count)))
+            if args.include_graph_sampling_baseline:
+                rcss_candidates.append(("graph_sampling_laplacian", 0, graph_sampling_laplacian_layout(laplacian, distance, sensor_count)))
+            if args.include_qr_pod_baseline:
+                rcss_candidates.append(("qr_pod_modes", 0, qr_pod_layout(train, sensor_count)))
             if scenario_avg is not None:
                 rcss_candidates.append(("scenario_average_a_trace", 0, scenario_avg))
             if scenario_cvar is not None:
