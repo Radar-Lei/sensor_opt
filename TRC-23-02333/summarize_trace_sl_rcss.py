@@ -2,7 +2,104 @@ import argparse
 from pathlib import Path
 
 import pandas as pd
-from scipy.stats import ttest_rel, wilcoxon
+from scipy.stats import sem, t, ttest_rel, wilcoxon
+
+
+def paired_delta_stats(delta):
+    matched = pd.to_numeric(delta, errors="coerce").dropna()
+    count = int(matched.shape[0])
+    stats_row = {
+        "delta_mean": matched.mean() if count else pd.NA,
+        "delta_std": matched.std() if count else pd.NA,
+        "delta_sem": pd.NA,
+        "ci95_low": pd.NA,
+        "ci95_high": pd.NA,
+        "cohens_dz": pd.NA,
+        "paired_t_p": pd.NA,
+        "wilcoxon_p": pd.NA,
+        "win_count": int((matched < 0).sum()),
+        "count": count,
+    }
+    if count < 2:
+        return stats_row
+
+    delta_std = matched.std()
+    delta_sem = sem(matched)
+    interval_radius = t.ppf(0.975, count - 1) * delta_sem
+    stats_row["delta_sem"] = delta_sem
+    stats_row["ci95_low"] = matched.mean() - interval_radius
+    stats_row["ci95_high"] = matched.mean() + interval_radius
+    stats_row["cohens_dz"] = matched.mean() / delta_std if delta_std != 0 else pd.NA
+    stats_row["paired_t_p"] = ttest_rel(matched, pd.Series(0.0, index=matched.index), nan_policy="omit").pvalue
+    try:
+        stats_row["wilcoxon_p"] = wilcoxon(matched).pvalue
+    except ValueError:
+        stats_row["wilcoxon_p"] = pd.NA
+    return stats_row
+
+
+def build_paired_comparisons(pivot, comparison_layouts, baseline_layouts):
+    delta_rows = []
+    paired_rows = []
+    for budget, sub in pivot.groupby(level="budget"):
+        sub = sub.droplevel("budget")
+        row = {"budget": budget}
+        for layout in comparison_layouts:
+            if layout not in sub.columns:
+                continue
+            for baseline in baseline_layouts:
+                if baseline not in sub.columns:
+                    continue
+                delta = sub[layout] - sub[baseline]
+                stats_row = paired_delta_stats(delta)
+                row[f"{layout}_minus_{baseline}_mean"] = stats_row["delta_mean"]
+                row[f"{layout}_minus_{baseline}_std"] = stats_row["delta_std"]
+                paired_rows.append(
+                    {
+                        "budget": budget,
+                        "layout": layout,
+                        "baseline": baseline,
+                        **stats_row,
+                    }
+                )
+        delta_rows.append(row)
+    return pd.DataFrame(delta_rows), pd.DataFrame(paired_rows)
+
+
+def collect_input_frames(input_roots):
+    metrics = []
+    correlations = []
+    rcss_candidates = []
+    for input_root in input_roots:
+        metric_paths = sorted(input_root.glob("seed_*/metrics.csv"))
+        if metric_paths:
+            for path in metric_paths:
+                seed = int(path.parent.name.split("_", 1)[1])
+                frame = pd.read_csv(path)
+                frame["split_seed"] = seed
+                metrics.append(frame)
+                corr_path = path.parent / "certificate_correlations.csv"
+                if corr_path.exists():
+                    corr = pd.read_csv(corr_path)
+                    corr["split_seed"] = seed
+                    correlations.append(corr)
+                rcss_path = path.parent / "rcss_candidates.csv"
+                if rcss_path.exists():
+                    rcss = pd.read_csv(rcss_path)
+                    rcss["split_seed"] = seed
+                    rcss_candidates.append(rcss)
+            continue
+
+        combined_path = input_root / "combined_metrics.csv"
+        if combined_path.exists():
+            metrics.append(pd.read_csv(combined_path))
+        corr_path = input_root / "combined_certificate_correlations.csv"
+        if corr_path.exists():
+            correlations.append(pd.read_csv(corr_path))
+        rcss_path = input_root / "combined_rcss_candidates.csv"
+        if rcss_path.exists():
+            rcss_candidates.append(pd.read_csv(rcss_path))
+    return metrics, correlations, rcss_candidates
 
 
 def main():
@@ -15,25 +112,7 @@ def main():
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    metrics = []
-    correlations = []
-    rcss_candidates = []
-    for input_root in input_roots:
-        for path in sorted(input_root.glob("seed_*/metrics.csv")):
-            seed = int(path.parent.name.split("_", 1)[1])
-            frame = pd.read_csv(path)
-            frame["split_seed"] = seed
-            metrics.append(frame)
-            corr_path = path.parent / "certificate_correlations.csv"
-            if corr_path.exists():
-                corr = pd.read_csv(corr_path)
-                corr["split_seed"] = seed
-                correlations.append(corr)
-            rcss_path = path.parent / "rcss_candidates.csv"
-            if rcss_path.exists():
-                rcss = pd.read_csv(rcss_path)
-                rcss["split_seed"] = seed
-                rcss_candidates.append(rcss)
+    metrics, correlations, rcss_candidates = collect_input_frames(input_roots)
 
     if not metrics:
         roots = ", ".join(str(path) for path in input_roots)
@@ -66,38 +145,8 @@ def main():
         "multistart_swap_by_validation",
         "swap_from_scenario_cvar",
     ]
-    delta_rows = []
-    paired_rows = []
-    for budget, sub in pivot.groupby(level="budget"):
-        sub = sub.droplevel("budget")
-        row = {"budget": budget}
-        for layout in comparison_layouts:
-            if layout in sub.columns:
-                for baseline in baseline_layouts:
-                    if baseline in sub.columns:
-                        delta = sub[layout] - sub[baseline]
-                        row[f"{layout}_minus_{baseline}_mean"] = delta.mean()
-                        row[f"{layout}_minus_{baseline}_std"] = delta.std()
-                        paired_row = {
-                            "budget": budget,
-                            "layout": layout,
-                            "baseline": baseline,
-                            "delta_mean": delta.mean(),
-                            "delta_std": delta.std(),
-                            "win_count": int((delta < 0).sum()),
-                            "count": int(delta.notna().sum()),
-                        }
-                        if delta.notna().sum() >= 2:
-                            paired_row["paired_t_p"] = ttest_rel(sub[layout], sub[baseline], nan_policy="omit").pvalue
-                            try:
-                                paired_row["wilcoxon_p"] = wilcoxon(delta.dropna()).pvalue
-                            except ValueError:
-                                paired_row["wilcoxon_p"] = pd.NA
-                        paired_rows.append(paired_row)
-        delta_rows.append(row)
-    delta_summary = pd.DataFrame(delta_rows)
+    delta_summary, paired_tests = build_paired_comparisons(pivot, comparison_layouts, baseline_layouts)
     delta_summary.to_csv(output_dir / "gls_map_delta_summary.csv", index=False)
-    paired_tests = pd.DataFrame(paired_rows)
     paired_tests.to_csv(output_dir / "gls_map_paired_delta_tests.csv", index=False)
 
     ablation_layouts = [
