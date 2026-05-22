@@ -14,7 +14,7 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 |---|-------|------|--------------|
 | 1 | 1/1 | Complete   | 2026-05-21 |
 | 2 | 2/2 | Complete   | 2026-05-22 |
-| 3 | Baseline Portfolio | Add or justify reviewer-grade baselines and handle the multistart caveat | BASE-01..06 |
+| 3 | 1/1 | Complete   | 2026-05-22 |
 | 4 | Core Experiment Evidence | Audit/regenerate main-dataset evidence and statistical comparisons | EXP-01..06 |
 | 5 | Robustness and Generality | Stress-test the method under deployment-like perturbations and sensitivity settings | ROBUST-01..06 |
 | 6 | Reproducibility and Artifact Curation | Make paper-visible evidence reproducible, curated, and repository-consistent | REPRO-01..05 |
