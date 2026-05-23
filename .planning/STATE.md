@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-05-23T02:30:19Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-05-23T02:41:29.692Z"
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 14
-  completed_plans: 11
-  percent: 73
+  completed_plans: 12
+  percent: 80
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -61,15 +61,17 @@ See: .planning/PROJECT.md (updated 2026/05/21)
 - Phase 4 Plan 06 uses `validate_phase4_evidence.py` as the final smoke/schema/status gate for EXP-01..EXP-06.
 - Phase 4 Plan 06 limits final WARN statuses to PeMS7_1026 lower-power external evidence and Seattle supporting/conditional evidence.
 - Phase 5 Plan 01 keeps validation selection unperturbed while applying robustness only at held-out evaluate_layout boundaries.
+- Phase 5 Plan 02 uses `condition_group_columns(frame)` so robustness, candidate-count, and split condition columns are grouped before aggregate summaries.
+- Phase 5 Plan 02 frames robustness tables as stress-test evidence for evaluated perturbations, not universal robustness proof.
 
 ## Next Action
 
-Execute Phase 05 Plan 02.
+Execute Phase 05 Plan 03.
 
 ## Last Session
 
-- **Completed:** 2026-05-23T02:30:19Z
-- **Stopped At:** Completed 05-01-PLAN.md
+- **Completed:** 2026-05-23T02:40:01Z
+- **Stopped At:** Completed 05-02-PLAN.md
 - **Resume File:** None
 
 ## Performance Metrics
@@ -80,3 +82,4 @@ Execute Phase 05 Plan 02.
 | 04-core-experiment-evidence | 03 | 25min | 2 | 113 |
 | 04-core-experiment-evidence | 06 | 6min | 2 | 4 |
 | 05-robustness-and-generality | 01 | ~20min | 3 | 3 |
+| Phase 05-robustness-and-generality P02 | 5min | 2 tasks | 3 files |

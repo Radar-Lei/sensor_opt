@@ -44,12 +44,12 @@ Requirements for turning the current TRACE-SL prototype into a Transportation Sc
 
 ### Robustness and Generality
 
-- [ ] **ROBUST-01**: Sensor failure experiments evaluate random sensor drop rates such as 5%, 10%, and 20% after layout selection.
-- [ ] **ROBUST-02**: Observation noise experiments perturb observed sensor readings and report reconstruction degradation.
-- [ ] **ROBUST-03**: Missingness experiments simulate missing sensor readings or missing time blocks at validation/test time.
-- [ ] **ROBUST-04**: Nonuniform sensor cost experiments evaluate budgeted placement where sensors have heterogeneous costs or a documented proxy.
-- [ ] **ROBUST-05**: Temporal distribution shift experiments use time-blocked or month/week-style train-test splits when supported by dataset timestamps.
-- [ ] **ROBUST-06**: Candidate-count sensitivity experiments compare performance and runtime across candidate pool sizes such as 50, 100, 200, and 500.
+- [x] **ROBUST-01**: Sensor failure experiments evaluate random sensor drop rates such as 5%, 10%, and 20% after layout selection.
+- [x] **ROBUST-02**: Observation noise experiments perturb observed sensor readings and report reconstruction degradation.
+- [x] **ROBUST-03**: Missingness experiments simulate missing sensor readings or missing time blocks at validation/test time.
+- [x] **ROBUST-04**: Nonuniform sensor cost experiments evaluate budgeted placement where sensors have heterogeneous costs or a documented proxy.
+- [x] **ROBUST-05**: Temporal distribution shift experiments use time-blocked or month/week-style train-test splits when supported by dataset timestamps.
+- [x] **ROBUST-06**: Candidate-count sensitivity experiments compare performance and runtime across candidate pool sizes such as 50, 100, 200, and 500.
 
 ### Reproducibility and Paper Artifacts
 
@@ -122,12 +122,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXP-04 | Phase 4 | Complete |
 | EXP-05 | Phase 4 | Complete |
 | EXP-06 | Phase 4 | Complete |
-| ROBUST-01 | Phase 5 | Pending |
-| ROBUST-02 | Phase 5 | Pending |
-| ROBUST-03 | Phase 5 | Pending |
-| ROBUST-04 | Phase 5 | Pending |
-| ROBUST-05 | Phase 5 | Pending |
-| ROBUST-06 | Phase 5 | Pending |
+| ROBUST-01 | Phase 5 | Complete |
+| ROBUST-02 | Phase 5 | Complete |
+| ROBUST-03 | Phase 5 | Complete |
+| ROBUST-04 | Phase 5 | Complete |
+| ROBUST-05 | Phase 5 | Complete |
+| ROBUST-06 | Phase 5 | Complete |
 | REPRO-01 | Phase 6 | Pending |
 | REPRO-02 | Phase 6 | Pending |
 | REPRO-03 | Phase 6 | Pending |
