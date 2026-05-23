@@ -20,6 +20,14 @@ This directory contains checked-in TRACE-SL reproducibility outputs for PeMS7_22
 | External | `pems7_1026_stage11_auto_weight/` | lower-power external supporting/optional evidence | Runs the Stage 11 pipeline on five held-out PeMS7_1026 splits; use uncertainty/effect-size language until a ten-split extension is generated. |
 | Supporting | `seattle_stage11_auto_weight_light/` | supporting/conditional evidence | Runs the Stage 11 pipeline on five held-out Seattle splits with light candidate defaults; do not treat as a core claim unless a stronger synchronized bundle is generated and reviewed. |
 
+## Key reproducibility handoff artifacts
+
+- `reproducibility_manifest.json`: machine-readable Phase 6 provenance inventory for curated Stage 12/13/14 results, launcher defaults, package metadata, git provenance, and raw-data hygiene.
+- `REPRODUCIBILITY_MANIFEST.md`: human-readable rendering of the manifest for reproducibility review.
+- `paper_sources/`: generated manuscript-facing CSV/Markdown table sources with `source_stage`, `source_dir`, and `source_csv` provenance on CSV rows.
+
+Paper-visible numbers should be sourced only from curated aggregate result directories listed below or from generated files under `paper_sources/`. Local raw traffic datasets are launcher inputs, not paper-visible evidence artifacts.
+
 ## Key aggregate files
 
 - `SUMMARY.md`: human-readable aggregate table.
@@ -41,7 +49,7 @@ This directory contains checked-in TRACE-SL reproducibility outputs for PeMS7_22
 
 ## Reading the results
 
-Use `validation_swap_selected` as the current main method label. Use `pems7_228_stage12_baseline_portfolio/` and `pems7_228_stage11_auto_weight_10split/` for the main in-domain evidence, preserving the documented 10% multistart caveat. Use `pems7_228_stage14_robustness/` as the core PeMS7_228 robustness/generalization stress-test path with `combined_metrics.csv`, `gls_map_layout_summary.csv`, `gls_map_paired_delta_tests.csv`, and `SUMMARY.md`; interpret it as evaluated perturbation evidence, not a universal deployment proof. Use `pems7_228_stage14_candidate_sensitivity/` for 50/100/200/500 candidate-count performance/runtime evidence with `combined_metrics.csv`, `candidate_sensitivity_summary.csv`, `runtime_candidate_sensitivity.csv`, `stage14_timing.csv`, and `SUMMARY.md`; if present, `candidate_sensitivity_caveat.json` is the only allowed ROBUST-06 limited-tractability exception. Use `pems7_228_stage13_candidate_sensitivity/` as predecessor candidate-count sensitivity and measured runtime/tractability evidence, not as a broad scalability guarantee. Use `pems7_1026_stage11_auto_weight/` only as lower-power external supporting/optional evidence unless regenerated with a ten-split Stage 12 extension. Use `seattle_stage11_auto_weight_light/` only as supporting/conditional evidence; it is synchronized with scripts and summaries, but it is not part of the core claim set.
+Use `validation_swap_selected` as the current main method label. Use `TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/` and `pems7_228_stage11_auto_weight_10split/` for the main in-domain evidence, preserving the documented 10% multistart caveat. Use `TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/` as the core PeMS7_228 robustness/generalization stress-test path with `combined_metrics.csv`, `gls_map_layout_summary.csv`, `gls_map_paired_delta_tests.csv`, and `SUMMARY.md`; interpret it as evaluated perturbation evidence, not a universal deployment proof. Use `TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/` for 50/100/200/500 candidate-count performance/runtime evidence with `combined_metrics.csv`, `candidate_sensitivity_summary.csv`, `runtime_candidate_sensitivity.csv`, `stage14_timing.csv`, and `SUMMARY.md`; if present, `candidate_sensitivity_caveat.json` is the only allowed ROBUST-06 limited-tractability exception. Use `TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/` as predecessor candidate-count sensitivity and measured runtime/tractability evidence, not as a broad scalability guarantee. Use `pems7_1026_stage11_auto_weight/` only as lower-power external supporting/optional evidence unless regenerated with a ten-split Stage 12 extension. Use `seattle_stage11_auto_weight_light/` only as supporting/conditional evidence; it is synchronized with scripts and summaries, but it is not part of the core claim set.
 
 Stage 14 artifacts are stress-test evidence for usefulness under the specified perturbations and candidate budgets. External robustness remains supporting/optional unless a synchronized stronger bundle is generated and reviewed.
 
