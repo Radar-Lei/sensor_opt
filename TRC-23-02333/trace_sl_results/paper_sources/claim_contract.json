@@ -9,7 +9,7 @@
   "caveat_tags": [
     "pems7_228_low_budget_multistart_not_dominant"
   ],
-  "claim_contract_schema": "trace-sl-phase7-claim-contract-v1",
+  "claim_contract_schema": "trace_sl_claim_contract_v1",
   "claim_lanes": [
     "appendix",
     "core_in_domain",

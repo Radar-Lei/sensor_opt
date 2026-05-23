@@ -521,7 +521,7 @@ def build_claim_contract_policy(claim_rows: Sequence[dict[str, object]], main_ro
     validate_claim_contract_rows(claim_rows)
     validate_main_table_contract_rows(main_rows)
     return {
-        "claim_contract_schema": "trace-sl-phase7-claim-contract-v1",
+        "claim_contract_schema": "trace_sl_claim_contract_v1",
         "generated_at_utc": "1970-01-01T00:00:00Z",
         "generated_at_utc_note": "fixed deterministic timestamp; regenerate command provenance is captured by git commit/status",
         "generated_by": "scripts/generate_trace_sl_claim_contracts.py",

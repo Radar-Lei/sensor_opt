@@ -339,6 +339,18 @@ class ClaimContractGenerationTests(unittest.TestCase):
         self.assertIn("best_random_by_validation", baselines)
         self.assertIn("qr_pod_modes", baselines)
 
+    def test_json_policy_uses_plan_required_schema_marker(self) -> None:
+        generator = import_generator()
+        layout_csv, paired_csv = self.make_stage12_sources()
+        layout_frame = generator.load_csv(layout_csv)
+        paired_frame = generator.load_csv(paired_csv)
+        claim_rows = generator.build_claim_contract_rows(layout_csv.parent, layout_csv, paired_csv)
+        main_rows = generator.build_main_table_contract_rows(layout_frame, paired_frame, layout_csv.parent, layout_csv, paired_csv)
+
+        policy = generator.build_claim_contract_policy(claim_rows, main_rows)
+
+        self.assertEqual(policy["claim_contract_schema"], "trace_sl_claim_contract_v1")
+
     def test_source_tracking_rejects_raw_dataset_or_untracked_sources(self) -> None:
         generator = import_generator()
         raw_source = self.root / "TRC-23-02333" / "dataset" / "PeMS7_228" / "raw.csv"
