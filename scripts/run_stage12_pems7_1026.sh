@@ -2,8 +2,8 @@
 set -euo pipefail
 
 DATA_ROOT="${DATA_ROOT:-TRC-23-02333/dataset/PeMS7_1026}"
-OUTPUT_DIR="${OUTPUT_DIR:-TRC-23-02333/trace_sl_results/pems7_1026_stage12_lower_power_external}"
-SEEDS="${SEEDS:-25 26 27 28 29}"
+OUTPUT_DIR="${OUTPUT_DIR:-TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio}"
+SEEDS="${SEEDS:-25 26 27 28 29 30 31 32 33 34}"
 BUDGETS="${BUDGETS:-0.10 0.20 0.30}"
 NUM_LAYOUTS="${NUM_LAYOUTS:-100}"
 RCSS_RANDOM_CANDIDATES="${RCSS_RANDOM_CANDIDATES:-100}"

@@ -2,8 +2,8 @@
 set -euo pipefail
 
 DATA_ROOT="${DATA_ROOT:-TRC-23-02333/dataset/Seattle}"
-OUTPUT_DIR="${OUTPUT_DIR:-TRC-23-02333/trace_sl_results/seattle_stage12_supporting_light}"
-SEEDS="${SEEDS:-25 26 27 28 29}"
+OUTPUT_DIR="${OUTPUT_DIR:-TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio}"
+SEEDS="${SEEDS:-25 26 27 28 29 30 31 32 33 34}"
 BUDGETS="${BUDGETS:-0.10 0.20 0.30}"
 NUM_LAYOUTS="${NUM_LAYOUTS:-50}"
 RCSS_RANDOM_CANDIDATES="${RCSS_RANDOM_CANDIDATES:-50}"
