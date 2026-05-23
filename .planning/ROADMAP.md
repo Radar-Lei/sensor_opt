@@ -57,7 +57,10 @@ See `.planning/milestones/v1.0-ROADMAP.md` for full Phase 1–6 details.
   3. Author can inspect a frozen Stage12 PeMS7_228 main-table contract with the reviewer-facing baseline portfolio, paired deltas, and p-value summaries where available.
   4. Author can verify that forbidden wording and the PeMS7_228 low-budget multistart caveat are present in all claim-facing artifacts.
   5. Author can verify that robustness evidence is routed only as stress-test or appendix evidence unless multi-seed perturbation evidence is later added.
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 07-01-PLAN.md — Create tested fail-fast generator for claim and main-table contracts.
+- [ ] 07-02-PLAN.md — Generate frozen CSV/JSON-first contract artifacts and update paper-source index.
 
 ### Phase 8: External Stage12 Evidence
 **Goal**: Author has mandatory Stage12 10-split external evidence for both PeMS7_1026 and Seattle, with Seattle blocked from core claims unless this phase succeeds.
@@ -107,7 +110,7 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | 4. Core Experiment Evidence | v1.0 | 6/6 | Complete | 2026-05-22 |
 | 5. Robustness and Generality | v1.0 | 4/4 | Complete | 2026-05-23 |
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 7. Claim and Main Table Contract | v1.1 | 0/TBD | Not started | - |
+| 7. Claim and Main Table Contract | v1.1 | 0/2 | Not started | - |
 | 8. External Stage12 Evidence | v1.1 | 0/TBD | Not started | - |
 | 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Not started | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
