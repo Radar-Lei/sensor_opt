@@ -15,6 +15,7 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 ## Phases
 
 **Phase Numbering:**
+
 - Phases 1–6: completed v1.0 milestone work
 - Phases 7–10: v1.1 paper-foundation milestone work
 - Decimal phases: urgent insertions between planned phases if needed
@@ -48,53 +49,70 @@ See `.planning/milestones/v1.0-ROADMAP.md` for full Phase 1–6 details.
 </details>
 
 ### Phase 7: Claim and Main Table Contract
+
 **Goal**: Author has a frozen Transportation Science claim contract and main PeMS7_228 result-table contract that preserve the low-budget multistart caveat and keep robustness evidence in its supported lane.
 **Depends on**: Phase 6
 **Requirements**: CLAIM-01, CLAIM-02, CLAIM-03, CLAIM-04, EVID-01, EVID-02, HAND-01
 **Success Criteria** (what must be TRUE):
+
   1. Author can point to a claim contract that frames TRACE-SL as transparent reconstruction-aware sparse sensor layout design rather than a toy-project or heuristic-improvement story.
   2. Author can identify which claims are Transportation Science-ready and which are TR Part B-level extensions requiring stronger theory.
   3. Author can inspect a frozen Stage12 PeMS7_228 main-table contract with the reviewer-facing baseline portfolio, paired deltas, and p-value summaries where available.
   4. Author can verify that forbidden wording and the PeMS7_228 low-budget multistart caveat are present in all claim-facing artifacts.
   5. Author can verify that robustness evidence is routed only as stress-test or appendix evidence unless multi-seed perturbation evidence is later added.
+
 **Plans**: 2 plans
 Plans:
-- [ ] 07-01-PLAN.md — Create tested fail-fast generator for claim and main-table contracts.
+**Wave 1**
+
+- [x] 07-01-PLAN.md — Create tested fail-fast generator for claim and main-table contracts.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 07-02-PLAN.md — Generate frozen CSV/JSON-first contract artifacts and update paper-source index.
 
 ### Phase 8: External Stage12 Evidence
+
 **Goal**: Author has mandatory Stage12 10-split external evidence for both PeMS7_1026 and Seattle, with Seattle blocked from core claims unless this phase succeeds.
 **Depends on**: Phase 7
 **Requirements**: EVID-03, EVID-04
 **Success Criteria** (what must be TRUE):
+
   1. Author can inspect completed PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio as the main PeMS7_228 evidence.
   2. Author can inspect completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim artifact.
   3. Author can trace each external-evidence result to committed summaries, generated tables, scripts, or manifests without relying on committed raw traffic datasets.
   4. Author can see an explicit milestone-completion gate that prevents v1.1 completion if Seattle Stage12 10-split evidence is missing or excluded from core claims.
+
 **Plans**: TBD
 
 ### Phase 9: Ablation and Evidence Classification
+
 **Goal**: Author has the ablation and dataset-classification evidence needed to explain why each TRACE-SL layer matters and where each dataset may be used.
 **Depends on**: Phase 8
 **Requirements**: ABLT-01, ABLT-02, ABLT-03, ABLT-04, EVID-05
 **Success Criteria** (what must be TRUE):
+
   1. Author can compare random mean, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap variants in one ablation contract.
   2. Author can answer whether certificate candidate pools improve over random candidate pools using curated ablation evidence.
   3. Author can answer whether validation selection and validation-aware swap each add measurable value using curated ablation evidence.
   4. Author can classify every dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
   5. Author can describe RCSS as certificate layer, validation layer, and local refinement layer without presenting it as a kitchen-sink heuristic.
+
 **Plans**: TBD
 
 ### Phase 10: Theory and Handoff Package
+
 **Goal**: Author has a theory-ready and reproducibility-safe paper-foundation package that a later writing milestone can consume without drafting manuscript prose now.
 **Depends on**: Phase 9
 **Requirements**: THEORY-01, THEORY-02, THEORY-03, THEORY-04, THEORY-05, HAND-02, HAND-03
 **Success Criteria** (what must be TRUE):
+
   1. Author can inspect a clean budgeted hidden-network reconstruction formulation with explicit train/validation/test separation.
   2. Author can inspect theory-ready statements for the posterior trace identity and monotonicity under the stated linear-Gaussian model.
   3. Author can inspect theory-ready statements for validation-aware one-swap local optimality and RCSS candidate/search/evaluation complexity.
   4. Author can open a paper-foundation handoff package that links each claim and table to committed summaries, generated tables, scripts, or manifests.
   5. Author can verify that the handoff contains no introduction, related work, method, results, limitations, abstract, conclusion, or other manuscript prose, and no committed raw traffic datasets.
+
 **Plans**: TBD
 
 ## Progress
@@ -110,7 +128,7 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | 4. Core Experiment Evidence | v1.0 | 6/6 | Complete | 2026-05-22 |
 | 5. Robustness and Generality | v1.0 | 4/4 | Complete | 2026-05-23 |
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 7. Claim and Main Table Contract | v1.1 | 0/2 | Not started | - |
+| 7. Claim and Main Table Contract | v1.1 | 1/2 | In Progress|  |
 | 8. External Stage12 Evidence | v1.1 | 0/TBD | Not started | - |
 | 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Not started | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |

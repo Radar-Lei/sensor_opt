@@ -9,15 +9,15 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 
 ### Claim Foundation
 
-- [ ] **CLAIM-01**: Author can state the paper-level contribution as transparent reconstruction-aware sparse sensor layout design, not as a heuristic improvement story.
-- [ ] **CLAIM-02**: Author can distinguish Transportation Science-ready claims from TR Part B-level claims that need stronger mathematical theory.
-- [ ] **CLAIM-03**: Author has an explicit forbidden-wording list covering optimal, certified, globally robust, guaranteed MAE improvement, and generalizes across networks.
-- [ ] **CLAIM-04**: Author can preserve the PeMS7_228 low-budget multistart caveat in all claim-facing artifacts.
+- [x] **CLAIM-01**: Author can state the paper-level contribution as transparent reconstruction-aware sparse sensor layout design, not as a heuristic improvement story.
+- [x] **CLAIM-02**: Author can distinguish Transportation Science-ready claims from TR Part B-level claims that need stronger mathematical theory.
+- [x] **CLAIM-03**: Author has an explicit forbidden-wording list covering optimal, certified, globally robust, guaranteed MAE improvement, and generalizes across networks.
+- [x] **CLAIM-04**: Author can preserve the PeMS7_228 low-budget multistart caveat in all claim-facing artifacts.
 
 ### Main Evidence
 
-- [ ] **EVID-01**: Author can use Stage12 PeMS7_228 baseline portfolio as the frozen main in-domain result table.
-- [ ] **EVID-02**: Author has paired delta and p-value summaries for TRACE-SL against validation-selected random, random mean, top variance, greedy A-trace, graph sampling, observability, and QR/POD-style baselines where available.
+- [x] **EVID-01**: Author can use Stage12 PeMS7_228 baseline portfolio as the frozen main in-domain result table.
+- [x] **EVID-02**: Author has paired delta and p-value summaries for TRACE-SL against validation-selected random, random mean, top variance, greedy A-trace, graph sampling, observability, and QR/POD-style baselines where available.
 - [ ] **EVID-03**: Author has completed PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
 - [ ] **EVID-04**: Author has completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim.
 - [ ] **EVID-05**: Author can classify each dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
@@ -39,7 +39,7 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 
 ### Robustness and Handoff
 
-- [ ] **HAND-01**: Author can keep robustness evidence as stress-test or appendix evidence unless multi-seed perturbation evidence is added.
+- [x] **HAND-01**: Author can keep robustness evidence as stress-test or appendix evidence unless multi-seed perturbation evidence is added.
 - [ ] **HAND-02**: Author has paper-foundation artifacts that a later writing milestone can consume without generating manuscript prose now.
 - [ ] **HAND-03**: Author has reproducibility-safe pointers from every paper-foundation claim/table to committed summaries, generated tables, scripts, or manifests without committing raw datasets.
 
@@ -79,12 +79,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLAIM-01 | Phase 7 | Pending |
-| CLAIM-02 | Phase 7 | Pending |
-| CLAIM-03 | Phase 7 | Pending |
-| CLAIM-04 | Phase 7 | Pending |
-| EVID-01 | Phase 7 | Pending |
-| EVID-02 | Phase 7 | Pending |
+| CLAIM-01 | Phase 7 | Complete |
+| CLAIM-02 | Phase 7 | Complete |
+| CLAIM-03 | Phase 7 | Complete |
+| CLAIM-04 | Phase 7 | Complete |
+| EVID-01 | Phase 7 | Complete |
+| EVID-02 | Phase 7 | Complete |
 | EVID-03 | Phase 8 | Pending |
 | EVID-04 | Phase 8 | Pending |
 | EVID-05 | Phase 9 | Pending |
@@ -97,7 +97,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | THEORY-03 | Phase 10 | Pending |
 | THEORY-04 | Phase 10 | Pending |
 | THEORY-05 | Phase 10 | Pending |
-| HAND-01 | Phase 7 | Pending |
+| HAND-01 | Phase 7 | Complete |
 | HAND-02 | Phase 10 | Pending |
 | HAND-03 | Phase 10 | Pending |
 
