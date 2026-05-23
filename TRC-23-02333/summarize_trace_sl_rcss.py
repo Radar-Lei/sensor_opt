@@ -3,6 +3,7 @@ import re
 from pathlib import Path
 
 import pandas as pd
+from pandas.errors import EmptyDataError
 from scipy.stats import sem, t, ttest_rel, wilcoxon
 
 
@@ -262,6 +263,15 @@ def add_candidate_count(frame, candidate_count):
     return frame
 
 
+def read_nonempty_csv(path):
+    if not path.exists() or path.stat().st_size == 0:
+        return None
+    try:
+        return pd.read_csv(path)
+    except EmptyDataError:
+        return None
+
+
 def collect_input_frames(input_roots):
     metrics = []
     correlations = []
@@ -276,26 +286,31 @@ def collect_input_frames(input_roots):
                 frame["split_seed"] = seed
                 metrics.append(frame)
                 corr_path = path.parent / "certificate_correlations.csv"
-                if corr_path.exists():
-                    corr = add_candidate_count(pd.read_csv(corr_path), candidate_count)
+                corr_frame = read_nonempty_csv(corr_path)
+                if corr_frame is not None:
+                    corr = add_candidate_count(corr_frame, candidate_count)
                     corr["split_seed"] = seed
                     correlations.append(corr)
                 rcss_path = path.parent / "rcss_candidates.csv"
-                if rcss_path.exists():
-                    rcss = add_candidate_count(pd.read_csv(rcss_path), candidate_count)
+                rcss_frame = read_nonempty_csv(rcss_path)
+                if rcss_frame is not None:
+                    rcss = add_candidate_count(rcss_frame, candidate_count)
                     rcss["split_seed"] = seed
                     rcss_candidates.append(rcss)
             continue
 
         combined_path = input_root / "combined_metrics.csv"
-        if combined_path.exists():
-            metrics.append(add_candidate_count(pd.read_csv(combined_path), candidate_count))
+        combined_frame = read_nonempty_csv(combined_path)
+        if combined_frame is not None:
+            metrics.append(add_candidate_count(combined_frame, candidate_count))
         corr_path = input_root / "combined_certificate_correlations.csv"
-        if corr_path.exists():
-            correlations.append(add_candidate_count(pd.read_csv(corr_path), candidate_count))
+        corr_frame = read_nonempty_csv(corr_path)
+        if corr_frame is not None:
+            correlations.append(add_candidate_count(corr_frame, candidate_count))
         rcss_path = input_root / "combined_rcss_candidates.csv"
-        if rcss_path.exists():
-            rcss_candidates.append(add_candidate_count(pd.read_csv(rcss_path), candidate_count))
+        rcss_frame = read_nonempty_csv(rcss_path)
+        if rcss_frame is not None:
+            rcss_candidates.append(add_candidate_count(rcss_frame, candidate_count))
     return metrics, correlations, rcss_candidates
 
 

@@ -646,6 +646,8 @@ def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors
 
 
 def split_validation_for_tuning(val):
+    if val.shape[0] < 2:
+        return val, val
     midpoint = max(1, val.shape[0] // 2)
     return val[:midpoint], val[midpoint:]
 

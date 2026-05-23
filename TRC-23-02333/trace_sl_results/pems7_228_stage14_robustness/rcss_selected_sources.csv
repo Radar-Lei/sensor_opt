@@ -1,0 +1,4 @@
+budget,source,selected_count
+0.1,quality_coverage_sample,8
+0.1,robust_coverage_cvar,2
+0.1,swap_from_greedy_a_trace,8
