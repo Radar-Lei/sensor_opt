@@ -9,7 +9,6 @@ import platform
 import re
 import subprocess
 import sys
-from datetime import datetime, timezone
 from importlib import metadata
 from pathlib import Path
 from typing import Iterable
@@ -351,7 +350,8 @@ def build_manifest(project_root: Path) -> dict[str, object]:
         stages.append(stage)
     return {
         "manifest_schema": "trace-sl-reproducibility-provenance-v1",
-        "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "generated_at_utc": "1970-01-01T00:00:00Z",
+        "generated_at_utc_note": "fixed deterministic timestamp; regenerate command provenance is captured by git commit/status",
         "generated_by": "scripts/generate_trace_sl_repro_manifest.py",
         "project_root_name": project_root.name,
         "policy": {
