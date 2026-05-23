@@ -18,12 +18,22 @@ def parse_budgets(raw):
     return [float(x) for x in raw.replace(",", " ").split()]
 
 
-def split_daily_frame(frame, dates, seed):
-    rng = np.random.default_rng(seed)
-    train_days = rng.choice(dates.to_numpy(), size=len(dates) - 4, replace=False)
-    remaining = np.array([d for d in dates.to_numpy() if d not in set(train_days)])
-    val_days = rng.choice(remaining, size=2, replace=False)
-    test_days = np.array([d for d in remaining if d not in set(val_days)])
+def split_daily_frame(frame, dates, seed, split_mode="random"):
+    dates_array = np.array(sorted(pd.to_datetime(dates.to_numpy())))
+    if len(dates_array) < 5:
+        raise ValueError("At least five daily dates are required for train/validation/test splitting")
+    if split_mode == "random":
+        rng = np.random.default_rng(seed)
+        train_days = rng.choice(dates_array, size=len(dates_array) - 4, replace=False)
+        remaining = np.array([d for d in dates_array if d not in set(train_days)])
+        val_days = rng.choice(remaining, size=2, replace=False)
+        test_days = np.array([d for d in remaining if d not in set(val_days)])
+    elif split_mode == "chronological":
+        train_days = dates_array[: len(dates_array) - 4]
+        val_days = dates_array[len(dates_array) - 4 : len(dates_array) - 2]
+        test_days = dates_array[len(dates_array) - 2 :]
+    else:
+        raise ValueError(f"Unsupported split_mode: {split_mode}")
 
     train_dates = pd.to_datetime(train_days).date
     val_dates = pd.to_datetime(val_days).date
@@ -44,6 +54,116 @@ def split_daily_frame(frame, dates, seed):
     )
 
 
+def validate_fraction(value, name):
+    value = float(value)
+    if value < 0.0 or value > 1.0:
+        raise ValueError(f"{name} must be in [0, 1], got {value}")
+    return value
+
+
+def apply_sensor_failure(sensors, failure_rate, node_count, seed):
+    failure_rate = validate_fraction(failure_rate, "failure_rate")
+    sensors = np.array(sorted(int(x) for x in sensors), dtype=int)
+    if np.any(sensors < 0) or np.any(sensors >= node_count):
+        raise ValueError("sensors must be valid node indices")
+    selected_count = int(len(sensors))
+    drop_count = min(selected_count, int(round(selected_count * failure_rate)))
+    if drop_count == 0:
+        return sensors.tolist(), selected_count, 0, selected_count
+    rng = np.random.default_rng(seed)
+    dropped = set(int(x) for x in rng.choice(sensors, size=drop_count, replace=False))
+    active = [int(x) for x in sensors if int(x) not in dropped]
+    return active, selected_count, drop_count, len(active)
+
+
+def apply_observation_noise(observed_z, sensors, noise_scale, seed):
+    if noise_scale < 0.0:
+        raise ValueError(f"noise_scale must be nonnegative, got {noise_scale}")
+    out = np.array(observed_z, dtype=float, copy=True)
+    sensors = np.asarray(sensors, dtype=int)
+    if noise_scale == 0.0 or sensors.size == 0:
+        return out
+    rng = np.random.default_rng(seed)
+    out[:, sensors] += rng.normal(loc=0.0, scale=float(noise_scale), size=(out.shape[0], len(sensors)))
+    return out
+
+
+def observed_missing_mask(shape, sensors, missing_rate, seed):
+    missing_rate = validate_fraction(missing_rate, "missing_rate")
+    mask = np.ones(shape, dtype=bool)
+    sensors = np.asarray(sensors, dtype=int)
+    if missing_rate == 0.0 or sensors.size == 0:
+        return mask
+    rng = np.random.default_rng(seed)
+    mask[:, sensors] = rng.random((shape[0], len(sensors))) >= missing_rate
+    return mask
+
+
+def observed_missing_block_mask(shape, sensors, missing_block_steps, seed):
+    mask = np.ones(shape, dtype=bool)
+    sensors = np.asarray(sensors, dtype=int)
+    steps = max(0, int(missing_block_steps))
+    if steps == 0 or sensors.size == 0 or shape[0] == 0:
+        return mask
+    steps = min(steps, shape[0])
+    rng = np.random.default_rng(seed)
+    start = int(rng.integers(0, shape[0] - steps + 1))
+    mask[start : start + steps, sensors] = False
+    return mask
+
+
+def combine_observation_masks(shape, sensors, missing_rate, missing_block_steps, seed):
+    random_mask = observed_missing_mask(shape, sensors, missing_rate, seed)
+    block_mask = observed_missing_block_mask(shape, sensors, missing_block_steps, seed + 1)
+    return random_mask & block_mask
+
+
+def derive_cost_proxy(train, distance):
+    train = np.asarray(train, dtype=float)
+    distance = np.asarray(distance, dtype=float)
+    variability = normalize_minmax(np.nanstd(train, axis=0))
+    similarity = make_similarity(distance)
+    centrality = normalize_minmax(similarity.sum(axis=1))
+    costs = 1.0 + variability + 0.5 * centrality
+    return np.maximum(costs, 1e-6)
+
+
+def cost_aware_coverage_proxy_layout(distance, costs, sensor_count, cost_budget):
+    costs = np.asarray(costs, dtype=float)
+    if np.any(costs <= 0) or not np.all(np.isfinite(costs)):
+        raise ValueError("cost proxy values must be positive and finite")
+    positive = distance[distance > 0]
+    fill_value = float(positive.max()) if positive.size else 1.0
+    dist = np.where(distance > 0, distance, fill_value)
+    nearest = np.full(distance.shape[0], fill_value, dtype=float)
+    selected = []
+    remaining = set(range(distance.shape[0]))
+    spent = 0.0
+    budget = float(cost_budget) if cost_budget and cost_budget > 0 else float("inf")
+    while remaining and len(selected) < sensor_count:
+        best_node = None
+        best_score = -np.inf
+        for node in sorted(remaining):
+            if spent + costs[node] > budget and selected:
+                continue
+            improvement = float(nearest.mean() - np.minimum(nearest, dist[node]).mean())
+            score = improvement / costs[node]
+            if score > best_score:
+                best_node = node
+                best_score = score
+        if best_node is None:
+            break
+        selected.append(best_node)
+        remaining.remove(best_node)
+        spent += float(costs[best_node])
+        nearest = np.minimum(nearest, dist[best_node])
+    if len(selected) < sensor_count:
+        for node in sorted(remaining, key=lambda n: (costs[n], n)):
+            selected.append(node)
+            if len(selected) == sensor_count:
+                break
+    return np.array(sorted(selected), dtype=int)
+
 def adjacency_to_distance(adjacency):
     adjacency = np.asarray(adjacency, dtype=float)
     graph = np.where(adjacency > 0, 1.0, np.inf)
@@ -56,7 +176,7 @@ def adjacency_to_distance(adjacency):
     return distance
 
 
-def load_seattle_dataset(data_root, seed):
+def load_seattle_dataset(data_root, seed, split_mode="random"):
     data_root = Path(data_root)
     tensor_path = data_root / "tensor.npz"
     adjacency_path = data_root / "Loop_Seattle_2015_A.npy"
@@ -75,16 +195,16 @@ def load_seattle_dataset(data_root, seed):
     timestamps = pd.date_range(start=dates[0], periods=values.shape[0], freq="5min")
     frame = pd.DataFrame(values, index=pd.DatetimeIndex(timestamps))
     distance = adjacency_to_distance(np.load(adjacency_path))
-    train, val, test, test_index, val_days, test_days = split_daily_frame(frame, dates, seed)
+    train, val, test, test_index, val_days, test_days = split_daily_frame(frame, dates, seed, split_mode=split_mode)
     return train, val, test, test_index, distance, val_days, test_days
 
 
-def load_pems_dataset(data_root, seed):
+def load_pems_dataset(data_root, seed, split_mode="random"):
     data_root = Path(data_root)
     value_files = sorted(data_root.glob("PeMSD7_V_*.csv"))
     distance_files = sorted(data_root.glob("PeMSD7_W_*.csv"))
     if not value_files or not distance_files:
-        return load_seattle_dataset(data_root, seed)
+        return load_seattle_dataset(data_root, seed, split_mode=split_mode)
     values = pd.read_csv(value_files[0], header=None).values.astype(float)
     distance = pd.read_csv(distance_files[0], header=None).values.astype(float)
 
@@ -94,7 +214,7 @@ def load_pems_dataset(data_root, seed):
     timestamps = timestamps[timestamps.to_series().dt.weekday < 5]
 
     frame = pd.DataFrame(values, index=pd.DatetimeIndex(timestamps))
-    train, val, test, test_index, val_days, test_days = split_daily_frame(frame, dates, seed)
+    train, val, test, test_index, val_days, test_days = split_daily_frame(frame, dates, seed, split_mode=split_mode)
 
     return train, val, test, test_index, distance, val_days, test_days
 
@@ -793,6 +913,7 @@ def main():
     parser.add_argument("--rcss-coverage-mix-weight", type=float, default=0.30)
     parser.add_argument("--selection-method", type=str, default="gls_map", choices=["gls_map", "gsp", "historical_tod_mean", "neighbor_average"])
     parser.add_argument("--split-seed", type=int, default=20)
+    parser.add_argument("--split-mode", type=str, default="random", choices=["random", "chronological"])
     parser.add_argument("--layout-seed", type=int, default=2026)
     parser.add_argument("--num-neighbors", type=int, default=3)
     parser.add_argument("--gsp-lambda", type=float, default=0.2)
@@ -812,7 +933,7 @@ def main():
         args.include_graph_sampling_baseline = True
         args.include_qr_pod_baseline = True
 
-    train, val, test, test_index, distance, val_days, test_days = load_pems_dataset(args.data_root, args.split_seed)
+    train, val, test, test_index, distance, val_days, test_days = load_pems_dataset(args.data_root, args.split_seed, split_mode=args.split_mode)
     args.val_days = val_days
     if args.max_test_steps > 0:
         val = val[: args.max_test_steps]
