@@ -321,6 +321,7 @@ class ClaimContractGenerationTests(unittest.TestCase):
             "test_rmse_mean",
             "test_mape_mean",
             "paired_baseline",
+            "paired_evidence_status",
             "delta_mean",
             "ci95_low",
             "ci95_high",
@@ -332,12 +333,19 @@ class ClaimContractGenerationTests(unittest.TestCase):
             "claim_lane",
         }
         self.assertTrue(rows)
+        paired_stat_columns = ("delta_mean", "ci95_low", "ci95_high", "paired_t_p", "wilcoxon_p", "win_count")
         for row in rows:
             self.assertEqual(set(row), expected_columns)
             self.assertEqual(row["method_label"], "validation_swap_selected")
             self.assertEqual(row["claim_lane"], "core_in_domain")
             self.assertEqual(row["source_stage"], "stage12_baseline_portfolio")
-            self.assertEqual(row["source_csv"], "gls_map_layout_summary.csv;gls_map_paired_delta_tests.csv")
+            missing_paired_stats = [column for column in paired_stat_columns if row[column] == "" or pd.isna(row[column])]
+            if missing_paired_stats:
+                self.assertEqual(row["paired_evidence_status"], "descriptive_only")
+                self.assertEqual(row["source_csv"], "gls_map_layout_summary.csv")
+            else:
+                self.assertEqual(row["paired_evidence_status"], "paired_stats_available")
+                self.assertEqual(row["source_csv"], "gls_map_layout_summary.csv;gls_map_paired_delta_tests.csv")
 
         low_budget_rows = [row for row in rows if row["budget"] == 0.1]
         self.assertTrue(low_budget_rows)
@@ -352,6 +360,27 @@ class ClaimContractGenerationTests(unittest.TestCase):
         baselines = {row["paired_baseline"] for row in rows}
         self.assertIn("best_random_by_validation", baselines)
         self.assertIn("qr_pod_modes", baselines)
+
+        descriptive_rows = [row for row in rows if row["paired_evidence_status"] == "descriptive_only"]
+        self.assertTrue(descriptive_rows)
+        for row in descriptive_rows:
+            self.assertEqual(row["source_csv"], "gls_map_layout_summary.csv")
+            self.assertNotIn("gls_map_paired_delta_tests.csv", row["source_csv"])
+            for column in paired_stat_columns:
+                self.assertTrue(row[column] == "" or pd.isna(row[column]))
+
+        rcss_rows = [row for row in rows if row["layout_type"] == "rcss_selected"]
+        self.assertTrue(rcss_rows)
+        for row in rcss_rows:
+            self.assertEqual(row["paired_evidence_status"], "descriptive_only")
+            self.assertEqual(row["source_csv"], "gls_map_layout_summary.csv")
+
+        paired_rows = [row for row in rows if row["paired_evidence_status"] == "paired_stats_available"]
+        self.assertTrue(paired_rows)
+        for row in paired_rows:
+            self.assertIn("gls_map_paired_delta_tests.csv", row["source_csv"])
+            for column in paired_stat_columns:
+                self.assertFalse(row[column] == "" or pd.isna(row[column]))
 
     def test_json_policy_uses_plan_required_schema_marker(self) -> None:
         generator = import_generator()
@@ -369,6 +398,10 @@ class ClaimContractGenerationTests(unittest.TestCase):
             {row["layout_type"] for row in main_rows},
         )
         self.assertIn("greedy_d_logdet", policy["main_table_layout_labels"])
+        self.assertEqual(
+            set(policy["evidence_routing"]["main_table_paired_evidence_status"]),
+            {"paired_stats_available", "descriptive_only"},
+        )
 
     def test_source_tracking_rejects_raw_dataset_or_untracked_sources(self) -> None:
         generator = import_generator()

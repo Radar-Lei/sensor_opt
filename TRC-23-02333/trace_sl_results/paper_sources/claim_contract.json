@@ -27,9 +27,13 @@
     "transportation_science_ready"
   ],
   "evidence_routing": {
-    "claim_metric_basis": "held-out test evidence with paired comparisons where available; validation MAE is selection evidence only",
+    "claim_metric_basis": "held-out test evidence with paired comparisons where paired_evidence_status=paired_stats_available; rows marked descriptive_only are layout-summary evidence only",
     "core_in_domain": "PeMS7_228 Stage12 baseline portfolio only in Phase 7",
     "external_evidence": "PeMS7_1026 stays supporting until Phase 8 Stage12 10-split evidence; Seattle remains out of the Phase 7 contract until routed through tracked summary artifacts",
+    "main_table_paired_evidence_status": {
+      "descriptive_only": "paired statistics are blank and row provenance is limited to gls_map_layout_summary.csv",
+      "paired_stats_available": "paired statistics are present and row provenance includes gls_map_paired_delta_tests.csv"
+    },
     "robustness": "stress_test or appendix unless source row declares multi-seed perturbation evidence"
   },
   "forbidden_wording": [

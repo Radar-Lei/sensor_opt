@@ -75,6 +75,7 @@ MAIN_TABLE_CONTRACT_COLUMNS = (
     "test_rmse_mean",
     "test_mape_mean",
     "paired_baseline",
+    "paired_evidence_status",
     "delta_mean",
     "ci95_low",
     "ci95_high",
@@ -85,6 +86,10 @@ MAIN_TABLE_CONTRACT_COLUMNS = (
     "caveat_tag",
     "claim_lane",
 )
+
+PAIRED_STAT_COLUMNS = ("delta_mean", "ci95_low", "ci95_high", "paired_t_p", "wilcoxon_p", "win_count")
+PAIRED_STATS_AVAILABLE = "paired_stats_available"
+DESCRIPTIVE_ONLY = "descriptive_only"
 
 
 class ContractValidationError(ValueError):
@@ -480,10 +485,14 @@ def build_main_table_contract_rows(
                 continue
             layout_row = selected.iloc[0]
             paired_row = paired.get((budget, label))
+            paired_evidence_status = PAIRED_STATS_AVAILABLE if paired_row is not None else DESCRIPTIVE_ONLY
+            row_metadata = dict(metadata)
+            if paired_evidence_status == DESCRIPTIVE_ONLY:
+                row_metadata["source_csv"] = layout_csv.name
             caveat = ""
             if _budget_requires_caveat(budget) or label == "multistart_swap_by_validation":
                 caveat = LOW_BUDGET_MULTISTART_CAVEAT_TAG
-            row: dict[str, object] = dict(metadata)
+            row: dict[str, object] = row_metadata
             row.update(
                 {
                     "budget": budget,
@@ -495,6 +504,7 @@ def build_main_table_contract_rows(
                     "test_rmse_mean": _empty_metric(layout_row, "rmse_mean", "test_rmse_mean", "rmse"),
                     "test_mape_mean": _empty_metric(layout_row, "mape_mean", "test_mape_mean", "mape"),
                     "paired_baseline": "" if label == MAIN_METHOD_LABEL else label,
+                    "paired_evidence_status": paired_evidence_status,
                     "delta_mean": "" if paired_row is None else paired_row["delta_mean"],
                     "ci95_low": "" if paired_row is None else paired_row["ci95_low"],
                     "ci95_high": "" if paired_row is None else paired_row["ci95_high"],
@@ -523,6 +533,22 @@ def validate_main_table_contract_rows(rows: Sequence[dict[str, object]]) -> None
             raise ValueError(f"main table method_label must be {MAIN_METHOD_LABEL}")
         if row["claim_lane"] != "core_in_domain":
             raise ValueError("main table rows must remain core_in_domain PeMS7_228 evidence")
+        paired_status = str(row["paired_evidence_status"])
+        missing_paired_stats = [column for column in PAIRED_STAT_COLUMNS if row[column] == "" or pd.isna(row[column])]
+        if paired_status == PAIRED_STATS_AVAILABLE:
+            if missing_paired_stats:
+                raise ValueError(
+                    f"paired_stats_available row missing paired statistics for {row['layout_type']} at budget {row['budget']}: {missing_paired_stats}"
+                )
+            if "gls_map_paired_delta_tests.csv" not in str(row["source_csv"]):
+                raise ValueError("paired_stats_available rows must include paired-stat provenance")
+        elif paired_status == DESCRIPTIVE_ONLY:
+            if any(not (row[column] == "" or pd.isna(row[column])) for column in PAIRED_STAT_COLUMNS):
+                raise ValueError(f"descriptive_only row carries paired statistics for {row['layout_type']} at budget {row['budget']}")
+            if "gls_map_paired_delta_tests.csv" in str(row["source_csv"]):
+                raise ValueError("descriptive_only rows must not include paired-stat provenance")
+        else:
+            raise ValueError(f"unknown paired_evidence_status: {paired_status}")
         if _budget_requires_caveat(row["budget"]) and row["caveat_tag"] != LOW_BUDGET_MULTISTART_CAVEAT_TAG:
             raise ValueError(f"10% rows must carry {LOW_BUDGET_MULTISTART_CAVEAT_TAG}")
         if row["paired_baseline"] == "multistart_swap_by_validation" and row["caveat_tag"] != LOW_BUDGET_MULTISTART_CAVEAT_TAG:
@@ -556,7 +582,11 @@ def build_claim_contract_policy(claim_rows: Sequence[dict[str, object]], main_ro
             "core_in_domain": "PeMS7_228 Stage12 baseline portfolio only in Phase 7",
             "external_evidence": "PeMS7_1026 stays supporting until Phase 8 Stage12 10-split evidence; Seattle remains out of the Phase 7 contract until routed through tracked summary artifacts",
             "robustness": "stress_test or appendix unless source row declares multi-seed perturbation evidence",
-            "claim_metric_basis": "held-out test evidence with paired comparisons where available; validation MAE is selection evidence only",
+            "claim_metric_basis": "held-out test evidence with paired comparisons where paired_evidence_status=paired_stats_available; rows marked descriptive_only are layout-summary evidence only",
+            "main_table_paired_evidence_status": {
+                PAIRED_STATS_AVAILABLE: "paired statistics are present and row provenance includes gls_map_paired_delta_tests.csv",
+                DESCRIPTIVE_ONLY: "paired statistics are blank and row provenance is limited to gls_map_layout_summary.csv",
+            },
         },
         "caveat_tags": [LOW_BUDGET_MULTISTART_CAVEAT_TAG],
         "main_method_label": MAIN_METHOD_LABEL,
@@ -615,7 +645,7 @@ def write_readme(output_dir: Path) -> None:
         "- `candidate_runtime_table.csv`: Stage 14 candidate-count runtime and candidate diagnostic sensitivity rows.\n"
         "- `certificate_correlation_table.csv`: Stage 12/13 empirical certificate-error correlation summaries.\n"
         "- `claim_contract.csv` / `claim_contract.json` / `claim_contract.md`: Phase 7 claim wording, evidence routing, and caveat policy.\n"
-        "- `main_table_contract.csv` / `main_table_contract.md`: Phase 7 Stage12 PeMS7_228 main-table contract with paired-stat provenance and caveat tags.\n\n"
+        "- `main_table_contract.csv` / `main_table_contract.md`: Phase 7 Stage12 PeMS7_228 main-table contract with `paired_evidence_status`; descriptive-only rows keep layout-summary provenance and are not paired-test evidence.\n\n"
         "Every generated row includes `source_stage`, `source_dir`, and `source_csv` provenance columns. The generators verify that source CSVs and nonempty evidence artifacts are tracked by git and read only committed aggregate CSVs, not raw traffic datasets.\n",
         encoding="utf-8",
     )

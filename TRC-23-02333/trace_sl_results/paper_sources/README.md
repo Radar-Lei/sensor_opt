@@ -17,6 +17,6 @@ python scripts/generate_trace_sl_claim_contracts.py --project-root /home/samuel/
 - `candidate_runtime_table.csv`: Stage 14 candidate-count runtime and candidate diagnostic sensitivity rows.
 - `certificate_correlation_table.csv`: Stage 12/13 empirical certificate-error correlation summaries.
 - `claim_contract.csv` / `claim_contract.json` / `claim_contract.md`: Phase 7 claim wording, evidence routing, and caveat policy.
-- `main_table_contract.csv` / `main_table_contract.md`: Phase 7 Stage12 PeMS7_228 main-table contract with paired-stat provenance and caveat tags.
+- `main_table_contract.csv` / `main_table_contract.md`: Phase 7 Stage12 PeMS7_228 main-table contract with `paired_evidence_status`; descriptive-only rows keep layout-summary provenance and are not paired-test evidence.
 
 Every generated row includes `source_stage`, `source_dir`, and `source_csv` provenance columns. The generators verify that source CSVs and nonempty evidence artifacts are tracked by git and read only committed aggregate CSVs, not raw traffic datasets.
