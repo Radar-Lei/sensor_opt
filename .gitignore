@@ -45,6 +45,10 @@ TRC-23-02333/trace_sl_results/*
 !TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/
 !TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/
 !TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/
+!TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/
+!TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/
+!TRC-23-02333/trace_sl_results/paper_sources/
+!TRC-23-02333/trace_sl_results/paper_sources/*
 !TRC-23-02333/trace_sl_results/pems7_228_stage6_multisplit_cvar_seed_*.log
 !TRC-23-02333/trace_sl_results/pems7_228_stage7_rcss_seed_*.log
 !TRC-23-02333/trace_sl_results/pems7_228_stage8_rcss_confirmatory_seed_*.log
