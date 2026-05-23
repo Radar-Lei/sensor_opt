@@ -164,6 +164,57 @@ def cost_aware_coverage_proxy_layout(distance, costs, sensor_count, cost_budget)
                 break
     return np.array(sorted(selected), dtype=int)
 
+def layout_robustness_metadata(sensors, costs, args):
+    sensors = np.asarray(sensors, dtype=int)
+    cost_proxy = getattr(args, "cost_proxy", "none")
+    cost_budget = float(getattr(args, "cost_budget", 0.0))
+    if costs is None or cost_proxy == "none":
+        layout_cost = 0.0
+        feasible = True
+    else:
+        layout_cost = float(np.asarray(costs, dtype=float)[sensors].sum())
+        feasible = bool(cost_budget <= 0.0 or layout_cost <= cost_budget + 1e-9)
+    return {
+        "cost_proxy": cost_proxy,
+        "cost_budget": cost_budget,
+        "layout_sensor_cost": layout_cost,
+        "cost_feasible": feasible,
+    }
+
+
+def robustness_row_metadata(args, layout_metadata, eval_context=None):
+    eval_context = eval_context or {}
+    metadata = {
+        "robustness_family": getattr(args, "robustness_family", "baseline"),
+        "robustness_condition": getattr(args, "robustness_condition", "baseline"),
+        "failure_rate": float(getattr(args, "failure_rate", 0.0)),
+        "noise_scale": float(getattr(args, "noise_scale", 0.0)),
+        "missing_rate": float(getattr(args, "missing_rate", 0.0)),
+        "missing_block_steps": int(getattr(args, "missing_block_steps", 0)),
+        "split_mode": getattr(args, "split_mode", "random"),
+    }
+    metadata.update(layout_metadata or {})
+    metadata.update(
+        {
+            "selected_sensor_count": int(eval_context.get("selected_sensor_count", 0)),
+            "active_sensor_count": int(eval_context.get("active_sensor_count", 0)),
+            "dropped_sensor_count": int(eval_context.get("dropped_sensor_count", 0)),
+        }
+    )
+    return metadata
+
+
+def validate_cli_settings(args):
+    validate_fraction(args.failure_rate, "failure_rate")
+    validate_fraction(args.missing_rate, "missing_rate")
+    if args.noise_scale < 0.0:
+        raise ValueError(f"noise_scale must be nonnegative, got {args.noise_scale}")
+    if args.missing_block_steps < 0:
+        raise ValueError(f"missing_block_steps must be nonnegative, got {args.missing_block_steps}")
+    if args.cost_budget < 0.0:
+        raise ValueError(f"cost_budget must be nonnegative, got {args.cost_budget}")
+
+
 def adjacency_to_distance(adjacency):
     adjacency = np.asarray(adjacency, dtype=float)
     graph = np.where(adjacency > 0, 1.0, np.inf)
@@ -975,7 +1026,17 @@ def main():
     parser.add_argument("--gls-prior-weight", type=float, default=0.2)
     parser.add_argument("--obs-weight", type=float, default=1.0)
     parser.add_argument("--max-test-steps", type=int, default=0)
+    parser.add_argument("--robustness-family", type=str, default="baseline")
+    parser.add_argument("--robustness-condition", type=str, default="baseline")
+    parser.add_argument("--failure-rate", type=float, default=0.0)
+    parser.add_argument("--noise-scale", type=float, default=0.0)
+    parser.add_argument("--missing-rate", type=float, default=0.0)
+    parser.add_argument("--missing-block-steps", type=int, default=0)
+    parser.add_argument("--robustness-seed", type=int, default=505)
+    parser.add_argument("--cost-proxy", type=str, default="none", choices=["none", "graph_traffic"])
+    parser.add_argument("--cost-budget", type=float, default=0.0)
     args = parser.parse_args()
+    validate_cli_settings(args)
     args.budgets = parse_budgets(args.budgets)
     if args.include_baseline_portfolio:
         args.include_simple_baselines = True
@@ -1010,6 +1071,7 @@ def main():
     rcss_records = []
     rng = np.random.default_rng(args.layout_seed)
     gls_matrix = args.gls_prior_weight * precision
+    cost_proxy_values = derive_cost_proxy(train, distance) if args.cost_proxy != "none" else None
     for budget in args.budgets:
         sensor_count = max(1, min(n_nodes - 1, int(round(n_nodes * budget))))
         layouts = []
@@ -1056,6 +1118,8 @@ def main():
             layouts.append(("graph_sampling_laplacian", 0, graph_sampling_laplacian_layout(laplacian, distance, sensor_count), np.nan))
         if args.include_qr_pod_baseline:
             layouts.append(("qr_pod_modes", 0, qr_pod_layout(train, sensor_count), np.nan))
+        if args.cost_proxy != "none":
+            layouts.append(("cost_aware_coverage_proxy", 0, cost_aware_coverage_proxy_layout(distance, cost_proxy_values, sensor_count, args.cost_budget), np.nan))
         swap_outputs = []
         if args.include_swap:
             swap_greedy, greedy_history = swap_trace_local_search(gls_matrix, greedy_a, args.obs_weight, args.swap_max_iter)
@@ -1220,20 +1284,21 @@ def main():
                 record.update({"budget": budget, "sensors": sorted(int(x) for x in row["sensors"]), "selected": row is rcss_best})
                 rcss_records.append(record)
         for layout_type, layout_id, sensors, validation_selected_mae in layouts:
-            layout_records.append(
-                {
-                    "dataset": Path(args.data_root).name,
-                    "budget": budget,
-                    "sensor_count": sensor_count,
-                    "layout_type": layout_type,
-                    "layout_id": layout_id,
-                    "posterior_trace_objective": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight),
-                    "validation_selected_mae": float(validation_selected_mae) if np.isfinite(validation_selected_mae) else None,
-                    "sensors": sorted(int(x) for x in sensors),
-                }
-            )
-            hidden_count = n_nodes - sensor_count
-            layout_rows, _, eval_context = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args, apply_robustness=True)
+            layout_metadata = layout_robustness_metadata(sensors, cost_proxy_values, args)
+            layout_record = {
+                "dataset": Path(args.data_root).name,
+                "budget": budget,
+                "sensor_count": sensor_count,
+                "layout_type": layout_type,
+                "layout_id": layout_id,
+                "posterior_trace_objective": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight),
+                "validation_selected_mae": float(validation_selected_mae) if np.isfinite(validation_selected_mae) else None,
+                "sensors": sorted(int(x) for x in sensors),
+            }
+            layout_record.update(robustness_row_metadata(args, layout_metadata, {"selected_sensor_count": sensor_count, "active_sensor_count": sensor_count, "dropped_sensor_count": 0}))
+            layout_records.append(layout_record)
+            layout_rows, hidden, eval_context = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args, apply_robustness=True)
+            hidden_count = int(len(hidden))
             for row in layout_rows:
                 row.update(
                     {
@@ -1248,6 +1313,7 @@ def main():
                         "validation_selected_mae": float(validation_selected_mae) if np.isfinite(validation_selected_mae) else np.nan,
                     }
                 )
+                row.update(robustness_row_metadata(args, layout_metadata, eval_context))
                 rows.append(row)
 
     output_dir = Path(args.output_dir)
