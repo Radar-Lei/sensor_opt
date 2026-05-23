@@ -107,8 +107,8 @@ def build_paired_comparisons(pivot, comparison_layouts, baseline_layouts):
                     }
                 )
         delta_rows.append(row)
-    sort_cols = [name for name in ["budget", "candidate_count"] if name in group_levels]
-    return pd.DataFrame(delta_rows).sort_values(sort_cols).reset_index(drop=True), pd.DataFrame(paired_rows).sort_values(sort_cols).reset_index(drop=True)
+    sort_cols = [name for name in condition_group_columns(pivot.reset_index()) if name in group_levels]
+    return sort_frame(pd.DataFrame(delta_rows), sort_cols), sort_frame(pd.DataFrame(paired_rows), sort_cols)
 
 
 def build_certificate_summary(corr):
@@ -156,10 +156,7 @@ def build_candidate_sensitivity_summary(rcss_candidates):
         "rcss_score",
     ]
     available_diagnostics = [name for name in diagnostics if name in rcss_candidates.columns]
-    group_cols = ["budget"]
-    if "candidate_count" in rcss_candidates.columns:
-        group_cols.append("candidate_count")
-    group_cols.append("source")
+    group_cols = [*condition_group_columns(rcss_candidates), "source"]
     rows = []
     selected_mask = selected_candidate_mask(rcss_candidates)
     for group_key, sub in rcss_candidates.groupby(group_cols, dropna=False):
@@ -193,8 +190,8 @@ def build_runtime_candidate_sensitivity_summary(frame):
     runtime = runtime.dropna(subset=["candidate_count", "runtime_seconds"])
     if runtime.empty:
         return pd.DataFrame()
-    group_cols = ["candidate_count"]
-    optional_cols = ["budget", "source", "status"]
+    group_cols = [name for name in condition_group_columns(runtime) if name in runtime.columns]
+    optional_cols = ["source", "status"]
     group_cols.extend([name for name in optional_cols if name in runtime.columns])
     out = runtime.groupby(group_cols, dropna=False)["runtime_seconds"].agg(["mean", "std", "min", "max", "count"]).reset_index()
     out = out.rename(columns={"mean": "runtime_seconds"})
@@ -325,16 +322,8 @@ def main():
     combined.to_csv(output_dir / "combined_metrics.csv", index=False)
 
     gls = combined[combined["method"] == "gls_map"].copy()
-    evidence_group_cols = ["budget"]
-    if "candidate_count" in gls.columns:
-        evidence_group_cols.append("candidate_count")
-    layout_group_cols = [*evidence_group_cols, "layout_type"]
-    layout_summary = (
-        gls.groupby(layout_group_cols)["mae"]
-        .agg(["mean", "std", "count"])
-        .reset_index()
-        .sort_values([*evidence_group_cols, "mean"])
-    )
+    evidence_group_cols = condition_group_columns(gls)
+    layout_summary = build_layout_summary(gls)
     layout_summary.to_csv(output_dir / "gls_map_layout_summary.csv", index=False)
 
     pivot = gls.pivot_table(index=["split_seed", *evidence_group_cols], columns="layout_type", values="mae", aggfunc="mean")
@@ -391,10 +380,7 @@ def main():
         rcss = pd.concat(rcss_candidates, ignore_index=True)
         rcss.to_csv(output_dir / "combined_rcss_candidates.csv", index=False)
         selected = rcss[selected_candidate_mask(rcss)]
-        selected_source_cols = ["budget"]
-        if "candidate_count" in selected.columns:
-            selected_source_cols.append("candidate_count")
-        selected_source_cols.append("source")
+        selected_source_cols = [*condition_group_columns(selected), "source"]
         selected.groupby(selected_source_cols).size().reset_index(name="selected_count").to_csv(output_dir / "rcss_selected_sources.csv", index=False)
         candidate_summary = build_candidate_sensitivity_summary(rcss)
         candidate_summary.to_csv(output_dir / "candidate_sensitivity_summary.csv", index=False)
@@ -414,6 +400,8 @@ def main():
         "# TRACE-SL RCSS Multi-Split Summary",
         "",
         "## Mean GLS/MAP test MAE across splits",
+        "",
+        "Robustness and candidate-sensitivity tables are grouped by condition columns when present. These aggregates are stress-test evidence for the evaluated perturbations and split settings, not a universal deployment guarantee.",
         "",
         "```",
         layout_summary.to_string(index=False),

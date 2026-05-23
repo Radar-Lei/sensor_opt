@@ -1,4 +1,6 @@
 import importlib.util
+import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -123,6 +125,83 @@ class ConditionGroupingTest(unittest.TestCase):
         self.assertEqual(summarizer.condition_group_columns(old_stage), ["budget"])
         summary = summarizer.build_layout_summary(old_stage)
         self.assertEqual(summary.iloc[0]["mean"], 2.5)
+
+    def test_main_outputs_preserve_condition_columns_and_markdown_context(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            input_root = root / "candidates_50"
+            seed_root = input_root / "seed_25"
+            output_dir = root / "summary"
+            seed_root.mkdir(parents=True)
+            pd.DataFrame(
+                {
+                    "method": ["gls_map", "gls_map", "gls_map", "gls_map", "gls_map", "gls_map"],
+                    "layout_type": [
+                        "validation_swap_selected",
+                        "random",
+                        "rcss_selected",
+                        "validation_swap_selected",
+                        "random",
+                        "rcss_selected",
+                    ],
+                    "budget": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+                    "candidate_count": [50, 50, 50, 50, 50, 50],
+                    "robustness_family": ["sensor_failure", "sensor_failure", "sensor_failure", "sensor_failure", "sensor_failure", "sensor_failure"],
+                    "robustness_condition": ["failure_0.05", "failure_0.05", "failure_0.05", "failure_0.20", "failure_0.20", "failure_0.20"],
+                    "failure_rate": [0.05, 0.05, 0.05, 0.20, 0.20, 0.20],
+                    "split_mode": ["random_days", "random_days", "random_days", "random_days", "random_days", "random_days"],
+                    "mae": [3.0, 3.4, 3.2, 9.0, 9.6, 9.4],
+                }
+            ).to_csv(seed_root / "metrics.csv", index=False)
+            pd.DataFrame(
+                {
+                    "budget": [0.2, 0.2],
+                    "candidate_count": [50, 50],
+                    "robustness_condition": ["failure_0.05", "failure_0.20"],
+                    "failure_rate": [0.05, 0.20],
+                    "split_mode": ["random_days", "random_days"],
+                    "source": ["quality_coverage_sample", "quality_coverage_sample"],
+                    "selected": [True, True],
+                    "validation_mae": [3.1, 9.1],
+                }
+            ).to_csv(seed_root / "rcss_candidates.csv", index=False)
+            pd.DataFrame(
+                {
+                    "candidate_count": [50, 50],
+                    "robustness_condition": ["failure_0.05", "failure_0.20"],
+                    "runtime_seconds": [1.0, 2.0],
+                    "status": ["complete", "complete"],
+                }
+            ).to_csv(input_root / "stage13_timing.csv", index=False)
+
+            old_argv = sys.argv
+            try:
+                sys.argv = [
+                    "summarize_trace_sl_rcss.py",
+                    "--input-root",
+                    str(input_root),
+                    "--output-dir",
+                    str(output_dir),
+                ]
+                summarizer.main()
+            finally:
+                sys.argv = old_argv
+
+            layout = pd.read_csv(output_dir / "gls_map_layout_summary.csv")
+            self.assertEqual(set(layout["robustness_condition"]), {"failure_0.05", "failure_0.20"})
+            self.assertIn("split_mode", layout.columns)
+            paired = pd.read_csv(output_dir / "gls_map_paired_delta_tests.csv")
+            self.assertEqual(set(paired["robustness_condition"]), {"failure_0.05", "failure_0.20"})
+            selected = pd.read_csv(output_dir / "rcss_selected_sources.csv")
+            self.assertEqual(set(selected["robustness_condition"]), {"failure_0.05", "failure_0.20"})
+            candidate = pd.read_csv(output_dir / "candidate_sensitivity_summary.csv")
+            self.assertEqual(set(candidate["robustness_condition"]), {"failure_0.05", "failure_0.20"})
+            runtime = pd.read_csv(output_dir / "runtime_candidate_sensitivity.csv")
+            self.assertEqual(set(runtime["robustness_condition"]), {"failure_0.05", "failure_0.20"})
+            markdown = (output_dir / "SUMMARY.md").read_text(encoding="utf-8").lower()
+            self.assertIn("grouped by condition", markdown)
+            self.assertIn("stress-test evidence", markdown)
+            self.assertNotIn("universal robustness proof", markdown)
 
 
 class CandidateSensitivitySummaryTest(unittest.TestCase):
