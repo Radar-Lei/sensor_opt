@@ -300,6 +300,25 @@ class Phase5RobustnessValidatorTests(unittest.TestCase):
         self.assertIn("ROBUST-06 WARN", result.stdout)
         self.assertIn("limited tractability", result.stdout.lower())
 
+    def test_valid_candidate_count_caveat_does_not_hide_missing_core_artifact(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, candidates = create_complete_artifacts(Path(tmp), candidate_counts=[50, 100, 200])
+            (candidates / "SUMMARY.md").unlink()
+            caveat = {
+                "requirement": "ROBUST-06",
+                "allowed_exception": True,
+                "missing_candidate_counts": [500],
+                "completed_candidate_counts": [50, 100, 200],
+                "reason": "500-candidate local run exceeded limited tractability budget after evidence attempt.",
+                "evidence_attempted": True,
+                "validator_disposition": "WARN: limited tractability exception accepted",
+            }
+            (candidates / "candidate_sensitivity_caveat.json").write_text(json.dumps(caveat), encoding="utf-8")
+            result = run_validator(Path(tmp))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("ROBUST-06 FAIL", result.stdout)
+        self.assertIn("SUMMARY.md", result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

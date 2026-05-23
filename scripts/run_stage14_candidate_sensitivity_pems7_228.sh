@@ -71,10 +71,14 @@ completed_input_roots=()
 
 if [ "${DRY_RUN}" = "1" ]; then
   for candidate_count in ${CANDIDATE_COUNTS}; do
+    count_seed_dirs=()
     for seed in ${SEEDS}; do
+      seed_dir="${OUTPUT_DIR}/candidates_${candidate_count}/seed_${seed}"
+      count_seed_dirs+=("${seed_dir}")
+      completed_input_roots+=("${seed_dir}")
       run_or_print "${PYTHON_BIN}" TRC-23-02333/transparent_estimator_eval.py \
         --data-root "${DATA_ROOT}" \
-        --output-dir "${OUTPUT_DIR}/candidates_${candidate_count}/seed_${seed}" \
+        --output-dir "${seed_dir}" \
         --budgets "${BUDGETS}" \
         --num-layouts "${NUM_LAYOUTS}" \
         --split-seed "${seed}" \
@@ -100,11 +104,8 @@ if [ "${DRY_RUN}" = "1" ]; then
         --include-qr-pod-baseline
     done
     run_or_print "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
-      --input-root "${OUTPUT_DIR}/candidates_${candidate_count}" \
+      --input-root "${count_seed_dirs[@]}" \
       --output-dir "${OUTPUT_DIR}/candidates_${candidate_count}"
-  done
-  for candidate_count in ${CANDIDATE_COUNTS}; do
-    completed_input_roots+=("${OUTPUT_DIR}/candidates_${candidate_count}")
   done
   run_or_print "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
     --input-root "${completed_input_roots[@]}" \
@@ -124,6 +125,7 @@ for candidate_count in ${CANDIDATE_COUNTS}; do
   candidate_dir="${OUTPUT_DIR}/candidates_${candidate_count}"
   mkdir -p "${candidate_dir}"
   count_status="success"
+  count_seed_dirs=()
   for seed in ${SEEDS}; do
     evidence_attempted=true
     seed_dir="${candidate_dir}/seed_${seed}"
@@ -171,12 +173,13 @@ for candidate_count in ${CANDIDATE_COUNTS}; do
     if [ "${status}" != "success" ]; then
       break
     fi
+    count_seed_dirs+=("${seed_dir}")
   done
   if [ "${count_status}" = "success" ]; then
     completed_counts+=("${candidate_count}")
-    completed_input_roots+=("${candidate_dir}")
+    completed_input_roots+=("${count_seed_dirs[@]}")
     "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
-      --input-root "${candidate_dir}" \
+      --input-root "${count_seed_dirs[@]}" \
       --output-dir "${candidate_dir}"
   else
     missing_counts+=("${candidate_count}")

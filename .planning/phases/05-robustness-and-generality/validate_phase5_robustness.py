@@ -432,16 +432,16 @@ def validate_robust_06(root, context):
         "runtime_candidate_sensitivity": read_csv(candidate_dir / "runtime_candidate_sensitivity.csv", "ROBUST-06", context),
         "stage14_timing": read_csv(candidate_dir / "stage14_timing.csv", "ROBUST-06", context),
     }
-    prior_error_count = len([err for err in context.errors if err[0] == "ROBUST-06"])
+    candidate_error_start = len(context.errors)
     candidate_counts(frames["combined_metrics"], "ROBUST-06", "combined_metrics.csv", context)
     candidate_counts(frames["candidate_sensitivity_summary"], "ROBUST-06", "candidate_sensitivity_summary.csv", context)
     candidate_counts(frames["runtime_candidate_sensitivity"], "ROBUST-06", "runtime_candidate_sensitivity.csv", context, require_runtime=True)
     candidate_counts(frames["stage14_timing"], "ROBUST-06", "stage14_timing.csv", context, require_runtime=True)
-    current_errors = [err for err in context.errors if err[0] == "ROBUST-06"]
-    if len(current_errors) > prior_error_count:
+    candidate_errors = context.errors[candidate_error_start:]
+    if candidate_errors:
         caveat, caveat_errors = load_valid_caveat(candidate_dir)
         if caveat is not None:
-            context.errors = [err for err in context.errors if err[0] != "ROBUST-06"]
+            context.errors = context.errors[:candidate_error_start]
             missing = sorted(int(value) for value in caveat["missing_candidate_counts"])
             completed = sorted(int(value) for value in caveat["completed_candidate_counts"])
             context.warn("ROBUST-06", f"limited tractability caveat accepted; missing={missing}; completed={completed}")
