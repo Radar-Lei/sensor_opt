@@ -1,0 +1,73 @@
+{
+  "bounded_allowed_wording": [
+    "certificate-guided",
+    "posterior-certificate-aware",
+    "stress-tested",
+    "improves in the tested setting",
+    "external evidence"
+  ],
+  "caveat_tags": [
+    "pems7_228_low_budget_multistart_not_dominant"
+  ],
+  "claim_contract_schema": "trace-sl-phase7-claim-contract-v1",
+  "claim_lanes": [
+    "appendix",
+    "core_in_domain",
+    "external_evidence",
+    "stress_test",
+    "tr_part_b_extension",
+    "wording_guardrail"
+  ],
+  "claim_statuses": [
+    "bounded_appendix_evidence",
+    "bounded_stress_test_evidence",
+    "conditional_until_phase8",
+    "forbidden",
+    "requires_stronger_theory",
+    "supporting_until_phase8",
+    "transportation_science_ready"
+  ],
+  "evidence_routing": {
+    "claim_metric_basis": "held-out test evidence with paired comparisons where available; validation MAE is selection evidence only",
+    "core_in_domain": "PeMS7_228 Stage12 baseline portfolio only in Phase 7",
+    "external_evidence": "PeMS7_1026 and Seattle stay supporting/conditional until Phase 8 Stage12 10-split evidence",
+    "robustness": "stress_test or appendix unless source row declares multi-seed perturbation evidence"
+  },
+  "forbidden_wording": [
+    "optimal",
+    "certified",
+    "globally robust",
+    "guaranteed MAE improvement",
+    "generalizes across networks"
+  ],
+  "generated_at_utc": "1970-01-01T00:00:00Z",
+  "generated_at_utc_note": "fixed deterministic timestamp; regenerate command provenance is captured by git commit/status",
+  "generated_by": "scripts/generate_trace_sl_claim_contracts.py",
+  "main_method_label": "validation_swap_selected",
+  "main_table_layout_labels": [
+    "validation_swap_selected",
+    "multistart_swap_by_validation",
+    "rcss_selected",
+    "best_random_by_validation",
+    "random",
+    "top_variance",
+    "greedy_a_trace",
+    "graph_sampling_laplacian",
+    "observability_proxy",
+    "qr_pod_modes"
+  ],
+  "row_counts": {
+    "claim_contract": 12,
+    "main_table_contract": 33
+  },
+  "secondary_certificate_baseline_if_present": "greedy_d_logdet",
+  "source_artifacts": [
+    ".planning/REQUIREMENTS.md",
+    "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
+    "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+    "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+    "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md",
+    "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv",
+    "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light"
+  ]
+}
