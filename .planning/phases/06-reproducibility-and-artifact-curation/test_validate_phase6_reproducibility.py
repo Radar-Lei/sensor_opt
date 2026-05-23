@@ -189,6 +189,22 @@ class Phase6ValidatorTests(unittest.TestCase):
         self.assertEqual([f"REPRO-0{i}" for i in range(1, 6)], [line.split()[0] for line in lines])
         self.assertEqual(5, len(lines))
 
+    def test_stage14_timing_failed_status_does_not_satisfy_candidate_count(self):
+        temp, root = self.make_root()
+        self.addCleanup(temp.cleanup)
+        self.write_complete_project(root)
+        write_csv(
+            root / "TRC-23-02333" / "trace_sl_results" / "pems7_228_stage14_candidate_sensitivity" / "stage14_timing.csv",
+            "candidate_count,status,runtime_seconds,caveat_path",
+            ["50,success,1.0,", "100,success,1.0,", "200,failed,0.0,caveat.md", "500,failed,0.0,caveat.md"],
+        )
+
+        context = validator.ValidationContext(root)
+        validator.validate_candidate_count_rows(context)
+
+        self.assertTrue(context.has_failures("REPRO-05"), context.errors)
+        self.assertIn("Stage 14 candidate timing missing candidate counts", " ".join(context.messages_for("REPRO-05")))
+
     def test_required_smoke_command_set_covers_four_launchers_and_missing_one_fails_repro05(self):
         temp, root = self.make_root()
         self.addCleanup(temp.cleanup)

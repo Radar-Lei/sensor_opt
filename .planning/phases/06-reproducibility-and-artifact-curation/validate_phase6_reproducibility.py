@@ -552,6 +552,15 @@ def validate_candidate_count_rows(context):
         if "candidate_count" not in frame.columns:
             context.fail("REPRO-05", f"{label} missing candidate_count column")
             continue
+        if relative.name == "stage14_timing.csv":
+            if "status" not in frame.columns:
+                context.fail("REPRO-05", "Stage 14 candidate timing missing status column")
+                continue
+            successful = frame["status"].astype(str).str.lower().isin({"success", "complete", "completed"})
+            frame = frame[successful].copy()
+            if frame.empty:
+                context.fail("REPRO-05", "Stage 14 candidate timing has no successful candidate-count rows")
+                continue
         if "method" in frame.columns:
             method_values = string_values(frame, "method")
             if "gls_map" in method_values:

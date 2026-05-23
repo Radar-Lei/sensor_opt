@@ -99,6 +99,9 @@ def build_core_performance_rows(
         raise ValueError("Core performance source must include layout_type")
     labels = tuple(layout_labels)
     selected = frame[frame["layout_type"].isin(labels)].copy()
+    missing = sorted(set(labels) - set(selected["layout_type"].dropna().astype(str)))
+    if missing:
+        raise ValueError(f"Core performance source missing required layout_type rows: {missing}")
     selected = order_by_values(selected, "layout_type", labels)
     return rows_from_frame(selected, source_stage, source_dir, source_csv)
 
@@ -131,6 +134,9 @@ def build_robustness_condition_rows(
         raise ValueError(f"Robustness source missing columns: {sorted(missing)}")
     labels = tuple(layout_labels)
     selected = frame[frame["layout_type"].isin(labels)].copy()
+    missing = sorted(set(labels) - set(selected["layout_type"].dropna().astype(str)))
+    if missing:
+        raise ValueError(f"Robustness source missing required layout_type rows: {missing}")
     selected = order_by_values(selected, "layout_type", labels)
     return rows_from_frame(selected, source_stage, source_dir, source_csv)
 

@@ -85,6 +85,7 @@ class PaperSourceGenerationTests(unittest.TestCase):
             source_stage="stage14_robustness",
             source_dir=source_csv.parent,
             source_csv=source_csv,
+            layout_labels=("validation_swap_selected",),
         )
 
         self.assertEqual(len(rows), 1)
@@ -93,6 +94,24 @@ class PaperSourceGenerationTests(unittest.TestCase):
         self.assertEqual(rows[0]["source_stage"], "stage14_robustness")
         self.assertEqual(rows[0]["source_dir"], "TRC-23-02333/trace_sl_results/stage14")
         self.assertEqual(rows[0]["source_csv"], "gls_map_layout_summary.csv")
+
+    def test_missing_required_core_layout_label_fails_closed(self) -> None:
+        generator = import_generator()
+        source_csv = self.write_csv(
+            "TRC-23-02333/trace_sl_results/stage12/gls_map_layout_summary.csv",
+            [
+                {"budget": 0.1, "layout_type": "validation_swap_selected", "mean": 1.2},
+            ],
+        )
+
+        with self.assertRaisesRegex(ValueError, "missing required layout_type"):
+            generator.build_core_performance_rows(
+                generator.load_csv(source_csv),
+                source_stage="stage12",
+                source_dir=source_csv.parent,
+                source_csv=source_csv,
+                layout_labels=("validation_swap_selected", "rcss_selected"),
+            )
 
     def test_markdown_rendering_is_deterministic_and_csv_backed(self) -> None:
         generator = import_generator()
