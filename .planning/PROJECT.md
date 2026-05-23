@@ -8,10 +8,26 @@ The repository now has:
 
 - A claim-evidence contract constraining TRACE-SL claims to explicit theory, held-out evidence, robustness evidence, statistical comparisons, or limitations.
 - A formal budgeted sensor-set formulation, RCSS surrogate, GLS/MAP posterior-error bridge, and validation-aware swap analysis.
-- A reviewer-facing baseline portfolio covering observability/TSLP-style baselines, A/D-optimal design, graph/GSP connections, QR/SVD/POD sparse placement, learning-check framing, and multistart validation refinement.
+- A reviewer-facing baseline portfolio covering observability/TSLP-style baselines, A/D-optimal design, graph/GSP connections, QR/SVD/POD sparse placement, learning-check framing, and multistart comparators.
 - Curated PeMS7_228, PeMS7_1026, Seattle-supporting, candidate-count, runtime, and certificate-error evidence with paired statistics and bounded caveats.
 - Stage 14 robustness artifacts for sensor failure, observation noise, missingness, nonuniform costs, temporal shift, and candidate-count sensitivity.
 - A reproducibility handoff with deterministic manifests, generated paper-source tables, launcher smoke checks, aggregate validators, and raw-data hygiene boundaries.
+
+## Current Milestone: v1.1 TRACE-SL Transportation Science Paper Foundation
+
+**Goal:** Freeze the Transportation Science paper foundation before manuscript drafting: core claim, main result table, ablation logic, external validation evidence, and a lightweight theory layer that make TRACE-SL ready to write without starting the paper text.
+
+**Target features:**
+- Freeze the paper-level narrative as transparent reconstruction-aware sensor layout design, not a heuristic or baseline-beating story.
+- Freeze the main method and main evidence around `validation_swap_selected` and the Stage12 PeMS7_228 baseline portfolio, while preserving the multistart caveat.
+- Organize or fill ablation evidence showing the separate roles of certificate candidate generation, validation selection, and validation-aware swap refinement.
+- Complete PeMS7_1026 Stage12 10-split external evidence so PeMS external evidence is no longer only lower-power supporting evidence.
+- Complete Seattle Stage12 10-split external/transfer-style evidence; otherwise Seattle cannot enter the core claim and the milestone should not be marked complete.
+- Keep robustness as stress-test or appendix evidence unless multi-seed perturbation results are added.
+- Prepare the Transportation Science theory layer: posterior trace bridge, monotonicity, validation-aware swap local optimality, and complexity.
+- Avoid TR Part B-level or unsupported wording such as optimal, certified, globally robust, guaranteed MAE improvement, or generalizes across networks.
+
+**Explicit non-goal:** This milestone does not start manuscript drafting and does not generate introduction, related work, method, results, or limitations prose. It only prepares the claim-evidence-theory-experiment foundation for later writing.
 
 ## Core Value
 
@@ -40,22 +56,27 @@ Make strong, publishable claims about transparent reconstruction-aware traffic s
 
 ### Active
 
-- [ ] Write the Transportation Science manuscript from the curated v1.0 evidence handoff.
-- [ ] Produce paper-ready figures, tables, and narrative from committed result artifacts.
-- [ ] Keep Seattle evidence supporting/conditional unless curated outputs justify core-claim status.
-- [ ] Keep PeMS7_1026 framed as lower-power external evidence unless more splits are added.
+- [ ] Freeze the TRACE-SL paper foundation around a Transportation Science claim, not a toy-project or heuristic-improvement framing.
+- [ ] Freeze the Stage12 PeMS7_228 baseline portfolio as the main in-domain result table and preserve the multistart caveat.
+- [ ] Organize or complete the ablation evidence needed to show why certificate candidate generation, validation selection, and validation-aware swap each matter.
+- [ ] Complete PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
+- [ ] Complete Seattle Stage12 10-split external/transfer-style evidence before allowing Seattle into any core claim.
+- [ ] Prepare a theory-ready package for posterior trace identity, monotonicity, validation-aware swap local optimality, and complexity.
+- [ ] Produce paper-foundation artifacts that a later writing milestone can consume without starting manuscript prose now.
 
 ### Out of Scope
 
+- Writing manuscript prose for introduction, related work, method, results, limitations, abstract, or conclusion — v1.1 prepares the foundation only.
 - Claiming TRACE-SL is best at every budget and against every strong baseline — current 10% PeMS7_228 evidence does not support that wording.
 - Calling the method formally “certified” without a theorem or bound — current evidence supports certificate-guided or posterior-certificate-aware wording.
+- Claiming optimal sensor placement, guaranteed MAE improvement, global robustness, or generalization across networks without the required evidence and theory.
 - Treating validation MAE as final test evidence — final claims must use held-out test evaluation and paired comparisons.
 - Making TR Part B the primary target before theory and algorithmic analysis mature — current project priority is Transportation Science readiness.
 - Deleting or committing raw traffic datasets — datasets are local inputs and must remain protected unless explicitly approved.
 
 ## Next Milestone Goals
 
-The next milestone should start fresh requirements for manuscript writing. The likely scope is PAPER-01 through PAPER-05: introduction, related work, method narrative, results narrative, and limitations for a Transportation Science submission.
+After v1.1, the next milestone should begin manuscript drafting from the frozen paper foundation: introduction, related work, method narrative, results narrative, and limitations for a Transportation Science submission.
 
 ## Context
 
@@ -64,8 +85,8 @@ The research direction is strong because it connects sparse traffic sensor layou
 Known evidence caveats after v1.0:
 
 - PeMS7_228 supports strong improvements at moderate/high budgets, while low-budget claims must preserve the multistart validation refinement caveat.
-- PeMS7_1026 remains lower-power external evidence where documented.
-- Seattle remains supporting/conditional evidence unless further curated into the core claim set.
+- PeMS7_1026 must be upgraded to Stage12 10-split evidence in v1.1 before it can support stronger external PeMS claims.
+- Seattle must be upgraded to Stage12 10-split evidence in v1.1 before it can enter core claims.
 - Stage 14 robustness is bounded to the tested perturbations and reduced PeMS7_228 settings.
 - Raw datasets remain local/ignored and must not be committed.
 
@@ -75,6 +96,7 @@ Known evidence caveats after v1.0:
 - **Backup venue:** TR Part B remains possible only with stronger mathematical modeling, posterior-error theory, algorithmic properties, and generality beyond PeMS tuning.
 - **Claim strategy:** Strong claims should be preserved and strengthened with evidence rather than narrowed prematurely.
 - **Evidence standard:** Core claims must be supported by held-out test results, paired comparisons, statistical uncertainty, robustness checks, and reproducible artifacts.
+- **External evidence:** PeMS7_1026 and Seattle must both receive Stage12 10-split evidence in v1.1 before being elevated beyond supporting or conditional status.
 - **Reproducibility:** Raw datasets stay local and ignored; curated result summaries, scripts, and non-sensitive artifacts should remain synchronized with paper claims.
 
 ## Key Decisions
@@ -83,9 +105,11 @@ Known evidence caveats after v1.0:
 |----------|-----------|---------|
 | Target Transportation Science first | The contribution fits transportation network design and transparent optimization better than a theory-heavy TR Part B submission in its present state | ✓ Good |
 | Keep strong claims, but require evidence-backed wording | The research has real promise; the right response is to add evidence and sharpen claims, not dilute the contribution | ✓ Good |
+| Frame v1.1 as paper foundation, not manuscript drafting | The claim, external evidence, ablation logic, and theory layer need to be frozen before writing begins | — Pending |
+| Require PeMS7_1026 Stage12 10-split evidence before stronger external PeMS claims | The existing PeMS7_1026 evidence is promising but lower-power | — Pending |
+| Require Seattle Stage12 10-split evidence before core-claim use | Seattle should not remain conditional if it is used as external/transfer-style evidence | — Pending |
 | Use “certificate-guided” unless formal certification is proved | Current posterior diagnostics correlate with MAE but are not formal certificates | ✓ Good |
 | Treat multistart validation refinement as a serious comparator or portfolio member | At 10% budget it can outperform validation-swap RCSS, so ignoring it would invite reviewer criticism | ✓ Good |
-| Make Seattle evidence supporting/conditional unless curated | Repository/paper consistency is necessary for reproducibility and reviewer trust | ✓ Good |
 | Use generated paper-source tables as the manuscript handoff | This keeps paper-visible numbers tied to committed aggregate evidence and provenance | ✓ Good |
 | Use DRY_RUN launcher smoke checks for final reproducibility validation | Full experiment reruns are expensive; smoke checks validate command surfaces without raw-data exposure | ✓ Good |
 
@@ -107,4 +131,4 @@ Archived files:
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026/05/23 after v1.0 milestone completion*
+*Last updated: 2026/05/23 after v1.1 milestone initialization*

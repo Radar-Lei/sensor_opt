@@ -1,17 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: TRACE-SL Readiness
-status: completed
-stopped_at: Milestone complete after Phase 06 verification and milestone audit
-last_updated: "2026-05-23T10:57:35.252Z"
-last_activity: 2026-05-23 — Milestone v1.0 completed and archived
+milestone: v1.1
+milestone_name: TRACE-SL Transportation Science Paper Foundation
+status: planning
+last_updated: "2026-05-23T11:19:00.788Z"
+last_activity: 2026-05-23
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 17
-  completed_plans: 17
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -58,3 +57,10 @@ Start the next milestone with `/gsd:new-milestone`, likely focused on PAPER-01 t
 ## Operator Next Steps
 
 - Start the next milestone with `/gsd:new-milestone`
+
+## Current Position
+
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-05-23 — Milestone v1.1 started
