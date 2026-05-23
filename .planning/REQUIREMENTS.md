@@ -79,33 +79,34 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLAIM-01 | TBD | Pending |
-| CLAIM-02 | TBD | Pending |
-| CLAIM-03 | TBD | Pending |
-| CLAIM-04 | TBD | Pending |
-| EVID-01 | TBD | Pending |
-| EVID-02 | TBD | Pending |
-| EVID-03 | TBD | Pending |
-| EVID-04 | TBD | Pending |
-| EVID-05 | TBD | Pending |
-| ABLT-01 | TBD | Pending |
-| ABLT-02 | TBD | Pending |
-| ABLT-03 | TBD | Pending |
-| ABLT-04 | TBD | Pending |
-| THEORY-01 | TBD | Pending |
-| THEORY-02 | TBD | Pending |
-| THEORY-03 | TBD | Pending |
-| THEORY-04 | TBD | Pending |
-| THEORY-05 | TBD | Pending |
-| HAND-01 | TBD | Pending |
-| HAND-02 | TBD | Pending |
-| HAND-03 | TBD | Pending |
+| CLAIM-01 | Phase 7 | Pending |
+| CLAIM-02 | Phase 7 | Pending |
+| CLAIM-03 | Phase 7 | Pending |
+| CLAIM-04 | Phase 7 | Pending |
+| EVID-01 | Phase 7 | Pending |
+| EVID-02 | Phase 7 | Pending |
+| EVID-03 | Phase 8 | Pending |
+| EVID-04 | Phase 8 | Pending |
+| EVID-05 | Phase 9 | Pending |
+| ABLT-01 | Phase 9 | Pending |
+| ABLT-02 | Phase 9 | Pending |
+| ABLT-03 | Phase 9 | Pending |
+| ABLT-04 | Phase 9 | Pending |
+| THEORY-01 | Phase 10 | Pending |
+| THEORY-02 | Phase 10 | Pending |
+| THEORY-03 | Phase 10 | Pending |
+| THEORY-04 | Phase 10 | Pending |
+| THEORY-05 | Phase 10 | Pending |
+| HAND-01 | Phase 7 | Pending |
+| HAND-02 | Phase 10 | Pending |
+| HAND-03 | Phase 10 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 21 total
-- Mapped to phases: 0
-- Unmapped: 21 ⚠
+- Mapped to phases: 21
+- Unmapped: 0
+- Duplicate mappings: 0
 
 ---
 *Requirements defined: 2026/05/23*
-*Last updated: 2026/05/23 after v1.1 requirements definition*
+*Last updated: 2026/05/23 after v1.1 roadmap creation*
