@@ -34,7 +34,7 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 
 ### v1.1 TRACE-SL Transportation Science Paper Foundation
 
-- [ ] **Phase 7: Claim and Main Table Contract** - Freeze the Transportation Science claim boundary, PeMS7_228 main table contract, caveats, and robustness routing.
+- [x] **Phase 7: Claim and Main Table Contract** - Freeze the Transportation Science claim boundary, PeMS7_228 main table contract, caveats, and robustness routing.
 - [ ] **Phase 8: External Stage12 Evidence** - Complete mandatory PeMS7_1026 and Seattle Stage12 10-split external evidence before external claims are elevated.
 - [ ] **Phase 9: Ablation and Evidence Classification** - Freeze the ablation logic and classify every dataset by evidence strength.
 - [ ] **Phase 10: Theory and Handoff Package** - Prepare theory-ready statements and reproducibility-safe paper-foundation handoff artifacts without manuscript prose.
