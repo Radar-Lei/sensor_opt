@@ -325,16 +325,16 @@ def validate_robust_05(gls, frames, context):
 
 def candidate_counts(frame, requirement, artifact_name, context, require_runtime=False):
     if frame.empty:
-        return set()
+        return set(), []
     if "candidate_count" not in frame.columns:
         context.fail(requirement, f"{artifact_name} missing candidate_count column")
-        return set()
+        return set(), []
     work = frame.copy()
     work["candidate_count"] = pd.to_numeric(work["candidate_count"], errors="coerce")
     if require_runtime:
         if "runtime_seconds" not in work.columns:
             context.fail(requirement, f"{artifact_name} missing runtime_seconds column")
-            return set()
+            return set(), []
         work["runtime_seconds"] = pd.to_numeric(work["runtime_seconds"], errors="coerce")
         work = work[work["runtime_seconds"].notna() & (work["runtime_seconds"] >= 0)]
         if "status" in work.columns:
@@ -344,11 +344,26 @@ def candidate_counts(frame, requirement, artifact_name, context, require_runtime
         work = work[string_series(work, "method") == "gls_map"]
         if work.empty:
             context.fail(requirement, f"{artifact_name} has no method == gls_map candidate rows")
+            return set(), []
     counts = set(work["candidate_count"].dropna().astype(int).tolist())
     missing = REQUIRED_CANDIDATE_COUNTS - counts
-    if missing:
-        context.fail(requirement, f"{artifact_name} missing candidate counts: {sorted(missing)}")
-    return counts
+    coverage_errors = [(artifact_name, sorted(missing))] if missing else []
+    return counts, coverage_errors
+
+
+def caveat_matches_coverage_errors(caveat, coverage_errors):
+    caveat_missing = {int(value) for value in caveat.get("missing_candidate_counts", [])}
+    caveat_completed = {int(value) for value in caveat.get("completed_candidate_counts", [])}
+    if not coverage_errors:
+        return False
+    for _, missing in coverage_errors:
+        if set(missing) - caveat_missing:
+            return False
+    return bool(caveat_missing and caveat_completed and not (caveat_missing & caveat_completed))
+
+
+def format_coverage_errors(coverage_errors):
+    return "; ".join(f"{artifact} missing candidate counts: {missing}" for artifact, missing in coverage_errors)
 
 
 def load_valid_caveat(candidate_dir):
@@ -432,21 +447,25 @@ def validate_robust_06(root, context):
         "runtime_candidate_sensitivity": read_csv(candidate_dir / "runtime_candidate_sensitivity.csv", "ROBUST-06", context),
         "stage14_timing": read_csv(candidate_dir / "stage14_timing.csv", "ROBUST-06", context),
     }
-    candidate_error_start = len(context.errors)
-    candidate_counts(frames["combined_metrics"], "ROBUST-06", "combined_metrics.csv", context)
-    candidate_counts(frames["candidate_sensitivity_summary"], "ROBUST-06", "candidate_sensitivity_summary.csv", context)
-    candidate_counts(frames["runtime_candidate_sensitivity"], "ROBUST-06", "runtime_candidate_sensitivity.csv", context, require_runtime=True)
-    candidate_counts(frames["stage14_timing"], "ROBUST-06", "stage14_timing.csv", context, require_runtime=True)
-    candidate_errors = context.errors[candidate_error_start:]
-    if candidate_errors:
+    coverage_errors = []
+    for artifact_name, frame, require_runtime in [
+        ("combined_metrics.csv", frames["combined_metrics"], False),
+        ("candidate_sensitivity_summary.csv", frames["candidate_sensitivity_summary"], False),
+        ("runtime_candidate_sensitivity.csv", frames["runtime_candidate_sensitivity"], True),
+        ("stage14_timing.csv", frames["stage14_timing"], True),
+    ]:
+        _, artifact_coverage_errors = candidate_counts(frame, "ROBUST-06", artifact_name, context, require_runtime=require_runtime)
+        coverage_errors.extend(artifact_coverage_errors)
+    if coverage_errors:
         caveat, caveat_errors = load_valid_caveat(candidate_dir)
-        if caveat is not None:
-            context.errors = context.errors[:candidate_error_start]
+        if caveat is not None and caveat_matches_coverage_errors(caveat, coverage_errors):
             missing = sorted(int(value) for value in caveat["missing_candidate_counts"])
             completed = sorted(int(value) for value in caveat["completed_candidate_counts"])
             context.warn("ROBUST-06", f"limited tractability caveat accepted; missing={missing}; completed={completed}")
+        elif caveat is not None:
+            context.fail("ROBUST-06", "ROBUST-06 caveat does not match candidate-count coverage gaps: " + format_coverage_errors(coverage_errors))
         else:
-            context.fail("ROBUST-06", "invalid ROBUST-06 caveat: " + "; ".join(caveat_errors))
+            context.fail("ROBUST-06", "invalid ROBUST-06 caveat: " + "; ".join(caveat_errors) + "; " + format_coverage_errors(coverage_errors))
 
 
 def validate_robustness_bundle(root, context):

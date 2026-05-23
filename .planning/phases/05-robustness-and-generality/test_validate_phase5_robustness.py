@@ -300,24 +300,52 @@ class Phase5RobustnessValidatorTests(unittest.TestCase):
         self.assertIn("ROBUST-06 WARN", result.stdout)
         self.assertIn("limited tractability", result.stdout.lower())
 
+    def write_valid_candidate_caveat(self, candidates):
+        caveat = {
+            "requirement": "ROBUST-06",
+            "allowed_exception": True,
+            "missing_candidate_counts": [500],
+            "completed_candidate_counts": [50, 100, 200],
+            "reason": "500-candidate local run exceeded limited tractability budget after evidence attempt.",
+            "evidence_attempted": True,
+            "validator_disposition": "WARN: limited tractability exception accepted",
+        }
+        (candidates / "candidate_sensitivity_caveat.json").write_text(json.dumps(caveat), encoding="utf-8")
+
     def test_valid_candidate_count_caveat_does_not_hide_missing_core_artifact(self):
         with tempfile.TemporaryDirectory() as tmp:
             _, candidates = create_complete_artifacts(Path(tmp), candidate_counts=[50, 100, 200])
             (candidates / "SUMMARY.md").unlink()
-            caveat = {
-                "requirement": "ROBUST-06",
-                "allowed_exception": True,
-                "missing_candidate_counts": [500],
-                "completed_candidate_counts": [50, 100, 200],
-                "reason": "500-candidate local run exceeded limited tractability budget after evidence attempt.",
-                "evidence_attempted": True,
-                "validator_disposition": "WARN: limited tractability exception accepted",
-            }
-            (candidates / "candidate_sensitivity_caveat.json").write_text(json.dumps(caveat), encoding="utf-8")
+            self.write_valid_candidate_caveat(candidates)
             result = run_validator(Path(tmp))
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("ROBUST-06 FAIL", result.stdout)
         self.assertIn("SUMMARY.md", result.stdout)
+
+    def test_valid_candidate_count_caveat_does_not_hide_runtime_schema_error(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, candidates = create_complete_artifacts(Path(tmp), candidate_counts=[50, 100, 200])
+            rows = runtime_rows([50, 100, 200])
+            fieldnames = [name for name in rows[0].keys() if name != "runtime_seconds"]
+            write_csv(candidates / "runtime_candidate_sensitivity.csv", rows, fieldnames=fieldnames)
+            self.write_valid_candidate_caveat(candidates)
+            result = run_validator(Path(tmp))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("ROBUST-06 FAIL", result.stdout)
+        self.assertIn("runtime_seconds", result.stdout)
+
+    def test_valid_candidate_count_caveat_does_not_hide_missing_gls_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, candidates = create_complete_artifacts(Path(tmp), candidate_counts=[50, 100, 200])
+            rows = candidate_metric_rows([50, 100, 200])
+            for row in rows:
+                row["method"] = "gsp"
+            write_csv(candidates / "combined_metrics.csv", rows)
+            self.write_valid_candidate_caveat(candidates)
+            result = run_validator(Path(tmp))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("ROBUST-06 FAIL", result.stdout)
+        self.assertIn("method == gls_map", result.stdout)
 
 
 if __name__ == "__main__":
