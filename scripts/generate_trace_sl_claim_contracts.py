@@ -113,6 +113,15 @@ def source_metadata(source_stage: str, source_dir: Path, source_csv: Path) -> di
     }
 
 
+def evidence_metadata(source_stage: str, evidence_artifact: str) -> dict[str, str]:
+    artifact_path = Path(evidence_artifact)
+    return {
+        "source_stage": source_stage,
+        "source_dir": artifact_path.parent.as_posix(),
+        "source_csv": artifact_path.name,
+    }
+
+
 def load_csv(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Expected aggregate CSV not found: {path}")
@@ -179,10 +188,7 @@ def write_json(path: Path, payload: dict[str, object]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def assert_source_is_tracked(project_root: Path, source: Path) -> None:
-    relative = project_relative(source, project_root)
-    if relative.startswith("TRC-23-02333/dataset/") or not relative.startswith(TRACE_RESULTS_ROOT.as_posix() + "/"):
-        raise ValueError(f"Source is outside curated trace_sl_results: {relative}")
+def assert_git_path_is_tracked(project_root: Path, relative: str, label: str) -> None:
     result = subprocess.run(
         ["git", "-C", str(project_root), "ls-files", "--error-unmatch", relative],
         stdout=subprocess.DEVNULL,
@@ -190,7 +196,25 @@ def assert_source_is_tracked(project_root: Path, source: Path) -> None:
         check=False,
     )
     if result.returncode != 0:
-        raise ValueError(f"Source CSV is not committed/tracked by git: {relative}")
+        raise ValueError(f"{label} is not committed/tracked by git: {relative}")
+
+
+def assert_source_is_tracked(project_root: Path, source: Path) -> None:
+    relative = project_relative(source, project_root)
+    if relative.startswith("TRC-23-02333/dataset/") or not relative.startswith(TRACE_RESULTS_ROOT.as_posix() + "/"):
+        raise ValueError(f"Source is outside curated trace_sl_results: {relative}")
+    assert_git_path_is_tracked(project_root, relative, "Source CSV")
+
+
+def assert_evidence_artifact_is_tracked(project_root: Path, artifact: str) -> None:
+    if not artifact:
+        return
+    if artifact.startswith("TRC-23-02333/dataset/"):
+        raise ValueError(f"Evidence artifact references raw dataset path: {artifact}")
+    if artifact.startswith(TRACE_RESULTS_ROOT.as_posix() + "/") or artifact.startswith(".planning/"):
+        assert_git_path_is_tracked(project_root, artifact, "Evidence artifact")
+        return
+    raise ValueError(f"Evidence artifact is outside curated contract roots: {artifact}")
 
 
 def resolve_output_dir(project_root: Path, output_dir: Path) -> Path:
@@ -253,12 +277,14 @@ def _claim_row(
 
 
 def build_claim_contract_rows(stage12_dir: Path, layout_csv: Path, paired_csv: Path) -> list[dict[str, object]]:
-    metadata = source_metadata("phase7_claim_contract", stage12_dir, layout_csv)
     layout_artifact = project_relative(layout_csv)
     paired_artifact = project_relative(paired_csv)
+    pems7_1026_artifact = "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_layout_summary.csv"
+    robustness_layout_artifact = "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv"
+    robustness_summary_artifact = "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md"
     rows = [
         _claim_row(
-            metadata,
+            evidence_metadata("stage12_baseline_portfolio", layout_artifact),
             "CLAIM-01",
             "core_in_domain",
             "transportation_science_ready",
@@ -272,7 +298,7 @@ def build_claim_contract_rows(stage12_dir: Path, layout_csv: Path, paired_csv: P
             "transparent reconstruction-aware sparse sensor layout design with validation-swap-selected main method",
         ),
         _claim_row(
-            metadata,
+            evidence_metadata("phase7_claim_policy", ".planning/REQUIREMENTS.md"),
             "CLAIM-02",
             "tr_part_b_extension",
             "requires_stronger_theory",
@@ -286,7 +312,7 @@ def build_claim_contract_rows(stage12_dir: Path, layout_csv: Path, paired_csv: P
             "formal certification, global optimality, and broad generality remain outside Transportation Science-ready claims",
         ),
         _claim_row(
-            metadata,
+            evidence_metadata("stage12_baseline_portfolio", paired_artifact),
             "EVID-01",
             "core_in_domain",
             "transportation_science_ready",
@@ -300,56 +326,42 @@ def build_claim_contract_rows(stage12_dir: Path, layout_csv: Path, paired_csv: P
             "main in-domain table is derived from committed Stage12 aggregate evidence only",
         ),
         _claim_row(
-            metadata,
+            evidence_metadata("stage11_external_evidence", pems7_1026_artifact),
             "EVID-EXT-PeMS7_1026",
             "external_evidence",
             "supporting_until_phase8",
             "external evidence",
             "generalizes across networks",
             "PeMS7_1026",
-            "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
+            pems7_1026_artifact,
             "phase8_stage12_10_split_required_before_core_claim",
             "",
             "phase7_external_boundary",
             "PeMS7_1026 cannot be core_in_domain or transportation_science_ready in Phase 7",
         ),
         _claim_row(
-            metadata,
-            "EVID-EXT-Seattle",
-            "external_evidence",
-            "conditional_until_phase8",
-            "external evidence",
-            "generalizes across networks",
-            "Seattle",
-            "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
-            "phase8_stage12_10_split_required_before_core_claim",
-            "",
-            "phase7_external_boundary",
-            "Seattle cannot be core_in_domain or transportation_science_ready in Phase 7",
-        ),
-        _claim_row(
-            metadata,
+            evidence_metadata("stage14_robustness", robustness_layout_artifact),
             "HAND-01-STRESS",
             "stress_test",
             "bounded_stress_test_evidence",
             "stress-tested",
             "globally robust",
             "Stage14 robustness",
-            "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv",
+            robustness_layout_artifact,
             "stress_test_only_unless_multi_seed_perturbation_evidence",
             "",
             "phase7_robustness_boundary",
             "single-stage robustness rows are routed as stress-test evidence, not global robustness",
         ),
         _claim_row(
-            metadata,
+            evidence_metadata("stage14_robustness", robustness_summary_artifact),
             "HAND-01-APPENDIX",
             "appendix",
             "bounded_appendix_evidence",
             "stress-tested",
             "",
             "Stage14 robustness",
-            "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md",
+            robustness_summary_artifact,
             "appendix_or_stress_test_only",
             "",
             "phase7_robustness_boundary",
@@ -359,7 +371,7 @@ def build_claim_contract_rows(stage12_dir: Path, layout_csv: Path, paired_csv: P
     for index, forbidden in enumerate(FORBIDDEN_WORDING, start=1):
         rows.append(
             _claim_row(
-                metadata,
+                evidence_metadata("phase7_claim_policy", ".planning/REQUIREMENTS.md"),
                 f"CLAIM-03-{index:02d}",
                 "wording_guardrail",
                 "forbidden",
@@ -385,8 +397,13 @@ def validate_claim_contract_rows(rows: Sequence[dict[str, object]]) -> None:
             raise ValueError(f"claim contract row has unexpected columns: {sorted(set(row))}")
         artifact = str(row["evidence_artifact"])
         source_dir = str(row["source_dir"])
+        source_csv = str(row["source_csv"])
         if "TRC-23-02333/dataset/" in artifact or source_dir.startswith("TRC-23-02333/dataset/"):
             raise ValueError("claim contract references raw dataset path")
+        if artifact:
+            expected_metadata = evidence_metadata(str(row["source_stage"]), artifact)
+            if source_dir != expected_metadata["source_dir"] or source_csv != expected_metadata["source_csv"]:
+                raise ValueError(f"claim contract provenance does not match evidence artifact: {artifact}")
 
     present_forbidden = [str(row["forbidden_wording"]) for row in rows if row["claim_lane"] == "wording_guardrail"]
     missing_forbidden = [term for term in FORBIDDEN_WORDING if term not in present_forbidden]
@@ -531,7 +548,7 @@ def build_claim_contract_policy(claim_rows: Sequence[dict[str, object]], main_ro
         "claim_statuses": sorted({str(row["claim_status"]) for row in claim_rows}),
         "evidence_routing": {
             "core_in_domain": "PeMS7_228 Stage12 baseline portfolio only in Phase 7",
-            "external_evidence": "PeMS7_1026 and Seattle stay supporting/conditional until Phase 8 Stage12 10-split evidence",
+            "external_evidence": "PeMS7_1026 stays supporting until Phase 8 Stage12 10-split evidence; Seattle remains out of the Phase 7 contract until routed through tracked summary artifacts",
             "robustness": "stress_test or appendix unless source row declares multi-seed perturbation evidence",
             "claim_metric_basis": "held-out test evidence with paired comparisons where available; validation MAE is selection evidence only",
         },
@@ -561,6 +578,8 @@ def build_all_contracts(project_root: Path, output_dir: Path | None = None) -> d
     layout_frame = load_csv(stage12_layout)
     paired_frame = load_csv(stage12_paired)
     claim_rows = build_claim_contract_rows(stage12_layout.parent, stage12_layout, stage12_paired)
+    for row in claim_rows:
+        assert_evidence_artifact_is_tracked(project_root, str(row["evidence_artifact"]))
     main_rows = build_main_table_contract_rows(layout_frame, paired_frame, stage12_layout.parent, stage12_layout, stage12_paired)
     validate_claim_contract_rows(claim_rows)
     validate_main_table_contract_rows(main_rows)
@@ -591,7 +610,7 @@ def write_readme(output_dir: Path) -> None:
         "- `certificate_correlation_table.csv`: Stage 12/13 empirical certificate-error correlation summaries.\n"
         "- `claim_contract.csv` / `claim_contract.json` / `claim_contract.md`: Phase 7 claim wording, evidence routing, and caveat policy.\n"
         "- `main_table_contract.csv` / `main_table_contract.md`: Phase 7 Stage12 PeMS7_228 main-table contract with paired-stat provenance and caveat tags.\n\n"
-        "Every generated row includes `source_stage`, `source_dir`, and `source_csv` provenance columns. The generators verify that source CSVs are tracked by git and read only committed aggregate CSVs, not raw traffic datasets.\n",
+        "Every generated row includes `source_stage`, `source_dir`, and `source_csv` provenance columns. The generators verify that source CSVs and nonempty evidence artifacts are tracked by git and read only committed aggregate CSVs, not raw traffic datasets.\n",
         encoding="utf-8",
     )
 

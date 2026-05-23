@@ -144,7 +144,17 @@ class ClaimContractGenerationTests(unittest.TestCase):
         for row in rows:
             self.assertEqual(set(row), expected_columns)
             self.assertNotIn("TRC-23-02333/dataset/", row["evidence_artifact"])
-            self.assertEqual(row["source_dir"], "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio")
+            artifact_path = Path(row["evidence_artifact"])
+            self.assertEqual(row["source_dir"], artifact_path.parent.as_posix())
+            self.assertEqual(row["source_csv"], artifact_path.name)
+
+        evidence_sources = {row["evidence_source"] for row in rows}
+        self.assertIn("PeMS7_1026", evidence_sources)
+        self.assertNotIn("Seattle", evidence_sources)
+        self.assertNotIn(
+            "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
+            {row["evidence_artifact"] for row in rows},
+        )
 
         lanes = {row["claim_lane"] for row in rows}
         statuses = {row["claim_status"] for row in rows}
@@ -358,6 +368,8 @@ class ClaimContractGenerationTests(unittest.TestCase):
         raw_source.write_text("value\n1\n", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "outside curated trace_sl_results"):
             generator.assert_source_is_tracked(self.root, raw_source)
+        with self.assertRaisesRegex(ValueError, "raw dataset"):
+            generator.assert_evidence_artifact_is_tracked(self.root, "TRC-23-02333/dataset/PeMS7_228/raw.csv")
 
         untracked_source = self.write_csv(
             "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/untracked.csv",
@@ -365,6 +377,11 @@ class ClaimContractGenerationTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(ValueError, "not committed/tracked"):
             generator.assert_source_is_tracked(self.root, untracked_source)
+        with self.assertRaisesRegex(ValueError, "not committed/tracked"):
+            generator.assert_evidence_artifact_is_tracked(
+                self.root,
+                "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
+            )
 
 
 if __name__ == "__main__":

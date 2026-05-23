@@ -21,7 +21,6 @@
   "claim_statuses": [
     "bounded_appendix_evidence",
     "bounded_stress_test_evidence",
-    "conditional_until_phase8",
     "forbidden",
     "requires_stronger_theory",
     "supporting_until_phase8",
@@ -30,7 +29,7 @@
   "evidence_routing": {
     "claim_metric_basis": "held-out test evidence with paired comparisons where available; validation MAE is selection evidence only",
     "core_in_domain": "PeMS7_228 Stage12 baseline portfolio only in Phase 7",
-    "external_evidence": "PeMS7_1026 and Seattle stay supporting/conditional until Phase 8 Stage12 10-split evidence",
+    "external_evidence": "PeMS7_1026 stays supporting until Phase 8 Stage12 10-split evidence; Seattle remains out of the Phase 7 contract until routed through tracked summary artifacts",
     "robustness": "stress_test or appendix unless source row declares multi-seed perturbation evidence"
   },
   "forbidden_wording": [
@@ -57,17 +56,16 @@
     "qr_pod_modes"
   ],
   "row_counts": {
-    "claim_contract": 12,
+    "claim_contract": 11,
     "main_table_contract": 33
   },
   "secondary_certificate_baseline_if_present": "greedy_d_logdet",
   "source_artifacts": [
     ".planning/REQUIREMENTS.md",
-    "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
+    "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_layout_summary.csv",
     "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
     "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
     "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md",
-    "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv",
-    "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light"
+    "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv"
   ]
 }
