@@ -3870,9 +3870,14 @@
   "git": {
     "branch": "main",
     "commit": "31657da778e84114848e39970681e7c8a843b0d9",
+    "commit_scope": "latest commit affecting manifest generator inputs; generated manifest outputs excluded for idempotence",
     "raw_dataset_policy": "protected local input only; excluded from paper-visible evidence artifacts",
-    "status_short_relevant": [],
-    "status_short_total_count": 15,
+    "status_short_relevant": [
+      " M TRC-23-02333/trace_sl_results/REPRODUCIBILITY_MANIFEST.md",
+      " M TRC-23-02333/trace_sl_results/reproducibility_manifest.json",
+      " M scripts/generate_trace_sl_repro_manifest.py"
+    ],
+    "status_short_total_count": 14,
     "tracked_raw_dataset_path_count": 0,
     "tracked_raw_dataset_paths": []
   },

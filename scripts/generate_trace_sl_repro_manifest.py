@@ -256,6 +256,28 @@ def run_git(project_root: Path, args: Iterable[str]) -> str:
     return completed.stdout.strip() if completed.returncode == 0 else completed.stderr.strip()
 
 
+def collect_input_commit(project_root: Path) -> str:
+    """Return the latest commit affecting generator inputs, excluding generated outputs."""
+    input_paths = [
+        "TRC-23-02333/trace_sl_results/README.md",
+        "scripts/generate_trace_sl_repro_manifest.py",
+        "scripts/run_stage11_pems7_1026.sh",
+        "scripts/run_stage11_seattle.sh",
+        "scripts/run_stage12_pems7_228.sh",
+        "scripts/run_stage13_candidate_sensitivity_pems7_228.sh",
+        "scripts/run_stage14_candidate_sensitivity_pems7_228.sh",
+        "scripts/run_stage14_pems7_228_robustness.sh",
+    ]
+    input_paths.extend((RESULT_ROOT / entry["directory"]).as_posix() for entry in CURATED_STAGE_ENTRIES)
+    input_paths.extend(
+        [
+            f":(exclude){RESULT_ROOT / 'reproducibility_manifest.json'}",
+            f":(exclude){RESULT_ROOT / 'REPRODUCIBILITY_MANIFEST.md'}",
+        ]
+    )
+    return run_git(project_root, ["rev-list", "-1", "HEAD", "--", *input_paths])
+
+
 def collect_git_provenance(project_root: Path) -> dict[str, object]:
     """Collect local git provenance and raw-data path hygiene."""
     tracked_raw = [
@@ -281,7 +303,8 @@ def collect_git_provenance(project_root: Path) -> dict[str, object]:
         if path_part.startswith(relevant_status_prefixes):
             relevant_status.append(line)
     return {
-        "commit": run_git(project_root, ["rev-parse", "HEAD"]),
+        "commit": collect_input_commit(project_root),
+        "commit_scope": "latest commit affecting manifest generator inputs; generated manifest outputs excluded for idempotence",
         "branch": run_git(project_root, ["rev-parse", "--abbrev-ref", "HEAD"]),
         "status_short_relevant": relevant_status,
         "status_short_total_count": len(status_lines),
