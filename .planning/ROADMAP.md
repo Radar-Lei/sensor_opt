@@ -16,7 +16,7 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 | 2 | 2/2 | Complete   | 2026-05-22 |
 | 3 | 1/1 | Complete   | 2026-05-22 |
 | 4 | 6/6 | Complete   | 2026-05-22 |
-| 5 | Robustness and Generality | Stress-test the method under deployment-like perturbations and sensitivity settings | ROBUST-01..06 |
+| 5 | 1/4 | Executing | ROBUST-01..06 |
 | 6 | Reproducibility and Artifact Curation | Make paper-visible evidence reproducible, curated, and repository-consistent | REPRO-01..05 |
 
 ## Phases
