@@ -1,0 +1,5 @@
+candidate_count,status,runtime_seconds,std,min,max,count
+50,success,5.0,,5,5,1
+100,success,7.0,,7,7,1
+200,success,10.0,,10,10,1
+500,success,20.0,,20,20,1

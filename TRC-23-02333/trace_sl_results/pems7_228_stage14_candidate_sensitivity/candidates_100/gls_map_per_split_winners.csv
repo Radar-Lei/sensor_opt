@@ -1,0 +1,2 @@
+split_seed,budget,candidate_count,robustness_family,robustness_condition,failure_rate,noise_scale,missing_rate,missing_block_steps,cost_proxy,cost_budget,split_mode,best_layout,mae
+25,0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,top_variance,1.0242773800934686

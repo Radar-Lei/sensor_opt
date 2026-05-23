@@ -1,0 +1,5 @@
+candidate_count,seed,runtime_seconds,status,output_dir,caveat_path
+50,25,5,success,TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25,
+100,25,7,success,TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25,
+200,25,10,success,TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25,
+500,25,20,success,TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25,

@@ -1,0 +1,12 @@
+budget,candidate_count,robustness_family,robustness_condition,failure_rate,noise_scale,missing_rate,missing_block_steps,cost_proxy,cost_budget,split_mode,layout_type,mean,std,count
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,top_variance,1.0242773800934686,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,rcss_selected,1.09139736775699,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,multistart_swap_by_validation,1.1030993930410014,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,validation_swap_selected,1.1088777094325013,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,greedy_a_trace,1.1422062643574222,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,qr_pod_modes,1.14490665390987,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,best_random_by_validation,1.1847913376814716,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,greedy_d_logdet,1.2740144445387922,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,scenario_cvar_a_trace,1.3340737556093851,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,graph_sampling_laplacian,1.3964643939188042,,1
+0.2,100,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,observability_proxy,1.525918562957634,,1

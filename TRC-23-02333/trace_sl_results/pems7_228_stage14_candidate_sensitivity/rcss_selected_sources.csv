@@ -1,0 +1,5 @@
+budget,candidate_count,source,selected_count
+0.2,50,quality_coverage_sample,1
+0.2,100,quality_coverage_sample,1
+0.2,200,quality_coverage_sample,1
+0.2,500,quality_coverage_sample,1

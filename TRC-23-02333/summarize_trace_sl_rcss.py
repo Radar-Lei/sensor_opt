@@ -203,12 +203,15 @@ def build_runtime_candidate_sensitivity_summary(frame):
 def collect_runtime_candidate_frames(input_roots, rcss_candidates):
     frames = []
     for input_root in input_roots:
-        timing_path = input_root / "stage13_timing.csv"
+        timing_paths = [input_root / "stage14_timing.csv", input_root / "stage13_timing.csv"]
         summary_path = input_root / "runtime_candidate_sensitivity.csv"
-        if timing_path.exists():
-            frames.append(pd.read_csv(timing_path))
-        elif summary_path.exists():
-            frames.append(pd.read_csv(summary_path))
+        timing_frame = next((read_nonempty_csv(path) for path in timing_paths if read_nonempty_csv(path) is not None), None)
+        if timing_frame is not None:
+            frames.append(timing_frame)
+        else:
+            summary_frame = read_nonempty_csv(summary_path)
+            if summary_frame is not None:
+                frames.append(summary_frame)
     for frame in rcss_candidates:
         if {"candidate_count", "runtime_seconds"}.issubset(frame.columns):
             frames.append(frame)
