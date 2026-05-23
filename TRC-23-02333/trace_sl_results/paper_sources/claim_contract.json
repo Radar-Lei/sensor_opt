@@ -53,7 +53,8 @@
     "greedy_a_trace",
     "graph_sampling_laplacian",
     "observability_proxy",
-    "qr_pod_modes"
+    "qr_pod_modes",
+    "greedy_d_logdet"
   ],
   "row_counts": {
     "claim_contract": 11,

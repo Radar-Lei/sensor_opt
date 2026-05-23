@@ -534,6 +534,12 @@ def validate_main_table_contract_rows(rows: Sequence[dict[str, object]]) -> None
         raise ValueError(f"main table contract missing required layout labels: {missing_labels}")
 
 
+def main_table_labels_in_rows(main_rows: Sequence[dict[str, object]]) -> list[str]:
+    ordered = list(MAIN_TABLE_LAYOUT_LABELS) + [SECONDARY_CERTIFICATE_BASELINE]
+    present = {str(row["layout_type"]) for row in main_rows}
+    return [label for label in ordered if label in present]
+
+
 def build_claim_contract_policy(claim_rows: Sequence[dict[str, object]], main_rows: Sequence[dict[str, object]]) -> dict[str, object]:
     validate_claim_contract_rows(claim_rows)
     validate_main_table_contract_rows(main_rows)
@@ -554,7 +560,7 @@ def build_claim_contract_policy(claim_rows: Sequence[dict[str, object]], main_ro
         },
         "caveat_tags": [LOW_BUDGET_MULTISTART_CAVEAT_TAG],
         "main_method_label": MAIN_METHOD_LABEL,
-        "main_table_layout_labels": list(MAIN_TABLE_LAYOUT_LABELS),
+        "main_table_layout_labels": main_table_labels_in_rows(main_rows),
         "secondary_certificate_baseline_if_present": SECONDARY_CERTIFICATE_BASELINE,
         "source_artifacts": sorted(
             {

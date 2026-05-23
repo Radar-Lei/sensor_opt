@@ -47,7 +47,7 @@ class ClaimContractGenerationTests(unittest.TestCase):
         pd.DataFrame(rows).to_csv(path, index=False)
         return path
 
-    def layout_rows(self) -> list[dict[str, object]]:
+    def layout_rows(self, include_secondary_certificate_baseline: bool = False) -> list[dict[str, object]]:
         labels = [
             "validation_swap_selected",
             "multistart_swap_by_validation",
@@ -60,6 +60,8 @@ class ClaimContractGenerationTests(unittest.TestCase):
             "observability_proxy",
             "qr_pod_modes",
         ]
+        if include_secondary_certificate_baseline:
+            labels.append("greedy_d_logdet")
         rows: list[dict[str, object]] = []
         for budget in (0.1, 0.2):
             for index, label in enumerate(labels):
@@ -76,7 +78,7 @@ class ClaimContractGenerationTests(unittest.TestCase):
                 )
         return rows
 
-    def paired_rows(self) -> list[dict[str, object]]:
+    def paired_rows(self, include_secondary_certificate_baseline: bool = False) -> list[dict[str, object]]:
         baselines = [
             "multistart_swap_by_validation",
             "best_random_by_validation",
@@ -87,6 +89,8 @@ class ClaimContractGenerationTests(unittest.TestCase):
             "observability_proxy",
             "qr_pod_modes",
         ]
+        if include_secondary_certificate_baseline:
+            baselines.append("greedy_d_logdet")
         rows: list[dict[str, object]] = []
         for budget in (0.1, 0.2):
             for index, baseline in enumerate(baselines):
@@ -106,14 +110,14 @@ class ClaimContractGenerationTests(unittest.TestCase):
                 )
         return rows
 
-    def make_stage12_sources(self) -> tuple[Path, Path]:
+    def make_stage12_sources(self, include_secondary_certificate_baseline: bool = False) -> tuple[Path, Path]:
         layout_csv = self.write_csv(
             "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
-            self.layout_rows(),
+            self.layout_rows(include_secondary_certificate_baseline),
         )
         paired_csv = self.write_csv(
             "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
-            self.paired_rows(),
+            self.paired_rows(include_secondary_certificate_baseline),
         )
         return layout_csv, paired_csv
 
@@ -351,7 +355,7 @@ class ClaimContractGenerationTests(unittest.TestCase):
 
     def test_json_policy_uses_plan_required_schema_marker(self) -> None:
         generator = import_generator()
-        layout_csv, paired_csv = self.make_stage12_sources()
+        layout_csv, paired_csv = self.make_stage12_sources(include_secondary_certificate_baseline=True)
         layout_frame = generator.load_csv(layout_csv)
         paired_frame = generator.load_csv(paired_csv)
         claim_rows = generator.build_claim_contract_rows(layout_csv.parent, layout_csv, paired_csv)
@@ -360,6 +364,11 @@ class ClaimContractGenerationTests(unittest.TestCase):
         policy = generator.build_claim_contract_policy(claim_rows, main_rows)
 
         self.assertEqual(policy["claim_contract_schema"], "trace_sl_claim_contract_v1")
+        self.assertEqual(
+            set(policy["main_table_layout_labels"]),
+            {row["layout_type"] for row in main_rows},
+        )
+        self.assertIn("greedy_d_logdet", policy["main_table_layout_labels"])
 
     def test_source_tracking_rejects_raw_dataset_or_untracked_sources(self) -> None:
         generator = import_generator()
