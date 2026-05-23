@@ -267,13 +267,35 @@ def neighbor_average_predict(test, distance, sensors, hidden, num_neighbors):
 
 def solve_quadratic(observed_z, prior_z, sensors, matrix, obs_weight):
     n_nodes = observed_z.shape[1]
-    selector = np.zeros(n_nodes)
-    selector[sensors] = obs_weight
-    lhs = matrix + np.diag(selector)
-    rhs = prior_z @ matrix.T
-    rhs[:, sensors] += obs_weight * observed_z[:, sensors]
-    solution = linalg.solve(lhs, rhs.T, assume_a="pos").T
-    return solution, lhs
+    sensors = np.asarray(sensors, dtype=int)
+    weights = np.asarray(obs_weight, dtype=float)
+    if weights.ndim == 0:
+        selector = np.zeros(n_nodes)
+        selector[sensors] = float(weights)
+        lhs = matrix + np.diag(selector)
+        rhs = prior_z @ matrix.T
+        rhs[:, sensors] += float(weights) * observed_z[:, sensors]
+        solution = linalg.solve(lhs, rhs.T, assume_a="pos").T
+        return solution, lhs
+
+    if weights.ndim == 1:
+        if weights.shape[0] != n_nodes:
+            raise ValueError(f"obs_weight vector must have {n_nodes} entries")
+        weights = np.repeat(weights.reshape(1, n_nodes), observed_z.shape[0], axis=0)
+    elif weights.shape != observed_z.shape:
+        raise ValueError(f"obs_weight matrix must match observed_z shape {observed_z.shape}")
+
+    solutions = []
+    lhs_last = None
+    for row_idx in range(observed_z.shape[0]):
+        selector = np.zeros(n_nodes)
+        selector[sensors] = weights[row_idx, sensors]
+        lhs = matrix + np.diag(selector)
+        rhs = prior_z[row_idx] @ matrix.T
+        rhs[sensors] += weights[row_idx, sensors] * observed_z[row_idx, sensors]
+        solutions.append(linalg.solve(lhs, rhs, assume_a="pos"))
+        lhs_last = lhs
+    return np.vstack(solutions), lhs_last
 
 
 def certificate(lhs):
@@ -565,7 +587,7 @@ def robust_coverage_cvar_layout(base_matrices, distance, sensor_count, obs_weigh
 
 
 def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args):
-    rows, _ = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args)
+    rows, _, _ = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args, apply_robustness=False)
     for row in rows:
         if row["method"] == args.selection_method:
             return row["mae"]
@@ -770,33 +792,65 @@ def swap_trace_local_search(base_matrix, initial_sensors, obs_weight, max_iter):
     return np.array(sorted(selected), dtype=int), history
 
 
-def evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args):
+def evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args, apply_robustness=True):
     n_nodes = test.shape[1]
     sensors = np.array(sorted(sensors), dtype=int)
-    hidden = np.array([i for i in range(n_nodes) if i not in set(sensors)], dtype=int)
+    active_sensors = sensors.copy()
+    selected_count = int(len(sensors))
+    dropped_count = 0
+    if apply_robustness and getattr(args, "failure_rate", 0.0) > 0.0:
+        active_list, selected_count, dropped_count, _ = apply_sensor_failure(sensors, args.failure_rate, n_nodes, getattr(args, "robustness_seed", 0))
+        active_sensors = np.array(active_list, dtype=int)
+    hidden = np.array([i for i in range(n_nodes) if i not in set(active_sensors)], dtype=int)
     tod_test = historical_mean_predict(tod, test.shape[0])
     observed_z = (test - mean) / std
     prior_z = (tod_test - mean) / std
+    if apply_robustness:
+        observed_z = apply_observation_noise(observed_z, active_sensors, getattr(args, "noise_scale", 0.0), getattr(args, "robustness_seed", 0) + 11)
+    observation_weights = np.full(observed_z.shape, float(args.obs_weight), dtype=float)
+    if apply_robustness:
+        observation_mask = combine_observation_masks(
+            observed_z.shape,
+            active_sensors,
+            getattr(args, "missing_rate", 0.0),
+            getattr(args, "missing_block_steps", 0),
+            getattr(args, "robustness_seed", 0) + 23,
+        )
+        observation_weights[~observation_mask] = 0.0
+    else:
+        observation_mask = np.ones(observed_z.shape, dtype=bool)
     true_hidden = test[:, hidden]
 
     rows = []
     hist_pred = tod_test[:, hidden]
     rows.append({"method": "historical_tod_mean", **metrics(hist_pred, true_hidden)})
 
-    neighbor_pred = neighbor_average_predict(test, distance, sensors.tolist(), hidden.tolist(), args.num_neighbors)
+    if active_sensors.size == 0:
+        neighbor_pred = tod_test[:, hidden]
+    else:
+        neighbor_source = np.where(observation_mask, test, np.nan)
+        neighbor_pred = neighbor_average_predict(neighbor_source, distance, active_sensors.tolist(), hidden.tolist(), args.num_neighbors)
+        neighbor_pred = np.where(np.isfinite(neighbor_pred), neighbor_pred, tod_test[:, hidden])
     rows.append({"method": "neighbor_average", **metrics(neighbor_pred, true_hidden)})
 
     gsp_matrix = args.gsp_lambda * laplacian + args.prior_gamma * np.eye(n_nodes)
-    gsp_z, gsp_lhs = solve_quadratic(observed_z, prior_z, sensors, gsp_matrix, args.obs_weight)
+    gsp_z, gsp_lhs = solve_quadratic(observed_z, prior_z, active_sensors, gsp_matrix, observation_weights)
     gsp_pred = mean + std * gsp_z
     rows.append({"method": "gsp", **metrics(gsp_pred[:, hidden], true_hidden), **certificate(gsp_lhs)})
 
     gls_matrix = args.gls_prior_weight * precision
-    gls_z, gls_lhs = solve_quadratic(observed_z, prior_z, sensors, gls_matrix, args.obs_weight)
+    gls_z, gls_lhs = solve_quadratic(observed_z, prior_z, active_sensors, gls_matrix, observation_weights)
     gls_pred = mean + std * gls_z
     rows.append({"method": "gls_map", **metrics(gls_pred[:, hidden], true_hidden), **certificate(gls_lhs)})
 
-    return rows, hidden
+    context = {
+        "selected_sensor_count": selected_count,
+        "active_sensor_count": int(len(active_sensors)),
+        "dropped_sensor_count": int(dropped_count),
+        "observed_sensor_count": int(np.any(observation_mask[:, active_sensors], axis=0).sum()) if active_sensors.size else 0,
+        "active_sensors": active_sensors.tolist(),
+    }
+    return rows, hidden, context
 
 
 def summarize_correlations(rows):
@@ -1179,7 +1233,7 @@ def main():
                 }
             )
             hidden_count = n_nodes - sensor_count
-            layout_rows, _ = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args)
+            layout_rows, _, eval_context = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args, apply_robustness=True)
             for row in layout_rows:
                 row.update(
                     {
