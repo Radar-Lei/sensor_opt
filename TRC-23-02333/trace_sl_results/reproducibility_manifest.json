@@ -3869,13 +3869,9 @@
   "generated_by": "scripts/generate_trace_sl_repro_manifest.py",
   "git": {
     "branch": "main",
-    "commit": "1df1c378cabc147b1db21e070a2c2109ae3d56c9",
+    "commit": "31657da778e84114848e39970681e7c8a843b0d9",
     "raw_dataset_policy": "protected local input only; excluded from paper-visible evidence artifacts",
-    "status_short_relevant": [
-      " M TRC-23-02333/trace_sl_results/REPRODUCIBILITY_MANIFEST.md",
-      " M TRC-23-02333/trace_sl_results/reproducibility_manifest.json",
-      " M scripts/generate_trace_sl_repro_manifest.py"
-    ],
+    "status_short_relevant": [],
     "status_short_total_count": 15,
     "tracked_raw_dataset_path_count": 0,
     "tracked_raw_dataset_paths": []
