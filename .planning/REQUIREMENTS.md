@@ -53,10 +53,10 @@ Requirements for turning the current TRACE-SL prototype into a Transportation Sc
 
 ### Reproducibility and Paper Artifacts
 
-- [ ] **REPRO-01**: Experiment scripts, configs, and summaries encode enough provenance to reproduce the paper tables, including seeds, budgets, candidate counts, and package versions where feasible.
+- [x] **REPRO-01**: Experiment scripts, configs, and summaries encode enough provenance to reproduce the paper tables, including seeds, budgets, candidate counts, and package versions where feasible.
 - [ ] **REPRO-02**: Raw traffic datasets remain ignored and are not committed; paper-visible artifacts use summaries, checksums, or non-sensitive metadata only.
 - [ ] **REPRO-03**: The repository documentation and paper narrative cite only curated, present, and reproducible result directories.
-- [ ] **REPRO-04**: Paper-ready tables and figures are generated from committed result artifacts rather than manually copied numbers.
+- [x] **REPRO-04**: Paper-ready tables and figures are generated from committed result artifacts rather than manually copied numbers.
 - [ ] **REPRO-05**: Smoke tests or validation scripts check that key experiment commands still run and that aggregate summaries contain required layout/method rows.
 
 ### Manuscript Readiness
@@ -128,10 +128,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ROBUST-04 | Phase 5 | Complete |
 | ROBUST-05 | Phase 5 | Complete |
 | ROBUST-06 | Phase 5 | Complete |
-| REPRO-01 | Phase 6 | Pending |
+| REPRO-01 | Phase 6 | Complete |
 | REPRO-02 | Phase 6 | Pending |
 | REPRO-03 | Phase 6 | Pending |
-| REPRO-04 | Phase 6 | Pending |
+| REPRO-04 | Phase 6 | Complete |
 | REPRO-05 | Phase 6 | Pending |
 | PAPER-01 | Phase 7 | Pending |
 | PAPER-02 | Phase 7 | Pending |
