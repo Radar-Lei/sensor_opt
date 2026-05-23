@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: executing
-stopped_at: "Completed 07-01-PLAN.md; ready for 07-02-PLAN.md"
-last_updated: "2026-05-23T12:05:21.825Z"
-last_activity: 2026-05-23 -- Completed 07-01 claim/table contract generator
+status: verifying
+stopped_at: Completed 07-02-PLAN.md; ready for Phase 7 verification
+last_updated: "2026-05-23T12:11:58.037Z"
+last_activity: 2026-05-23 -- Completed 07-02 frozen claim/table contract artifacts
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 50
+  completed_plans: 2
+  percent: 25
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -27,32 +27,32 @@ See: .planning/PROJECT.md (updated 2026/05/23)
 
 Phase: 07 (claim-and-main-table-contract) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-05-23
 
-Progress: [█████░░░░░] 50%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed this milestone: 1
-- Average duration: 7min
-- Total execution time: 0.12 hours
+- Total plans completed this milestone: 2
+- Average duration: 5min
+- Total execution time: 0.17 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 7. Claim and Main Table Contract | 1/2 | 7min | 7min |
+| 7. Claim and Main Table Contract | 2/2 | 10min | 5min |
 | 8. External Stage12 Evidence | 0/TBD | n/a | n/a |
 | 9. Ablation and Evidence Classification | 0/TBD | n/a | n/a |
 | 10. Theory and Handoff Package | 0/TBD | n/a | n/a |
 
 **Recent Trend:**
 
-- Last 5 plans: 07-01 (7min)
-- Trend: first v1.1 plan completed successfully
+- Last 5 plans: 07-01 (7min), 07-02 (3min)
+- Trend: Phase 7 completed successfully
 
 ## Accumulated Context
 
@@ -68,6 +68,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - Phase 7 claim-facing evidence uses held-out Stage12 PeMS7_228 test aggregates and paired comparisons, not validation MAE.
 - PeMS7_1026 and Seattle remain external/supporting in Phase 7 until Phase 8 Stage12 10-split evidence is complete.
 - Robustness evidence remains stress-test or appendix routed unless a row explicitly declares multi-seed perturbation evidence.
+- Keep Phase 7 contract outputs CSV/JSON-first, with Markdown as generated views rather than manuscript prose.
+- Use the plan-required trace_sl_claim_contract_v1 schema marker as the machine-readable policy identifier.
+- Treat PeMS7_1026, Seattle, and robustness evidence as non-core Phase 7 lanes until later evidence phases complete.
 
 ### Pending Todos
 
@@ -87,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-23T12:05:21.819Z
-Stopped at: Completed 07-01-PLAN.md; ready for 07-02-PLAN.md
+Last session: 2026-05-23T12:11:58.032Z
+Stopped at: Completed 07-02-PLAN.md; ready for Phase 7 verification
 Resume file: None

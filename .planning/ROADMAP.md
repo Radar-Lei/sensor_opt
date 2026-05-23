@@ -69,7 +69,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 07-02-PLAN.md — Generate frozen CSV/JSON-first contract artifacts and update paper-source index.
+- [x] 07-02-PLAN.md — Generate frozen CSV/JSON-first contract artifacts and update paper-source index.
 
 ### Phase 8: External Stage12 Evidence
 
@@ -128,7 +128,7 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | 4. Core Experiment Evidence | v1.0 | 6/6 | Complete | 2026-05-22 |
 | 5. Robustness and Generality | v1.0 | 4/4 | Complete | 2026-05-23 |
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 7. Claim and Main Table Contract | v1.1 | 1/2 | In Progress|  |
+| 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
 | 8. External Stage12 Evidence | v1.1 | 0/TBD | Not started | - |
 | 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Not started | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
