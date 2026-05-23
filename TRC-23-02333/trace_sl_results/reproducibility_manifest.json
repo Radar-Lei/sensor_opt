@@ -1,0 +1,3888 @@
+{
+  "curated_result_stages": [
+    {
+      "claim_status": "core in-domain baseline-portfolio evidence",
+      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio",
+      "inventory": {
+        "artifact_count": 103,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/SUMMARY.md",
+            "size_bytes": 81230
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/candidate_sensitivity_summary.csv",
+            "size_bytes": 18186
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/certificate_correlation_summary.csv",
+            "size_bytes": 1304
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/combined_certificate_correlations.csv",
+            "size_bytes": 4180
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/combined_metrics.csv",
+            "size_bytes": 1182132
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/combined_rcss_candidates.csv",
+            "size_bytes": 1435870
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_ablation_summary.csv",
+            "size_bytes": 2161
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_delta_summary.csv",
+            "size_bytes": 7290
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+            "size_bytes": 4096
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+            "size_bytes": 20202
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_per_split_winners.csv",
+            "size_bytes": 1496
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_win_counts.csv",
+            "size_bytes": 401
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/rcss_selected_sources.csv",
+            "size_bytes": 488
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/SUMMARY.md",
+            "size_bytes": 31749
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/certificate_correlations.csv",
+            "size_bytes": 445
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/layouts.json",
+            "size_bytes": 152357
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/metrics.csv",
+            "size_bytes": 119525
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/metrics.json",
+            "size_bytes": 361540
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/rcss_candidates.csv",
+            "size_bytes": 143719
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/rcss_candidates.json",
+            "size_bytes": 397432
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_25/swap_history.json",
+            "size_bytes": 77272
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/SUMMARY.md",
+            "size_bytes": 31749
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/certificate_correlations.csv",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/layouts.json",
+            "size_bytes": 152364
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/metrics.csv",
+            "size_bytes": 119261
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/metrics.json",
+            "size_bytes": 361276
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/rcss_candidates.csv",
+            "size_bytes": 143785
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/rcss_candidates.json",
+            "size_bytes": 397498
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_26/swap_history.json",
+            "size_bytes": 77017
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/SUMMARY.md",
+            "size_bytes": 31749
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/certificate_correlations.csv",
+            "size_bytes": 449
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/layouts.json",
+            "size_bytes": 152403
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/metrics.csv",
+            "size_bytes": 119503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/metrics.json",
+            "size_bytes": 361518
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/rcss_candidates.csv",
+            "size_bytes": 143999
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/rcss_candidates.json",
+            "size_bytes": 397712
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_27/swap_history.json",
+            "size_bytes": 77090
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/SUMMARY.md",
+            "size_bytes": 31729
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/layouts.json",
+            "size_bytes": 152414
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/metrics.csv",
+            "size_bytes": 119608
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/metrics.json",
+            "size_bytes": 361623
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/rcss_candidates.csv",
+            "size_bytes": 143948
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/rcss_candidates.json",
+            "size_bytes": 397661
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_28/swap_history.json",
+            "size_bytes": 77540
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/SUMMARY.md",
+            "size_bytes": 31729
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/layouts.json",
+            "size_bytes": 152425
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/metrics.csv",
+            "size_bytes": 119398
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/metrics.json",
+            "size_bytes": 361413
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/rcss_candidates.csv",
+            "size_bytes": 143316
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/rcss_candidates.json",
+            "size_bytes": 396452
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_29/swap_history.json",
+            "size_bytes": 78526
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/SUMMARY.md",
+            "size_bytes": 31737
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/layouts.json",
+            "size_bytes": 152443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/metrics.csv",
+            "size_bytes": 119511
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/metrics.json",
+            "size_bytes": 361526
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/rcss_candidates.csv",
+            "size_bytes": 143882
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/rcss_candidates.json",
+            "size_bytes": 397595
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_30/swap_history.json",
+            "size_bytes": 77408
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/SUMMARY.md",
+            "size_bytes": 31729
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/certificate_correlations.csv",
+            "size_bytes": 444
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/layouts.json",
+            "size_bytes": 152358
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/metrics.csv",
+            "size_bytes": 119118
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/metrics.json",
+            "size_bytes": 361133
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/rcss_candidates.csv",
+            "size_bytes": 143761
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/rcss_candidates.json",
+            "size_bytes": 397474
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_31/swap_history.json",
+            "size_bytes": 78063
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/SUMMARY.md",
+            "size_bytes": 31749
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/certificate_correlations.csv",
+            "size_bytes": 442
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/layouts.json",
+            "size_bytes": 152373
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/metrics.csv",
+            "size_bytes": 119535
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/metrics.json",
+            "size_bytes": 361550
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/rcss_candidates.csv",
+            "size_bytes": 143268
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/rcss_candidates.json",
+            "size_bytes": 396404
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_32/swap_history.json",
+            "size_bytes": 78171
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/SUMMARY.md",
+            "size_bytes": 31729
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/certificate_correlations.csv",
+            "size_bytes": 444
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/layouts.json",
+            "size_bytes": 152379
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/metrics.csv",
+            "size_bytes": 119250
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/metrics.json",
+            "size_bytes": 361265
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/rcss_candidates.csv",
+            "size_bytes": 143776
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/rcss_candidates.json",
+            "size_bytes": 397489
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_33/swap_history.json",
+            "size_bytes": 77038
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/SUMMARY.md",
+            "size_bytes": 31729
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/certificate_correlations.csv",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/config.json",
+            "size_bytes": 1845
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/layouts.json",
+            "size_bytes": 152317
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/metrics.csv",
+            "size_bytes": 119285
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/metrics.json",
+            "size_bytes": 361300
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/rcss_candidates.csv",
+            "size_bytes": 143774
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/rcss_candidates.json",
+            "size_bytes": 397487
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/seed_34/swap_history.json",
+            "size_bytes": 76611
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+      },
+      "launcher": "scripts/run_stage12_pems7_228.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='50' RCSS_RANDOM_CANDIDATES='50' SCENARIO_COUNT='4' SEEDS='25 26 27 28 29 30 31 32 33 34' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='20' VALIDATION_SWAP_ITER='5' VALIDATION_SWAP_REMOVE_POOL='8' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage12_pems7_228.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.10",
+          "0.20",
+          "0.30"
+        ],
+        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
+        "NUM_LAYOUTS": "50",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio",
+        "PYTHON_BIN": "python",
+        "RCSS_QUALITY_CANDIDATES": "50",
+        "RCSS_RANDOM_CANDIDATES": "50",
+        "SCENARIO_COUNT": "4",
+        "SEEDS": [
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "20",
+        "VALIDATION_SWAP_ITER": "5",
+        "VALIDATION_SWAP_REMOVE_POOL": "8",
+        "VALIDATION_SWAP_STARTS": "3"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/SUMMARY.md",
+          "size_bytes": 81230
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/combined_metrics.csv",
+          "size_bytes": 1182132
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+          "size_bytes": 4096
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_delta_summary.csv",
+          "size_bytes": 7290
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+          "size_bytes": 20202
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_win_counts.csv",
+          "size_bytes": 401
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/rcss_selected_sources.csv",
+          "size_bytes": 488
+        }
+      ],
+      "stage": "12"
+    },
+    {
+      "claim_status": "core tractability/sensitivity evidence",
+      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity",
+      "inventory": {
+        "artifact_count": 59,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/SUMMARY.md",
+            "size_bytes": 47045
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidate_sensitivity_summary.csv",
+            "size_bytes": 6649
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/SUMMARY.md",
+            "size_bytes": 25056
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/candidate_sensitivity_summary.csv",
+            "size_bytes": 3595
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/certificate_correlation_summary.csv",
+            "size_bytes": 1053
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/combined_certificate_correlations.csv",
+            "size_bytes": 462
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/combined_metrics.csv",
+            "size_bytes": 37796
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/combined_rcss_candidates.csv",
+            "size_bytes": 67457
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/gls_map_ablation_summary.csv",
+            "size_bytes": 400
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/gls_map_delta_summary.csv",
+            "size_bytes": 2909
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/gls_map_layout_summary.csv",
+            "size_bytes": 868
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/gls_map_paired_delta_tests.csv",
+            "size_bytes": 1912
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/gls_map_per_split_winners.csv",
+            "size_bytes": 85
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/gls_map_win_counts.csv",
+            "size_bytes": 55
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/rcss_selected_sources.csv",
+            "size_bytes": 59
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/SUMMARY.md",
+            "size_bytes": 10099
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/certificate_correlations.csv",
+            "size_bytes": 442
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/config.json",
+            "size_bytes": 1851
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/layouts.json",
+            "size_bytes": 48875
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/metrics.csv",
+            "size_bytes": 38131
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/metrics.json",
+            "size_bytes": 115220
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/rcss_candidates.csv",
+            "size_bytes": 67432
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/rcss_candidates.json",
+            "size_bytes": 185660
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_100/seed_25/swap_history.json",
+            "size_bytes": 26106
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/SUMMARY.md",
+            "size_bytes": 25044
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/candidate_sensitivity_summary.csv",
+            "size_bytes": 3575
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/certificate_correlation_summary.csv",
+            "size_bytes": 1041
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/combined_certificate_correlations.csv",
+            "size_bytes": 458
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/combined_metrics.csv",
+            "size_bytes": 37797
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/combined_rcss_candidates.csv",
+            "size_bytes": 47141
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/gls_map_ablation_summary.csv",
+            "size_bytes": 398
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/gls_map_delta_summary.csv",
+            "size_bytes": 2892
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/gls_map_layout_summary.csv",
+            "size_bytes": 863
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/gls_map_paired_delta_tests.csv",
+            "size_bytes": 1895
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/gls_map_per_split_winners.csv",
+            "size_bytes": 72
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/gls_map_win_counts.csv",
+            "size_bytes": 43
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/rcss_selected_sources.csv",
+            "size_bytes": 65
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/SUMMARY.md",
+            "size_bytes": 10075
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/certificate_correlations.csv",
+            "size_bytes": 440
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/config.json",
+            "size_bytes": 1848
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/layouts.json",
+            "size_bytes": 48849
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/metrics.csv",
+            "size_bytes": 38124
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/metrics.json",
+            "size_bytes": 115213
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/rcss_candidates.csv",
+            "size_bytes": 47111
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/rcss_candidates.json",
+            "size_bytes": 129589
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidates_50/seed_25/swap_history.json",
+            "size_bytes": 26241
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/certificate_correlation_summary.csv",
+            "size_bytes": 1283
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/combined_certificate_correlations.csv",
+            "size_bytes": 921
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/combined_metrics.csv",
+            "size_bytes": 77302
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/combined_rcss_candidates.csv",
+            "size_bytes": 115334
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/gls_map_ablation_summary.csv",
+            "size_bytes": 836
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/gls_map_delta_summary.csv",
+            "size_bytes": 3435
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/gls_map_layout_summary.csv",
+            "size_bytes": 1839
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/gls_map_paired_delta_tests.csv",
+            "size_bytes": 3870
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/gls_map_per_split_winners.csv",
+            "size_bytes": 146
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/gls_map_win_counts.csv",
+            "size_bytes": 97
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/rcss_selected_sources.csv",
+            "size_bytes": 118
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/runtime_candidate_sensitivity.csv",
+            "size_bytes": 110
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/stage13_timing.csv",
+            "size_bytes": 277
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+      },
+      "launcher": "scripts/run_stage13_candidate_sensitivity_pems7_228.sh",
+      "launcher_command_template": "BUDGETS='0.20' CANDIDATE_COUNTS='50 100 200 500' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity' PYTHON_BIN='python' SCENARIO_COUNT='4' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='20' VALIDATION_SWAP_ITER='5' VALIDATION_SWAP_REMOVE_POOL='8' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage13_candidate_sensitivity_pems7_228.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.20"
+        ],
+        "CANDIDATE_COUNTS": [
+          "50",
+          "100",
+          "200",
+          "500"
+        ],
+        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
+        "NUM_LAYOUTS": "50",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity",
+        "PYTHON_BIN": "python",
+        "SCENARIO_COUNT": "4",
+        "SEEDS": [
+          "25"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "20",
+        "VALIDATION_SWAP_ITER": "5",
+        "VALIDATION_SWAP_REMOVE_POOL": "8",
+        "VALIDATION_SWAP_STARTS": "3"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/SUMMARY.md",
+          "size_bytes": 47045
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/combined_metrics.csv",
+          "size_bytes": 77302
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/candidate_sensitivity_summary.csv",
+          "size_bytes": 6649
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/runtime_candidate_sensitivity.csv",
+          "size_bytes": 110
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/stage13_timing.csv",
+          "size_bytes": 277
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/rcss_selected_sources.csv",
+          "size_bytes": 118
+        }
+      ],
+      "stage": "13"
+    },
+    {
+      "claim_status": "core stress-test robustness evidence",
+      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness",
+      "inventory": {
+        "artifact_count": 175,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md",
+            "size_bytes": 208072
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/SUMMARY.md",
+            "size_bytes": 9885
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/config.json",
+            "size_bytes": 2072
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/layouts.json",
+            "size_bytes": 19102
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/metrics.csv",
+            "size_bytes": 18850
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/metrics.json",
+            "size_bytes": 71776
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/rcss_candidates.csv",
+            "size_bytes": 7278
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/certificate_correlations.csv",
+            "size_bytes": 437
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/config.json",
+            "size_bytes": 2072
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/layouts.json",
+            "size_bytes": 19116
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/metrics.csv",
+            "size_bytes": 18833
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/metrics.json",
+            "size_bytes": 71759
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/rcss_candidates.csv",
+            "size_bytes": 7292
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/baseline/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/SUMMARY.md",
+            "size_bytes": 9513
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/certificate_correlations.csv",
+            "size_bytes": 1
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/config.json",
+            "size_bytes": 2094
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/layouts.json",
+            "size_bytes": 19396
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/metrics.csv",
+            "size_bytes": 20035
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/metrics.json",
+            "size_bytes": 72961
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/rcss_candidates.csv",
+            "size_bytes": 7544
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/SUMMARY.md",
+            "size_bytes": 9511
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/certificate_correlations.csv",
+            "size_bytes": 1
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/config.json",
+            "size_bytes": 2094
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/layouts.json",
+            "size_bytes": 19410
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/metrics.csv",
+            "size_bytes": 20003
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/metrics.json",
+            "size_bytes": 72929
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/rcss_candidates.csv",
+            "size_bytes": 7558
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/block_missing_12/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/candidate_sensitivity_summary.csv",
+            "size_bytes": 53523
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/certificate_correlation_summary.csv",
+            "size_bytes": 1293
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/certificate_correlations.csv",
+            "size_bytes": 432
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/config.json",
+            "size_bytes": 2107
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/layouts.json",
+            "size_bytes": 19596
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/metrics.csv",
+            "size_bytes": 20824
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/metrics.json",
+            "size_bytes": 73750
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/rcss_candidates.csv",
+            "size_bytes": 7726
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/rcss_candidates.json",
+            "size_bytes": 16492
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_25/swap_history.json",
+            "size_bytes": 12461
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/config.json",
+            "size_bytes": 2107
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/layouts.json",
+            "size_bytes": 19600
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/metrics.csv",
+            "size_bytes": 20812
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/metrics.json",
+            "size_bytes": 73738
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/rcss_candidates.csv",
+            "size_bytes": 7728
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/rcss_candidates.json",
+            "size_bytes": 16490
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/chronological_split/seed_26/swap_history.json",
+            "size_bytes": 12468
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/combined_certificate_correlations.csv",
+            "size_bytes": 6552
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/combined_metrics.csv",
+            "size_bytes": 353234
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/combined_rcss_candidates.csv",
+            "size_bytes": 128025
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/SUMMARY.md",
+            "size_bytes": 10281
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/config.json",
+            "size_bytes": 2102
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/layouts.json",
+            "size_bytes": 20795
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/metrics.csv",
+            "size_bytes": 22853
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/metrics.json",
+            "size_bytes": 78321
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/rcss_candidates.csv",
+            "size_bytes": 7677
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/SUMMARY.md",
+            "size_bytes": 10255
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/certificate_correlations.csv",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/config.json",
+            "size_bytes": 2102
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/layouts.json",
+            "size_bytes": 20808
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/metrics.csv",
+            "size_bytes": 22824
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/metrics.json",
+            "size_bytes": 78292
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/rcss_candidates.csv",
+            "size_bytes": 7691
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/cost_proxy_budget/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/SUMMARY.md",
+            "size_bytes": 9861
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/config.json",
+            "size_bytes": 2087
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/layouts.json",
+            "size_bytes": 19333
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/metrics.csv",
+            "size_bytes": 19782
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/metrics.json",
+            "size_bytes": 72708
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/rcss_candidates.csv",
+            "size_bytes": 7487
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/certificate_correlations.csv",
+            "size_bytes": 442
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/config.json",
+            "size_bytes": 2087
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/layouts.json",
+            "size_bytes": 19347
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/metrics.csv",
+            "size_bytes": 19738
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/metrics.json",
+            "size_bytes": 72664
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/rcss_candidates.csv",
+            "size_bytes": 7501
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.05/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/SUMMARY.md",
+            "size_bytes": 9863
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/certificate_correlations.csv",
+            "size_bytes": 447
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/config.json",
+            "size_bytes": 2086
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/layouts.json",
+            "size_bytes": 19312
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/metrics.csv",
+            "size_bytes": 19690
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/metrics.json",
+            "size_bytes": 72616
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/rcss_candidates.csv",
+            "size_bytes": 7468
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/certificate_correlations.csv",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/config.json",
+            "size_bytes": 2086
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/layouts.json",
+            "size_bytes": 19326
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/metrics.csv",
+            "size_bytes": 19643
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/metrics.json",
+            "size_bytes": 72569
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/rcss_candidates.csv",
+            "size_bytes": 7482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.10/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/SUMMARY.md",
+            "size_bytes": 9885
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/config.json",
+            "size_bytes": 2086
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/layouts.json",
+            "size_bytes": 19312
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/metrics.csv",
+            "size_bytes": 19698
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/metrics.json",
+            "size_bytes": 72624
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/rcss_candidates.csv",
+            "size_bytes": 7468
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/certificate_correlations.csv",
+            "size_bytes": 436
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/config.json",
+            "size_bytes": 2086
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/layouts.json",
+            "size_bytes": 19326
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/metrics.csv",
+            "size_bytes": 19636
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/metrics.json",
+            "size_bytes": 72562
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/rcss_candidates.csv",
+            "size_bytes": 7482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/failure_0.20/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_ablation_summary.csv",
+            "size_bytes": 12445
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_delta_summary.csv",
+            "size_bytes": 15624
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv",
+            "size_bytes": 23723
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_paired_delta_tests.csv",
+            "size_bytes": 73143
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_per_split_winners.csv",
+            "size_bytes": 2110
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_win_counts.csv",
+            "size_bytes": 1654
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/SUMMARY.md",
+            "size_bytes": 9885
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/certificate_correlations.csv",
+            "size_bytes": 445
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/config.json",
+            "size_bytes": 2086
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/layouts.json",
+            "size_bytes": 19354
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/metrics.csv",
+            "size_bytes": 19858
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/metrics.json",
+            "size_bytes": 72784
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/rcss_candidates.csv",
+            "size_bytes": 7506
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/certificate_correlations.csv",
+            "size_bytes": 444
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/config.json",
+            "size_bytes": 2086
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/layouts.json",
+            "size_bytes": 19368
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/metrics.csv",
+            "size_bytes": 19844
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/metrics.json",
+            "size_bytes": 72770
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/rcss_candidates.csv",
+            "size_bytes": 7520
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/noise_0.05/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/SUMMARY.md",
+            "size_bytes": 9885
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/certificate_correlations.csv",
+            "size_bytes": 442
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/config.json",
+            "size_bytes": 2100
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/layouts.json",
+            "size_bytes": 19459
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/metrics.csv",
+            "size_bytes": 20263
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/metrics.json",
+            "size_bytes": 73189
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/rcss_candidates.csv",
+            "size_bytes": 7601
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/rcss_candidates.json",
+            "size_bytes": 16475
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_25/swap_history.json",
+            "size_bytes": 12731
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/SUMMARY.md",
+            "size_bytes": 9859
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/certificate_correlations.csv",
+            "size_bytes": 439
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/config.json",
+            "size_bytes": 2100
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/layouts.json",
+            "size_bytes": 19473
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/metrics.csv",
+            "size_bytes": 20258
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/metrics.json",
+            "size_bytes": 73184
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/rcss_candidates.csv",
+            "size_bytes": 7615
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/rcss_candidates.json",
+            "size_bytes": 16505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/random_missing_0.10/seed_26/swap_history.json",
+            "size_bytes": 12741
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/rcss_selected_sources.csv",
+            "size_bytes": 1705
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+      },
+      "launcher": "scripts/run_stage14_pems7_228_robustness.sh",
+      "launcher_command_template": "BUDGETS='0.20' CONDITIONS='baseline failure_0.05 failure_0.10 failure_0.20 noise_0.05 random_missing_0.10 block_missing_12 cost_proxy_budget chronological_split' COST_BUDGET='45' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' MAX_TEST_STEPS='0' NUM_LAYOUTS='10' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='10' RCSS_RANDOM_CANDIDATES='10' SCENARIO_COUNT='2' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='12' VALIDATION_SWAP_ITER='3' VALIDATION_SWAP_REMOVE_POOL='6' VALIDATION_SWAP_STARTS='2' bash scripts/run_stage14_pems7_228_robustness.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.20"
+        ],
+        "CONDITIONS": [
+          "baseline",
+          "failure_0.05",
+          "failure_0.10",
+          "failure_0.20",
+          "noise_0.05",
+          "random_missing_0.10",
+          "block_missing_12",
+          "cost_proxy_budget",
+          "chronological_split"
+        ],
+        "COST_BUDGET": "45",
+        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
+        "MAX_TEST_STEPS": "0",
+        "NUM_LAYOUTS": "10",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness",
+        "PYTHON_BIN": "python",
+        "RCSS_QUALITY_CANDIDATES": "10",
+        "RCSS_RANDOM_CANDIDATES": "10",
+        "SCENARIO_COUNT": "2",
+        "SEEDS": [
+          "25"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "12",
+        "VALIDATION_SWAP_ITER": "3",
+        "VALIDATION_SWAP_REMOVE_POOL": "6",
+        "VALIDATION_SWAP_STARTS": "2"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md",
+          "size_bytes": 208072
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/combined_metrics.csv",
+          "size_bytes": 353234
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv",
+          "size_bytes": 23723
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_paired_delta_tests.csv",
+          "size_bytes": 73143
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_win_counts.csv",
+          "size_bytes": 1654
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/candidate_sensitivity_summary.csv",
+          "size_bytes": 53523
+        }
+      ],
+      "stage": "14"
+    },
+    {
+      "allowed_exception_artifact": {
+        "exists": false,
+        "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidate_sensitivity_caveat.json"
+      },
+      "claim_status": "core candidate-count/runtime sensitivity evidence",
+      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity",
+      "inventory": {
+        "artifact_count": 103,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/SUMMARY.md",
+            "size_bytes": 137869
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidate_sensitivity_summary.csv",
+            "size_bytes": 11695
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/SUMMARY.md",
+            "size_bytes": 40154
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/candidate_sensitivity_summary.csv",
+            "size_bytes": 3423
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/certificate_correlation_summary.csv",
+            "size_bytes": 1053
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/combined_certificate_correlations.csv",
+            "size_bytes": 502
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/combined_metrics.csv",
+            "size_bytes": 19008
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/combined_rcss_candidates.csv",
+            "size_bytes": 47448
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/gls_map_ablation_summary.csv",
+            "size_bytes": 1253
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/gls_map_delta_summary.csv",
+            "size_bytes": 4200
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/gls_map_layout_summary.csv",
+            "size_bytes": 2225
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/gls_map_paired_delta_tests.csv",
+            "size_bytes": 4450
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/gls_map_per_split_winners.csv",
+            "size_bytes": 272
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/gls_map_win_counts.csv",
+            "size_bytes": 242
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/rcss_selected_sources.csv",
+            "size_bytes": 79
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/SUMMARY.md",
+            "size_bytes": 9863
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/certificate_correlations.csv",
+            "size_bytes": 439
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/config.json",
+            "size_bytes": 2084
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/layouts.json",
+            "size_bytes": 24165
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/metrics.csv",
+            "size_bytes": 18823
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/metrics.json",
+            "size_bytes": 71749
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/rcss_candidates.csv",
+            "size_bytes": 46842
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/rcss_candidates.json",
+            "size_bytes": 128727
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_100/seed_25/swap_history.json",
+            "size_bytes": 13381
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/SUMMARY.md",
+            "size_bytes": 40154
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/candidate_sensitivity_summary.csv",
+            "size_bytes": 3429
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/certificate_correlation_summary.csv",
+            "size_bytes": 1050
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/combined_certificate_correlations.csv",
+            "size_bytes": 501
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/combined_metrics.csv",
+            "size_bytes": 18999
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/combined_rcss_candidates.csv",
+            "size_bytes": 88597
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/gls_map_ablation_summary.csv",
+            "size_bytes": 1254
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/gls_map_delta_summary.csv",
+            "size_bytes": 4199
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/gls_map_layout_summary.csv",
+            "size_bytes": 2225
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/gls_map_paired_delta_tests.csv",
+            "size_bytes": 4449
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/gls_map_per_split_winners.csv",
+            "size_bytes": 272
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/gls_map_win_counts.csv",
+            "size_bytes": 242
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/rcss_selected_sources.csv",
+            "size_bytes": 79
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/SUMMARY.md",
+            "size_bytes": 9861
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/certificate_correlations.csv",
+            "size_bytes": 436
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/config.json",
+            "size_bytes": 2084
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/layouts.json",
+            "size_bytes": 24185
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/metrics.csv",
+            "size_bytes": 18826
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/metrics.json",
+            "size_bytes": 71752
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/rcss_candidates.csv",
+            "size_bytes": 87566
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/rcss_candidates.json",
+            "size_bytes": 240951
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_200/seed_25/swap_history.json",
+            "size_bytes": 13374
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/SUMMARY.md",
+            "size_bytes": 40154
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/candidate_sensitivity_summary.csv",
+            "size_bytes": 3409
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/certificate_correlation_summary.csv",
+            "size_bytes": 1053
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/combined_certificate_correlations.csv",
+            "size_bytes": 496
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/combined_metrics.csv",
+            "size_bytes": 18923
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/combined_rcss_candidates.csv",
+            "size_bytes": 26803
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/gls_map_ablation_summary.csv",
+            "size_bytes": 1244
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/gls_map_delta_summary.csv",
+            "size_bytes": 4207
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/gls_map_layout_summary.csv",
+            "size_bytes": 2206
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/gls_map_paired_delta_tests.csv",
+            "size_bytes": 4425
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/gls_map_per_split_winners.csv",
+            "size_bytes": 271
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/gls_map_win_counts.csv",
+            "size_bytes": 241
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/rcss_selected_sources.csv",
+            "size_bytes": 78
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/SUMMARY.md",
+            "size_bytes": 9861
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/certificate_correlations.csv",
+            "size_bytes": 439
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/config.json",
+            "size_bytes": 2081
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/layouts.json",
+            "size_bytes": 24175
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/metrics.csv",
+            "size_bytes": 18823
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/metrics.json",
+            "size_bytes": 71749
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/rcss_candidates.csv",
+            "size_bytes": 26524
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/rcss_candidates.json",
+            "size_bytes": 72659
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_50/seed_25/swap_history.json",
+            "size_bytes": 13393
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/SUMMARY.md",
+            "size_bytes": 40154
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/candidate_sensitivity_summary.csv",
+            "size_bytes": 3429
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/certificate_correlation_summary.csv",
+            "size_bytes": 1062
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/combined_certificate_correlations.csv",
+            "size_bytes": 505
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/combined_metrics.csv",
+            "size_bytes": 19019
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/combined_rcss_candidates.csv",
+            "size_bytes": 212340
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/gls_map_ablation_summary.csv",
+            "size_bytes": 1253
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/gls_map_delta_summary.csv",
+            "size_bytes": 4199
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/gls_map_layout_summary.csv",
+            "size_bytes": 2225
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/gls_map_paired_delta_tests.csv",
+            "size_bytes": 4449
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/gls_map_per_split_winners.csv",
+            "size_bytes": 272
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/gls_map_win_counts.csv",
+            "size_bytes": 242
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/rcss_selected_sources.csv",
+            "size_bytes": 79
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/SUMMARY.md",
+            "size_bytes": 9883
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/certificate_correlations.csv",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/config.json",
+            "size_bytes": 2084
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/layouts.json",
+            "size_bytes": 24170
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/metrics.csv",
+            "size_bytes": 18835
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/metrics.json",
+            "size_bytes": 71761
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/rcss_candidates.csv",
+            "size_bytes": 209850
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/rcss_candidates.json",
+            "size_bytes": 577735
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidates_500/seed_25/swap_history.json",
+            "size_bytes": 13387
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/certificate_correlation_summary.csv",
+            "size_bytes": 1282
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/combined_certificate_correlations.csv",
+            "size_bytes": 1785
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/combined_metrics.csv",
+            "size_bytes": 74671
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/combined_rcss_candidates.csv",
+            "size_bytes": 374264
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/gls_map_ablation_summary.csv",
+            "size_bytes": 4461
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/gls_map_delta_summary.csv",
+            "size_bytes": 6506
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/gls_map_layout_summary.csv",
+            "size_bytes": 8338
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/gls_map_paired_delta_tests.csv",
+            "size_bytes": 16969
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/gls_map_per_split_winners.csv",
+            "size_bytes": 544
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/gls_map_win_counts.csv",
+            "size_bytes": 454
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/rcss_selected_sources.csv",
+            "size_bytes": 180
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/runtime_candidate_sensitivity.csv",
+            "size_bytes": 154
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/stage14_timing.csv",
+            "size_bytes": 511
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+      },
+      "launcher": "scripts/run_stage14_candidate_sensitivity_pems7_228.sh",
+      "launcher_command_template": "BUDGETS='0.20' CANDIDATE_COUNTS='50 100 200 500' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' MAX_TEST_STEPS='0' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity' PYTHON_BIN='python' SCENARIO_COUNT='2' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='12' VALIDATION_SWAP_ITER='3' VALIDATION_SWAP_REMOVE_POOL='6' VALIDATION_SWAP_STARTS='2' bash scripts/run_stage14_candidate_sensitivity_pems7_228.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.20"
+        ],
+        "CANDIDATE_COUNTS": [
+          "50",
+          "100",
+          "200",
+          "500"
+        ],
+        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
+        "MAX_TEST_STEPS": "0",
+        "NUM_LAYOUTS": "50",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity",
+        "PYTHON_BIN": "python",
+        "SCENARIO_COUNT": "2",
+        "SEEDS": [
+          "25"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "12",
+        "VALIDATION_SWAP_ITER": "3",
+        "VALIDATION_SWAP_REMOVE_POOL": "6",
+        "VALIDATION_SWAP_STARTS": "2"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/SUMMARY.md",
+          "size_bytes": 137869
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/combined_metrics.csv",
+          "size_bytes": 74671
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidate_sensitivity_summary.csv",
+          "size_bytes": 11695
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/runtime_candidate_sensitivity.csv",
+          "size_bytes": 154
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/stage14_timing.csv",
+          "size_bytes": 511
+        }
+      ],
+      "stage": "14"
+    },
+    {
+      "claim_status": "lower-power external supporting/optional evidence",
+      "directory": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
+      "inventory": {
+        "artifact_count": 57,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/SUMMARY.md",
+            "size_bytes": 23700
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/certificate_correlation_summary.csv",
+            "size_bytes": 1257
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/combined_certificate_correlations.csv",
+            "size_bytes": 2127
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/combined_metrics.csv",
+            "size_bytes": 987277
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/combined_rcss_candidates.csv",
+            "size_bytes": 3910208
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_ablation_summary.csv",
+            "size_bytes": 1175
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_delta_summary.csv",
+            "size_bytes": 4710
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_layout_summary.csv",
+            "size_bytes": 3494
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_paired_delta_tests.csv",
+            "size_bytes": 7430
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_per_split_winners.csv",
+            "size_bytes": 770
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_win_counts.csv",
+            "size_bytes": 190
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/rcss_selected_sources.csv",
+            "size_bytes": 221
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/SUMMARY.md",
+            "size_bytes": 27228
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/certificate_correlations.csv",
+            "size_bytes": 447
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/config.json",
+            "size_bytes": 1723
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/layouts.json",
+            "size_bytes": 873397
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/metrics.csv",
+            "size_bytes": 199355
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/metrics.json",
+            "size_bytes": 604084
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/rcss_candidates.csv",
+            "size_bytes": 782700
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/rcss_candidates.json",
+            "size_bytes": 1864680
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_25/swap_history.json",
+            "size_bytes": 80374
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/SUMMARY.md",
+            "size_bytes": 27228
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/config.json",
+            "size_bytes": 1723
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/layouts.json",
+            "size_bytes": 873307
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/metrics.csv",
+            "size_bytes": 199040
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/metrics.json",
+            "size_bytes": 603769
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/rcss_candidates.csv",
+            "size_bytes": 782602
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/rcss_candidates.json",
+            "size_bytes": 1864582
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_26/swap_history.json",
+            "size_bytes": 80110
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/SUMMARY.md",
+            "size_bytes": 27228
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/certificate_correlations.csv",
+            "size_bytes": 452
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/config.json",
+            "size_bytes": 1723
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/layouts.json",
+            "size_bytes": 873238
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/metrics.csv",
+            "size_bytes": 199228
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/metrics.json",
+            "size_bytes": 603957
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/rcss_candidates.csv",
+            "size_bytes": 782711
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/rcss_candidates.json",
+            "size_bytes": 1864691
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_27/swap_history.json",
+            "size_bytes": 81517
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/SUMMARY.md",
+            "size_bytes": 27228
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/config.json",
+            "size_bytes": 1723
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/layouts.json",
+            "size_bytes": 873341
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/metrics.csv",
+            "size_bytes": 199387
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/metrics.json",
+            "size_bytes": 604116
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/rcss_candidates.csv",
+            "size_bytes": 782729
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/rcss_candidates.json",
+            "size_bytes": 1864709
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_28/swap_history.json",
+            "size_bytes": 80487
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/SUMMARY.md",
+            "size_bytes": 27009
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/certificate_correlations.csv",
+            "size_bytes": 452
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/config.json",
+            "size_bytes": 1723
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/layouts.json",
+            "size_bytes": 873366
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/metrics.csv",
+            "size_bytes": 199172
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/metrics.json",
+            "size_bytes": 603901
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/rcss_candidates.csv",
+            "size_bytes": 781329
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/rcss_candidates.json",
+            "size_bytes": 1861640
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/seed_29/swap_history.json",
+            "size_bytes": 81657
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+      },
+      "launcher": "scripts/run_stage11_pems7_1026.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' DATA_ROOT='TRC-23-02333/dataset/PeMS7_1026' NUM_LAYOUTS='100' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight' RCSS_QUALITY_CANDIDATES='100' RCSS_RANDOM_CANDIDATES='100' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage11_pems7_1026.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.10",
+          "0.20",
+          "0.30"
+        ],
+        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_1026",
+        "NUM_LAYOUTS": "100",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
+        "RCSS_QUALITY_CANDIDATES": "100",
+        "RCSS_RANDOM_CANDIDATES": "100",
+        "SCENARIO_COUNT": "8",
+        "SEEDS": [
+          "25",
+          "26",
+          "27",
+          "28",
+          "29"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "30",
+        "VALIDATION_SWAP_ITER": "8",
+        "VALIDATION_SWAP_REMOVE_POOL": "10",
+        "VALIDATION_SWAP_STARTS": "3"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/SUMMARY.md",
+          "size_bytes": 23700
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/combined_metrics.csv",
+          "size_bytes": 987277
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_layout_summary.csv",
+          "size_bytes": 3494
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_delta_summary.csv",
+          "size_bytes": 4710
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_paired_delta_tests.csv",
+          "size_bytes": 7430
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_win_counts.csv",
+          "size_bytes": 190
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/rcss_selected_sources.csv",
+          "size_bytes": 221
+        }
+      ],
+      "stage": "external"
+    },
+    {
+      "claim_status": "supporting/conditional evidence",
+      "directory": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
+      "inventory": {
+        "artifact_count": 57,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/SUMMARY.md",
+            "size_bytes": 23553
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/certificate_correlation_summary.csv",
+            "size_bytes": 1246
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/combined_certificate_correlations.csv",
+            "size_bytes": 2123
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/combined_metrics.csv",
+            "size_bytes": 556862
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/combined_rcss_candidates.csv",
+            "size_bytes": 864250
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_ablation_summary.csv",
+            "size_bytes": 1169
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_delta_summary.csv",
+            "size_bytes": 4690
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_layout_summary.csv",
+            "size_bytes": 3479
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_paired_delta_tests.csv",
+            "size_bytes": 7399
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_per_split_winners.csv",
+            "size_bytes": 778
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_win_counts.csv",
+            "size_bytes": 167
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/rcss_selected_sources.csv",
+            "size_bytes": 189
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/SUMMARY.md",
+            "size_bytes": 27005
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/certificate_correlations.csv",
+            "size_bytes": 449
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/config.json",
+            "size_bytes": 1714
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/layouts.json",
+            "size_bytes": 187503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/metrics.csv",
+            "size_bytes": 112466
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/metrics.json",
+            "size_bytes": 344095
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/rcss_candidates.csv",
+            "size_bytes": 173085
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/rcss_candidates.json",
+            "size_bytes": 460053
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_25/swap_history.json",
+            "size_bytes": 80084
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/SUMMARY.md",
+            "size_bytes": 27005
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/certificate_correlations.csv",
+            "size_bytes": 448
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/config.json",
+            "size_bytes": 1714
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/layouts.json",
+            "size_bytes": 187468
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/metrics.csv",
+            "size_bytes": 112482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/metrics.json",
+            "size_bytes": 344111
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/rcss_candidates.csv",
+            "size_bytes": 173092
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/rcss_candidates.json",
+            "size_bytes": 460060
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_26/swap_history.json",
+            "size_bytes": 80729
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/SUMMARY.md",
+            "size_bytes": 27005
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/config.json",
+            "size_bytes": 1714
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/layouts.json",
+            "size_bytes": 187466
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/metrics.csv",
+            "size_bytes": 112454
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/metrics.json",
+            "size_bytes": 344083
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/rcss_candidates.csv",
+            "size_bytes": 173050
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/rcss_candidates.json",
+            "size_bytes": 460018
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_27/swap_history.json",
+            "size_bytes": 79284
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/SUMMARY.md",
+            "size_bytes": 27005
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/config.json",
+            "size_bytes": 1714
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/layouts.json",
+            "size_bytes": 187407
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/metrics.csv",
+            "size_bytes": 112399
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/metrics.json",
+            "size_bytes": 344028
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/rcss_candidates.csv",
+            "size_bytes": 173042
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/rcss_candidates.json",
+            "size_bytes": 460010
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_28/swap_history.json",
+            "size_bytes": 80168
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/SUMMARY.md",
+            "size_bytes": 27005
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/config.json",
+            "size_bytes": 1714
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/layouts.json",
+            "size_bytes": 187478
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/metrics.csv",
+            "size_bytes": 112462
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/metrics.json",
+            "size_bytes": 344091
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/rcss_candidates.csv",
+            "size_bytes": 173127
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/rcss_candidates.json",
+            "size_bytes": 460095
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/seed_29/swap_history.json",
+            "size_bytes": 80569
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+      },
+      "launcher": "scripts/run_stage11_seattle.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' DATA_ROOT='TRC-23-02333/dataset/Seattle' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light' RCSS_QUALITY_CANDIDATES='50' RCSS_RANDOM_CANDIDATES='50' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage11_seattle.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.10",
+          "0.20",
+          "0.30"
+        ],
+        "DATA_ROOT": "TRC-23-02333/dataset/Seattle",
+        "NUM_LAYOUTS": "50",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
+        "RCSS_QUALITY_CANDIDATES": "50",
+        "RCSS_RANDOM_CANDIDATES": "50",
+        "SCENARIO_COUNT": "8",
+        "SEEDS": [
+          "25",
+          "26",
+          "27",
+          "28",
+          "29"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "30",
+        "VALIDATION_SWAP_ITER": "8",
+        "VALIDATION_SWAP_REMOVE_POOL": "10",
+        "VALIDATION_SWAP_STARTS": "3"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/SUMMARY.md",
+          "size_bytes": 23553
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/combined_metrics.csv",
+          "size_bytes": 556862
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_layout_summary.csv",
+          "size_bytes": 3479
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_delta_summary.csv",
+          "size_bytes": 4690
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_paired_delta_tests.csv",
+          "size_bytes": 7399
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/gls_map_win_counts.csv",
+          "size_bytes": 167
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/rcss_selected_sources.csv",
+          "size_bytes": 189
+        }
+      ],
+      "stage": "supporting"
+    }
+  ],
+  "environment": {
+    "packages": {
+      "numpy": {
+        "available": true,
+        "version": "1.26.4"
+      },
+      "pandas": {
+        "available": true,
+        "version": "3.0.1"
+      },
+      "scikit-learn": {
+        "available": true,
+        "version": "1.8.0"
+      },
+      "scipy": {
+        "available": true,
+        "version": "1.17.1"
+      },
+      "sklearn": {
+        "available": true,
+        "version": "1.8.0"
+      }
+    },
+    "python": {
+      "executable": "/usr/bin/python",
+      "implementation": "CPython",
+      "platform": "Linux-6.14.0-1015-nvidia-aarch64-with-glibc2.39",
+      "version": "3.12.3"
+    }
+  },
+  "generated_at_utc": "2026-05-23T04:18:47Z",
+  "generated_by": "scripts/generate_trace_sl_repro_manifest.py",
+  "git": {
+    "branch": "main",
+    "commit": "37e2fc5d71f0427d5827ce717920e7832366d833",
+    "raw_dataset_policy": "protected local input only; excluded from paper-visible evidence artifacts",
+    "status_short_relevant": [
+      "?? scripts/generate_trace_sl_repro_manifest.py"
+    ],
+    "status_short_total_count": 12,
+    "tracked_raw_dataset_path_count": 0,
+    "tracked_raw_dataset_paths": []
+  },
+  "manifest_schema": "trace-sl-reproducibility-provenance-v1",
+  "policy": {
+    "dependency_disposition": "standard library only for generator; package metadata queried via importlib.metadata",
+    "experiment_rerun_disposition": "not run by this generator",
+    "raw_dataset_disposition": "protected local input only; never listed as evidence artifact",
+    "raw_dataset_prefix": "TRC-23-02333/dataset/"
+  },
+  "project_root_name": "sensor_opt"
+}
