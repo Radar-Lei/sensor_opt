@@ -87,7 +87,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 08-01-PLAN.md — Prepare ten-split Stage12 external launchers and fail-closed evidence/gate generator.
+- [x] 08-01-PLAN.md — Prepare ten-split Stage12 external launchers and fail-closed evidence/gate generator.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -146,7 +146,7 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | 5. Robustness and Generality | v1.0 | 4/4 | Complete | 2026-05-23 |
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
-| 8. External Stage12 Evidence | v1.1 | 0/TBD | Not started | - |
+| 8. External Stage12 Evidence | v1.1 | 1/5 | In Progress | - |
 | 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Not started | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 

@@ -4,14 +4,14 @@ milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
 status: executing
 stopped_at: Completed 07-02-PLAN.md; ready for Phase 7 verification
-last_updated: "2026-05-23T13:16:41.157Z"
-last_activity: 2026-05-23 -- Phase 08 planning complete
+last_updated: "2026-05-23T13:30:50.572Z"
+last_activity: 2026-05-23
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 7
-  completed_plans: 2
-  percent: 25
+  completed_plans: 3
+  percent: 43
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -21,39 +21,40 @@ progress:
 See: .planning/PROJECT.md (updated 2026/05/23)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** Phase 8 — external stage12 evidence
+**Current focus:** Phase 08 — external-stage12-evidence
 
 ## Current Position
 
-Phase: 8
-Plan: Not started
+Phase: 08 (external-stage12-evidence) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-05-23 -- Phase 08 planning complete
+Last activity: 2026-05-23
 
-Progress: [██████████] 100%
+Progress: [████░░░░░░] 43%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed this milestone: 2
+- Total plans completed this milestone: 3
 - Average duration: 5min
-- Total execution time: 0.17 hours
+- Total execution time: 0.25 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 7. Claim and Main Table Contract | 2/2 | 10min | 5min |
-| 8. External Stage12 Evidence | 0/TBD | n/a | n/a |
+| 8. External Stage12 Evidence | 1/5 | 5min | 5min |
 | 9. Ablation and Evidence Classification | 0/TBD | n/a | n/a |
 | 10. Theory and Handoff Package | 0/TBD | n/a | n/a |
 | 07 | 2 | - | - |
+| 08 | 1 | 5min | 5min |
 
 **Recent Trend:**
 
-- Last 5 plans: 07-01 (7min), 07-02 (3min)
-- Trend: Phase 7 completed successfully
+- Last 5 plans: 07-01 (7min), 07-02 (3min), 08-01 (5min)
+- Trend: Phase 8 started with external evidence contract gate complete
 
 ## Accumulated Context
 
@@ -72,6 +73,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - Keep Phase 7 contract outputs CSV/JSON-first, with Markdown as generated views rather than manuscript prose.
 - Use the plan-required trace_sl_claim_contract_v1 schema marker as the machine-readable policy identifier.
 - Treat PeMS7_1026, Seattle, and robustness evidence as non-core Phase 7 lanes until later evidence phases complete.
+- External Stage12 completion requires existing, git-tracked aggregate artifacts and exactly ten split seeds; untracked aggregates remain pending_tracking rather than complete.
+- Seattle remains blocked from core claims unless tracked ten-split Stage12 evidence is complete and any stage12_status.json reports completion.
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-23T12:11:58.032Z
-Stopped at: Completed 07-02-PLAN.md; ready for Phase 7 verification
+Last session: 2026-05-23T13:30:50.566Z
+Stopped at: Completed 08-01-PLAN.md
 Resume file: None
