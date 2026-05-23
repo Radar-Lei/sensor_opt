@@ -92,7 +92,7 @@ Plans:
 **Wave 2** *(blocked on Wave 1 completion)*
 
 - [x] 08-02-PLAN.md — Generate and validate real PeMS7_1026 Stage12 ten-split aggregate evidence.
-- [ ] 08-03-PLAN.md — Generate and validate real Seattle Stage12 ten-split aggregate evidence or preserve the Seattle blocker.
+- [x] 08-03-PLAN.md — Generate and validate real Seattle Stage12 ten-split aggregate evidence or preserve the Seattle blocker.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -146,7 +146,7 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | 5. Robustness and Generality | v1.0 | 4/4 | Complete | 2026-05-23 |
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
-| 8. External Stage12 Evidence | v1.1 | 2/5 | In Progress|  |
+| 8. External Stage12 Evidence | v1.1 | 3/5 | In Progress|  |
 | 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Not started | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 
