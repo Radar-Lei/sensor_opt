@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: verifying
-stopped_at: Completed 07-02-PLAN.md; ready for Phase 7 verification
-last_updated: "2026-05-23T12:11:58.037Z"
+status: ready_to_plan
+stopped_at: Phase 07 complete (2/2) — ready to discuss Phase 8
+last_updated: 2026-05-23T12:45:19.055Z
 last_activity: 2026-05-23 -- Completed 07-02 frozen claim/table contract artifacts
 progress:
   total_phases: 4
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026/05/23)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** Phase 07 — claim-and-main-table-contract
+**Current focus:** Phase 8 — external stage12 evidence
 
 ## Current Position
 
-Phase: 07 (claim-and-main-table-contract) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
+Phase: 8
+Plan: Not started
+Status: Ready to plan
 Last activity: 2026-05-23
 
 Progress: [██████████] 100%
@@ -48,6 +48,7 @@ Progress: [██████████] 100%
 | 8. External Stage12 Evidence | 0/TBD | n/a | n/a |
 | 9. Ablation and Evidence Classification | 0/TBD | n/a | n/a |
 | 10. Theory and Handoff Package | 0/TBD | n/a | n/a |
+| 07 | 2 | - | - |
 
 **Recent Trend:**
 
