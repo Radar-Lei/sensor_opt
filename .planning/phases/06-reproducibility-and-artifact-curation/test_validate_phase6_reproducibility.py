@@ -201,7 +201,7 @@ class Phase6ValidatorTests(unittest.TestCase):
         self.assertTrue(any("run_stage14_pems7_228_robustness.sh" in text and command.env.get("DRY_RUN") == "1" for text, command in zip(command_text, commands)))
         self.assertTrue(any("run_stage14_candidate_sensitivity_pems7_228.sh" in text and command.env.get("DRY_RUN") == "1" for text, command in zip(command_text, commands)))
 
-        missing_stage13 = [command for command in commands if "run_stage13_candidate_sensitivity_pems7_228.sh" not in command.args]
+        missing_stage13 = [command for command in commands if "run_stage13_candidate_sensitivity_pems7_228.sh" not in " ".join(command.args)]
         with mock.patch.object(validator, "required_smoke_commands", return_value=missing_stage13), \
              mock.patch.object(validator, "run_command", return_value=validator.CommandResult(0, "ok", "")):
             context = validator.ValidationContext(root)
