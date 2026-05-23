@@ -39,8 +39,44 @@ def paired_delta_stats(delta):
     return stats_row
 
 
+CONDITION_COLUMNS = [
+    "candidate_count",
+    "robustness_family",
+    "robustness_condition",
+    "failure_rate",
+    "noise_scale",
+    "missing_rate",
+    "missing_block_steps",
+    "cost_proxy",
+    "cost_budget",
+    "split_mode",
+]
+
+
 def normalize_group_key(group_key):
     return group_key if isinstance(group_key, tuple) else (group_key,)
+
+
+def condition_group_columns(frame):
+    return ["budget", *[name for name in CONDITION_COLUMNS if name in frame.columns]]
+
+
+def sort_frame(frame, sort_cols):
+    present = [name for name in sort_cols if name in frame.columns]
+    if frame.empty or not present:
+        return frame.reset_index(drop=True)
+    return frame.sort_values(present).reset_index(drop=True)
+
+
+def build_layout_summary(gls):
+    evidence_group_cols = condition_group_columns(gls)
+    layout_group_cols = [*evidence_group_cols, "layout_type"]
+    summary = (
+        gls.groupby(layout_group_cols, dropna=False)["mae"]
+        .agg(["mean", "std", "count"])
+        .reset_index()
+    )
+    return sort_frame(summary, [*evidence_group_cols, "mean"])
 
 
 def build_paired_comparisons(pivot, comparison_layouts, baseline_layouts):

@@ -77,6 +77,54 @@ class CertificateSummaryTest(unittest.TestCase):
         self.assertNotIn("certified optimal", text)
 
 
+class ConditionGroupingTest(unittest.TestCase):
+    def test_condition_group_columns_preserve_stable_optional_order(self):
+        frame = pd.DataFrame(
+            {
+                "budget": [0.1],
+                "split_mode": ["chronological"],
+                "candidate_count": [50],
+                "robustness_condition": ["failure_0.10"],
+                "noise_scale": [0.0],
+            }
+        )
+
+        self.assertEqual(
+            summarizer.condition_group_columns(frame),
+            ["budget", "candidate_count", "robustness_condition", "noise_scale", "split_mode"],
+        )
+
+    def test_condition_aware_layout_summary_keeps_robustness_conditions_separate(self):
+        gls = pd.DataFrame(
+            {
+                "method": ["gls_map", "gls_map"],
+                "layout_type": ["validation_swap_selected", "validation_swap_selected"],
+                "budget": [0.2, 0.2],
+                "robustness_condition": ["failure_0.05", "failure_0.20"],
+                "mae": [3.0, 9.0],
+            }
+        )
+
+        summary = summarizer.build_layout_summary(gls)
+
+        self.assertEqual(set(summary["robustness_condition"]), {"failure_0.05", "failure_0.20"})
+        self.assertEqual(summary["count"].tolist(), [1, 1])
+        self.assertEqual(set(summary["mean"]), {3.0, 9.0})
+
+    def test_condition_group_columns_accept_old_stage_schema(self):
+        old_stage = pd.DataFrame(
+            {
+                "budget": [0.1],
+                "layout_type": ["validation_swap_selected"],
+                "mae": [2.5],
+            }
+        )
+
+        self.assertEqual(summarizer.condition_group_columns(old_stage), ["budget"])
+        summary = summarizer.build_layout_summary(old_stage)
+        self.assertEqual(summary.iloc[0]["mean"], 2.5)
+
+
 class CandidateSensitivitySummaryTest(unittest.TestCase):
     def test_candidate_sensitivity_summary_counts_sources_and_diagnostics(self):
         candidates = pd.DataFrame(
