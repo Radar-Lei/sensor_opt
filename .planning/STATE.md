@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-05-23T02:41:29.692Z"
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-05-23T03:06:40Z"
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 14
-  completed_plans: 12
-  percent: 80
+  completed_plans: 13
+  percent: 67
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -63,15 +63,17 @@ See: .planning/PROJECT.md (updated 2026/05/21)
 - Phase 5 Plan 01 keeps validation selection unperturbed while applying robustness only at held-out evaluate_layout boundaries.
 - Phase 5 Plan 02 uses `condition_group_columns(frame)` so robustness, candidate-count, and split condition columns are grouped before aggregate summaries.
 - Phase 5 Plan 02 frames robustness tables as stress-test evidence for evaluated perturbations, not universal robustness proof.
+- Stage 14 robustness uses a reduced PeMS7_228 bundle with nine stress-test conditions as artifact-backed evidence, not as a universal robustness proof.
+- Stage 14 candidate sensitivity completed all 50/100/200/500 reduced runs locally, so no ROBUST-06 caveat artifact was needed.
 
 ## Next Action
 
-Execute Phase 05 Plan 03.
+Execute Phase 05 Plan 04.
 
 ## Last Session
 
-- **Completed:** 2026-05-23T02:40:01Z
-- **Stopped At:** Completed 05-02-PLAN.md
+- **Completed:** 2026-05-23T03:06:40Z
+- **Stopped At:** Completed 05-03-PLAN.md
 - **Resume File:** None
 
 ## Performance Metrics
@@ -83,3 +85,4 @@ Execute Phase 05 Plan 03.
 | 04-core-experiment-evidence | 06 | 6min | 2 | 4 |
 | 05-robustness-and-generality | 01 | ~20min | 3 | 3 |
 | Phase 05-robustness-and-generality P02 | 5min | 2 tasks | 3 files |
+| 05-robustness-and-generality | 03 | 22min | 3 | 303 |

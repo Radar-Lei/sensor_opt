@@ -16,7 +16,7 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 | 2 | 2/2 | Complete   | 2026-05-22 |
 | 3 | 1/1 | Complete   | 2026-05-22 |
 | 4 | 6/6 | Complete   | 2026-05-22 |
-| 5 | 2/4 | In Progress|  |
+| 5 | 3/4 | In Progress|  |
 | 6 | Reproducibility and Artifact Curation | Make paper-visible evidence reproducible, curated, and repository-consistent | REPRO-01..05 |
 
 ## Phases
