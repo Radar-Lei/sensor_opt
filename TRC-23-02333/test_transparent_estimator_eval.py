@@ -207,6 +207,45 @@ def test_validation_mae_is_not_perturbed_by_held_out_flags():
     assert abs(baseline - robust) < 1e-9
 
 
+def test_robustness_metadata_defaults_and_cost_layout_record():
+    inputs = make_eval_inputs()
+    args = make_eval_args(
+        cost_proxy="graph_traffic",
+        cost_budget=2.5,
+        split_mode="chronological",
+        failure_rate=0.1,
+        noise_scale=0.2,
+        missing_rate=0.3,
+        missing_block_steps=1,
+    )
+    costs = tev.derive_cost_proxy(inputs[0], inputs[2])
+    sensors = np.array([0, 1], dtype=int)
+    layout_metadata = tev.layout_robustness_metadata(sensors, costs, args)
+    row_metadata = tev.robustness_row_metadata(args, layout_metadata, {"selected_sensor_count": 2, "active_sensor_count": 1, "dropped_sensor_count": 1})
+
+    required = {
+        "robustness_family",
+        "robustness_condition",
+        "failure_rate",
+        "noise_scale",
+        "missing_rate",
+        "missing_block_steps",
+        "cost_proxy",
+        "cost_budget",
+        "layout_sensor_cost",
+        "cost_feasible",
+        "split_mode",
+        "selected_sensor_count",
+        "active_sensor_count",
+        "dropped_sensor_count",
+    }
+    assert required.issubset(row_metadata)
+    assert_equal(row_metadata["split_mode"], "chronological")
+    assert_equal(row_metadata["cost_proxy"], "graph_traffic")
+    assert row_metadata["layout_sensor_cost"] > 0.0
+    assert isinstance(row_metadata["cost_feasible"], bool)
+
+
 def run_all():
     test_chronological_split_preserves_later_val_and_test_days()
     test_random_split_default_shape_is_preserved()
@@ -217,6 +256,7 @@ def run_all():
     test_evaluate_layout_unperturbed_output_shape_and_keys()
     test_evaluate_layout_missing_observations_use_zero_weight()
     test_validation_mae_is_not_perturbed_by_held_out_flags()
+    test_robustness_metadata_defaults_and_cost_layout_record()
     print("transparent-estimator-tests-ok")
 
 
