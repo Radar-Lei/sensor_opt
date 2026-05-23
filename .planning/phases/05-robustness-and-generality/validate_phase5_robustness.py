@@ -1,5 +1,6 @@
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -15,6 +16,9 @@ CORE_ROBUSTNESS_FILES = [
     "combined_metrics.csv",
     "gls_map_layout_summary.csv",
     "gls_map_paired_delta_tests.csv",
+    "combined_rcss_candidates.csv",
+    "candidate_sensitivity_summary.csv",
+    "rcss_selected_sources.csv",
     "SUMMARY.md",
 ]
 CORE_CANDIDATE_FILES = [
@@ -33,6 +37,35 @@ ROBUSTNESS_CONDITION_COLUMNS = [
     "missing_block_steps",
     "cost_budget",
     "split_mode",
+]
+CANDIDATE_ROBUSTNESS_COLUMNS = [
+    "robustness_family",
+    "robustness_condition",
+    "failure_rate",
+    "noise_scale",
+    "missing_rate",
+    "missing_block_steps",
+    "cost_proxy",
+    "cost_budget",
+    "split_mode",
+]
+REQUIRED_ROBUSTNESS_CONDITIONS = {
+    "baseline",
+    "failure_0.05",
+    "failure_0.10",
+    "failure_0.20",
+    "noise_0.05",
+    "random_missing_0.10",
+    "block_missing_12",
+    "cost_proxy_budget",
+    "chronological_split",
+}
+RAW_DATASET_PREFIX = "TRC-23-02333/dataset/"
+CURATED_EVIDENCE_DOCS = [
+    RESULTS_ROOT / "README.md",
+    ROBUSTNESS_DIR / "SUMMARY.md",
+    CANDIDATE_DIR / "SUMMARY.md",
+    Path(".planning") / "phases" / "05-robustness-and-generality" / "05-ROBUSTNESS-EVIDENCE-AUDIT.md",
 ]
 
 
@@ -102,6 +135,18 @@ def string_series(frame, column):
     return frame[column].astype(str)
 
 
+def normalized_condition_values(frame):
+    if "robustness_condition" not in frame.columns:
+        return set()
+    values = string_series(frame, "robustness_condition").replace({"nan": ""}).str.strip()
+    return {value for value in values if value}
+
+
+def condition_values_match_required(frame, required_conditions=None):
+    required_conditions = required_conditions or REQUIRED_ROBUSTNESS_CONDITIONS
+    return required_conditions.issubset(normalized_condition_values(frame))
+
+
 def rows_for_condition(frame, condition):
     if "robustness_condition" not in frame.columns:
         return pd.DataFrame()
@@ -151,10 +196,28 @@ def check_common_robustness_schema(frames, context):
         missing = missing_columns(frame, ROBUSTNESS_CONDITION_COLUMNS)
         if missing:
             context.fail("ROBUST-01", f"{name} missing required robustness columns: {', '.join(missing)}")
+    for name in ["combined_rcss_candidates", "candidate_sensitivity_summary", "rcss_selected_sources"]:
+        frame = frames.get(name, pd.DataFrame())
+        missing = missing_columns(frame, CANDIDATE_ROBUSTNESS_COLUMNS)
+        if missing:
+            context.fail("ROBUST-01", f"{name} missing required candidate robustness columns: {', '.join(missing)}")
+
+
+def check_candidate_condition_coverage(frames, context):
+    metrics = frames.get("combined_metrics", pd.DataFrame())
+    if not condition_values_match_required(metrics):
+        return
+    for name in ["combined_rcss_candidates", "candidate_sensitivity_summary", "rcss_selected_sources"]:
+        frame = frames.get(name, pd.DataFrame())
+        if frame.empty:
+            continue
+        missing_conditions = sorted(REQUIRED_ROBUSTNESS_CONDITIONS - normalized_condition_values(frame))
+        if missing_conditions:
+            context.fail("ROBUST-01", f"{name} missing required robustness_condition values: {missing_conditions}")
 
 
 def check_condition_in_aggregates(frames, condition, requirement, context):
-    for name in ["gls_map_layout_summary", "gls_map_paired_delta_tests"]:
+    for name in ["gls_map_layout_summary", "gls_map_paired_delta_tests", "candidate_sensitivity_summary", "rcss_selected_sources"]:
         frame = frames.get(name, pd.DataFrame())
         if frame.empty:
             continue
@@ -317,6 +380,50 @@ def load_valid_caveat(candidate_dir):
     return caveat if not errors else None, errors
 
 
+def tracked_dataset_paths(project_root):
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(project_root), "ls-files", "--", RAW_DATASET_PREFIX],
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+    except OSError as exc:
+        return [], f"could not run git ls-files for raw dataset hygiene: {exc}"
+    if result.returncode != 0:
+        stderr = result.stderr.strip()
+        lowered = stderr.lower()
+        if "not a git repository" in lowered or "不是 git" in lowered:
+            return [], None
+        return [], f"git ls-files failed for raw dataset hygiene: {stderr}"
+    paths = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+    return paths, None
+
+
+def docs_referencing_raw_dataset(project_root, doc_paths=None):
+    offenders = []
+    for relative in doc_paths or CURATED_EVIDENCE_DOCS:
+        path = project_root / relative
+        if not path.exists() or not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if RAW_DATASET_PREFIX in text:
+            offenders.append(str(relative))
+    return offenders
+
+
+def validate_raw_data_hygiene(root, context):
+    tracked, error = tracked_dataset_paths(root)
+    if error:
+        context.fail("ROBUST-06", error)
+    if tracked:
+        context.fail("ROBUST-06", f"tracked raw dataset paths are not allowed: {tracked}")
+    offenders = docs_referencing_raw_dataset(root)
+    if offenders:
+        context.fail("ROBUST-06", f"curated evidence docs reference raw dataset paths: {offenders}")
+
+
 def validate_robust_06(root, context):
     candidate_dir = check_required_paths(root, CANDIDATE_DIR, CORE_CANDIDATE_FILES, "ROBUST-06", context)
     frames = {
@@ -348,9 +455,13 @@ def validate_robustness_bundle(root, context):
         "combined_metrics": read_csv(robustness_dir / "combined_metrics.csv", "ROBUST-01", context),
         "gls_map_layout_summary": read_csv(robustness_dir / "gls_map_layout_summary.csv", "ROBUST-01", context),
         "gls_map_paired_delta_tests": read_csv(robustness_dir / "gls_map_paired_delta_tests.csv", "ROBUST-01", context),
+        "combined_rcss_candidates": read_csv(robustness_dir / "combined_rcss_candidates.csv", "ROBUST-01", context),
+        "candidate_sensitivity_summary": read_csv(robustness_dir / "candidate_sensitivity_summary.csv", "ROBUST-01", context),
+        "rcss_selected_sources": read_csv(robustness_dir / "rcss_selected_sources.csv", "ROBUST-01", context),
     }
     context.frames.update(frames)
     check_common_robustness_schema(frames, context)
+    check_candidate_condition_coverage(frames, context)
     gls = gls_rows(frames["combined_metrics"], "ROBUST-01", context)
     validate_robust_01(gls, frames, context)
     validate_robust_02(gls, frames, context)
@@ -381,6 +492,7 @@ def main(argv=None):
     context = ValidationContext(project_root)
     validate_robustness_bundle(project_root, context)
     validate_robust_06(project_root, context)
+    validate_raw_data_hygiene(project_root, context)
     print_status_rows(context)
     if context.errors:
         return 1

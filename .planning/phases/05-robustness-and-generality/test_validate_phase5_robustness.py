@@ -85,16 +85,77 @@ def candidate_metric_rows(counts=REQUIRED_COUNTS):
     return rows
 
 
+def candidate_robustness_values(condition="baseline", family="baseline"):
+    return {
+        "robustness_family": family,
+        "robustness_condition": condition,
+        "failure_rate": 0.05 if condition == "failure_0.05" else 0.0,
+        "noise_scale": 0.05 if condition == "noise_0.05" else 0.0,
+        "missing_rate": 0.10 if condition == "random_missing_0.10" else 0.0,
+        "missing_block_steps": 12 if condition == "block_missing_12" else 0,
+        "cost_proxy": "traffic_degree_proxy" if condition == "cost_proxy_budget" else "none",
+        "cost_budget": 45.0 if condition == "cost_proxy_budget" else 0.0,
+        "split_mode": "chronological" if condition == "chronological_split" else "random",
+    }
+
+
+def candidate_condition_rows():
+    return [
+        ("baseline", "baseline"),
+        ("failure_0.05", "sensor_failure"),
+        ("failure_0.10", "sensor_failure"),
+        ("failure_0.20", "sensor_failure"),
+        ("noise_0.05", "observation_noise"),
+        ("random_missing_0.10", "random_missing"),
+        ("block_missing_12", "block_missing"),
+        ("cost_proxy_budget", "cost_proxy"),
+        ("chronological_split", "temporal_shift"),
+    ]
+
+
 def candidate_summary_rows(counts=REQUIRED_COUNTS):
+    rows = []
+    for count in counts:
+        for condition, family in candidate_condition_rows():
+            rows.append(
+                {
+                    "budget": 0.1,
+                    "candidate_count": count,
+                    "source": "quality_coverage",
+                    "candidate_row_count": count,
+                    "selected_count": 1,
+                    **candidate_robustness_values(condition, family),
+                }
+            )
+    return rows
+
+
+def rcss_candidate_rows():
+    rows = []
+    for condition, family in candidate_condition_rows():
+        rows.append(
+            {
+                "budget": 0.1,
+                "source": "quality_coverage",
+                "candidate_count": 50,
+                "selected": True,
+                "validation_mae": 1.0,
+                "sensors": "[1, 2]",
+                **candidate_robustness_values(condition, family),
+            }
+        )
+    return rows
+
+
+def selected_source_rows():
     return [
         {
             "budget": 0.1,
-            "candidate_count": count,
             "source": "quality_coverage",
-            "candidate_row_count": count,
             "selected_count": 1,
+            **candidate_robustness_values(condition, family),
         }
-        for count in counts
+        for condition, family in candidate_condition_rows()
     ]
 
 
@@ -133,6 +194,9 @@ def create_complete_artifacts(root, candidate_counts=REQUIRED_COUNTS):
     write_csv(robustness / "combined_metrics.csv", robust_rows)
     write_csv(robustness / "gls_map_layout_summary.csv", robust_rows)
     write_csv(robustness / "gls_map_paired_delta_tests.csv", robust_rows)
+    write_csv(robustness / "combined_rcss_candidates.csv", rcss_candidate_rows())
+    write_csv(robustness / "candidate_sensitivity_summary.csv", candidate_summary_rows(candidate_counts))
+    write_csv(robustness / "rcss_selected_sources.csv", selected_source_rows())
     (robustness / "SUMMARY.md").write_text("Stage 14 robustness summary\n", encoding="utf-8")
 
     write_csv(candidates / "combined_metrics.csv", candidate_metric_rows(candidate_counts))
@@ -180,6 +244,34 @@ class Phase5RobustnessValidatorTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("ROBUST-02 FAIL", result.stdout)
         self.assertIn("noise_scale", result.stdout)
+
+    def test_candidate_summary_missing_condition_column_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            robustness, _ = create_complete_artifacts(Path(tmp))
+            rows = candidate_summary_rows()
+            fieldnames = [name for name in rows[0].keys() if name != "robustness_condition"]
+            write_csv(robustness / "candidate_sensitivity_summary.csv", rows, fieldnames=fieldnames)
+            selected_rows = selected_source_rows()
+            selected_fieldnames = [name for name in selected_rows[0].keys() if name != "robustness_condition"]
+            write_csv(robustness / "rcss_selected_sources.csv", selected_rows, fieldnames=selected_fieldnames)
+            result = run_validator(Path(tmp))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("ROBUST-01 FAIL", result.stdout)
+        self.assertIn("candidate_sensitivity_summary", result.stdout)
+        self.assertIn("rcss_selected_sources", result.stdout)
+
+    def test_raw_dataset_doc_scan_helper_detects_curated_reference(self):
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("validator_under_test", VALIDATOR)
+        validator = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(validator)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            doc = root / "evidence.md"
+            doc.write_text("bad evidence path TRC-23-02333/dataset/PeMS7_228/file.csv\n", encoding="utf-8")
+            offenders = validator.docs_referencing_raw_dataset(root, [Path("evidence.md")])
+        self.assertEqual(offenders, ["evidence.md"])
 
     def test_missing_candidate_runtime_coverage_fails_without_caveat(self):
         with tempfile.TemporaryDirectory() as tmp:

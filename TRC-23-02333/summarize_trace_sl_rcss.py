@@ -275,12 +275,53 @@ def read_nonempty_csv(path):
         return None
 
 
-def collect_input_frames(input_roots):
+def collect_seed_dir_frames(seed_dirs):
     metrics = []
     correlations = []
     rcss_candidates = []
+    for seed_dir in seed_dirs:
+        metrics_path = seed_dir / "metrics.csv"
+        metric_frame = read_nonempty_csv(metrics_path)
+        if metric_frame is None:
+            continue
+        candidate_count = candidate_count_from_root(seed_dir.parent)
+        try:
+            seed = int(seed_dir.name.split("_", 1)[1])
+        except (IndexError, ValueError):
+            seed = None
+        frame = add_candidate_count(metric_frame, candidate_count)
+        if seed is not None:
+            frame["split_seed"] = seed
+        metrics.append(frame)
+        corr_path = seed_dir / "certificate_correlations.csv"
+        corr_frame = read_nonempty_csv(corr_path)
+        if corr_frame is not None:
+            corr = add_candidate_count(corr_frame, candidate_count)
+            if seed is not None:
+                corr["split_seed"] = seed
+            correlations.append(corr)
+        rcss_path = seed_dir / "rcss_candidates.csv"
+        rcss_frame = read_nonempty_csv(rcss_path)
+        if rcss_frame is not None:
+            rcss = add_candidate_count(rcss_frame, candidate_count)
+            if seed is not None:
+                rcss["split_seed"] = seed
+            rcss_candidates.append(rcss)
+    return metrics, correlations, rcss_candidates
+
+
+def collect_input_frames(input_roots, seed_dirs=None):
+    metrics, correlations, rcss_candidates = collect_seed_dir_frames(seed_dirs or [])
     for input_root in input_roots:
         candidate_count = candidate_count_from_root(input_root)
+        direct_metrics = read_nonempty_csv(input_root / "metrics.csv")
+        if direct_metrics is not None:
+            seed_metrics, seed_correlations, seed_rcss = collect_seed_dir_frames([input_root])
+            metrics.extend(seed_metrics)
+            correlations.extend(seed_correlations)
+            rcss_candidates.extend(seed_rcss)
+            continue
+
         metric_paths = sorted(input_root.glob("seed_*/metrics.csv"))
         if metric_paths:
             for path in metric_paths:
@@ -320,16 +361,18 @@ def collect_input_frames(input_roots):
 def main():
     parser = argparse.ArgumentParser(description="Summarize TRACE-SL multi-split RCSS results")
     parser.add_argument("--input-root", required=True, nargs="+")
+    parser.add_argument("--seed-dir", nargs="*", default=[])
     parser.add_argument("--runtime-root", nargs="*", default=[])
     parser.add_argument("--output-dir", required=True)
     args = parser.parse_args()
 
     input_roots = [Path(raw) for raw in args.input_root]
+    seed_dirs = [Path(raw) for raw in args.seed_dir]
     runtime_roots = [Path(raw) for raw in args.runtime_root]
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    metrics, correlations, rcss_candidates = collect_input_frames(input_roots)
+    metrics, correlations, rcss_candidates = collect_input_frames(input_roots, seed_dirs)
     runtime_candidate_frames = collect_runtime_candidate_frames([*input_roots, *runtime_roots], rcss_candidates)
 
     if not metrics:

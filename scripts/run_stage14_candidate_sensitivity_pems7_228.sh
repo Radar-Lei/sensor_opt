@@ -67,6 +67,7 @@ PY
 }
 
 mkdir -p "${OUTPUT_DIR}"
+completed_input_roots=()
 
 if [ "${DRY_RUN}" = "1" ]; then
   for candidate_count in ${CANDIDATE_COUNTS}; do
@@ -102,8 +103,11 @@ if [ "${DRY_RUN}" = "1" ]; then
       --input-root "${OUTPUT_DIR}/candidates_${candidate_count}" \
       --output-dir "${OUTPUT_DIR}/candidates_${candidate_count}"
   done
+  for candidate_count in ${CANDIDATE_COUNTS}; do
+    completed_input_roots+=("${OUTPUT_DIR}/candidates_${candidate_count}")
+  done
   run_or_print "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
-    --input-root "${OUTPUT_DIR}"/candidates_* \
+    --input-root "${completed_input_roots[@]}" \
     --runtime-root "${OUTPUT_DIR}" \
     --output-dir "${OUTPUT_DIR}"
   exit 0
@@ -170,6 +174,7 @@ for candidate_count in ${CANDIDATE_COUNTS}; do
   done
   if [ "${count_status}" = "success" ]; then
     completed_counts+=("${candidate_count}")
+    completed_input_roots+=("${candidate_dir}")
     "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
       --input-root "${candidate_dir}" \
       --output-dir "${candidate_dir}"
@@ -178,9 +183,9 @@ for candidate_count in ${CANDIDATE_COUNTS}; do
   fi
 done
 
-if [ "${#completed_counts[@]}" -gt 0 ]; then
+if [ "${#completed_input_roots[@]}" -gt 0 ]; then
   "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
-    --input-root "${OUTPUT_DIR}"/candidates_* \
+    --input-root "${completed_input_roots[@]}" \
     --runtime-root "${OUTPUT_DIR}" \
     --output-dir "${OUTPUT_DIR}"
 fi

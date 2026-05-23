@@ -26,6 +26,7 @@ export NUMEXPR_NUM_THREADS="${NUMEXPR_NUM_THREADS:-${THREADS_PER_JOB}}"
 export VECLIB_MAXIMUM_THREADS="${VECLIB_MAXIMUM_THREADS:-${THREADS_PER_JOB}}"
 
 mkdir -p "${OUTPUT_DIR}"
+summary_inputs=()
 
 run_or_print() {
   if [ "${DRY_RUN}" = "1" ]; then
@@ -121,13 +122,15 @@ for condition in "${CONDITIONS[@]}"; do
     )
     if [ "${DRY_RUN}" = "1" ]; then
       run_or_print "${eval_cmd[@]}"
+      summary_inputs+=("${seed_dir}")
     else
       mkdir -p "${OUTPUT_DIR}/${condition}"
       "${eval_cmd[@]}" 2>&1 | tee "${OUTPUT_DIR}/${condition}_seed_${seed}.log"
+      summary_inputs+=("${seed_dir}")
     fi
   done
 done
 
 run_or_print "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
-  --input-root "${OUTPUT_DIR}"/* \
+  --input-root "${summary_inputs[@]}" \
   --output-dir "${OUTPUT_DIR}"

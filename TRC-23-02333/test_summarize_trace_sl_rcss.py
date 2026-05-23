@@ -126,6 +126,35 @@ class ConditionGroupingTest(unittest.TestCase):
         summary = summarizer.build_layout_summary(old_stage)
         self.assertEqual(summary.iloc[0]["mean"], 2.5)
 
+    def test_collect_input_frames_accepts_explicit_seed_dirs(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            seed_root = root / "seed_25"
+            seed_root.mkdir(parents=True)
+            pd.DataFrame(
+                {
+                    "method": ["gls_map"],
+                    "layout_type": ["validation_swap_selected"],
+                    "budget": [0.2],
+                    "mae": [3.0],
+                }
+            ).to_csv(seed_root / "metrics.csv", index=False)
+            pd.DataFrame(
+                {
+                    "budget": [0.2],
+                    "source": ["quality_coverage_sample"],
+                    "selected": [True],
+                    "validation_mae": [3.1],
+                }
+            ).to_csv(seed_root / "rcss_candidates.csv", index=False)
+
+            metrics, _, rcss = summarizer.collect_input_frames([], [seed_root])
+
+        self.assertEqual(len(metrics), 1)
+        self.assertEqual(metrics[0].iloc[0]["split_seed"], 25)
+        self.assertEqual(len(rcss), 1)
+        self.assertEqual(rcss[0].iloc[0]["split_seed"], 25)
+
     def test_main_outputs_preserve_condition_columns_and_markdown_context(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)

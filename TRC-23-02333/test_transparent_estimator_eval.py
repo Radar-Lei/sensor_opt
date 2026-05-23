@@ -166,9 +166,26 @@ def test_solve_quadratic_accepts_per_node_observation_weights():
 
     solution, lhs = tev.solve_quadratic(observed_z, prior_z, np.array([0, 1]), matrix, np.array([[0.0, 1.0]]))
 
-    assert_close_array(lhs, np.array([[1.0, 0.0], [0.0, 2.0]]))
+    assert_close_array(lhs, np.array([[[1.0, 0.0], [0.0, 2.0]]]))
     assert abs(solution[0, 0] - prior_z[0, 0]) < 1e-9
     assert solution[0, 1] > prior_z[0, 1]
+
+
+def test_certificate_averages_time_varying_lhs_stack():
+    lhs_stack = np.array(
+        [
+            [[1.0, 0.0], [0.0, 1.0]],
+            [[2.0, 0.0], [0.0, 1.0]],
+            [[1.0, 0.0], [0.0, 1.0]],
+        ],
+        dtype=float,
+    )
+
+    cert = tev.certificate(lhs_stack)
+    last_cert = tev.certificate(lhs_stack[-1])
+
+    assert cert["posterior_trace"] != last_cert["posterior_trace"]
+    assert_close_array(np.array([cert["posterior_trace"]]), np.array([(2.0 + 1.5 + 2.0) / 3.0]))
 
 
 def test_evaluate_layout_unperturbed_output_shape_and_keys():
@@ -246,6 +263,54 @@ def test_robustness_metadata_defaults_and_cost_layout_record():
     assert isinstance(row_metadata["cost_feasible"], bool)
 
 
+def test_candidate_robustness_metadata_records_failure_counts():
+    inputs = make_eval_inputs()
+    args = make_eval_args(
+        robustness_family="sensor_failure",
+        robustness_condition="failure_0.50",
+        failure_rate=0.5,
+        robustness_seed=505,
+    )
+    costs = tev.derive_cost_proxy(inputs[0], inputs[2])
+    sensors = np.array([0, 1], dtype=int)
+
+    metadata = tev.candidate_robustness_metadata(sensors, costs, args, node_count=3)
+
+    required = {
+        "robustness_family",
+        "robustness_condition",
+        "failure_rate",
+        "noise_scale",
+        "missing_rate",
+        "missing_block_steps",
+        "cost_proxy",
+        "cost_budget",
+        "layout_sensor_cost",
+        "cost_feasible",
+        "split_mode",
+        "selected_sensor_count",
+        "active_sensor_count",
+        "dropped_sensor_count",
+    }
+    assert required.issubset(metadata)
+    assert_equal(metadata["selected_sensor_count"], 2)
+    assert_equal(metadata["active_sensor_count"], 1)
+    assert_equal(metadata["dropped_sensor_count"], 1)
+
+
+def test_candidate_robustness_metadata_non_failure_keeps_all_active():
+    inputs = make_eval_inputs()
+    args = make_eval_args(robustness_family="observation_noise", robustness_condition="noise_0.05", noise_scale=0.05)
+    costs = tev.derive_cost_proxy(inputs[0], inputs[2])
+    sensors = np.array([0, 1], dtype=int)
+
+    metadata = tev.candidate_robustness_metadata(sensors, costs, args, node_count=3)
+
+    assert_equal(metadata["selected_sensor_count"], 2)
+    assert_equal(metadata["active_sensor_count"], 2)
+    assert_equal(metadata["dropped_sensor_count"], 0)
+
+
 def run_all():
     test_chronological_split_preserves_later_val_and_test_days()
     test_random_split_default_shape_is_preserved()
@@ -253,10 +318,13 @@ def run_all():
     test_noise_and_missing_helpers_are_deterministic_and_non_mutating()
     test_cost_proxy_is_positive_and_deterministic()
     test_solve_quadratic_accepts_per_node_observation_weights()
+    test_certificate_averages_time_varying_lhs_stack()
     test_evaluate_layout_unperturbed_output_shape_and_keys()
     test_evaluate_layout_missing_observations_use_zero_weight()
     test_validation_mae_is_not_perturbed_by_held_out_flags()
     test_robustness_metadata_defaults_and_cost_layout_record()
+    test_candidate_robustness_metadata_records_failure_counts()
+    test_candidate_robustness_metadata_non_failure_keeps_all_active()
     print("transparent-estimator-tests-ok")
 
 

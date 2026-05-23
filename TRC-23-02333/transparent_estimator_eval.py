@@ -204,6 +204,31 @@ def robustness_row_metadata(args, layout_metadata, eval_context=None):
     return metadata
 
 
+def candidate_robustness_metadata(sensors, costs, args, node_count):
+    sensors = np.asarray(sensors, dtype=int)
+    selected_count = int(len(sensors))
+    if float(getattr(args, "failure_rate", 0.0)) > 0.0:
+        _, selected_count, dropped_count, active_count = apply_sensor_failure(
+            sensors,
+            getattr(args, "failure_rate", 0.0),
+            node_count,
+            getattr(args, "robustness_seed", 0),
+        )
+    else:
+        active_count = selected_count
+        dropped_count = 0
+    layout_metadata = layout_robustness_metadata(sensors, costs, args)
+    return robustness_row_metadata(
+        args,
+        layout_metadata,
+        {
+            "selected_sensor_count": selected_count,
+            "active_sensor_count": active_count,
+            "dropped_sensor_count": dropped_count,
+        },
+    )
+
+
 def validate_cli_settings(args):
     validate_fraction(args.failure_rate, "failure_rate")
     validate_fraction(args.missing_rate, "missing_rate")
@@ -337,7 +362,7 @@ def solve_quadratic(observed_z, prior_z, sensors, matrix, obs_weight):
         raise ValueError(f"obs_weight matrix must match observed_z shape {observed_z.shape}")
 
     solutions = []
-    lhs_last = None
+    lhs_stack = []
     for row_idx in range(observed_z.shape[0]):
         selector = np.zeros(n_nodes)
         selector[sensors] = weights[row_idx, sensors]
@@ -345,11 +370,19 @@ def solve_quadratic(observed_z, prior_z, sensors, matrix, obs_weight):
         rhs = prior_z[row_idx] @ matrix.T
         rhs[sensors] += weights[row_idx, sensors] * observed_z[row_idx, sensors]
         solutions.append(linalg.solve(lhs, rhs, assume_a="pos"))
-        lhs_last = lhs
-    return np.vstack(solutions), lhs_last
+        lhs_stack.append(lhs)
+    return np.vstack(solutions), np.stack(lhs_stack, axis=0)
 
 
 def certificate(lhs):
+    lhs = np.asarray(lhs, dtype=float)
+    if lhs.ndim == 3:
+        certs = [certificate(step_lhs) for step_lhs in lhs]
+        return {
+            "posterior_trace": float(np.mean([row["posterior_trace"] for row in certs])),
+            "condition_number": float(np.mean([row["condition_number"] for row in certs])),
+            "information_logdet": float(np.mean([row["information_logdet"] for row in certs])),
+        }
     inv_lhs = linalg.inv(lhs)
     sign, logdet = np.linalg.slogdet(lhs)
     return {
@@ -1284,6 +1317,7 @@ def main():
             for row in rcss_all:
                 record = {k: v for k, v in row.items() if k != "sensors"}
                 record.update({"budget": budget, "sensors": sorted(int(x) for x in row["sensors"]), "selected": row is rcss_best})
+                record.update(candidate_robustness_metadata(row["sensors"], cost_proxy_values, args, n_nodes))
                 rcss_records.append(record)
         for layout_type, layout_id, sensors, validation_selected_mae in layouts:
             layout_metadata = layout_robustness_metadata(sensors, cost_proxy_values, args)
