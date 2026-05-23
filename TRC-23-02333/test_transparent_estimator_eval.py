@@ -114,13 +114,110 @@ def test_cost_proxy_is_positive_and_deterministic():
     assert np.all(first > 0.0)
 
 
+def make_eval_args(**overrides):
+    data = {
+        "num_neighbors": 1,
+        "gsp_lambda": 0.2,
+        "prior_gamma": 0.05,
+        "gls_prior_weight": 0.2,
+        "obs_weight": 1.0,
+        "selection_method": "gls_map",
+        "robustness_family": "baseline",
+        "robustness_condition": "baseline",
+        "failure_rate": 0.0,
+        "noise_scale": 0.0,
+        "missing_rate": 0.0,
+        "missing_block_steps": 0,
+        "robustness_seed": 505,
+    }
+    data.update(overrides)
+    return SimpleNamespace(**data)
+
+
+def make_eval_inputs():
+    test = np.array(
+        [
+            [10.0, 20.0, 30.0],
+            [11.0, 21.0, 31.0],
+            [12.0, 22.0, 32.0],
+        ],
+        dtype=float,
+    )
+    tod = test.copy()
+    distance = np.array(
+        [
+            [0.0, 1.0, 2.0],
+            [1.0, 0.0, 1.0],
+            [2.0, 1.0, 0.0],
+        ],
+        dtype=float,
+    )
+    laplacian = tev.make_laplacian(distance)
+    precision = np.eye(3)
+    mean = np.array([10.0, 20.0, 30.0], dtype=float)
+    std = np.ones(3, dtype=float)
+    return test, tod, distance, laplacian, precision, mean, std
+
+
+def test_solve_quadratic_accepts_per_node_observation_weights():
+    observed_z = np.array([[100.0, 5.0]], dtype=float)
+    prior_z = np.array([[1.0, 2.0]], dtype=float)
+    matrix = np.eye(2)
+
+    solution, lhs = tev.solve_quadratic(observed_z, prior_z, np.array([0, 1]), matrix, np.array([[0.0, 1.0]]))
+
+    assert_close_array(lhs, np.array([[1.0, 0.0], [0.0, 2.0]]))
+    assert abs(solution[0, 0] - prior_z[0, 0]) < 1e-9
+    assert solution[0, 1] > prior_z[0, 1]
+
+
+def test_evaluate_layout_unperturbed_output_shape_and_keys():
+    inputs = make_eval_inputs()
+    rows, hidden, context = tev.evaluate_layout(*inputs, np.array([0], dtype=int), make_eval_args(), apply_robustness=False)
+
+    assert_equal([row["method"] for row in rows], ["historical_tod_mean", "neighbor_average", "gsp", "gls_map"])
+    assert_equal(hidden.tolist(), [1, 2])
+    assert_equal(context["selected_sensor_count"], 1)
+    assert_equal(context["active_sensor_count"], 1)
+    assert_equal(context["dropped_sensor_count"], 0)
+    for row in rows:
+        assert "mae" in row and "rmse" in row and "mape" in row
+
+
+def test_evaluate_layout_missing_observations_use_zero_weight():
+    inputs = make_eval_inputs()
+    args = make_eval_args(missing_rate=1.0, robustness_family="missingness", robustness_condition="missing_random")
+    rows, hidden, context = tev.evaluate_layout(*inputs, np.array([0], dtype=int), args, apply_robustness=True)
+
+    assert_equal(context["active_sensor_count"], 1)
+    assert_equal(context["observed_sensor_count"], 0)
+    assert_equal(context["dropped_sensor_count"], 0)
+    assert_equal(hidden.tolist(), [1, 2])
+    assert any(row["method"] == "gls_map" for row in rows)
+
+
+def test_validation_mae_is_not_perturbed_by_held_out_flags():
+    inputs = make_eval_inputs()
+    baseline_args = make_eval_args()
+    robust_args = make_eval_args(failure_rate=1.0, noise_scale=10.0, missing_rate=1.0, robustness_family="sensor_failure")
+
+    baseline = tev.validation_mae(*inputs, np.array([0], dtype=int), baseline_args)
+    robust = tev.validation_mae(*inputs, np.array([0], dtype=int), robust_args)
+
+    assert abs(baseline - robust) < 1e-9
+
+
 def run_all():
     test_chronological_split_preserves_later_val_and_test_days()
     test_random_split_default_shape_is_preserved()
     test_sensor_failure_drop_is_deterministic_and_sorted()
     test_noise_and_missing_helpers_are_deterministic_and_non_mutating()
     test_cost_proxy_is_positive_and_deterministic()
-    print("transparent-estimator-task1-tests-ok")
+    test_solve_quadratic_accepts_per_node_observation_weights()
+    test_evaluate_layout_unperturbed_output_shape_and_keys()
+    test_evaluate_layout_missing_observations_use_zero_weight()
+    test_validation_mae_is_not_perturbed_by_held_out_flags()
+    print("transparent-estimator-tests-ok")
 
 
 if __name__ == "__main__":
