@@ -21,6 +21,7 @@ TRC-23-02333/dataset/
 TRC-23-02333/*
 !TRC-23-02333/
 !TRC-23-02333/transparent_estimator_eval.py
+!TRC-23-02333/test_transparent_estimator_eval.py
 !TRC-23-02333/summarize_trace_sl_rcss.py
 !TRC-23-02333/trace_sl_results/
 !scripts/
