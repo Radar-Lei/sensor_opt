@@ -83,7 +83,24 @@ Plans:
   3. Author can trace each external-evidence result to committed summaries, generated tables, scripts, or manifests without relying on committed raw traffic datasets.
   4. Author can see an explicit milestone-completion gate that prevents v1.1 completion if Seattle Stage12 10-split evidence is missing or excluded from core claims.
 
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+**Wave 1**
+
+- [ ] 08-01-PLAN.md — Prepare ten-split Stage12 external launchers and fail-closed evidence/gate generator.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 08-02-PLAN.md — Generate and validate real PeMS7_1026 Stage12 ten-split aggregate evidence.
+- [ ] 08-03-PLAN.md — Generate and validate real Seattle Stage12 ten-split aggregate evidence or preserve the Seattle blocker.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 08-04-PLAN.md — Generate external evidence contract, Seattle gate, and provenance indexes.
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 08-05-PLAN.md — Synchronize roadmap, requirements, and state with gate truth.
 
 ### Phase 9: Ablation and Evidence Classification
 
