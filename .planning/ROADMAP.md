@@ -17,7 +17,7 @@ Turn TRACE-SL from a strong experimental prototype into a Transportation Science
 | 3 | 1/1 | Complete   | 2026-05-22 |
 | 4 | 6/6 | Complete   | 2026-05-22 |
 | 5 | 4/4 | Complete   | 2026-05-23 |
-| 6 | 2/3 | In Progress|  |
+| 6 | 3/3 | Complete   | 2026-05-23 |
 
 ## Phases
 

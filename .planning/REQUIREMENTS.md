@@ -57,7 +57,7 @@ Requirements for turning the current TRACE-SL prototype into a Transportation Sc
 - [x] **REPRO-02**: Raw traffic datasets remain ignored and are not committed; paper-visible artifacts use summaries, checksums, or non-sensitive metadata only.
 - [x] **REPRO-03**: The repository documentation and paper narrative cite only curated, present, and reproducible result directories.
 - [x] **REPRO-04**: Paper-ready tables and figures are generated from committed result artifacts rather than manually copied numbers.
-- [ ] **REPRO-05**: Smoke tests or validation scripts check that key experiment commands still run and that aggregate summaries contain required layout/method rows.
+- [x] **REPRO-05**: Smoke tests or validation scripts check that key experiment commands still run and that aggregate summaries contain required layout/method rows.
 
 ### Manuscript Readiness
 
@@ -132,7 +132,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REPRO-02 | Phase 6 | Complete |
 | REPRO-03 | Phase 6 | Complete |
 | REPRO-04 | Phase 6 | Complete |
-| REPRO-05 | Phase 6 | Pending |
+| REPRO-05 | Phase 6 | Complete |
 | PAPER-01 | Phase 7 | Pending |
 | PAPER-02 | Phase 7 | Pending |
 | PAPER-03 | Phase 7 | Pending |
