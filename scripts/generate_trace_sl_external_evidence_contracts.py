@@ -592,7 +592,7 @@ def write_readme(output_dir: Path) -> None:
         "python scripts/generate_trace_sl_external_evidence_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources\n"
         "```\n\n"
         "Generated files:\n\n"
-        "- `external_evidence_contract.csv` / `external_evidence_contract.md`: Phase 8 external Stage12 evidence rows with split counts, tracking provenance, paired-stat honesty, and blocker status.\n"
+        "- `external_evidence_contract.csv` / `external_evidence_contract.json` / `external_evidence_contract.md`: Phase 8 external Stage12 evidence rows with split counts, tracking provenance, paired-stat honesty, and blocker status.\n"
         "- `external_evidence_gate.json` / `external_evidence_gate.md`: machine-checkable PeMS7_1026 and Seattle Stage12 completion gate; Seattle remains blocked from core claims unless complete tracked ten-split Stage12 evidence is present.\n\n"
         "Raw traffic datasets under `TRC-23-02333/dataset/` are protected local inputs and are not evidence artifacts.\n"
     )
@@ -625,6 +625,7 @@ def main(argv: list[str] | None = None) -> None:
         output_dir / "external_evidence_contract.md",
         EXTERNAL_EVIDENCE_COLUMNS,
     )
+    write_json(output_dir / "external_evidence_contract.json", {"external_evidence_contract": contracts["external_evidence_contract"]})
     write_json(output_dir / "external_evidence_gate.json", contracts["external_evidence_gate"])
     (output_dir / "external_evidence_gate.md").write_text(render_gate_markdown(contracts["external_evidence_gate"]), encoding="utf-8")
     write_readme(output_dir)

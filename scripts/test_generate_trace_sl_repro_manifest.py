@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Regression tests for TRACE-SL reproducibility manifest generation."""
 
+import json
 import sys
 import tempfile
 import unittest
@@ -11,6 +12,7 @@ if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
 from generate_trace_sl_repro_manifest import (  # noqa: E402
+    build_manifest,
     collect_environment,
     inventory_result_dir,
     parse_shell_defaults,
@@ -66,7 +68,7 @@ class ManifestGeneratorTests(unittest.TestCase):
         self.assertNotIn("TRC-23-02333/dataset/PeMS7_228/raw.csv", paths)
         self.assertTrue(all(entry["is_evidence_artifact"] for entry in inventory["artifacts"]))
         self.assertEqual(inventory["raw_dataset_policy"], "excluded_from_evidence")
-        self.assertEqual(inventory["raw_dataset_prefix"], "TRC-23-02333/dataset/")
+        self.assertEqual(inventory["raw_dataset_prefix"], "protected local raw dataset input prefix")
 
     def test_collect_environment_reports_python_and_optional_packages(self):
         environment = collect_environment()
@@ -78,6 +80,51 @@ class ManifestGeneratorTests(unittest.TestCase):
             self.assertIn(name, packages)
             self.assertIn("available", packages[name])
             self.assertIn("version", packages[name])
+
+    def test_external_stage12_manifest_entries_follow_gate_and_parse_ten_seeds(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            scripts = root / "scripts"
+            scripts.mkdir()
+            for name, dataset in [
+                ("run_stage12_pems7_1026.sh", "PeMS7_1026"),
+                ("run_stage12_seattle.sh", "Seattle"),
+            ]:
+                (scripts / name).write_text(
+                    "\n".join(
+                        [
+                            "#!/usr/bin/env bash",
+                            f"DATA_ROOT=\"${{DATA_ROOT:-TRC-23-02333/dataset/{dataset}}}\"",
+                            "SEEDS=\"${SEEDS:-25 26 27 28 29 30 31 32 33 34}\"",
+                        ]
+                    ),
+                    encoding="utf-8",
+                )
+            gate_dir = root / "TRC-23-02333" / "trace_sl_results" / "paper_sources"
+            gate_dir.mkdir(parents=True)
+            (gate_dir / "external_evidence_gate.json").write_text(
+                json.dumps({"pems7_1026_stage12_complete": True, "seattle_stage12_complete": False}) + "\n",
+                encoding="utf-8",
+            )
+
+            manifest = build_manifest(root)
+
+        stages = {stage["directory"]: stage for stage in manifest["curated_result_stages"]}
+        self.assertIn("pems7_1026_stage12_baseline_portfolio", stages)
+        self.assertNotIn("seattle_stage12_baseline_portfolio", stages)
+        self.assertEqual(stages["pems7_1026_stage12_baseline_portfolio"]["launcher_defaults"]["SEEDS"], [
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+        ])
+        self.assertNotIn("TRC-23-02333/dataset/", json.dumps(manifest["curated_result_stages"]))
 
 
 if __name__ == "__main__":

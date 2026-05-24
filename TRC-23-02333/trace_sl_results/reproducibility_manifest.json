@@ -2,7 +2,7 @@
   "curated_result_stages": [
     {
       "claim_status": "core in-domain baseline-portfolio evidence",
-      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio",
+      "directory": "pems7_228_stage12_baseline_portfolio",
       "inventory": {
         "artifact_count": 103,
         "artifacts": [
@@ -628,17 +628,16 @@
         "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio",
         "exists": true,
         "raw_dataset_policy": "excluded_from_evidence",
-        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
       },
       "launcher": "scripts/run_stage12_pems7_228.sh",
-      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='50' RCSS_RANDOM_CANDIDATES='50' SCENARIO_COUNT='4' SEEDS='25 26 27 28 29 30 31 32 33 34' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='20' VALIDATION_SWAP_ITER='5' VALIDATION_SWAP_REMOVE_POOL='8' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage12_pems7_228.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='50' RCSS_RANDOM_CANDIDATES='50' SCENARIO_COUNT='4' SEEDS='25 26 27 28 29 30 31 32 33 34' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='20' VALIDATION_SWAP_ITER='5' VALIDATION_SWAP_REMOVE_POOL='8' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage12_pems7_228.sh",
       "launcher_defaults": {
         "BUDGETS": [
           "0.10",
           "0.20",
           "0.30"
         ],
-        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
         "NUM_LAYOUTS": "50",
         "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio",
         "PYTHON_BIN": "python",
@@ -712,7 +711,7 @@
     },
     {
       "claim_status": "core tractability/sensitivity evidence",
-      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity",
+      "directory": "pems7_228_stage13_candidate_sensitivity",
       "inventory": {
         "artifact_count": 59,
         "artifacts": [
@@ -1074,10 +1073,10 @@
         "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity",
         "exists": true,
         "raw_dataset_policy": "excluded_from_evidence",
-        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
       },
       "launcher": "scripts/run_stage13_candidate_sensitivity_pems7_228.sh",
-      "launcher_command_template": "BUDGETS='0.20' CANDIDATE_COUNTS='50 100 200 500' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity' PYTHON_BIN='python' SCENARIO_COUNT='4' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='20' VALIDATION_SWAP_ITER='5' VALIDATION_SWAP_REMOVE_POOL='8' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage13_candidate_sensitivity_pems7_228.sh",
+      "launcher_command_template": "BUDGETS='0.20' CANDIDATE_COUNTS='50 100 200 500' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity' PYTHON_BIN='python' SCENARIO_COUNT='4' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='20' VALIDATION_SWAP_ITER='5' VALIDATION_SWAP_REMOVE_POOL='8' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage13_candidate_sensitivity_pems7_228.sh",
       "launcher_defaults": {
         "BUDGETS": [
           "0.20"
@@ -1088,7 +1087,6 @@
           "200",
           "500"
         ],
-        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
         "NUM_LAYOUTS": "50",
         "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity",
         "PYTHON_BIN": "python",
@@ -1145,7 +1143,7 @@
     },
     {
       "claim_status": "core stress-test robustness evidence",
-      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness",
+      "directory": "pems7_228_stage14_robustness",
       "inventory": {
         "artifact_count": 175,
         "artifacts": [
@@ -2203,10 +2201,10 @@
         "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness",
         "exists": true,
         "raw_dataset_policy": "excluded_from_evidence",
-        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
       },
       "launcher": "scripts/run_stage14_pems7_228_robustness.sh",
-      "launcher_command_template": "BUDGETS='0.20' CONDITIONS='baseline failure_0.05 failure_0.10 failure_0.20 noise_0.05 random_missing_0.10 block_missing_12 cost_proxy_budget chronological_split' COST_BUDGET='45' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' MAX_TEST_STEPS='0' NUM_LAYOUTS='10' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='10' RCSS_RANDOM_CANDIDATES='10' SCENARIO_COUNT='2' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='12' VALIDATION_SWAP_ITER='3' VALIDATION_SWAP_REMOVE_POOL='6' VALIDATION_SWAP_STARTS='2' bash scripts/run_stage14_pems7_228_robustness.sh",
+      "launcher_command_template": "BUDGETS='0.20' CONDITIONS='baseline failure_0.05 failure_0.10 failure_0.20 noise_0.05 random_missing_0.10 block_missing_12 cost_proxy_budget chronological_split' COST_BUDGET='45' MAX_TEST_STEPS='0' NUM_LAYOUTS='10' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='10' RCSS_RANDOM_CANDIDATES='10' SCENARIO_COUNT='2' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='12' VALIDATION_SWAP_ITER='3' VALIDATION_SWAP_REMOVE_POOL='6' VALIDATION_SWAP_STARTS='2' bash scripts/run_stage14_pems7_228_robustness.sh",
       "launcher_defaults": {
         "BUDGETS": [
           "0.20"
@@ -2223,7 +2221,6 @@
           "chronological_split"
         ],
         "COST_BUDGET": "45",
-        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
         "MAX_TEST_STEPS": "0",
         "NUM_LAYOUTS": "10",
         "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness",
@@ -2287,7 +2284,7 @@
         "path": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/candidate_sensitivity_caveat.json"
       },
       "claim_status": "core candidate-count/runtime sensitivity evidence",
-      "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity",
+      "directory": "pems7_228_stage14_candidate_sensitivity",
       "inventory": {
         "artifact_count": 103,
         "artifacts": [
@@ -2913,10 +2910,10 @@
         "directory": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity",
         "exists": true,
         "raw_dataset_policy": "excluded_from_evidence",
-        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
       },
       "launcher": "scripts/run_stage14_candidate_sensitivity_pems7_228.sh",
-      "launcher_command_template": "BUDGETS='0.20' CANDIDATE_COUNTS='50 100 200 500' DATA_ROOT='TRC-23-02333/dataset/PeMS7_228' MAX_TEST_STEPS='0' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity' PYTHON_BIN='python' SCENARIO_COUNT='2' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='12' VALIDATION_SWAP_ITER='3' VALIDATION_SWAP_REMOVE_POOL='6' VALIDATION_SWAP_STARTS='2' bash scripts/run_stage14_candidate_sensitivity_pems7_228.sh",
+      "launcher_command_template": "BUDGETS='0.20' CANDIDATE_COUNTS='50 100 200 500' MAX_TEST_STEPS='0' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity' PYTHON_BIN='python' SCENARIO_COUNT='2' SEEDS='25' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='12' VALIDATION_SWAP_ITER='3' VALIDATION_SWAP_REMOVE_POOL='6' VALIDATION_SWAP_STARTS='2' bash scripts/run_stage14_candidate_sensitivity_pems7_228.sh",
       "launcher_defaults": {
         "BUDGETS": [
           "0.20"
@@ -2927,7 +2924,6 @@
           "200",
           "500"
         ],
-        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_228",
         "MAX_TEST_STEPS": "0",
         "NUM_LAYOUTS": "50",
         "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity",
@@ -2979,7 +2975,7 @@
     },
     {
       "claim_status": "lower-power external supporting/optional evidence",
-      "directory": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
+      "directory": "pems7_1026_stage11_auto_weight",
       "inventory": {
         "artifact_count": 57,
         "artifacts": [
@@ -3329,17 +3325,16 @@
         "directory": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
         "exists": true,
         "raw_dataset_policy": "excluded_from_evidence",
-        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
       },
       "launcher": "scripts/run_stage11_pems7_1026.sh",
-      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' DATA_ROOT='TRC-23-02333/dataset/PeMS7_1026' NUM_LAYOUTS='100' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight' RCSS_QUALITY_CANDIDATES='100' RCSS_RANDOM_CANDIDATES='100' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage11_pems7_1026.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' NUM_LAYOUTS='100' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight' RCSS_QUALITY_CANDIDATES='100' RCSS_RANDOM_CANDIDATES='100' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage11_pems7_1026.sh",
       "launcher_defaults": {
         "BUDGETS": [
           "0.10",
           "0.20",
           "0.30"
         ],
-        "DATA_ROOT": "TRC-23-02333/dataset/PeMS7_1026",
         "NUM_LAYOUTS": "100",
         "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight",
         "RCSS_QUALITY_CANDIDATES": "100",
@@ -3407,7 +3402,7 @@
     },
     {
       "claim_status": "supporting/conditional evidence",
-      "directory": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
+      "directory": "seattle_stage11_auto_weight_light",
       "inventory": {
         "artifact_count": 57,
         "artifacts": [
@@ -3757,17 +3752,16 @@
         "directory": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
         "exists": true,
         "raw_dataset_policy": "excluded_from_evidence",
-        "raw_dataset_prefix": "TRC-23-02333/dataset/"
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
       },
       "launcher": "scripts/run_stage11_seattle.sh",
-      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' DATA_ROOT='TRC-23-02333/dataset/Seattle' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light' RCSS_QUALITY_CANDIDATES='50' RCSS_RANDOM_CANDIDATES='50' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage11_seattle.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light' RCSS_QUALITY_CANDIDATES='50' RCSS_RANDOM_CANDIDATES='50' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage11_seattle.sh",
       "launcher_defaults": {
         "BUDGETS": [
           "0.10",
           "0.20",
           "0.30"
         ],
-        "DATA_ROOT": "TRC-23-02333/dataset/Seattle",
         "NUM_LAYOUTS": "50",
         "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
         "RCSS_QUALITY_CANDIDATES": "50",
@@ -3869,11 +3863,16 @@
   "generated_by": "scripts/generate_trace_sl_repro_manifest.py",
   "git": {
     "branch": "main",
-    "commit": "55f234c866ca68c57e7c4ceab03227f5c6b2f360",
+    "commit": "4910f0508c8ee133fdcf8cd6385cf25f43b5af27",
     "commit_scope": "latest commit affecting manifest generator inputs; generated manifest outputs excluded for idempotence",
     "raw_dataset_policy": "protected local input only; excluded from paper-visible evidence artifacts",
-    "status_short_relevant": [],
-    "status_short_total_count": 11,
+    "status_short_relevant": [
+      " M TRC-23-02333/trace_sl_results/REPRODUCIBILITY_MANIFEST.md",
+      " M TRC-23-02333/trace_sl_results/reproducibility_manifest.json",
+      " M scripts/generate_trace_sl_repro_manifest.py",
+      " M scripts/test_generate_trace_sl_repro_manifest.py"
+    ],
+    "status_short_total_count": 13,
     "tracked_raw_dataset_path_count": 0,
     "tracked_raw_dataset_paths": []
   },
@@ -3882,7 +3881,7 @@
     "dependency_disposition": "standard library only for generator; package metadata queried via importlib.metadata",
     "experiment_rerun_disposition": "not run by this generator",
     "raw_dataset_disposition": "protected local input only; never listed as evidence artifact",
-    "raw_dataset_prefix": "TRC-23-02333/dataset/"
+    "raw_dataset_prefix": "protected local raw dataset input prefix"
   },
   "project_root_name": "sensor_opt"
 }

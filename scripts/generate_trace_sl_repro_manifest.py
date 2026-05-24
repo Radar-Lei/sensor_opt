@@ -9,11 +9,13 @@ import platform
 import re
 import subprocess
 import sys
+import copy
 from importlib import metadata
 from pathlib import Path
 from typing import Iterable
 
 RAW_DATASET_PREFIX = "TRC-23-02333/dataset/"
+RAW_DATASET_LABEL = "protected local raw dataset input prefix"
 RESULT_ROOT = Path("TRC-23-02333/trace_sl_results")
 
 CURATED_STAGE_ENTRIES = [
@@ -215,7 +217,7 @@ def inventory_result_dir(project_root: Path | str, result_dir: Path | str) -> di
         "exists": directory_exists,
         "artifact_count": len(artifacts),
         "artifacts": artifacts,
-        "raw_dataset_prefix": RAW_DATASET_PREFIX,
+        "raw_dataset_prefix": RAW_DATASET_LABEL,
         "raw_dataset_policy": "excluded_from_evidence",
     }
 
@@ -268,7 +270,7 @@ def collect_input_commit(project_root: Path) -> str:
         "scripts/run_stage14_candidate_sensitivity_pems7_228.sh",
         "scripts/run_stage14_pems7_228_robustness.sh",
     ]
-    input_paths.extend((RESULT_ROOT / entry["directory"]).as_posix() for entry in CURATED_STAGE_ENTRIES)
+    input_paths.extend((RESULT_ROOT / entry["directory"]).as_posix() for entry in curated_stage_entries(project_root))
     input_paths.extend(
         [
             f":(exclude){RESULT_ROOT / 'reproducibility_manifest.json'}",
@@ -314,6 +316,16 @@ def collect_git_provenance(project_root: Path) -> dict[str, object]:
     }
 
 
+def safe_launcher_defaults(defaults: dict[str, object]) -> dict[str, object]:
+    """Return launcher defaults that are safe to expose in evidence manifests."""
+    safe: dict[str, object] = {}
+    for key, value in defaults.items():
+        rendered = " ".join(value) if isinstance(value, list) else str(value)
+        if RAW_DATASET_PREFIX not in rendered:
+            safe[key] = value
+    return safe
+
+
 def launcher_command(defaults: dict[str, object], launcher_path: str) -> str:
     """Build a human-readable launcher invocation with default environment overrides."""
     env_parts = []
@@ -344,23 +356,70 @@ def required_artifact_status(project_root: Path, directory: str, artifact_names:
     return rows
 
 
+def external_stage_entries_from_gate(project_root: Path) -> list[dict[str, object]]:
+    """Return completed Stage12 external entries allowed by the external evidence gate."""
+    gate_path = project_root / RESULT_ROOT / "paper_sources" / "external_evidence_gate.json"
+    if not gate_path.exists():
+        return []
+    gate = json.loads(gate_path.read_text(encoding="utf-8"))
+    specs = [
+        {
+            "gate_key": "pems7_1026_stage12_complete",
+            "stage": "external-stage12",
+            "directory": "pems7_1026_stage12_baseline_portfolio",
+            "claim_status": "blocked external Stage12 evidence" if not gate.get("pems7_1026_stage12_complete") else "external Stage12 ten-split evidence",
+            "launcher": "scripts/run_stage12_pems7_1026.sh",
+        },
+        {
+            "gate_key": "seattle_stage12_complete",
+            "stage": "external-stage12",
+            "directory": "seattle_stage12_baseline_portfolio",
+            "claim_status": "blocked external Stage12 evidence" if not gate.get("seattle_stage12_complete") else "external Stage12 ten-split evidence",
+            "launcher": "scripts/run_stage12_seattle.sh",
+        },
+    ]
+    entries: list[dict[str, object]] = []
+    for spec in specs:
+        if not gate.get(spec["gate_key"]):
+            continue
+        entry = {key: value for key, value in spec.items() if key != "gate_key"}
+        entry["required_artifacts"] = [
+            "SUMMARY.md",
+            "combined_metrics.csv",
+            "gls_map_layout_summary.csv",
+            "gls_map_delta_summary.csv",
+            "gls_map_paired_delta_tests.csv",
+            "gls_map_win_counts.csv",
+            "rcss_selected_sources.csv",
+        ]
+        entries.append(entry)
+    return entries
+
+
+def curated_stage_entries(project_root: Path) -> list[dict[str, object]]:
+    entries = copy.deepcopy(CURATED_STAGE_ENTRIES)
+    entries.extend(external_stage_entries_from_gate(project_root))
+    return entries
+
+
 def build_manifest(project_root: Path) -> dict[str, object]:
     """Build a deterministic TRACE-SL reproducibility manifest payload."""
     stages = []
-    for entry in CURATED_STAGE_ENTRIES:
+    for entry in curated_stage_entries(project_root):
         directory = entry["directory"]
         launcher = entry["launcher"]
         launcher_path = project_root / launcher
         defaults = parse_shell_defaults(launcher_path) if launcher_path.exists() else {}
+        exposed_defaults = safe_launcher_defaults(defaults)
         inventory = inventory_result_dir(project_root, RESULT_ROOT / directory)
         stage = {
             "stage": entry["stage"],
-            "directory": (RESULT_ROOT / directory).as_posix(),
+            "directory": directory,
             "claim_status": entry["claim_status"],
             "launcher": launcher,
             "launcher_exists": launcher_path.exists(),
-            "launcher_defaults": defaults,
-            "launcher_command_template": launcher_command(defaults, launcher),
+            "launcher_defaults": exposed_defaults,
+            "launcher_command_template": launcher_command(exposed_defaults, launcher),
             "required_artifacts": required_artifact_status(project_root, directory, entry["required_artifacts"]),
             "inventory": inventory,
         }
@@ -378,7 +437,7 @@ def build_manifest(project_root: Path) -> dict[str, object]:
         "generated_by": "scripts/generate_trace_sl_repro_manifest.py",
         "project_root_name": project_root.name,
         "policy": {
-            "raw_dataset_prefix": RAW_DATASET_PREFIX,
+            "raw_dataset_prefix": RAW_DATASET_LABEL,
             "raw_dataset_disposition": "protected local input only; never listed as evidence artifact",
             "experiment_rerun_disposition": "not run by this generator",
             "dependency_disposition": "standard library only for generator; package metadata queried via importlib.metadata",
@@ -482,8 +541,9 @@ def write_markdown(path: Path, payload: dict[str, object]) -> None:
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project-root", default=".", help="Repository root containing TRACE-SL artifacts.")
-    parser.add_argument("--output-json", required=True, help="Path to write machine-readable JSON manifest.")
-    parser.add_argument("--output-md", required=True, help="Path to write human-readable Markdown manifest.")
+    parser.add_argument("--output-dir", help="Directory to write reproducibility_manifest.json and REPRODUCIBILITY_MANIFEST.md.")
+    parser.add_argument("--output-json", help="Path to write machine-readable JSON manifest.")
+    parser.add_argument("--output-md", help="Path to write human-readable Markdown manifest.")
     return parser.parse_args(argv)
 
 
@@ -491,12 +551,21 @@ def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
     project_root = Path(args.project_root).resolve()
     payload = build_manifest(project_root)
-    output_json = Path(args.output_json)
-    output_md = Path(args.output_md)
-    if not output_json.is_absolute():
-        output_json = project_root / output_json
-    if not output_md.is_absolute():
-        output_md = project_root / output_md
+    if args.output_dir:
+        output_dir = Path(args.output_dir)
+        if not output_dir.is_absolute():
+            output_dir = project_root / output_dir
+        output_json = output_dir / "reproducibility_manifest.json"
+        output_md = output_dir / "REPRODUCIBILITY_MANIFEST.md"
+    elif args.output_json and args.output_md:
+        output_json = Path(args.output_json)
+        output_md = Path(args.output_md)
+        if not output_json.is_absolute():
+            output_json = project_root / output_json
+        if not output_md.is_absolute():
+            output_md = project_root / output_md
+    else:
+        raise SystemExit("provide --output-dir or both --output-json and --output-md")
     write_json(output_json, payload)
     write_markdown(output_md, payload)
     print(f"Wrote {output_json}")

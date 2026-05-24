@@ -1,0 +1,78 @@
+{
+  "datasets": {
+    "PeMS7_1026": {
+      "actual_split_count": 0,
+      "blocker_reason": "missing required aggregate artifacts: TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/SUMMARY.md, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/combined_metrics.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_layout_summary.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_delta_summary.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_win_counts.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/rcss_selected_sources.csv",
+      "core_claim_eligible": false,
+      "dataset": "PeMS7_1026",
+      "evidence_status": "blocked",
+      "required_artifacts": [
+        {
+          "exists": false,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/SUMMARY.md",
+          "tracked": false
+        },
+        {
+          "exists": false,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/combined_metrics.csv",
+          "tracked": false
+        },
+        {
+          "exists": false,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+          "tracked": false
+        },
+        {
+          "exists": false,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_delta_summary.csv",
+          "tracked": false
+        },
+        {
+          "exists": false,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+          "tracked": false
+        },
+        {
+          "exists": false,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_win_counts.csv",
+          "tracked": false
+        },
+        {
+          "exists": false,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/rcss_selected_sources.csv",
+          "tracked": false
+        }
+      ],
+      "required_split_count": 10,
+      "source_dir": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio",
+      "stage12_complete": false
+    },
+    "Seattle": {
+      "actual_split_count": 0,
+      "blocker_reason": "Seattle Stage12 real run was started with the default ten split seeds but did not complete in the available execution window; no seed metrics or aggregate Stage12 evidence were produced. EVID-04 remains incomplete and Seattle is excluded from core claims until a real completed ten-split run is generated and tracked.",
+      "core_claim_eligible": false,
+      "dataset": "Seattle",
+      "evidence_status": "blocked",
+      "required_artifacts": [],
+      "required_split_count": 10,
+      "source_dir": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio",
+      "stage12_complete": false
+    }
+  },
+  "gate_schema": "trace_sl_external_evidence_gate_v1",
+  "generated_at_utc": "1970-01-01T00:00:00Z",
+  "generated_at_utc_note": "fixed deterministic timestamp; regenerate command provenance is captured by git commit/status",
+  "generated_by": "scripts/generate_trace_sl_external_evidence_contracts.py",
+  "pems7_1026_stage12_complete": false,
+  "policy": {
+    "pending_tracking_disposition": "aggregate evidence exists but remains incomplete until required sources are git-tracked",
+    "raw_dataset_disposition": "protected local input only; never listed as evidence artifact",
+    "raw_dataset_prefix": "TRC-23-02333/dataset/",
+    "seattle_core_policy": "Seattle core eligibility requires complete tracked ten-split Stage12 evidence and completed stage12_status.json when present",
+    "stage11_disposition": "blocked for Stage12 completion"
+  },
+  "required_split_count": 10,
+  "seattle_core_claim_blocked": true,
+  "seattle_stage12_complete": false,
+  "v1_1_completion_allowed": false
+}
