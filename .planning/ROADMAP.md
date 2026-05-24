@@ -83,6 +83,8 @@ Plans:
   3. Author can trace each external-evidence result to committed summaries, generated tables, scripts, or manifests without relying on committed raw traffic datasets.
   4. Author can see an explicit milestone-completion gate that prevents v1.1 completion if Seattle Stage12 10-split evidence is missing or excluded from core claims.
 
+**Gate status**: `paper_sources/external_evidence_gate.json` currently blocks v1.1 completion: PeMS7_1026 Stage12 aggregate artifacts are missing, Seattle Stage12 remains blocked by `stage12_status.json`, and Seattle is excluded from core claims until complete tracked ten-split evidence exists.
+
 **Plans**: 5 plans
 Plans:
 **Wave 1**
