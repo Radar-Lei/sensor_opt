@@ -1,0 +1,15 @@
+{
+  "budget_count": 3,
+  "data_root": "TRC-23-02333/dataset/PeMS7_1026",
+  "dataset": "PeMS7_1026",
+  "latest_stage": "run_complete",
+  "layout_record_count": 360,
+  "layout_seed": 3054,
+  "max_rss_mb": 825.145,
+  "metric_row_count": 1440,
+  "non_evidence_feasibility_run": false,
+  "output_dir": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28",
+  "rcss_record_count": 657,
+  "split_seed": 28,
+  "stage": "run_complete"
+}

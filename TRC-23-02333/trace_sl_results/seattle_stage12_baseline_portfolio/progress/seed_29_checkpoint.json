@@ -1,0 +1,15 @@
+{
+  "budget_count": 3,
+  "data_root": "TRC-23-02333/dataset/Seattle",
+  "dataset": "Seattle",
+  "latest_stage": "run_complete",
+  "layout_record_count": 210,
+  "layout_seed": 4055,
+  "max_rss_mb": 253.898,
+  "metric_row_count": 840,
+  "non_evidence_feasibility_run": false,
+  "output_dir": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29",
+  "rcss_record_count": 357,
+  "split_seed": 29,
+  "stage": "run_complete"
+}

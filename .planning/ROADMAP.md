@@ -6,7 +6,7 @@
 ## Milestones
 
 - [shipped] **v1.0 TRACE-SL Readiness** — Phases 1–6 shipped 2026-05-23 ([archive](milestones/v1.0-ROADMAP.md))
-- [blocked] **v1.1 TRACE-SL Transportation Science Paper Foundation** — Phase 10 complete, but EVID-03/EVID-04 external Stage12 ten-split evidence gate remains closed
+- [ready] **v1.1 TRACE-SL Transportation Science Paper Foundation** — Phases 7–10 complete and EVID-03/EVID-04 external Stage12 ten-split evidence gate is open
 
 ## Overview
 
@@ -20,9 +20,9 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 - Phases 7–10: v1.1 paper-foundation milestone work
 - Decimal phases: urgent insertions between planned phases if needed
 
-**Phase 9 status note:** Phase 9 is complete because `09-02-SUMMARY.md` and the generated `ablation_contract.*` plus `dataset_evidence_classification.*` artifacts exist. This does not complete EVID-03/EVID-04 or open the fail-closed external evidence gate.
+**Phase 9 status note:** Phase 9 is complete because `09-02-SUMMARY.md` and the generated `ablation_contract.*` plus `dataset_evidence_classification.*` artifacts exist. EVID-03/EVID-04 were completed later by the formal Stage12 closure run.
 
-**Phase 10 status note:** Phase 10 is complete because `theory_statement_contract.*` and `paper_foundation_handoff_manifest.*` exist as row-level paper-foundation artifacts. This does not generate manuscript prose and does not complete EVID-03/EVID-04.
+**Phase 10 status note:** Phase 10 is complete because `theory_statement_contract.*` and `paper_foundation_handoff_manifest.*` exist as row-level paper-foundation artifacts. This does not generate manuscript prose; EVID-03/EVID-04 were completed later by the formal Stage12 closure run.
 
 <details>
 <summary>v1.0 TRACE-SL Readiness (Phases 1–6) — SHIPPED 2026-05-23</summary>
@@ -39,7 +39,7 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 ### v1.1 TRACE-SL Transportation Science Paper Foundation
 
 - [x] **Phase 7: Claim and Main Table Contract** - Freeze the Transportation Science claim boundary, PeMS7_228 main table contract, caveats, and robustness routing.
-- [ ] **Phase 8: External Stage12 Evidence** - Complete mandatory PeMS7_1026 and Seattle Stage12 10-split external evidence before external claims are elevated.
+- [x] **Phase 8: External Stage12 Evidence** - Complete mandatory PeMS7_1026 and Seattle Stage12 10-split external evidence before external claims are elevated.
 - [x] **Phase 8.5: Stage12 Performance Unblock** - Remove structural runtime blockers so PeMS7_1026 and Seattle can each complete at least one Stage12-compatible full seed before ten-split rerun.
 - [x] **Phase 9: Ablation and Evidence Classification** - Freeze the ablation logic and classify every dataset by evidence strength.
 - [x] **Phase 10: Theory and Handoff Package** - Prepare theory-ready statements and reproducibility-safe paper-foundation handoff artifacts without manuscript prose.
@@ -88,7 +88,7 @@ Plans:
   3. Author can trace each external-evidence result to committed summaries, generated tables, scripts, or manifests without relying on committed raw traffic datasets.
   4. Author can see an explicit milestone-completion gate that prevents v1.1 completion if Seattle Stage12 10-split evidence is missing or excluded from core claims.
 
-**Gate status**: `paper_sources/external_evidence_gate.json` currently blocks v1.1 completion: PeMS7_1026 Stage12 aggregate artifacts are missing, Seattle Stage12 remains blocked by `stage12_status.json`, and Seattle is excluded from core claims until complete tracked ten-split evidence exists.
+**Gate status**: `paper_sources/external_evidence_gate.json` now allows v1.1 completion: PeMS7_1026 and Seattle Stage12 aggregate artifacts exist, are git-tracked, contain ten split seeds, and Seattle `stage12_status.json` reports completed.
 
 **Runtime status**: real Stage12 execution exposed a structural runtime blocker; do not continue hard-waiting, do not count DRY_RUN or downscaled diagnostics as evidence, and route to Phase 8.5 before Phase 9.
 
@@ -204,7 +204,7 @@ Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 | 5. Robustness and Generality | v1.0 | 4/4 | Complete | 2026-05-23 |
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
-| 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
+| 8. External Stage12 Evidence | v1.1 | 5/5 | Complete | 2026-05-25 |
 | 8.5. Stage12 Performance Unblock | v1.1 | 4/4 | Complete   | 2026-05-25 |
 | 9. Ablation and Evidence Classification | v1.1 | 3/3 | Complete   | 2026-05-25 |
 | 10. Theory and Handoff Package | v1.1 | 1/1 | Complete   | 2026-05-25 |

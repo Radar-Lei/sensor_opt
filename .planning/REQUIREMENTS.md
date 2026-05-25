@@ -18,8 +18,8 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 
 - [x] **EVID-01**: Author can use Stage12 PeMS7_228 baseline portfolio as the frozen main in-domain result table.
 - [x] **EVID-02**: Author has paired delta and p-value summaries for TRACE-SL against validation-selected random, random mean, top variance, greedy A-trace, graph sampling, observability, and QR/POD-style baselines where available.
-- [ ] **EVID-03**: Author has completed PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
-- [ ] **EVID-04**: Author has completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim.
+- [x] **EVID-03**: Author has completed PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
+- [x] **EVID-04**: Author has completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim.
 - [x] **EVID-05**: Author can classify each dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
 
 **Execution constraint for EVID-03/EVID-04 closure:** run the remaining Stage12 evidence jobs with `max_jobs=1` and only one active dataset/split/seed job at a time. Do not parallelize the closure run across PeMS7_1026, Seattle, splits, or seeds.
@@ -95,8 +95,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLAIM-04 | Phase 7 | Complete |
 | EVID-01 | Phase 7 | Complete |
 | EVID-02 | Phase 7 | Complete |
-| EVID-03 | Phase 8 | Pending |
-| EVID-04 | Phase 8 | Pending |
+| EVID-03 | Phase 8 | Complete |
+| EVID-04 | Phase 8 | Complete |
 | RUN-01 | Phase 8.5 | Complete |
 | RUN-02 | Phase 8.5 | Complete |
 | RUN-03 | Phase 8.5 | Complete |
@@ -125,14 +125,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 - `ABLT-01`, `ABLT-02`, `ABLT-03`, and `ABLT-04` are complete because `TRC-23-02333/trace_sl_results/paper_sources/ablation_contract.csv` exposes the required random, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap row families with component-layer fields.
 - `EVID-05` is complete because `TRC-23-02333/trace_sl_results/paper_sources/dataset_evidence_classification.csv` classifies PeMS7_228, PeMS7_1026, Seattle, and robustness stress-test evidence by evidence class and allowed/blocked use.
-- `EVID-03` and `EVID-04` remain pending: `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.json` is fail-closed for PeMS7_1026 and Seattle ten-split Stage12 evidence.
+- `EVID-03` and `EVID-04` are complete because `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.json` reports PeMS7_1026 and Seattle Stage12 complete with 10/10 splits and `v1_1_completion_allowed=true`.
 
 ## Phase 10 Completion Rationale
 
 - `THEORY-01` through `THEORY-05` are complete because `TRC-23-02333/trace_sl_results/paper_sources/theory_statement_contract.csv` provides row-level scoped statements for formulation, posterior trace identity, monotonicity, validation-aware one-swap local optimality, and RCSS complexity.
 - `HAND-02` and `HAND-03` are complete because `TRC-23-02333/trace_sl_results/paper_sources/paper_foundation_handoff_manifest.csv` links the paper foundation to committed contracts, generated tables, scripts, and manifests without raw dataset paths or manuscript prose.
-- `EVID-03` and `EVID-04` remain pending after Phase 10; theory/handoff completion does not open the external Stage12 evidence gate.
+- `EVID-03` and `EVID-04` were completed after Phase 10 by the formal Stage12 closure run; theory/handoff completion itself did not open the external Stage12 evidence gate.
 
 ---
 *Requirements defined: 2026/05/23*
-*Last updated: 2026/05/25 after v1.1 closure preflight constraint update*
+*Last updated: 2026/05/25 after EVID-03/EVID-04 Stage12 closure*

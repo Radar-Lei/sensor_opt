@@ -1,8 +1,8 @@
 {
-  "actual_split_count": 0,
-  "blocker_reason": "Seattle Stage12 real run was started with the default ten split seeds but did not complete in the available execution window; no seed metrics or aggregate Stage12 evidence were produced. EVID-04 remains incomplete and Seattle is excluded from core claims until a real completed ten-split run is generated and tracked.",
+  "actual_split_count": 10,
+  "blocker_reason": "",
   "dataset": "Seattle",
-  "evid_04_complete": false,
+  "evid_04_complete": true,
   "required_artifacts": [
     "SUMMARY.md",
     "combined_metrics.csv",
@@ -14,7 +14,7 @@
   ],
   "required_split_count": 10,
   "requirement_id": "EVID-04",
-  "seattle_core_claim_blocked": true,
-  "status": "blocked",
-  "v1_1_completion_allowed": false
+  "seattle_core_claim_blocked": false,
+  "status": "completed",
+  "v1_1_completion_allowed": true
 }

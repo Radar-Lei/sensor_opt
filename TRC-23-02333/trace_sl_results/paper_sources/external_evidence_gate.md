@@ -6,17 +6,17 @@ This generated view mirrors `external_evidence_gate.json`; it is not manuscript 
 
 ## Gate Status
 
-- PeMS7_1026 Stage12 complete: `False`
-- Seattle Stage12 complete: `False`
-- Seattle core claim blocked: `True`
-- v1.1 completion allowed: `False`
+- PeMS7_1026 Stage12 complete: `True`
+- Seattle Stage12 complete: `True`
+- Seattle core claim blocked: `False`
+- v1.1 completion allowed: `True`
 
 ## Dataset Status
 
 | Dataset | Evidence status | Actual splits | Required splits | Core eligible | Blocker |
 |---|---|---:|---:|---:|---|
-| PeMS7_1026 | blocked | 0 | 10 | False | missing required aggregate artifacts: TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/SUMMARY.md, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/combined_metrics.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_layout_summary.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_delta_summary.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_win_counts.csv, TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/rcss_selected_sources.csv |
-| Seattle | blocked | 0 | 10 | False | Seattle Stage12 real run was started with the default ten split seeds but did not complete in the available execution window; no seed metrics or aggregate Stage12 evidence were produced. EVID-04 remains incomplete and Seattle is excluded from core claims until a real completed ten-split run is generated and tracked. |
+| PeMS7_1026 | completed | 10 | 10 | True |  |
+| Seattle | completed | 10 | 10 | True |  |
 
 ## Raw Dataset Hygiene
 

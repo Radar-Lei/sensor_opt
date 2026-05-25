@@ -1,0 +1,9 @@
+budget,robustness_family,robustness_condition,failure_rate,noise_scale,missing_rate,missing_block_steps,cost_proxy,cost_budget,split_mode,source,selected_count
+0.1,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,greedy_a_trace,3
+0.1,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,multistart_swap_by_validation,4
+0.1,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,swap_from_greedy_a_trace,2
+0.1,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,swap_from_scenario_cvar,1
+0.2,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,greedy_a_trace,3
+0.2,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,swap_from_greedy_a_trace,7
+0.3,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,greedy_a_trace,1
+0.3,baseline,baseline,0.0,0.0,0.0,0,none,0.0,random,swap_from_greedy_a_trace,9

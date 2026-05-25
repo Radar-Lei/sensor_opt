@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: blocked
-stopped_at: Completed Phase 10; blocked by EVID-03/EVID-04 external Stage12 gate
+status: ready_for_audit
+stopped_at: Completed EVID-03/EVID-04 Stage12 closure; ready to rerun v1.1 milestone audit
 last_updated: "2026-05-25T20:45:00.000+08:00"
 last_activity: 2026-05-25
 progress:
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026/05/23)
 
 Phase: 10 (Theory and Handoff Package) — COMPLETE
 Plan: 1 of 1
-Status: Phase 10 complete; v1.1 milestone remains blocked by EVID-03/EVID-04 external Stage12 ten-split gate
+Status: Phase 10 complete; EVID-03/EVID-04 external Stage12 ten-split gate is open and v1.1 is ready for milestone audit
 Last activity: 2026-05-25
 
 Progress: [██████████] 100%
@@ -81,16 +81,16 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - PeMS7_228 low-budget multistart caveat must remain visible in claim-facing artifacts.
 - Raw traffic datasets remain local/ignored and must not be committed.
 - Phase 7 claim-facing evidence uses held-out Stage12 PeMS7_228 test aggregates and paired comparisons, not validation MAE.
-- PeMS7_1026 and Seattle remain external/supporting in Phase 7 until Phase 8 Stage12 10-split evidence is complete.
+- PeMS7_1026 and Seattle have completed tracked Phase 8 Stage12 10-split evidence and may be used according to the regenerated external evidence gate.
 - Robustness evidence remains stress-test or appendix routed unless a row explicitly declares multi-seed perturbation evidence.
 - Keep Phase 7 contract outputs CSV/JSON-first, with Markdown as generated views rather than manuscript prose.
 - Use the plan-required trace_sl_claim_contract_v1 schema marker as the machine-readable policy identifier.
 - Treat PeMS7_1026, Seattle, and robustness evidence as non-core Phase 7 lanes until later evidence phases complete.
 - External Stage12 completion requires existing, git-tracked aggregate artifacts and exactly ten split seeds; untracked aggregates remain pending_tracking rather than complete.
 - Seattle remains blocked from core claims unless tracked ten-split Stage12 evidence is complete and any stage12_status.json reports completion.
-- [Phase 08]: PeMS7_1026 Stage12 evidence remains fail-closed after DRY_RUN validation and an infeasible partial real run; EVID-03 is not complete until ten-split aggregate artifacts exist and are git-tracked. — The real launcher did not produce required aggregate artifacts, and the plan forbids claiming Stage12 completion from DRY_RUN or fake evidence.
-- [Phase 08]: Seattle Stage12 evidence remains fail-closed by `stage12_status.json`; EVID-04 is not complete and Seattle core claims remain blocked until complete tracked ten-split aggregate evidence exists.
-- [Phase 08]: `paper_sources/external_evidence_gate.json` is the machine gate: `v1_1_completion_allowed=false`, `pems7_1026_stage12_complete=false`, `seattle_stage12_complete=false`, and `seattle_core_claim_blocked=true`.
+- [Phase 08 Closure]: PeMS7_1026 Stage12 formal closure completed ten split seeds 25-34 with tracked aggregate and seed-level artifacts; EVID-03 is complete.
+- [Phase 08 Closure]: Seattle Stage12 formal closure completed ten split seeds 25-34, `stage12_status.json` reports completed, and tracked aggregate/seed-level artifacts exist; EVID-04 is complete.
+- [Phase 08 Closure]: `paper_sources/external_evidence_gate.json` is the machine gate: `v1_1_completion_allowed=true`, `pems7_1026_stage12_complete=true`, `seattle_stage12_complete=true`, and `seattle_core_claim_blocked=false`.
 - [Phase 8.5]: Stage12 performance unblock is required before Phase 9. Scope is runtime-only: fast validation, dense solve/posterior metric caching, progress checkpoints, and one full Stage12-compatible seed each for PeMS7_1026 and Seattle. Downscaled diagnostics and DRY_RUN outputs remain non-evidence.
 - [Phase 08.5 Plan 01]: validation_mae computes only args.selection_method and no longer calls evaluate_layout or certificate during RCSS candidate scoring.
 - [Phase 08.5 Plan 01]: solve_quadratic collapses scalar, vector, and time-constant observation weights into one Cholesky-backed SPD solve while preserving stacked lhs for true time-varying weights.
@@ -111,7 +111,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 09 Plan 03]: Roadmap now lists 09-01, 09-02, and 09-03 as a complete three-wave Phase 9 structure; Phase 10 remains not started and ready for planning.
 - [Phase 10 Plan 01]: Theory statement contracts provide row-level scoped statements for formulation, posterior trace identity, monotonicity, validation-aware one-swap local optimality, and RCSS workload complexity.
 - [Phase 10 Plan 01]: Paper-foundation handoff manifest links claim/table/evidence/theory artifacts to committed generated sources and manifests without raw dataset paths or manuscript prose.
-- [Phase 10 Plan 01]: Phase 10 completion does not change EVID-03/EVID-04; external Stage12 ten-split gates remain pending/fail-closed.
+- [Phase 10 Plan 01]: Phase 10 completion did not change EVID-03/EVID-04; the later formal Stage12 closure run opened the external evidence gate.
 
 ### Pending Todos
 
@@ -119,10 +119,8 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 8 gate blocks v1.1 completion: PeMS7_1026 Stage12 aggregate artifacts are missing, so EVID-03 remains incomplete.
-- Phase 8 gate blocks Seattle core claims: Seattle Stage12 `stage12_status.json` reports blocked, so EVID-04 remains incomplete.
-- EVID-03/EVID-04 closure must respect the compute constraint `max_jobs=1`; do not launch parallel Stage12 jobs while clearing the gate.
-- Phase 8.5 no longer blocks Phase 9 planning: one full Stage12-compatible seed for PeMS7_1026 and Seattle completed, but Phase 8 ten-split external evidence remains incomplete.
+- No active EVID-03/EVID-04 blocker remains after the formal Stage12 closure run.
+- Downstream Phase 9/10 generated artifacts that require committed gate inputs should be regenerated after committing the new external evidence and gate.
 - All phases: do not draft manuscript prose in this milestone.
 
 ## Deferred Items
