@@ -20,7 +20,7 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 - [x] **EVID-02**: Author has paired delta and p-value summaries for TRACE-SL against validation-selected random, random mean, top variance, greedy A-trace, graph sampling, observability, and QR/POD-style baselines where available.
 - [ ] **EVID-03**: Author has completed PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
 - [ ] **EVID-04**: Author has completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim.
-- [ ] **EVID-05**: Author can classify each dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
+- [x] **EVID-05**: Author can classify each dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
 
 ### Stage12 Runtime Unblock
 
@@ -31,10 +31,10 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 
 ### Ablation Logic
 
-- [ ] **ABLT-01**: Author can compare random mean, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap variants.
-- [ ] **ABLT-02**: Author can answer whether certificate candidate pools improve over random candidate pools.
-- [ ] **ABLT-03**: Author can answer whether validation selection and validation-aware swap each add measurable value.
-- [ ] **ABLT-04**: Author can explain RCSS as certificate layer, validation layer, and local refinement layer rather than a kitchen-sink heuristic.
+- [x] **ABLT-01**: Author can compare random mean, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap variants.
+- [x] **ABLT-02**: Author can answer whether certificate candidate pools improve over random candidate pools.
+- [x] **ABLT-03**: Author can answer whether validation selection and validation-aware swap each add measurable value.
+- [x] **ABLT-04**: Author can explain RCSS as certificate layer, validation layer, and local refinement layer rather than a kitchen-sink heuristic.
 
 ### Theory Foundation
 
@@ -98,11 +98,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RUN-02 | Phase 8.5 | Complete |
 | RUN-03 | Phase 8.5 | Complete |
 | RUN-04 | Phase 8.5 | Complete |
-| EVID-05 | Phase 9 | Pending |
-| ABLT-01 | Phase 9 | Pending |
-| ABLT-02 | Phase 9 | Pending |
-| ABLT-03 | Phase 9 | Pending |
-| ABLT-04 | Phase 9 | Pending |
+| EVID-05 | Phase 9 | Complete |
+| ABLT-01 | Phase 9 | Complete |
+| ABLT-02 | Phase 9 | Complete |
+| ABLT-03 | Phase 9 | Complete |
+| ABLT-04 | Phase 9 | Complete |
 | THEORY-01 | Phase 10 | Pending |
 | THEORY-02 | Phase 10 | Pending |
 | THEORY-03 | Phase 10 | Pending |

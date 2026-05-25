@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
 status: executing
-stopped_at: Completed 08.5-03-PLAN.md
-last_updated: "2026-05-25T11:16:46.356Z"
-last_activity: 2026-05-25 -- Phase 09 planning complete
+stopped_at: Completed 09-01-PLAN.md
+last_updated: "2026-05-25T11:25:39.833Z"
+last_activity: 2026-05-25
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 14
-  completed_plans: 11
+  completed_plans: 12
   percent: 60
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026/05/23)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** Phase 9 — ablation and evidence classification
+**Current focus:** Phase 09 — Ablation and Evidence Classification
 
 ## Current Position
 
-Phase: 9
-Plan: Not started
+Phase: 09 (Ablation and Evidence Classification) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-05-25 -- Phase 09 planning complete
+Last activity: 2026-05-25
 
-Progress: [██████████] 100%
+Progress: [█████████░] 86%
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ Progress: [██████████] 100%
 | Phase 08.5 P02 | 6min | 3 tasks | 2 files |
 | Phase 08.5 P03 | 11min | 3 tasks | 5 files |
 | Phase 08.5 P04 | 80min | 3 tasks | 11 files |
+| Phase 09 P01 | 5min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -97,6 +98,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 08.5 Plan 03]: Stage12 launchers enable per-seed progress artifacts under OUTPUT_DIR/progress by default while preserving ten-split defaults and fail-closed evidence gates.
 - [Phase 08.5 Plan 04]: RUN-04 complete; PeMS7_1026 and Seattle each completed one Stage12-compatible seed, while EVID-03/EVID-04 remain incomplete until ten-split evidence exists.
 - [Phase 08.5 Plan 04]: validation-swap trial rows compute validation MAE only while selected rows keep full diagnostics; scalar-weight validation MAE uses selected-sensor Woodbury gains.
+- [Phase 09 Plan 01]: Phase 9 ablation contracts use held-out Stage12 PeMS7_228 aggregates as the core evidence basis; validation MAE is selection evidence only, not held-out test evidence.
+- [Phase 09 Plan 01]: PeMS7_1026 and Seattle classification preserves external_evidence_gate.json truth; Stage11, DRY_RUN, and one-seed Stage12 feasibility artifacts are non-evidence for EVID-03/EVID-04 completion.
+- [Phase 09 Plan 01]: Robustness remains appendix-only/supporting stress-test evidence unless future multi-seed perturbation evidence is explicitly added.
 
 ### Pending Todos
 
@@ -118,6 +122,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-25T10:16:48.409Z
-Stopped at: Completed 08.5-03-PLAN.md
+Last session: 2026-05-25T11:25:35.771Z
+Stopped at: Completed 09-01-PLAN.md
 Resume file: None

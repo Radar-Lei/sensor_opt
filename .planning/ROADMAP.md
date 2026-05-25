@@ -155,7 +155,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 09-01-PLAN.md — Create tested fail-closed generator for ablation and dataset-classification contracts.
+- [x] 09-01-PLAN.md — Create tested fail-closed generator for ablation and dataset-classification contracts.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -196,7 +196,7 @@ Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
 | 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
 | 8.5. Stage12 Performance Unblock | v1.1 | 4/4 | Complete   | 2026-05-25 |
-| 9. Ablation and Evidence Classification | v1.1 | 0/3 | Planned | - |
+| 9. Ablation and Evidence Classification | v1.1 | 1/3 | In Progress|  |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 
 ## Coverage
