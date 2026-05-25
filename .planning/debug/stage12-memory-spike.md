@@ -30,6 +30,8 @@ updated: 2026-05-25
   observation: After killing Stage12, no `transparent_estimator_eval.py` process remained. Only progress/checkpoint partial artifacts existed.
 - timestamp: 2026-05-25
   observation: External Stage12 launchers had default `MAX_JOBS=2`; this was changed to `MAX_JOBS=1` to avoid accidental process-level memory amplification.
+- timestamp: 2026-05-25
+  observation: A formal PeMS7_1026 seed 25 retry with `MAX_RSS_MB=20000` failed at `validation_swap_iteration_complete` after peaking at 23634.9 MB, confirming validation-swap trial evaluation remained the memory hotspot after the first fix.
 
 ## Eliminated
 
@@ -38,7 +40,7 @@ updated: 2026-05-25
 
 ## Resolution
 
-- root_cause: Full Stage12 PeMS7_1026 combines large dense covariance/precision work with repeated dense validation-swap evaluations. Two avoidable amplifiers were present: QR/POD used full SVD over a tall traffic matrix, and validation MAE constructed full-node prediction matrices even though only hidden-node MAE was needed. Launchers also defaulted to two concurrent seed processes.
-- fix: Replaced QR/POD full SVD with covariance eigendecomposition over node covariance, changed cached GLS/GSP validation MAE to compute hidden-node predictions only, added process RSS progress reporting plus optional `--max-rss-mb` fail-fast guard, defaulted external Stage12 launchers to `MAX_JOBS=1`, and exposed `MAX_RSS_MB` through both launchers.
+- root_cause: Full Stage12 PeMS7_1026 combines large dense covariance/precision work with repeated dense validation-swap evaluations. Avoidable amplifiers were present: QR/POD used full SVD over a tall traffic matrix, validation MAE constructed full-node or full-hidden prediction matrices even though only chunked hidden-node MAE was needed, and launchers defaulted to two concurrent seed processes.
+- fix: Replaced QR/POD full SVD with covariance eigendecomposition over node covariance; changed cached GLS/GSP validation MAE to compute hidden-node MAE in chunks; added process RSS progress reporting plus optional `--max-rss-mb` fail-fast guard; defaulted external Stage12 launchers to `MAX_JOBS=1`; exposed `MAX_RSS_MB` through both launchers.
 - verification: `python -m unittest tests.test_stage12_runtime_fast_paths tests.test_stage12_runtime_trace_cache -v` passed; `python TRC-23-02333/test_transparent_estimator_eval.py` passed; launcher dry-runs show `--max-rss-mb` propagation; a reduced PeMS7_1026 real smoke completed to `/tmp/stage12_memory_smoke_pems1026` with peak RSS about 1.37GB.
-- files_changed: `TRC-23-02333/transparent_estimator_eval.py`, `TRC-23-02333/test_transparent_estimator_eval.py`, `tests/test_stage12_runtime_fast_paths.py`, `scripts/run_stage12_pems7_1026.sh`, `scripts/run_stage12_seattle.sh`, `.planning/debug/stage12-memory-spike.md`
+- files_changed: `TRC-23-02333/transparent_estimator_eval.py`, `TRC-23-02333/test_transparent_estimator_eval.py`, `tests/test_stage12_runtime_fast_paths.py`, `tests/test_stage12_runtime_trace_cache.py`, `scripts/run_stage12_pems7_1026.sh`, `scripts/run_stage12_seattle.sh`, `.planning/debug/stage12-memory-spike.md`

@@ -139,6 +139,7 @@ class Stage12RuntimeTraceCacheTests(unittest.TestCase):
             gsp_lambda=0.3,
             prior_gamma=0.7,
             num_neighbors=2,
+            validation_mae_hidden_chunk_size=2,
         )
 
         for _ in range(100):
@@ -150,6 +151,48 @@ class Stage12RuntimeTraceCacheTests(unittest.TestCase):
             gsp_direct = tee.validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args, {})
             self.assertAlmostEqual(gls_cached, gls_direct, delta=1e-10)
             self.assertAlmostEqual(gsp_cached, gsp_direct, delta=1e-10)
+
+    def test_chunked_hidden_validation_mae_matches_full_gain_path(self):
+        n_nodes = 8
+        rng = np.random.default_rng(321)
+        test = rng.normal(size=(7, n_nodes))
+        tod = np.tile(test.mean(axis=0), (tee.SLOTS_PER_DAY, 1))
+        distance = np.abs(np.arange(n_nodes).reshape(-1, 1) - np.arange(n_nodes).reshape(1, -1)).astype(float)
+        laplacian = tee.make_laplacian(distance)
+        precision = np.eye(n_nodes) * 1.4 + 0.05
+        mean = test.mean(axis=0)
+        std = test.std(axis=0) + 1e-6
+        sensors = np.array([0, 3, 6], dtype=int)
+        args = Namespace(
+            selection_method="gls_map",
+            obs_weight=1.2,
+            gls_prior_weight=1.0,
+            gsp_lambda=0.3,
+            prior_gamma=0.7,
+            num_neighbors=2,
+            validation_mae_hidden_chunk_size=2,
+        )
+        hidden = np.array([idx for idx in range(n_nodes) if idx not in set(sensors)], dtype=int)
+        observed_z = (test - mean) / std
+        prior_z = (tod[: test.shape[0]] - mean) / std
+        base_inverse = np.linalg.inv(precision)
+        residual = observed_z[:, sensors] - prior_z[:, sensors]
+        gain = tee.posterior_gain_from_base_inverse(base_inverse, sensors, args.obs_weight)
+        expected = tee.mae(mean[hidden] + std[hidden] * (prior_z[:, hidden] + residual @ gain[hidden].T), test[:, hidden])
+        actual = tee.hidden_mae_from_base_inverse(
+            base_inverse,
+            sensors,
+            args.obs_weight,
+            residual,
+            prior_z,
+            test,
+            hidden,
+            mean,
+            std,
+            args.validation_mae_hidden_chunk_size,
+        )
+
+        self.assertAlmostEqual(actual, expected, delta=1e-10)
 
     def test_make_rcss_row_cache_matches_direct_metrics(self):
         cache = {}

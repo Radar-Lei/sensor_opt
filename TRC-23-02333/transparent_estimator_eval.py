@@ -621,6 +621,27 @@ def posterior_gain_from_base_inverse(base_inverse, sensors, obs_weight):
     return columns @ solved
 
 
+def hidden_mae_from_base_inverse(base_inverse, sensors, obs_weight, residual, prior_z, true_values, hidden, mean, std, chunk_size):
+    sensors = np.asarray(sensors, dtype=int)
+    hidden = np.asarray(hidden, dtype=int)
+    if hidden.size == 0:
+        return 0.0
+    chunk_size = max(1, int(chunk_size))
+    if sensors.size == 0:
+        return mae(mean[hidden] + std[hidden] * prior_z[:, hidden], true_values[:, hidden])
+    solved_eye = solve_selected_sensor_system(base_inverse, sensors, obs_weight, np.eye(sensors.size))
+    abs_error_sum = 0.0
+    value_count = 0
+    for start in range(0, hidden.size, chunk_size):
+        chunk = hidden[start : start + chunk_size]
+        chunk_gain = base_inverse[np.ix_(chunk, sensors)] @ solved_eye
+        pred_chunk = mean[chunk] + std[chunk] * (prior_z[:, chunk] + residual @ chunk_gain.T)
+        true_chunk = true_values[:, chunk]
+        abs_error_sum += float(np.abs(pred_chunk - true_chunk).sum())
+        value_count += int(true_chunk.size)
+    return abs_error_sum / max(1, value_count)
+
+
 def posterior_trace_from_base_inverse(base_inverse, sensors, obs_weight, base_trace):
     sensors = np.asarray(sensors, dtype=int)
     if sensors.size == 0:
@@ -887,9 +908,18 @@ def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors
         entry = posterior_base_cache_entry(matrix, trace_cache)
         if entry is not None:
             residual = observed_z[:, sensors] - prior_z[:, sensors]
-            gain = posterior_gain_from_base_inverse(entry["inverse"], sensors, args.obs_weight)
-            pred_hidden = mean[hidden] + std[hidden] * (prior_z[:, hidden] + residual @ gain[hidden].T)
-            return mae(pred_hidden, true_hidden)
+            return hidden_mae_from_base_inverse(
+                entry["inverse"],
+                sensors,
+                args.obs_weight,
+                residual,
+                prior_z,
+                test,
+                hidden,
+                mean,
+                std,
+                getattr(args, "validation_mae_hidden_chunk_size", 128),
+            )
 
     pred_z, _ = solve_quadratic(observed_z, prior_z, sensors, matrix, args.obs_weight)
     pred = mean + std * pred_z
@@ -1389,6 +1419,7 @@ def main():
     parser.add_argument("--validation-swap-add-pool", type=int, default=20)
     parser.add_argument("--validation-swap-remove-pool", type=int, default=8)
     parser.add_argument("--validation-swap-min-improve", type=float, default=1e-6)
+    parser.add_argument("--validation-mae-hidden-chunk-size", type=int, default=128)
     parser.add_argument("--rcss-validation-weight", type=float, default=0.40)
     parser.add_argument("--rcss-trace-weight", type=float, default=0.20)
     parser.add_argument("--rcss-cvar-weight", type=float, default=0.20)
