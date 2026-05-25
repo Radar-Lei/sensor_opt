@@ -137,9 +137,9 @@ def require_trace_results_path(path: Path, project_root: Path, label: str) -> st
     return relative
 
 
-def is_git_path_tracked(project_root: Path, relative: str) -> bool:
+def is_git_path_committed(project_root: Path, relative: str) -> bool:
     result = subprocess.run(
-        ["git", "-C", str(project_root), "ls-files", "--error-unmatch", relative],
+        ["git", "-C", str(project_root), "cat-file", "-e", f"HEAD:{relative}"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         check=False,
@@ -147,9 +147,9 @@ def is_git_path_tracked(project_root: Path, relative: str) -> bool:
     return result.returncode == 0
 
 
-def assert_git_path_is_tracked(project_root: Path, relative: str, label: str) -> None:
-    if not is_git_path_tracked(project_root, relative):
-        raise ValueError(f"{label} is not committed/tracked by git: {relative}")
+def assert_git_path_is_committed(project_root: Path, relative: str, label: str) -> None:
+    if not is_git_path_committed(project_root, relative):
+        raise ValueError(f"{label} is not committed in HEAD: {relative}")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -230,8 +230,16 @@ def _budget_requires_caveat(budget: object) -> bool:
         return False
 
 
+def assert_unique_keys(frame: pd.DataFrame, columns: Sequence[str], label: str) -> None:
+    duplicates = frame[frame.duplicated(list(columns), keep=False)]
+    if not duplicates.empty:
+        keys = duplicates.loc[:, list(columns)].drop_duplicates().to_dict(orient="records")
+        raise ValueError(f"{label} contains duplicate keys for {list(columns)}: {keys}")
+
+
 def _paired_lookup(paired_frame: pd.DataFrame) -> dict[tuple[float, str], pd.Series]:
     selected = paired_frame[paired_frame["layout"].astype(str).eq(MAIN_METHOD_LABEL)].copy()
+    assert_unique_keys(selected, ("budget", "baseline"), "core ablation paired statistics")
     lookup: dict[tuple[float, str], pd.Series] = {}
     for _, row in selected.iterrows():
         lookup[(float(row["budget"]), str(row["baseline"]))] = row
@@ -313,6 +321,11 @@ def validate_ablation_rows(rows: Sequence[dict[str, object]]) -> None:
         assert_no_raw_dataset_path(rendered, "ablation row")
         if row["evidence_basis"] == "validation_mae":
             raise ValueError("validation MAE cannot be marked as held-out test evidence")
+        if int(row["actual_split_count"]) != int(row["required_split_count"]):
+            raise AblationEvidenceValidationError(
+                f"completed ablation evidence requires {row['required_split_count']} splits: "
+                f"{row['layout_type']} at budget {row['budget']} has {row['actual_split_count']}"
+            )
         paired_status = str(row["paired_evidence_status"])
         missing_paired_stats = [column for column in PAIRED_STAT_COLUMNS if row[column] == "" or pd.isna(row[column])]
         if paired_status == PAIRED_STATS_AVAILABLE:
@@ -337,7 +350,7 @@ def build_ablation_contract(project_root: Path) -> list[dict[str, object]]:
     paired_csv = source_dir / "gls_map_paired_delta_tests.csv"
     for path in (layout_csv, paired_csv):
         relative = require_trace_results_path(path, project_root, "core ablation source")
-        assert_git_path_is_tracked(project_root, relative, "Core ablation source")
+        assert_git_path_is_committed(project_root, relative, "Core ablation source")
     layout_frame = load_csv(layout_csv)
     paired_frame = load_csv(paired_csv)
     require_columns(layout_frame, {"budget", "layout_type", "mean", "std", "count"}, "core ablation layout summary")
@@ -346,6 +359,7 @@ def build_ablation_contract(project_root: Path) -> list[dict[str, object]]:
         {"budget", "layout", "baseline", "delta_mean", "ci95_low", "ci95_high", "paired_t_p", "wilcoxon_p", "win_count", "count"},
         "core ablation paired statistics",
     )
+    assert_unique_keys(layout_frame, ("budget", "layout_type"), "core ablation layout summary")
     available_labels = {str(value) for value in layout_frame["layout_type"].dropna().unique()}
     missing = sorted(set(REQUIRED_ABLATION_LAYOUTS).difference(available_labels))
     if missing:
@@ -412,16 +426,23 @@ def build_ablation_contract(project_root: Path) -> list[dict[str, object]]:
     return rows
 
 
+def require_gate_bool(gate: dict[str, object], key: str, default: bool) -> bool:
+    value = gate.get(key, default)
+    if not isinstance(value, bool):
+        raise ValueError(f"external evidence gate field {key} must be boolean")
+    return value
+
+
 def load_external_gate(project_root: Path) -> dict[str, object]:
     gate_path = project_root / EXTERNAL_GATE_PATH
     relative = require_trace_results_path(gate_path, project_root, "external evidence gate")
-    assert_git_path_is_tracked(project_root, relative, "External evidence gate")
+    assert_git_path_is_committed(project_root, relative, "External evidence gate")
     gate = load_json(gate_path)
     snapshot = {
-        "pems7_1026_stage12_complete": bool(gate.get("pems7_1026_stage12_complete", False)),
-        "seattle_stage12_complete": bool(gate.get("seattle_stage12_complete", False)),
-        "seattle_core_claim_blocked": bool(gate.get("seattle_core_claim_blocked", True)),
-        "v1_1_completion_allowed": bool(gate.get("v1_1_completion_allowed", False)),
+        "pems7_1026_stage12_complete": require_gate_bool(gate, "pems7_1026_stage12_complete", False),
+        "seattle_stage12_complete": require_gate_bool(gate, "seattle_stage12_complete", False),
+        "seattle_core_claim_blocked": require_gate_bool(gate, "seattle_core_claim_blocked", True),
+        "v1_1_completion_allowed": require_gate_bool(gate, "v1_1_completion_allowed", False),
     }
     for key, value in snapshot.items():
         gate[key] = value
@@ -482,15 +503,36 @@ def _classification_row(
     return row
 
 
+def external_dataset_complete(project_root: Path, gate_complete: bool, summary: dict[str, object], dataset: str) -> bool:
+    required = int(summary.get("required_split_count", REQUIRED_SPLIT_COUNT) or REQUIRED_SPLIT_COUNT)
+    actual = int(summary.get("actual_split_count", 0) or 0)
+    source_dir = project_root / str(summary.get("source_dir", TRACE_RESULTS_ROOT / f"{dataset.lower()}_stage12_baseline_portfolio"))
+    required_files = (
+        source_dir / "combined_metrics.csv",
+        source_dir / "gls_map_layout_summary.csv",
+        source_dir / "gls_map_paired_delta_tests.csv",
+    )
+    if not gate_complete or actual != required:
+        return False
+    for path in required_files:
+        relative = require_trace_results_path(path, project_root, f"{dataset} external evidence source")
+        if not path.exists() or not is_git_path_committed(project_root, relative):
+            return False
+    return True
+
+
 def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
     gate = load_external_gate(project_root)
     pems_summary = _gate_dataset(gate, "PeMS7_1026")
     seattle_summary = _gate_dataset(gate, "Seattle")
-    pems_complete = bool(gate.get("pems7_1026_stage12_complete", False))
-    seattle_complete = bool(gate.get("seattle_stage12_complete", False))
-    seattle_blocked = bool(gate.get("seattle_core_claim_blocked", True))
+    pems_gate_complete = bool(gate["pems7_1026_stage12_complete"])
+    seattle_gate_complete = bool(gate["seattle_stage12_complete"])
+    seattle_blocked = bool(gate["seattle_core_claim_blocked"])
     pems_actual = int(pems_summary.get("actual_split_count", 0) or 0)
     seattle_actual = int(seattle_summary.get("actual_split_count", 0) or 0)
+    pems_complete = external_dataset_complete(project_root, pems_gate_complete, pems_summary, "pems7_1026")
+    seattle_complete = external_dataset_complete(project_root, seattle_gate_complete, seattle_summary, "seattle")
+    seattle_blocked = seattle_blocked or not seattle_complete
     pems_blocker = str(pems_summary.get("blocker_reason", "") or "Stage11, DRY_RUN, or one-seed Stage12 feasibility artifacts are non-evidence for EVID-03 completion")
     if not pems_complete and "non-evidence" not in pems_blocker:
         pems_blocker = f"{pems_blocker}; Stage11, DRY_RUN, and one-seed feasibility outputs are non-evidence for EVID-03 completion".strip("; ")
@@ -605,6 +647,18 @@ def validate_dataset_classification(rows: Sequence[dict[str, object]]) -> None:
             raise ValueError("robustness evidence must remain supporting or appendix-only")
 
 
+def expand_source_artifacts(provenance: object) -> list[str]:
+    artifact = str(provenance)
+    if RAW_DATASET_PREFIX in artifact:
+        return []
+    if ";" not in artifact:
+        return [artifact]
+    parent, _, names = artifact.rpartition("/")
+    if not parent:
+        return names.split(";")
+    return [f"{parent}/{name}" for name in names.split(";")]
+
+
 def build_metadata(
     ablation_rows: Sequence[dict[str, object]],
     classification_rows: Sequence[dict[str, object]],
@@ -618,9 +672,9 @@ def build_metadata(
     )
     source_artifacts = sorted(
         {
-            str(row["provenance"])
+            artifact
             for row in (*ablation_rows, *classification_rows)
-            if not str(row["provenance"]).startswith(RAW_DATASET_PREFIX)
+            for artifact in expand_source_artifacts(row["provenance"])
         }
     )
     return {

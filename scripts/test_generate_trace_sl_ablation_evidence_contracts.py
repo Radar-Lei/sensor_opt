@@ -55,6 +55,27 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
     def track(self, *paths: Path) -> None:
         relatives = [path.relative_to(self.root).as_posix() for path in paths]
         subprocess.run(["git", "add", *relatives], cwd=self.root, check=True)
+        subprocess.run(
+            [
+                "git",
+                "-c",
+                "user.name=Phase 9 Test",
+                "-c",
+                "user.email=phase9@example.invalid",
+                "commit",
+                "--quiet",
+                "-m",
+                "fixture evidence",
+                "--",
+                *relatives,
+            ],
+            cwd=self.root,
+            check=True,
+        )
+
+    def stage_without_commit(self, *paths: Path) -> None:
+        relatives = [path.relative_to(self.root).as_posix() for path in paths]
+        subprocess.run(["git", "add", *relatives], cwd=self.root, check=True)
 
     def import_generator(self):
         spec = importlib.util.spec_from_file_location("generate_trace_sl_ablation_evidence_contracts", GENERATOR_PATH)
@@ -141,20 +162,35 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
                 )
         return rows
 
-    def make_core_stage12_sources(self, layouts: list[str] | None = None) -> list[Path]:
+    def make_core_stage12_sources(
+        self,
+        layouts: list[str] | None = None,
+        split_count: int = 10,
+        paired_rows: list[dict[str, object]] | None = None,
+        commit: bool = True,
+    ) -> list[Path]:
         base = "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio"
         paths = [
             self.write_text(f"{base}/SUMMARY.md"),
-            self.write_csv(f"{base}/combined_metrics.csv", self.combined_rows()),
-            self.write_csv(f"{base}/gls_map_layout_summary.csv", self.layout_rows(layouts)),
-            self.write_csv(f"{base}/gls_map_paired_delta_tests.csv", self.paired_rows()),
+            self.write_csv(f"{base}/combined_metrics.csv", self.combined_rows(split_count)),
+            self.write_csv(f"{base}/gls_map_layout_summary.csv", self.layout_rows(layouts, split_count)),
+            self.write_csv(f"{base}/gls_map_paired_delta_tests.csv", paired_rows or self.paired_rows()),
             self.write_csv(f"{base}/gls_map_win_counts.csv", [{"budget": 0.10, "best_layout": "validation_swap_selected", "wins": 10}]),
             self.write_csv(f"{base}/rcss_selected_sources.csv", [{"budget": 0.10, "source": "quality", "selected_count": 4}]),
         ]
-        self.track(*paths)
+        if commit:
+            self.track(*paths)
+        else:
+            self.stage_without_commit(*paths)
         return paths
 
-    def make_external_gate(self, pems_complete: bool = False, seattle_complete: bool = False, seattle_status: str = "blocked") -> Path:
+    def make_external_gate(
+        self,
+        pems_complete: object = False,
+        seattle_complete: object = False,
+        seattle_status: str = "blocked",
+        commit: bool = True,
+    ) -> Path:
         path = self.write_json(
             "TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.json",
             {
@@ -164,8 +200,8 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
                 "required_split_count": 10,
                 "pems7_1026_stage12_complete": pems_complete,
                 "seattle_stage12_complete": seattle_complete,
-                "seattle_core_claim_blocked": not seattle_complete,
-                "v1_1_completion_allowed": pems_complete and seattle_complete,
+                "seattle_core_claim_blocked": not bool(seattle_complete),
+                "v1_1_completion_allowed": bool(pems_complete) and bool(seattle_complete),
                 "datasets": {
                     "PeMS7_1026": {
                         "dataset": "PeMS7_1026",
@@ -191,7 +227,10 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
                 "policy": {"raw_dataset_prefix": "TRC-23-02333/dataset/"},
             },
         )
-        self.track(path)
+        if commit:
+            self.track(path)
+        else:
+            self.stage_without_commit(path)
         return path
 
     def test_ablation_contract_includes_required_families_and_layer_fields(self) -> None:
@@ -272,8 +311,82 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
             sort_keys=True,
         )
         self.assertNotIn("TRC-23-02333/dataset/", rendered_rows)
+        self.assertTrue(metadata["source_artifacts"])
+        self.assertTrue(all(";" not in artifact for artifact in metadata["source_artifacts"]))
+        self.assertIn(
+            "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+            metadata["source_artifacts"],
+        )
+        self.assertIn(
+            "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+            metadata["source_artifacts"],
+        )
         with self.assertRaisesRegex(ValueError, "raw dataset"):
             generator.assert_no_raw_dataset_path("TRC-23-02333/dataset/PeMS7_228/PeMSD7_V_228.csv", "provenance")
+
+    def test_staged_uncommitted_core_evidence_is_rejected(self) -> None:
+        generator = self.import_generator()
+        self.make_core_stage12_sources(commit=False)
+        self.make_external_gate()
+
+        with self.assertRaisesRegex(ValueError, "not committed in HEAD"):
+            generator.build_ablation_contract(self.root)
+
+    def test_non_boolean_external_gate_values_fail_closed(self) -> None:
+        generator = self.import_generator()
+        self.make_core_stage12_sources()
+        self.make_external_gate(pems_complete="false")
+
+        with self.assertRaisesRegex(ValueError, "must be boolean"):
+            generator.build_dataset_classification(self.root)
+
+    def test_core_ablation_split_count_shortfall_fails_closed(self) -> None:
+        generator = self.import_generator()
+        self.make_core_stage12_sources(split_count=5)
+        self.make_external_gate()
+
+        with self.assertRaisesRegex(generator.AblationEvidenceValidationError, "requires 10 splits"):
+            generator.build_ablation_contract(self.root)
+
+    def test_duplicate_layout_keys_fail_closed(self) -> None:
+        generator = self.import_generator()
+        rows = self.layout_rows()
+        rows.append(dict(rows[0]))
+        base = "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio"
+        paths = [
+            self.write_text(f"{base}/SUMMARY.md"),
+            self.write_csv(f"{base}/combined_metrics.csv", self.combined_rows()),
+            self.write_csv(f"{base}/gls_map_layout_summary.csv", rows),
+            self.write_csv(f"{base}/gls_map_paired_delta_tests.csv", self.paired_rows()),
+        ]
+        self.track(*paths)
+        self.make_external_gate()
+
+        with self.assertRaisesRegex(ValueError, "duplicate keys"):
+            generator.build_ablation_contract(self.root)
+
+    def test_duplicate_paired_keys_fail_closed(self) -> None:
+        generator = self.import_generator()
+        paired_rows = self.paired_rows()
+        paired_rows.append(dict(paired_rows[0]))
+        self.make_core_stage12_sources(paired_rows=paired_rows)
+        self.make_external_gate()
+
+        with self.assertRaisesRegex(ValueError, "duplicate keys"):
+            generator.build_ablation_contract(self.root)
+
+    def test_external_gate_completion_requires_committed_aggregate_artifacts(self) -> None:
+        generator = self.import_generator()
+        self.make_core_stage12_sources()
+        self.make_external_gate(pems_complete=True, seattle_complete=True)
+
+        rows = generator.build_dataset_classification(self.root)
+        by_dataset = {str(row["dataset"]): row for row in rows}
+
+        self.assertFalse(by_dataset["PeMS7_1026"]["requirement_complete"])
+        self.assertFalse(by_dataset["PeMS7_1026"]["core_claim_eligible"])
+        self.assertFalse(by_dataset["Seattle"]["requirement_complete"])
+        self.assertFalse(by_dataset["Seattle"]["core_claim_eligible"])
 
 
 if __name__ == "__main__":

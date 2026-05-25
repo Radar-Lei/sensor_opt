@@ -114,7 +114,7 @@
     "source_artifacts": [
       "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio",
       "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
-      "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv;gls_map_paired_delta_tests.csv",
+      "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
       "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness",
       "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio"
     ],
