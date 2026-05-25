@@ -16,6 +16,9 @@ VALIDATION_SWAP_REMOVE_POOL="${VALIDATION_SWAP_REMOVE_POOL:-10}"
 THREADS_PER_JOB="${THREADS_PER_JOB:-1}"
 MAX_JOBS="${MAX_JOBS:-2}"
 DRY_RUN="${DRY_RUN:-0}"
+ENABLE_PROGRESS="${ENABLE_PROGRESS:-1}"
+PROGRESS_DIR="${PROGRESS_DIR:-${OUTPUT_DIR}/progress}"
+FEASIBILITY_RUN="${FEASIBILITY_RUN:-0}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 
 export OMP_NUM_THREADS="${OMP_NUM_THREADS:-${THREADS_PER_JOB}}"
@@ -25,6 +28,9 @@ export NUMEXPR_NUM_THREADS="${NUMEXPR_NUM_THREADS:-${THREADS_PER_JOB}}"
 export VECLIB_MAXIMUM_THREADS="${VECLIB_MAXIMUM_THREADS:-${THREADS_PER_JOB}}"
 
 mkdir -p "${OUTPUT_DIR}"
+if [ "${ENABLE_PROGRESS}" = "1" ]; then
+  mkdir -p "${PROGRESS_DIR}"
+fi
 
 run_or_print() {
   if [ "${DRY_RUN}" = "1" ]; then
@@ -40,6 +46,17 @@ running_jobs=0
 status=0
 
 for seed in ${SEEDS}; do
+  progress_args=()
+  if [ "${ENABLE_PROGRESS}" = "1" ]; then
+    progress_args+=(
+      --progress-log "${PROGRESS_DIR}/seed_${seed}_progress.jsonl"
+      --checkpoint-json "${PROGRESS_DIR}/seed_${seed}_checkpoint.json"
+    )
+  fi
+  if [ "${FEASIBILITY_RUN}" = "1" ]; then
+    progress_args+=(--non-evidence-feasibility-run)
+  fi
+
   eval_cmd=(
     "${PYTHON_BIN}" TRC-23-02333/transparent_estimator_eval.py
     --data-root "${DATA_ROOT}"
@@ -66,6 +83,7 @@ for seed in ${SEEDS}; do
     --include-observability-proxy
     --include-graph-sampling-baseline
     --include-qr-pod-baseline
+    "${progress_args[@]}"
   )
   if [ "${DRY_RUN}" = "1" ]; then
     run_or_print "${eval_cmd[@]}"
