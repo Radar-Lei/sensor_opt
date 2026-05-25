@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
 status: executing
-stopped_at: "Completed 08.5-01-PLAN.md"
-last_updated: "2026-05-25T08:21:41.223Z"
-last_activity: 2026-05-25 -- Completed 08.5-01-PLAN.md
+stopped_at: Completed 08.5-02-PLAN.md
+last_updated: "2026-05-25T08:37:56.051Z"
+last_activity: 2026-05-25
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 11
-  completed_plans: 8
-  percent: 73
+  completed_plans: 9
+  percent: 40
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026/05/23)
 ## Current Position
 
 Phase: 08.5 (stage12-performance-unblock) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-05-25
 
-Progress: [███████░░░] 73%
+Progress: [████████░░] 82%
 
 ## Performance Metrics
 
@@ -61,6 +61,7 @@ Progress: [███████░░░] 73%
 | Phase 08 P03 | blocked status | Seattle Stage12 | EVID-04 incomplete |
 | Phase 08 P04 | gate generated | 2 contract rows | v1.1 blocked |
 | Phase 08.5 P01 | 3min | 3 tasks | 2 files |
+| Phase 08.5 P02 | 6min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 8.5]: Stage12 performance unblock is required before Phase 9. Scope is runtime-only: fast validation, dense solve/posterior metric caching, progress checkpoints, and one full Stage12-compatible seed each for PeMS7_1026 and Seattle. Downscaled diagnostics and DRY_RUN outputs remain non-evidence.
 - [Phase 08.5 Plan 01]: validation_mae computes only args.selection_method and no longer calls evaluate_layout or certificate during RCSS candidate scoring.
 - [Phase 08.5 Plan 01]: solve_quadratic collapses scalar, vector, and time-constant observation weights into one Cholesky-backed SPD solve while preserving stacked lhs for true time-varying weights.
+- [Phase 08.5]: Plan 02 posterior/scenario metric caching is explicit and local, using optional trace_cache dictionaries and Woodbury selected-sensor systems without changing RCSS or validation-swap search semantics.
+- [Phase 08.5]: Plan 02 external evidence gate artifacts remain fail-closed; EVID-03 and EVID-04 are still incomplete after runtime-only cache work.
 
 ### Pending Todos
 
@@ -108,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-25T08:21:41.215Z
-Stopped at: Completed 08.5-01-PLAN.md
+Last session: 2026-05-25T08:37:50.959Z
+Stopped at: Completed 08.5-02-PLAN.md
 Resume file: None
