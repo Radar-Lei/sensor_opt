@@ -151,6 +151,8 @@ class Stage12RuntimeTraceCacheTests(unittest.TestCase):
             gsp_direct = tee.validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args, {})
             self.assertAlmostEqual(gls_cached, gls_direct, delta=1e-10)
             self.assertAlmostEqual(gsp_cached, gsp_direct, delta=1e-10)
+        self.assertLessEqual(len(cache.get("base", {})), 2)
+        self.assertLessEqual(len(cache.get("validation_matrix", {})), 2)
 
     def test_chunked_hidden_validation_mae_matches_full_gain_path(self):
         n_nodes = 8

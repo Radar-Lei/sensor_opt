@@ -588,6 +588,23 @@ def can_use_posterior_cache(obs_weight):
     return weight.ndim == 0 and float(weight) > 0.0 and np.isfinite(float(weight))
 
 
+def validation_matrix_for_method(method, laplacian, precision, args, trace_cache=None):
+    if method == "gsp":
+        key = ("gsp", id(laplacian), float(args.gsp_lambda), float(args.prior_gamma))
+        build = lambda: args.gsp_lambda * laplacian + args.prior_gamma * np.eye(laplacian.shape[0])
+    elif method == "gls_map":
+        key = ("gls_map", id(precision), float(args.gls_prior_weight))
+        build = lambda: args.gls_prior_weight * precision
+    else:
+        raise ValueError(f"Unsupported selection method: {method}")
+    if trace_cache is None:
+        return build()
+    bucket = posterior_cache_bucket(trace_cache, "validation_matrix")
+    if key not in bucket:
+        bucket[key] = build()
+    return bucket[key]
+
+
 def solve_selected_sensor_system(base_inverse, sensors, obs_weight, rhs):
     sensors = np.asarray(sensors, dtype=int)
     if sensors.size == 0:
@@ -897,12 +914,7 @@ def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors
 
     observed_z = (test - mean) / std
     prior_z = (tod_test - mean) / std
-    if method == "gsp":
-        matrix = args.gsp_lambda * laplacian + args.prior_gamma * np.eye(n_nodes)
-    elif method == "gls_map":
-        matrix = args.gls_prior_weight * precision
-    else:
-        raise ValueError(f"Unsupported selection method: {method}")
+    matrix = validation_matrix_for_method(method, laplacian, precision, args, trace_cache=trace_cache)
 
     if can_use_posterior_cache(args.obs_weight):
         entry = posterior_base_cache_entry(matrix, trace_cache)
