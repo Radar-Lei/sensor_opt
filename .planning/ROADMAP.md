@@ -132,7 +132,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 08.5-03-PLAN.md — Add progress/checkpoint diagnostics and Stage12 launcher feasibility wiring.
+- [x] 08.5-03-PLAN.md — Add progress/checkpoint diagnostics and Stage12 launcher feasibility wiring.
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
@@ -183,7 +183,7 @@ Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
 | 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
-| 8.5. Stage12 Performance Unblock | v1.1 | 2/4 | In Progress|  |
+| 8.5. Stage12 Performance Unblock | v1.1 | 3/4 | In Progress|  |
 | 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Blocked on Phase 8.5 | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 
