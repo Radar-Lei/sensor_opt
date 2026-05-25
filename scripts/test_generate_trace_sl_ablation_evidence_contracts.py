@@ -398,6 +398,23 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
         self.assertFalse(by_dataset["Seattle"]["requirement_complete"])
         self.assertFalse(by_dataset["Seattle"]["core_claim_eligible"])
 
+    def test_external_gate_completion_rejects_dirty_aggregate_artifacts(self) -> None:
+        generator = self.import_generator()
+        self.make_core_stage12_sources()
+        base = "TRC-23-02333/trace_sl_results/pems7_1026_stage12_feasibility_seed25"
+        combined_csv = self.write_csv(f"{base}/combined_metrics.csv", self.combined_rows(split_count=1))
+        paths = [
+            combined_csv,
+            self.write_csv(f"{base}/gls_map_layout_summary.csv", self.layout_rows(split_count=10)),
+            self.write_csv(f"{base}/gls_map_paired_delta_tests.csv", self.paired_rows()),
+        ]
+        self.track(*paths)
+        pd.DataFrame(self.combined_rows(split_count=10)).to_csv(combined_csv, index=False)
+        self.make_external_gate(pems_complete=True, seattle_complete=False)
+
+        with self.assertRaisesRegex(ValueError, "uncommitted changes"):
+            generator.build_dataset_classification(self.root)
+
     def test_external_gate_completion_requires_real_aggregate_split_counts(self) -> None:
         generator = self.import_generator()
         self.make_core_stage12_sources()

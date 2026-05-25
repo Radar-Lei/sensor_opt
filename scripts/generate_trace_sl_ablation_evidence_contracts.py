@@ -549,8 +549,9 @@ def external_dataset_complete(project_root: Path, gate_complete: bool, summary: 
         return False
     for path in (combined_csv, layout_csv, paired_csv):
         relative = require_trace_results_path(path, project_root, f"{dataset} external evidence source")
-        if not path.exists() or not is_git_path_committed(project_root, relative):
+        if not path.exists():
             return False
+        assert_git_path_is_committed(project_root, relative, f"{dataset} external evidence source")
     combined_frame = load_csv(combined_csv)
     layout_frame = load_csv(layout_csv)
     paired_frame = load_csv(paired_csv)
