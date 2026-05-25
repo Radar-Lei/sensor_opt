@@ -22,6 +22,8 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 
 **Phase 9 status note:** Phase 9 is complete because `09-02-SUMMARY.md` and the generated `ablation_contract.*` plus `dataset_evidence_classification.*` artifacts exist. This does not complete EVID-03/EVID-04 or open the fail-closed external evidence gate.
 
+**Phase 10 status note:** Phase 10 is complete because `theory_statement_contract.*` and `paper_foundation_handoff_manifest.*` exist as row-level paper-foundation artifacts. This does not generate manuscript prose and does not complete EVID-03/EVID-04.
+
 <details>
 <summary>v1.0 TRACE-SL Readiness (Phases 1–6) — SHIPPED 2026-05-23</summary>
 
@@ -40,7 +42,7 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 - [ ] **Phase 8: External Stage12 Evidence** - Complete mandatory PeMS7_1026 and Seattle Stage12 10-split external evidence before external claims are elevated.
 - [x] **Phase 8.5: Stage12 Performance Unblock** - Remove structural runtime blockers so PeMS7_1026 and Seattle can each complete at least one Stage12-compatible full seed before ten-split rerun.
 - [x] **Phase 9: Ablation and Evidence Classification** - Freeze the ablation logic and classify every dataset by evidence strength.
-- [ ] **Phase 10: Theory and Handoff Package** - Prepare theory-ready statements and reproducibility-safe paper-foundation handoff artifacts without manuscript prose.
+- [x] **Phase 10: Theory and Handoff Package** - Prepare theory-ready statements and reproducibility-safe paper-foundation handoff artifacts without manuscript prose.
 
 ## Phase Details
 
@@ -180,7 +182,11 @@ Plans:
   4. Author can open a paper-foundation handoff package that links each claim and table to committed summaries, generated tables, scripts, or manifests.
   5. Author can verify that the handoff contains no introduction, related work, method, results, limitations, abstract, conclusion, or other manuscript prose, and no committed raw traffic datasets.
 
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+**Wave 1**
+
+- [x] 10-01-PLAN.md — Generate Phase 10 theory-ready statements and reproducibility-safe handoff manifest.
 
 ## Progress
 
@@ -199,7 +205,7 @@ Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 | 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
 | 8.5. Stage12 Performance Unblock | v1.1 | 4/4 | Complete   | 2026-05-25 |
 | 9. Ablation and Evidence Classification | v1.1 | 3/3 | Complete   | 2026-05-25 |
-| 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
+| 10. Theory and Handoff Package | v1.1 | 1/1 | Complete   | 2026-05-25 |
 
 ## Coverage
 

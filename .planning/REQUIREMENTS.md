@@ -38,17 +38,17 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 
 ### Theory Foundation
 
-- [ ] **THEORY-01**: Author has a clean budgeted hidden-network reconstruction formulation with train/validation/test separation.
-- [ ] **THEORY-02**: Author has a posterior trace identity for the linear-Gaussian squared-error setting.
-- [ ] **THEORY-03**: Author has a monotonicity proposition showing additional sensors do not increase posterior covariance or posterior trace under the stated Gaussian linear model.
-- [ ] **THEORY-04**: Author has a validation-aware swap local-optimality statement over the one-swap neighborhood.
-- [ ] **THEORY-05**: Author has a complexity statement for the RCSS candidate/search/evaluation process.
+- [x] **THEORY-01**: Author has a clean budgeted hidden-network reconstruction formulation with train/validation/test separation.
+- [x] **THEORY-02**: Author has a posterior trace identity for the linear-Gaussian squared-error setting.
+- [x] **THEORY-03**: Author has a monotonicity proposition showing additional sensors do not increase posterior covariance or posterior trace under the stated Gaussian linear model.
+- [x] **THEORY-04**: Author has a validation-aware swap local-optimality statement over the one-swap neighborhood.
+- [x] **THEORY-05**: Author has a complexity statement for the RCSS candidate/search/evaluation process.
 
 ### Robustness and Handoff
 
 - [x] **HAND-01**: Author can keep robustness evidence as stress-test or appendix evidence unless multi-seed perturbation evidence is added.
-- [ ] **HAND-02**: Author has paper-foundation artifacts that a later writing milestone can consume without generating manuscript prose now.
-- [ ] **HAND-03**: Author has reproducibility-safe pointers from every paper-foundation claim/table to committed summaries, generated tables, scripts, or manifests without committing raw datasets.
+- [x] **HAND-02**: Author has paper-foundation artifacts that a later writing milestone can consume without generating manuscript prose now.
+- [x] **HAND-03**: Author has reproducibility-safe pointers from every paper-foundation claim/table to committed summaries, generated tables, scripts, or manifests without committing raw datasets.
 
 ## Future Requirements
 
@@ -103,14 +103,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ABLT-02 | Phase 9 | Complete |
 | ABLT-03 | Phase 9 | Complete |
 | ABLT-04 | Phase 9 | Complete |
-| THEORY-01 | Phase 10 | Pending |
-| THEORY-02 | Phase 10 | Pending |
-| THEORY-03 | Phase 10 | Pending |
-| THEORY-04 | Phase 10 | Pending |
-| THEORY-05 | Phase 10 | Pending |
+| THEORY-01 | Phase 10 | Complete |
+| THEORY-02 | Phase 10 | Complete |
+| THEORY-03 | Phase 10 | Complete |
+| THEORY-04 | Phase 10 | Complete |
+| THEORY-05 | Phase 10 | Complete |
 | HAND-01 | Phase 7 | Complete |
-| HAND-02 | Phase 10 | Pending |
-| HAND-03 | Phase 10 | Pending |
+| HAND-02 | Phase 10 | Complete |
+| HAND-03 | Phase 10 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 25 total
@@ -124,6 +124,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 - `EVID-05` is complete because `TRC-23-02333/trace_sl_results/paper_sources/dataset_evidence_classification.csv` classifies PeMS7_228, PeMS7_1026, Seattle, and robustness stress-test evidence by evidence class and allowed/blocked use.
 - `EVID-03` and `EVID-04` remain pending: `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.json` is fail-closed for PeMS7_1026 and Seattle ten-split Stage12 evidence.
 
+## Phase 10 Completion Rationale
+
+- `THEORY-01` through `THEORY-05` are complete because `TRC-23-02333/trace_sl_results/paper_sources/theory_statement_contract.csv` provides row-level scoped statements for formulation, posterior trace identity, monotonicity, validation-aware one-swap local optimality, and RCSS complexity.
+- `HAND-02` and `HAND-03` are complete because `TRC-23-02333/trace_sl_results/paper_sources/paper_foundation_handoff_manifest.csv` links the paper foundation to committed contracts, generated tables, scripts, and manifests without raw dataset paths or manuscript prose.
+- `EVID-03` and `EVID-04` remain pending after Phase 10; theory/handoff completion does not open the external Stage12 evidence gate.
+
 ---
 *Requirements defined: 2026/05/23*
-*Last updated: 2026/05/25 after Phase 9 ablation and dataset-classification artifact sync*
+*Last updated: 2026/05/25 after Phase 10 theory and handoff artifact sync*
