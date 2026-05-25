@@ -1,0 +1,97 @@
+{
+  "metadata": {
+    "generated_at_utc": "1970-01-01T00:00:00Z",
+    "generated_at_utc_note": "fixed deterministic timestamp; regenerate command provenance is captured by git commit/status",
+    "generated_by": "scripts/generate_trace_sl_theory_handoff_contracts.py",
+    "manuscript_heading_scan": "enforced_by_generator",
+    "manuscript_prose_policy": "row-level paper-foundation contracts only; no manuscript prose drafting",
+    "raw_dataset_policy": "protected local input only; excluded from handoff evidence artifacts",
+    "raw_dataset_policy_marker": "protected local raw dataset input prefix",
+    "requirements": [
+      "HAND-02/HAND-03",
+      "THEORY-01",
+      "THEORY-01/THEORY-02/THEORY-03/THEORY-04/THEORY-05/HAND-02",
+      "THEORY-02",
+      "THEORY-03",
+      "THEORY-04",
+      "THEORY-05"
+    ],
+    "row_counts": {
+      "paper_foundation_handoff_manifest": 7,
+      "theory_statement_contract": 5
+    },
+    "schema": "trace_sl_theory_handoff_contracts_v1",
+    "source_artifacts": [
+      "TRC-23-02333/trace_sl_results/paper_sources/ablation_contract.json",
+      "TRC-23-02333/trace_sl_results/paper_sources/claim_contract.json",
+      "TRC-23-02333/trace_sl_results/paper_sources/dataset_evidence_classification.json",
+      "TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.json",
+      "TRC-23-02333/trace_sl_results/paper_sources/main_table_contract.csv",
+      "TRC-23-02333/trace_sl_results/paper_sources/theory_statement_contract.json",
+      "TRC-23-02333/trace_sl_results/reproducibility_manifest.json",
+      "TRC-23-02333/transparent_estimator_eval.py"
+    ]
+  },
+  "theory_statement_contract": [
+    {
+      "assumptions": "fixed graph and candidate set; train/validation/test split separation; transparent GLS/MAP or GSP reconstruction; budget k derived from budget fraction",
+      "claim_route": "paper_foundation_formulation",
+      "non_claim_boundaries": "does not assert global optimality or guaranteed MAE improvement",
+      "requirement_id": "THEORY-01",
+      "scoped_statement": "Choose a fixed sensor set S with |S| <= k from observed candidates; learn reconstruction ingredients on training splits, tune layout selection on validation splits, and report final reconstruction only on held-out test splits after the selection rule is fixed.",
+      "source_artifact": "TRC-23-02333/trace_sl_results/paper_sources/claim_contract.json",
+      "source_role": "claim boundary and split-policy source",
+      "statement_id": "TH-01",
+      "statement_name": "budgeted_hidden_network_reconstruction",
+      "statement_type": "formulation"
+    },
+    {
+      "assumptions": "linear-Gaussian prior and observation model; squared-error loss; hidden-component posterior covariance computed after conditioning on selected sensors",
+      "claim_route": "theory_ready_identity",
+      "non_claim_boundaries": "does not convert posterior trace into an MAE guarantee for non-Gaussian traffic data",
+      "requirement_id": "THEORY-02",
+      "scoped_statement": "Under the stated linear-Gaussian squared-error model, the posterior covariance trace over hidden components equals the conditional expected squared reconstruction error up to the fixed observation/noise model used by the estimator.",
+      "source_artifact": "TRC-23-02333/transparent_estimator_eval.py",
+      "source_role": "posterior trace computation implementation",
+      "statement_id": "TH-02",
+      "statement_name": "posterior_trace_squared_error_identity",
+      "statement_type": "identity"
+    },
+    {
+      "assumptions": "same prior/noise model before and after adding the sensor; valid conditioning update; no model refit between nested sensor sets",
+      "claim_route": "theory_ready_monotonicity",
+      "non_claim_boundaries": "does not imply submodularity, approximation ratio, or monotone empirical MAE on every split",
+      "requirement_id": "THEORY-03",
+      "scoped_statement": "For the same linear-Gaussian model, conditioning on an additional sensor cannot increase the posterior covariance in positive-semidefinite order, so posterior trace is nonincreasing as sensors are added.",
+      "source_artifact": "TRC-23-02333/transparent_estimator_eval.py",
+      "source_role": "posterior covariance and trace helper implementation",
+      "statement_id": "TH-03",
+      "statement_name": "posterior_covariance_monotonicity",
+      "statement_type": "proposition"
+    },
+    {
+      "assumptions": "finite evaluated neighborhood; deterministic validation score for a fixed split and method; configured add/remove pools and iteration budget define the neighborhood",
+      "claim_route": "algorithmic_statement_local_search",
+      "non_claim_boundaries": "does not assert global optimality outside the evaluated one-swap neighborhood",
+      "requirement_id": "THEORY-04",
+      "scoped_statement": "A validation-aware swap output is locally optimal with respect to the evaluated one-swap neighborhood when no tested remove/add exchange from the configured candidate pool strictly improves validation reconstruction loss.",
+      "source_artifact": "TRC-23-02333/transparent_estimator_eval.py",
+      "source_role": "validation swap search implementation",
+      "statement_id": "TH-04",
+      "statement_name": "validation_aware_one_swap_local_optimality",
+      "statement_type": "local_optimality"
+    },
+    {
+      "assumptions": "finite candidate counts and budget list; transparent evaluator cost is measured per candidate/swap; launcher defaults define the reported workload",
+      "claim_route": "complexity_statement_workload_bound",
+      "non_claim_boundaries": "does not claim polynomial-time optimal placement certification or hardware-independent runtime guarantees",
+      "requirement_id": "THEORY-05",
+      "scoped_statement": "RCSS runtime can be stated as candidate generation plus candidate scoring plus validation-aware swap evaluation, scaling with the configured candidate counts, budgets, validation windows, swap starts, swap iterations, and add/remove pool sizes recorded by launchers and manifests.",
+      "source_artifact": "TRC-23-02333/trace_sl_results/reproducibility_manifest.json",
+      "source_role": "launcher defaults and reproducibility manifest",
+      "statement_id": "TH-05",
+      "statement_name": "rcss_candidate_search_evaluation_complexity",
+      "statement_type": "complexity"
+    }
+  ]
+}
