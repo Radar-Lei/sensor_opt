@@ -1,7 +1,7 @@
 # Roadmap: TRACE-SL Transportation Science Readiness
 
 **Created:** 2026/05/21
-**Last updated:** 2026/05/23
+**Last updated:** 2026/05/25
 
 ## Milestones
 
@@ -36,6 +36,7 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 
 - [x] **Phase 7: Claim and Main Table Contract** - Freeze the Transportation Science claim boundary, PeMS7_228 main table contract, caveats, and robustness routing.
 - [ ] **Phase 8: External Stage12 Evidence** - Complete mandatory PeMS7_1026 and Seattle Stage12 10-split external evidence before external claims are elevated.
+- [ ] **Phase 8.5: Stage12 Performance Unblock** - Remove structural runtime blockers so PeMS7_1026 and Seattle can each complete at least one Stage12-compatible full seed before ten-split rerun.
 - [ ] **Phase 9: Ablation and Evidence Classification** - Freeze the ablation logic and classify every dataset by evidence strength.
 - [ ] **Phase 10: Theory and Handoff Package** - Prepare theory-ready statements and reproducibility-safe paper-foundation handoff artifacts without manuscript prose.
 
@@ -85,6 +86,8 @@ Plans:
 
 **Gate status**: `paper_sources/external_evidence_gate.json` currently blocks v1.1 completion: PeMS7_1026 Stage12 aggregate artifacts are missing, Seattle Stage12 remains blocked by `stage12_status.json`, and Seattle is excluded from core claims until complete tracked ten-split evidence exists.
 
+**Runtime status**: real Stage12 execution exposed a structural runtime blocker; do not continue hard-waiting, do not count DRY_RUN or downscaled diagnostics as evidence, and route to Phase 8.5 before Phase 9.
+
 **Plans**: 5 plans
 Plans:
 **Wave 1**
@@ -104,10 +107,41 @@ Plans:
 
 - [x] 08-05-PLAN.md — Synchronize roadmap, requirements, and state with gate truth.
 
+### Phase 8.5: Stage12 Performance Unblock
+
+**Goal**: Author has runtime-only Stage12 evaluator and launcher improvements that let PeMS7_1026 and Seattle each complete at least one Stage12-compatible full seed before any ten-split evidence rerun or Phase 9 planning.
+**Depends on**: Phase 8
+**Requirements**: RUN-01, RUN-02, RUN-03, RUN-04
+**Success Criteria** (what must be TRUE):
+
+  1. Author can verify validation candidate scoring computes only the selected RCSS validation method and skips full multi-method evaluation/certificates during validation.
+  2. Author can verify constant observation-weight GLS/GSP solves use a fast path that avoids per-timestep dense solves while preserving output parity within documented tolerances.
+  3. Author can verify posterior/scenario trace scoring avoids repeated full dense inversions where a cached or low-rank update is valid.
+  4. Author can inspect progress logs or checkpoint artifacts for budget, candidate batch, and validation-swap progress during long Stage12 runs.
+  5. Author can run one Stage12-compatible full seed for PeMS7_1026 and one for Seattle to completion and aggregate their outputs without treating them as ten-split evidence.
+
+**Plans**: 4 plans
+Plans:
+**Wave 1**
+
+- [ ] 08.5-01-PLAN.md — Add selected-method validation and dense constant-weight solve fast paths.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 08.5-02-PLAN.md — Add cache-aware posterior/scenario trace scoring with parity checks.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 08.5-03-PLAN.md — Add progress/checkpoint diagnostics and Stage12 launcher feasibility wiring.
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 08.5-04-PLAN.md — Run non-evidence one-seed PeMS7_1026 and Seattle feasibility aggregates.
+
 ### Phase 9: Ablation and Evidence Classification
 
 **Goal**: Author has the ablation and dataset-classification evidence needed to explain why each TRACE-SL layer matters and where each dataset may be used.
-**Depends on**: Phase 8
+**Depends on**: Phase 8.5
 **Requirements**: ABLT-01, ABLT-02, ABLT-03, ABLT-04, EVID-05
 **Success Criteria** (what must be TRUE):
 
@@ -137,7 +171,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 7 → 8 → 9 → 10
+Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -148,8 +182,9 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | 5. Robustness and Generality | v1.0 | 4/4 | Complete | 2026-05-23 |
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
-| 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate |  |
-| 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Not started | - |
+| 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
+| 8.5. Stage12 Performance Unblock | v1.1 | 0/4 | Planned | - |
+| 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Blocked on Phase 8.5 | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 
 ## Coverage
@@ -164,6 +199,10 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | EVID-02 | Phase 7 |
 | EVID-03 | Phase 8 |
 | EVID-04 | Phase 8 |
+| RUN-01 | Phase 8.5 |
+| RUN-02 | Phase 8.5 |
+| RUN-03 | Phase 8.5 |
+| RUN-04 | Phase 8.5 |
 | EVID-05 | Phase 9 |
 | ABLT-01 | Phase 9 |
 | ABLT-02 | Phase 9 |
@@ -178,7 +217,7 @@ Phases execute in numeric order: 7 → 8 → 9 → 10
 | HAND-02 | Phase 10 |
 | HAND-03 | Phase 10 |
 
-**Coverage:** 21/21 v1.1 requirements mapped exactly once.
+**Coverage:** 25/25 v1.1 requirements mapped exactly once.
 
 ## Archived Artifacts
 
