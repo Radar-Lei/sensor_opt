@@ -78,6 +78,7 @@ ABLATION_CONTRACT_COLUMNS = (
 DATASET_CLASSIFICATION_COLUMNS = (
     "dataset",
     "evid_requirement",
+    "evidence_class",
     "evidence_lane",
     "evidence_status",
     "allowed_use",
@@ -439,6 +440,7 @@ def _gate_dataset(gate: dict[str, object], dataset: str) -> dict[str, object]:
 def _classification_row(
     dataset: str,
     evid_requirement: str,
+    evidence_class: str,
     evidence_lane: str,
     evidence_status: str,
     allowed_use: str,
@@ -458,6 +460,7 @@ def _classification_row(
     row = {
         "dataset": dataset,
         "evid_requirement": evid_requirement,
+        "evidence_class": evidence_class,
         "evidence_lane": evidence_lane,
         "evidence_status": evidence_status,
         "allowed_use": allowed_use,
@@ -499,6 +502,7 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
             "PeMS7_228",
             "EVID-01/ABLT-01",
             "core",
+            "core",
             "completed",
             "core in-domain ablation and main-table evidence where held-out Stage12 aggregates support the row",
             "external generalization or global robustness claims",
@@ -517,6 +521,7 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
         _classification_row(
             "PeMS7_1026",
             "EVID-03",
+            "external" if pems_complete else "conditional",
             "external" if pems_complete else "conditional",
             "completed" if pems_complete else str(pems_summary.get("evidence_status", "blocked") or "blocked"),
             "external/supporting PeMS discussion only until tracked ten-split Stage12 evidence exists",
@@ -537,6 +542,7 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
             "Seattle",
             "EVID-04",
             "conditional" if seattle_blocked else "external",
+            "conditional" if seattle_blocked else "external",
             "completed" if seattle_complete else str(seattle_summary.get("evidence_status", "blocked") or "blocked"),
             "external/transfer-style support only after complete tracked ten-split Stage12 evidence",
             "core claims while external_evidence_gate or stage12_status.json reports incomplete evidence",
@@ -555,6 +561,7 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
         _classification_row(
             "Robustness stress tests",
             "ABLT-04",
+            "appendix-only",
             "appendix-only",
             "supporting_stress_test",
             "appendix or bounded stress-test evidence for tested perturbations",
