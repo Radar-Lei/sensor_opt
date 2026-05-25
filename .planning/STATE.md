@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: completed
+status: executing
 stopped_at: "Phase 8 context updated: milestone stopped for runtime-only Stage12 optimization"
-last_updated: "2026-05-25T02:54:42.866Z"
-last_activity: 2026-05-24
+last_updated: "2026-05-25T08:11:43.823Z"
+last_activity: 2026-05-25 -- Phase 08.5 planning complete
 progress:
-  total_phases: 4
+  total_phases: 5
   completed_phases: 2
-  total_plans: 7
+  total_plans: 11
   completed_plans: 7
-  percent: 50
+  percent: 40
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026/05/23)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** Phase 08 — external-stage12-evidence
+**Current focus:** Phase 8.5 — stage12-performance-unblock
 
 ## Current Position
 
-Phase: 08 (external-stage12-evidence) — GATE BLOCKED
-Plan: 5 of 5
-Status: Phase execution artifacts are generated, but the Phase 8 gate blocks v1.1 completion because EVID-03 and EVID-04 remain incomplete.
-Last activity: 2026-05-24
+Phase: 8.5 (stage12-performance-unblock) — READY TO PLAN
+Plan: 0 of TBD
+Status: Ready to execute
+Last activity: 2026-05-25 -- Phase 08.5 planning complete
 
 Progress: [████████░░] 82%
 
@@ -46,6 +46,7 @@ Progress: [████████░░] 82%
 |-------|-------|-------|----------|
 | 7. Claim and Main Table Contract | 2/2 | 10min | 5min |
 | 8. External Stage12 Evidence | 5/5 | 44min | 9min |
+| 8.5. Stage12 Performance Unblock | 0/TBD | n/a | n/a |
 | 9. Ablation and Evidence Classification | 0/TBD | n/a | n/a |
 | 10. Theory and Handoff Package | 0/TBD | n/a | n/a |
 | 07 | 2 | - | - |
@@ -82,6 +83,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 08]: PeMS7_1026 Stage12 evidence remains fail-closed after DRY_RUN validation and an infeasible partial real run; EVID-03 is not complete until ten-split aggregate artifacts exist and are git-tracked. — The real launcher did not produce required aggregate artifacts, and the plan forbids claiming Stage12 completion from DRY_RUN or fake evidence.
 - [Phase 08]: Seattle Stage12 evidence remains fail-closed by `stage12_status.json`; EVID-04 is not complete and Seattle core claims remain blocked until complete tracked ten-split aggregate evidence exists.
 - [Phase 08]: `paper_sources/external_evidence_gate.json` is the machine gate: `v1_1_completion_allowed=false`, `pems7_1026_stage12_complete=false`, `seattle_stage12_complete=false`, and `seattle_core_claim_blocked=true`.
+- [Phase 8.5]: Stage12 performance unblock is required before Phase 9. Scope is runtime-only: fast validation, dense solve/posterior metric caching, progress checkpoints, and one full Stage12-compatible seed each for PeMS7_1026 and Seattle. Downscaled diagnostics and DRY_RUN outputs remain non-evidence.
 
 ### Pending Todos
 
@@ -91,6 +93,7 @@ None yet.
 
 - Phase 8 gate blocks v1.1 completion: PeMS7_1026 Stage12 aggregate artifacts are missing, so EVID-03 remains incomplete.
 - Phase 8 gate blocks Seattle core claims: Seattle Stage12 `stage12_status.json` reports blocked, so EVID-04 remains incomplete.
+- Phase 8.5 blocks Phase 9: Stage12 runtime must be optimized and one full Stage12-compatible seed for PeMS7_1026 and Seattle must complete before ten-split rerun planning.
 - All phases: do not draft manuscript prose in this milestone.
 
 ## Deferred Items

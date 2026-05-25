@@ -22,6 +22,13 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 - [ ] **EVID-04**: Author has completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim.
 - [ ] **EVID-05**: Author can classify each dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
 
+### Stage12 Runtime Unblock
+
+- [ ] **RUN-01**: Author has a runtime-only fast validation path that computes only the selected RCSS validation method without changing Stage12 evidence semantics.
+- [ ] **RUN-02**: Author has dense-solve performance fixes for constant observation weights and posterior/scenario trace scoring that preserve numerical outputs within documented tolerances.
+- [ ] **RUN-03**: Author has Stage12 progress logs or checkpoints that make long PeMS7_1026 and Seattle runs diagnosable before a full seed completes.
+- [ ] **RUN-04**: Author can complete at least one Stage12-compatible full seed for both PeMS7_1026 and Seattle before launching the formal ten-split rerun.
+
 ### Ablation Logic
 
 - [ ] **ABLT-01**: Author can compare random mean, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap variants.
@@ -87,6 +94,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EVID-02 | Phase 7 | Complete |
 | EVID-03 | Phase 8 | Pending |
 | EVID-04 | Phase 8 | Pending |
+| RUN-01 | Phase 8.5 | Pending |
+| RUN-02 | Phase 8.5 | Pending |
+| RUN-03 | Phase 8.5 | Pending |
+| RUN-04 | Phase 8.5 | Pending |
 | EVID-05 | Phase 9 | Pending |
 | ABLT-01 | Phase 9 | Pending |
 | ABLT-02 | Phase 9 | Pending |
@@ -102,11 +113,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HAND-03 | Phase 10 | Pending |
 
 **Coverage:**
-- v1.1 requirements: 21 total
-- Mapped to phases: 21
+- v1.1 requirements: 25 total
+- Mapped to phases: 25
 - Unmapped: 0
 - Duplicate mappings: 0
 
 ---
 *Requirements defined: 2026/05/23*
-*Last updated: 2026/05/23 after v1.1 roadmap creation*
+*Last updated: 2026/05/25 after adding Phase 8.5 runtime unblock requirements*
