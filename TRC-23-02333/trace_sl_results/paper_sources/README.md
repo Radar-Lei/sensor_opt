@@ -50,3 +50,17 @@ Generated files:
 - `dataset_evidence_classification.csv` / `dataset_evidence_classification.json` / `dataset_evidence_classification.md`: dataset evidence lanes and fail-closed EVID-03/EVID-04 status classification.
 
 Raw traffic datasets under `TRC-23-02333/dataset/` are protected local inputs and are not evidence artifacts.
+## Phase 10 Theory and Handoff Sources
+
+Regenerate Phase 10 theory and handoff contracts from the repository root with:
+
+```bash
+python scripts/generate_trace_sl_theory_handoff_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources
+```
+
+Generated files:
+
+- `theory_statement_contract.csv` / `theory_statement_contract.json` / `theory_statement_contract.md`: Phase 10 theory-ready scoped statements, assumptions, and non-claim boundaries.
+- `paper_foundation_handoff_manifest.csv` / `paper_foundation_handoff_manifest.json` / `paper_foundation_handoff_manifest.md`: reproducibility-safe paper-foundation artifact pointers for later writing.
+
+These are row-level paper-foundation contracts, not manuscript prose. Raw traffic datasets under `TRC-23-02333/dataset/` are protected local inputs and are not evidence artifacts.
