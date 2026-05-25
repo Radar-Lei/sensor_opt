@@ -1,5 +1,6 @@
 import importlib.util
 import unittest
+from argparse import Namespace
 from pathlib import Path
 
 import numpy as np
@@ -112,6 +113,47 @@ class Stage12RuntimeTraceCacheTests(unittest.TestCase):
         self.assertEqual(scenario_first, scenario_second)
         self.assertIn("base", cache)
         self.assertGreaterEqual(len(cache["base"]), 1)
+
+    def test_make_rcss_row_cache_matches_direct_metrics(self):
+        cache = {}
+        val = np.array(
+            [
+                [10.0, 11.0, 12.0, 13.0, 14.0],
+                [10.5, 11.5, 12.5, 13.5, 14.5],
+                [11.0, 12.0, 13.0, 14.0, 15.0],
+            ],
+            dtype=float,
+        )
+        tod = np.tile(val.mean(axis=0), (tee.SLOTS_PER_DAY, 1))
+        distance = np.abs(np.arange(5).reshape(-1, 1) - np.arange(5).reshape(1, -1)).astype(float)
+        args = Namespace(
+            selection_method="historical_tod_mean",
+            obs_weight=self.obs_weight,
+            cvar_tail_fraction=0.5,
+        )
+
+        row = tee.make_rcss_row(
+            "synthetic",
+            0,
+            self.layouts[1],
+            val,
+            tod,
+            distance,
+            tee.make_laplacian(distance),
+            self.base_matrix,
+            val.mean(axis=0),
+            val.std(axis=0) + 1e-6,
+            self.base_matrix,
+            self.scenario_matrices,
+            args,
+            trace_cache=cache,
+        )
+
+        expected_trace = float(np.trace(self.direct_posterior_inverse(self.base_matrix, self.layouts[1])))
+        self.assertAlmostEqual(row["posterior_trace"], expected_trace, delta=1e-8)
+        self.assertIn("base", cache)
+        self.assertIn("trace", cache)
+        self.assertIn("condition", cache)
 
 
 if __name__ == "__main__":
