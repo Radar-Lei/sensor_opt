@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: verifying
-stopped_at: Completed 08.5-03-PLAN.md
-last_updated: "2026-05-25T10:17:14.113Z"
+status: ready_to_plan
+stopped_at: Phase 08.5 complete (4/4) — ready to discuss Phase 9
+last_updated: 2026-05-25T10:51:33.240Z
 last_activity: 2026-05-25
 progress:
   total_phases: 5
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026/05/23)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** Phase 08.5 — stage12-performance-unblock
+**Current focus:** Phase 9 — ablation and evidence classification
 
 ## Current Position
 
-Phase: 08.5 (stage12-performance-unblock) — EXECUTING
-Plan: 4 of 4
-Status: Phase complete — ready for verification
+Phase: 9
+Plan: Not started
+Status: Ready to plan
 Last activity: 2026-05-25
 
 Progress: [██████████] 100%
@@ -51,6 +51,7 @@ Progress: [██████████] 100%
 | 10. Theory and Handoff Package | 0/TBD | n/a | n/a |
 | 07 | 2 | - | - |
 | 08 | 1 | 5min | 5min |
+| 08.5 | 4 | - | - |
 
 **Recent Trend:**
 
