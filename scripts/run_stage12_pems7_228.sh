@@ -14,6 +14,7 @@ VALIDATION_SWAP_ITER="${VALIDATION_SWAP_ITER:-5}"
 VALIDATION_SWAP_ADD_POOL="${VALIDATION_SWAP_ADD_POOL:-20}"
 VALIDATION_SWAP_REMOVE_POOL="${VALIDATION_SWAP_REMOVE_POOL:-8}"
 THREADS_PER_JOB="${THREADS_PER_JOB:-1}"
+MAX_JOBS="${MAX_JOBS:-2}"
 DRY_RUN="${DRY_RUN:-0}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 
@@ -34,6 +35,9 @@ run_or_print() {
     "$@"
   fi
 }
+
+running_jobs=0
+status=0
 
 for seed in ${SEEDS}; do
   eval_cmd=(
@@ -66,9 +70,29 @@ for seed in ${SEEDS}; do
   if [ "${DRY_RUN}" = "1" ]; then
     run_or_print "${eval_cmd[@]}"
   else
-    "${eval_cmd[@]}" 2>&1 | tee "${OUTPUT_DIR}_seed_${seed}.log"
+    (
+      "${eval_cmd[@]}" > "${OUTPUT_DIR}_seed_${seed}.log" 2>&1
+    ) &
+    running_jobs=$((running_jobs + 1))
+    if [ "${running_jobs}" -ge "${MAX_JOBS}" ]; then
+      if ! wait -n; then
+        status=1
+      fi
+      running_jobs=$((running_jobs - 1))
+    fi
   fi
 done
+
+while [ "${running_jobs}" -gt 0 ]; do
+  if ! wait -n; then
+    status=1
+  fi
+  running_jobs=$((running_jobs - 1))
+done
+
+if [ "${status}" -ne 0 ]; then
+  exit "${status}"
+fi
 
 run_or_print "${PYTHON_BIN}" TRC-23-02333/summarize_trace_sl_rcss.py \
   --input-root "${OUTPUT_DIR}" \
