@@ -20,6 +20,8 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 - Phases 7–10: v1.1 paper-foundation milestone work
 - Decimal phases: urgent insertions between planned phases if needed
 
+**Phase 9 status note:** Phase 9 is complete because `09-02-SUMMARY.md` and the generated `ablation_contract.*` plus `dataset_evidence_classification.*` artifacts exist. This does not complete EVID-03/EVID-04 or open the fail-closed external evidence gate.
+
 <details>
 <summary>v1.0 TRACE-SL Readiness (Phases 1–6) — SHIPPED 2026-05-23</summary>
 
@@ -37,7 +39,7 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 - [x] **Phase 7: Claim and Main Table Contract** - Freeze the Transportation Science claim boundary, PeMS7_228 main table contract, caveats, and robustness routing.
 - [ ] **Phase 8: External Stage12 Evidence** - Complete mandatory PeMS7_1026 and Seattle Stage12 10-split external evidence before external claims are elevated.
 - [x] **Phase 8.5: Stage12 Performance Unblock** - Remove structural runtime blockers so PeMS7_1026 and Seattle can each complete at least one Stage12-compatible full seed before ten-split rerun.
-- [ ] **Phase 9: Ablation and Evidence Classification** - Freeze the ablation logic and classify every dataset by evidence strength.
+- [x] **Phase 9: Ablation and Evidence Classification** - Freeze the ablation logic and classify every dataset by evidence strength.
 - [ ] **Phase 10: Theory and Handoff Package** - Prepare theory-ready statements and reproducibility-safe paper-foundation handoff artifacts without manuscript prose.
 
 ## Phase Details
@@ -159,11 +161,11 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 09-02-PLAN.md — Generate Phase 9 paper-source artifacts and run integrity gates.
+- [x] 09-02-PLAN.md — Generate Phase 9 paper-source artifacts and run integrity gates.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 09-03-PLAN.md — Synchronize requirements, roadmap, and state with Phase 9 artifact truth.
+- [x] 09-03-PLAN.md — Synchronize requirements, roadmap, and state with Phase 9 artifact truth.
 
 ### Phase 10: Theory and Handoff Package
 
@@ -196,7 +198,7 @@ Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
 | 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
 | 8.5. Stage12 Performance Unblock | v1.1 | 4/4 | Complete   | 2026-05-25 |
-| 9. Ablation and Evidence Classification | v1.1 | 1/3 | In Progress|  |
+| 9. Ablation and Evidence Classification | v1.1 | 3/3 | Complete | 2026-05-25 |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 
 ## Coverage
