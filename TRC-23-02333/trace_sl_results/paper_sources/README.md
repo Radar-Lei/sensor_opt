@@ -35,3 +35,18 @@ Generated files:
 - `external_evidence_gate.json` / `external_evidence_gate.md`: machine-checkable PeMS7_1026 and Seattle Stage12 completion gate; Seattle remains blocked from core claims unless complete tracked ten-split Stage12 evidence is present.
 
 Raw traffic datasets under `TRC-23-02333/dataset/` are protected local inputs and are not evidence artifacts.
+
+## Phase 9 Ablation and Dataset Classification Sources
+
+Regenerate Phase 9 ablation contracts from the repository root with:
+
+```bash
+python scripts/generate_trace_sl_ablation_evidence_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources
+```
+
+Generated files:
+
+- `ablation_contract.csv` / `ablation_contract.json` / `ablation_contract.md`: Phase 9 ablation rows with layer, question, held-out evidence basis, paired-stat honesty, and caveat routing.
+- `dataset_evidence_classification.csv` / `dataset_evidence_classification.json` / `dataset_evidence_classification.md`: dataset evidence lanes and fail-closed EVID-03/EVID-04 status classification.
+
+Raw traffic datasets under `TRC-23-02333/dataset/` are protected local inputs and are not evidence artifacts.

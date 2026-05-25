@@ -712,7 +712,11 @@ def main(argv: list[str] | None = None) -> None:
     )
     write_json(
         output_dir / "ablation_contract.json",
-        {"metadata": contracts["metadata"], "ablation_contract": contracts["ablation_contract"]},
+        {
+            "schema": "trace_sl_ablation_contract_v1",
+            "metadata": contracts["metadata"],
+            "ablation_contract": contracts["ablation_contract"],
+        },
     )
     write_table_outputs(
         contracts["dataset_evidence_classification"],
@@ -722,9 +726,12 @@ def main(argv: list[str] | None = None) -> None:
     )
     write_json(
         output_dir / "dataset_evidence_classification.json",
-        {"metadata": contracts["metadata"], "dataset_evidence_classification": contracts["dataset_evidence_classification"]},
+        {
+            "schema": "trace_sl_dataset_evidence_classification_v1",
+            "metadata": contracts["metadata"],
+            "dataset_evidence_classification": contracts["dataset_evidence_classification"],
+        },
     )
-    (output_dir / "ablation_evidence_contracts.md").write_text(render_contract_index(contracts["metadata"]), encoding="utf-8")
     write_readme(output_dir)
     print(f"wrote ablation_contract: {len(contracts['ablation_contract'])} rows")
     print(f"wrote dataset_evidence_classification: {len(contracts['dataset_evidence_classification'])} rows")
