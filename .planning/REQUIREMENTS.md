@@ -118,6 +118,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Unmapped: 0
 - Duplicate mappings: 0
 
+## Phase 9 Completion Rationale
+
+- `ABLT-01`, `ABLT-02`, `ABLT-03`, and `ABLT-04` are complete because `TRC-23-02333/trace_sl_results/paper_sources/ablation_contract.csv` exposes the required random, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap row families with component-layer fields.
+- `EVID-05` is complete because `TRC-23-02333/trace_sl_results/paper_sources/dataset_evidence_classification.csv` classifies PeMS7_228, PeMS7_1026, Seattle, and robustness stress-test evidence by evidence class and allowed/blocked use.
+- `EVID-03` and `EVID-04` remain pending: `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.json` is fail-closed for PeMS7_1026 and Seattle ten-split Stage12 evidence.
+
 ---
 *Requirements defined: 2026/05/23*
-*Last updated: 2026/05/25 after adding Phase 8.5 runtime unblock requirements*
+*Last updated: 2026/05/25 after Phase 9 ablation and dataset-classification artifact sync*

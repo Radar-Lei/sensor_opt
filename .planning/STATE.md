@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
 status: executing
-stopped_at: Completed 09-01-PLAN.md
-last_updated: "2026-05-25T11:32:37.548Z"
+stopped_at: Completed 09-02-PLAN.md
+last_updated: "2026-05-25T11:36:25Z"
 last_activity: 2026-05-25
 progress:
   total_phases: 5
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026/05/23)
 
 Phase: 09 (Ablation and Evidence Classification) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Synchronizing planning metadata after Phase 9 artifacts
 Last activity: 2026-05-25
 
-Progress: [█████████░] 86%
+Progress: [█████████░] 93%
 
 ## Performance Metrics
 
@@ -104,6 +104,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 09 Plan 01]: Robustness remains appendix-only/supporting stress-test evidence unless future multi-seed perturbation evidence is explicitly added.
 - [Phase 09]: Plan 02 paper-source artifacts expose explicit ablation layer fields, evidence_class vocabulary, and fail-closed external gate snapshots for downstream writing without changing EVID-03/EVID-04.
 - [Phase 09]: Plan 02 keeps PeMS7_1026 and Seattle conditional and non-core in dataset classification until complete tracked ten-split Stage12 aggregate evidence exists.
+- [Phase 09 Plan 03]: Phase 9 requirements ABLT-01 through ABLT-04 and EVID-05 are complete because `ablation_contract.csv` and `dataset_evidence_classification.csv` exist as generated CSV/JSON-first paper-source artifacts.
+- [Phase 09 Plan 03]: PeMS7_228 remains the core in-domain ablation dataset; PeMS7_1026 and Seattle remain non-core/conditional until `external_evidence_gate.json` allows EVID-03/EVID-04 ten-split Stage12 completion.
+- [Phase 09 Plan 03]: Manuscript prose remains deferred; Phase 9 artifacts are row-level planning and paper-source evidence, not introduction, method, results, limitations, abstract, or conclusion text.
 
 ### Pending Todos
 
