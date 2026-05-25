@@ -36,7 +36,7 @@ v1.1 freezes the Transportation Science paper foundation before manuscript draft
 
 - [x] **Phase 7: Claim and Main Table Contract** - Freeze the Transportation Science claim boundary, PeMS7_228 main table contract, caveats, and robustness routing.
 - [ ] **Phase 8: External Stage12 Evidence** - Complete mandatory PeMS7_1026 and Seattle Stage12 10-split external evidence before external claims are elevated.
-- [ ] **Phase 8.5: Stage12 Performance Unblock** - Remove structural runtime blockers so PeMS7_1026 and Seattle can each complete at least one Stage12-compatible full seed before ten-split rerun.
+- [x] **Phase 8.5: Stage12 Performance Unblock** - Remove structural runtime blockers so PeMS7_1026 and Seattle can each complete at least one Stage12-compatible full seed before ten-split rerun.
 - [ ] **Phase 9: Ablation and Evidence Classification** - Freeze the ablation logic and classify every dataset by evidence strength.
 - [ ] **Phase 10: Theory and Handoff Package** - Prepare theory-ready statements and reproducibility-safe paper-foundation handoff artifacts without manuscript prose.
 
@@ -151,7 +151,19 @@ Plans:
   4. Author can classify every dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
   5. Author can describe RCSS as certificate layer, validation layer, and local refinement layer without presenting it as a kitchen-sink heuristic.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [ ] 09-01-PLAN.md — Create tested fail-closed generator for ablation and dataset-classification contracts.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 09-02-PLAN.md — Generate Phase 9 paper-source artifacts and run integrity gates.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 09-03-PLAN.md — Synchronize requirements, roadmap, and state with Phase 9 artifact truth.
 
 ### Phase 10: Theory and Handoff Package
 
@@ -184,7 +196,7 @@ Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
 | 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
 | 8.5. Stage12 Performance Unblock | v1.1 | 4/4 | Complete   | 2026-05-25 |
-| 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Blocked on Phase 8.5 | - |
+| 9. Ablation and Evidence Classification | v1.1 | 0/3 | Planned | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 
 ## Coverage
