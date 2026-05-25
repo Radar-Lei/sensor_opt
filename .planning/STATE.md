@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: phase_complete
-stopped_at: Completed 10-01-PLAN.md
+status: blocked
+stopped_at: Completed Phase 10; blocked by EVID-03/EVID-04 external Stage12 gate
 last_updated: "2026-05-25T12:00:00.000Z"
 last_activity: 2026-05-25
 progress:
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026/05/23)
 
 Phase: 10 (Theory and Handoff Package) — COMPLETE
 Plan: 1 of 1
-Status: Phase 10 complete; theory/handoff artifacts are ready for a later writing milestone without starting manuscript prose
+Status: Phase 10 complete; v1.1 milestone remains blocked by EVID-03/EVID-04 external Stage12 ten-split gate
 Last activity: 2026-05-25
 
 Progress: [██████████] 100%

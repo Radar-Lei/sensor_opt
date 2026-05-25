@@ -6,7 +6,7 @@
 ## Milestones
 
 - [shipped] **v1.0 TRACE-SL Readiness** — Phases 1–6 shipped 2026-05-23 ([archive](milestones/v1.0-ROADMAP.md))
-- [active] **v1.1 TRACE-SL Transportation Science Paper Foundation** — Phases 7–10 planned
+- [blocked] **v1.1 TRACE-SL Transportation Science Paper Foundation** — Phase 10 complete, but EVID-03/EVID-04 external Stage12 ten-split evidence gate remains closed
 
 ## Overview
 
