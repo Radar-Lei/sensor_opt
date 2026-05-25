@@ -907,18 +907,24 @@ def rcss_candidate_scores(rows, args, weights=None):
     return rows
 
 
-def make_rcss_row(source, layout_id, sensors, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
+def make_rcss_row(source, layout_id, sensors, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None, include_diagnostics=True):
     sensors = np.array(sorted(int(x) for x in sensors), dtype=int)
-    return {
+    row = {
         "source": source,
         "layout_id": layout_id,
         "sensors": sensors,
         "validation_mae": validation_mae(val, tod, distance, laplacian, precision, mean, std, sensors, args),
-        "posterior_trace": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
-        "scenario_cvar_trace": scenario_cvar_trace_for_layout(scenario_matrices, sensors, args.obs_weight, args.cvar_tail_fraction, trace_cache=trace_cache),
-        "condition_number": posterior_condition_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
-        "coverage_penalty": coverage_penalty(distance, sensors),
     }
+    if include_diagnostics:
+        row.update(
+            {
+                "posterior_trace": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
+                "scenario_cvar_trace": scenario_cvar_trace_for_layout(scenario_matrices, sensors, args.obs_weight, args.cvar_tail_fraction, trace_cache=trace_cache),
+                "condition_number": posterior_condition_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
+                "coverage_penalty": coverage_penalty(distance, sensors),
+            }
+        )
+    return row
 
 
 def build_rcss_rows(candidates, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None, budget=None, progress_stage="rcss_candidate_batch"):
@@ -1059,7 +1065,23 @@ def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance,
                 trial = set(selected)
                 trial.remove(remove_node)
                 trial.add(add_node)
-                row = make_rcss_row("validation_swap", iteration + 1, np.array(sorted(trial), dtype=int), val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
+                row = make_rcss_row(
+                    "validation_swap",
+                    iteration + 1,
+                    np.array(sorted(trial), dtype=int),
+                    val,
+                    tod,
+                    distance,
+                    laplacian,
+                    precision,
+                    mean,
+                    std,
+                    gls_matrix,
+                    scenario_matrices,
+                    args,
+                    trace_cache=trace_cache,
+                    include_diagnostics=False,
+                )
                 trials.append((row, remove_node, add_node, trial))
         if not trials:
             write_progress(
@@ -1095,7 +1117,7 @@ def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance,
         row, remove_node, add_node, trial = min(trials, key=lambda item: item[0]["validation_mae"])
         selected = trial
         best_sensors = np.array(sorted(selected), dtype=int)
-        best_row = row
+        best_row.update(row)
         candidate_nodes = [node for node in candidate_nodes if node != add_node]
         if remove_node not in candidate_nodes:
             candidate_nodes.append(remove_node)
