@@ -114,6 +114,43 @@ class Stage12RuntimeTraceCacheTests(unittest.TestCase):
         self.assertIn("base", cache)
         self.assertGreaterEqual(len(cache["base"]), 1)
 
+    def test_validation_mae_cache_does_not_reuse_stale_matrix_ids(self):
+        n_nodes = 5
+        test = np.array(
+            [
+                [10.0, 11.0, 12.0, 13.0, 14.0],
+                [10.5, 11.5, 12.5, 13.5, 14.5],
+                [11.0, 12.0, 13.0, 14.0, 15.0],
+            ],
+            dtype=float,
+        )
+        tod = np.tile(test.mean(axis=0), (tee.SLOTS_PER_DAY, 1))
+        distance = np.abs(np.arange(n_nodes).reshape(-1, 1) - np.arange(n_nodes).reshape(1, -1)).astype(float)
+        laplacian = tee.make_laplacian(distance)
+        precision = self.base_matrix.copy()
+        mean = test.mean(axis=0)
+        std = test.std(axis=0) + 1e-6
+        sensors = np.array([0, 2], dtype=int)
+        cache = {}
+        args = Namespace(
+            selection_method="gls_map",
+            obs_weight=self.obs_weight,
+            gls_prior_weight=1.0,
+            gsp_lambda=0.3,
+            prior_gamma=0.7,
+            num_neighbors=2,
+        )
+
+        for _ in range(100):
+            args.selection_method = "gls_map"
+            gls_cached = tee.validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args, cache)
+            gls_direct = tee.validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args, {})
+            args.selection_method = "gsp"
+            gsp_cached = tee.validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args, cache)
+            gsp_direct = tee.validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args, {})
+            self.assertAlmostEqual(gls_cached, gls_direct, delta=1e-10)
+            self.assertAlmostEqual(gsp_cached, gsp_direct, delta=1e-10)
+
     def test_make_rcss_row_cache_matches_direct_metrics(self):
         cache = {}
         val = np.array(

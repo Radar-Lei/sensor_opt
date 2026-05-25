@@ -270,7 +270,8 @@ def write_progress(args, stage, budget=None, **counts):
     if progress_log:
         progress_path = Path(progress_log)
         progress_path.parent.mkdir(parents=True, exist_ok=True)
-        with progress_path.open("a", encoding="utf-8") as handle:
+        mode = "w" if stage == "run_start" else "a"
+        with progress_path.open(mode, encoding="utf-8") as handle:
             handle.write(json.dumps(record, sort_keys=True) + "\n")
     if checkpoint_json:
         checkpoint_path = Path(checkpoint_json)
@@ -547,13 +548,15 @@ def posterior_base_cache_entry(base_matrix, trace_cache):
         return None
     key = id(base_matrix)
     entry = bucket.get(key)
-    if entry is None:
-        inverse = linalg.inv(base_matrix)
-        entry = {
-            "inverse": inverse,
-            "trace": float(np.trace(inverse)),
-        }
-        bucket[key] = entry
+    if entry is not None and entry.get("matrix_ref") is base_matrix:
+        return entry
+    inverse = linalg.inv(base_matrix)
+    entry = {
+        "matrix_ref": base_matrix,
+        "inverse": inverse,
+        "trace": float(np.trace(inverse)),
+    }
+    bucket[key] = entry
     return entry
 
 

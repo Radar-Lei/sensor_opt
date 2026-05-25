@@ -2,11 +2,13 @@
 status: complete
 ---
 
-# TRACE-SL RCSS Multi-Split Summary
+# TRACE-SL RCSS Feasibility Summary
 
-## Mean GLS/MAP test MAE across splits
+This artifact is a single-seed non-evidence feasibility run (`non_evidence_feasibility_run: true`), not ten-split paper evidence.
 
-Robustness and candidate-sensitivity tables are grouped by condition columns when present. These aggregates are stress-test evidence for the evaluated perturbations and split settings, not a universal deployment guarantee.
+## GLS/MAP test MAE for single split seed 25
+
+Robustness and candidate-sensitivity tables are grouped by condition columns when present. These aggregates are feasibility diagnostics for this single split setting, not a universal deployment guarantee.
 
 ```
  budget robustness_family robustness_condition  failure_rate  noise_scale  missing_rate  missing_block_steps cost_proxy  cost_budget split_mode                   layout_type     mean      std  count
