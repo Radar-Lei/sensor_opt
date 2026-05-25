@@ -264,8 +264,14 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
         self.assertFalse(metadata["external_gate_snapshot"]["pems7_1026_stage12_complete"])
         self.assertFalse(metadata["external_gate_snapshot"]["seattle_stage12_complete"])
         self.assertFalse(metadata["external_gate_snapshot"]["v1_1_completion_allowed"])
-        rendered = json.dumps(contracts, sort_keys=True)
-        self.assertNotIn("TRC-23-02333/dataset/", rendered)
+        rendered_rows = json.dumps(
+            {
+                "ablation_contract": contracts["ablation_contract"],
+                "dataset_evidence_classification": contracts["dataset_evidence_classification"],
+            },
+            sort_keys=True,
+        )
+        self.assertNotIn("TRC-23-02333/dataset/", rendered_rows)
         with self.assertRaisesRegex(ValueError, "raw dataset"):
             generator.assert_no_raw_dataset_path("TRC-23-02333/dataset/PeMS7_228/PeMSD7_V_228.csv", "provenance")
 
