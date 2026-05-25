@@ -332,6 +332,16 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "not committed in HEAD"):
             generator.build_ablation_contract(self.root)
 
+    def test_dirty_committed_core_evidence_is_rejected(self) -> None:
+        generator = self.import_generator()
+        paths = self.make_core_stage12_sources()
+        self.make_external_gate()
+        layout_csv = next(path for path in paths if path.name == "gls_map_layout_summary.csv")
+        pd.DataFrame(self.layout_rows(split_count=5)).to_csv(layout_csv, index=False)
+
+        with self.assertRaisesRegex(ValueError, "uncommitted changes"):
+            generator.build_ablation_contract(self.root)
+
     def test_non_boolean_external_gate_values_fail_closed(self) -> None:
         generator = self.import_generator()
         self.make_core_stage12_sources()
@@ -387,6 +397,45 @@ class AblationEvidenceContractGenerationTests(unittest.TestCase):
         self.assertFalse(by_dataset["PeMS7_1026"]["core_claim_eligible"])
         self.assertFalse(by_dataset["Seattle"]["requirement_complete"])
         self.assertFalse(by_dataset["Seattle"]["core_claim_eligible"])
+
+    def test_external_gate_completion_requires_real_aggregate_split_counts(self) -> None:
+        generator = self.import_generator()
+        self.make_core_stage12_sources()
+        base = "TRC-23-02333/trace_sl_results/pems7_1026_stage12_feasibility_seed25"
+        paths = [
+            self.write_csv(f"{base}/combined_metrics.csv", self.combined_rows(split_count=1)),
+            self.write_csv(f"{base}/gls_map_layout_summary.csv", self.layout_rows(split_count=10)),
+            self.write_csv(f"{base}/gls_map_paired_delta_tests.csv", self.paired_rows()),
+        ]
+        self.track(*paths)
+        self.make_external_gate(pems_complete=True, seattle_complete=False)
+
+        rows = generator.build_dataset_classification(self.root)
+        pems = {str(row["dataset"]): row for row in rows}["PeMS7_1026"]
+
+        self.assertFalse(pems["requirement_complete"])
+        self.assertFalse(pems["core_claim_eligible"])
+
+    def test_external_gate_completion_requires_paired_evidence_counts(self) -> None:
+        generator = self.import_generator()
+        self.make_core_stage12_sources()
+        base = "TRC-23-02333/trace_sl_results/pems7_1026_stage12_feasibility_seed25"
+        paired_rows = self.paired_rows()
+        for row in paired_rows:
+            row["count"] = 1
+        paths = [
+            self.write_csv(f"{base}/combined_metrics.csv", self.combined_rows(split_count=10)),
+            self.write_csv(f"{base}/gls_map_layout_summary.csv", self.layout_rows(split_count=10)),
+            self.write_csv(f"{base}/gls_map_paired_delta_tests.csv", paired_rows),
+        ]
+        self.track(*paths)
+        self.make_external_gate(pems_complete=True, seattle_complete=False)
+
+        rows = generator.build_dataset_classification(self.root)
+        pems = {str(row["dataset"]): row for row in rows}["PeMS7_1026"]
+
+        self.assertFalse(pems["requirement_complete"])
+        self.assertFalse(pems["core_claim_eligible"])
 
 
 if __name__ == "__main__":

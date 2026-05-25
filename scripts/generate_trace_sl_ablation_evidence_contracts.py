@@ -150,6 +150,14 @@ def is_git_path_committed(project_root: Path, relative: str) -> bool:
 def assert_git_path_is_committed(project_root: Path, relative: str, label: str) -> None:
     if not is_git_path_committed(project_root, relative):
         raise ValueError(f"{label} is not committed in HEAD: {relative}")
+    result = subprocess.run(
+        ["git", "-C", str(project_root), "diff", "--quiet", "HEAD", "--", relative],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise ValueError(f"{label} has uncommitted changes relative to HEAD: {relative}")
 
 
 def load_csv(path: Path) -> pd.DataFrame:
@@ -503,22 +511,54 @@ def _classification_row(
     return row
 
 
+def aggregate_split_count(combined_frame: pd.DataFrame) -> int:
+    if "split_seed" not in combined_frame.columns:
+        return 0
+    return int(combined_frame["split_seed"].dropna().nunique())
+
+
+def layout_summary_complete(layout_frame: pd.DataFrame, required_split_count: int) -> bool:
+    if not {"layout_type", "count"}.issubset(layout_frame.columns):
+        return False
+    selected = layout_frame[layout_frame["layout_type"].astype(str).eq(MAIN_METHOD_LABEL)]
+    if selected.empty:
+        return False
+    return bool((selected["count"].astype(int) == required_split_count).all())
+
+
+def paired_summary_complete(paired_frame: pd.DataFrame, required_split_count: int) -> bool:
+    required = {"layout", "baseline", "count", *PAIRED_STAT_COLUMNS}
+    if not required.issubset(paired_frame.columns):
+        return False
+    selected = paired_frame[paired_frame["layout"].astype(str).eq(MAIN_METHOD_LABEL)]
+    if selected.empty:
+        return False
+    if not (selected["count"].astype(int) == required_split_count).all():
+        return False
+    return not selected.loc[:, list(PAIRED_STAT_COLUMNS)].isna().any().any()
+
+
 def external_dataset_complete(project_root: Path, gate_complete: bool, summary: dict[str, object], dataset: str) -> bool:
     required = int(summary.get("required_split_count", REQUIRED_SPLIT_COUNT) or REQUIRED_SPLIT_COUNT)
     actual = int(summary.get("actual_split_count", 0) or 0)
     source_dir = project_root / str(summary.get("source_dir", TRACE_RESULTS_ROOT / f"{dataset.lower()}_stage12_baseline_portfolio"))
-    required_files = (
-        source_dir / "combined_metrics.csv",
-        source_dir / "gls_map_layout_summary.csv",
-        source_dir / "gls_map_paired_delta_tests.csv",
-    )
+    combined_csv = source_dir / "combined_metrics.csv"
+    layout_csv = source_dir / "gls_map_layout_summary.csv"
+    paired_csv = source_dir / "gls_map_paired_delta_tests.csv"
     if not gate_complete or actual != required:
         return False
-    for path in required_files:
+    for path in (combined_csv, layout_csv, paired_csv):
         relative = require_trace_results_path(path, project_root, f"{dataset} external evidence source")
         if not path.exists() or not is_git_path_committed(project_root, relative):
             return False
-    return True
+    combined_frame = load_csv(combined_csv)
+    layout_frame = load_csv(layout_csv)
+    paired_frame = load_csv(paired_csv)
+    return (
+        aggregate_split_count(combined_frame) == required
+        and layout_summary_complete(layout_frame, required)
+        and paired_summary_complete(paired_frame, required)
+    )
 
 
 def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
