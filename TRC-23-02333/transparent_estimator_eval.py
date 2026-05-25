@@ -492,20 +492,105 @@ def scenario_greedy_layout(base_matrices, sensor_count, obs_weight, objective, t
     return np.array(selected, dtype=int)
 
 
-def posterior_inverse_for_layout(base_matrix, sensors, obs_weight):
+def posterior_cache_bucket(trace_cache, name):
+    if trace_cache is None:
+        return None
+    return trace_cache.setdefault(name, {})
+
+
+def posterior_base_cache_entry(base_matrix, trace_cache):
+    bucket = posterior_cache_bucket(trace_cache, "base")
+    if bucket is None:
+        return None
+    key = id(base_matrix)
+    entry = bucket.get(key)
+    if entry is None:
+        inverse = linalg.inv(base_matrix)
+        entry = {
+            "inverse": inverse,
+            "trace": float(np.trace(inverse)),
+        }
+        bucket[key] = entry
+    return entry
+
+
+def posterior_cache_layout_key(base_matrix, sensors, obs_weight):
+    sensors = tuple(int(x) for x in np.asarray(sensors, dtype=int).tolist())
+    return (id(base_matrix), sensors, float(obs_weight))
+
+
+def can_use_posterior_cache(obs_weight):
+    weight = np.asarray(obs_weight, dtype=float)
+    return weight.ndim == 0 and float(weight) > 0.0 and np.isfinite(float(weight))
+
+
+def posterior_inverse_from_base_inverse(base_inverse, sensors, obs_weight):
+    sensors = np.asarray(sensors, dtype=int)
+    if sensors.size == 0:
+        return base_inverse.copy()
+    weight = float(obs_weight)
+    sensor_cov = base_inverse[np.ix_(sensors, sensors)]
+    small_system = sensor_cov + (1.0 / weight) * np.eye(sensors.size)
+    columns = base_inverse[:, sensors]
+    try:
+        factor = linalg.cho_factor(small_system, lower=False, check_finite=False)
+        solved = linalg.cho_solve(factor, columns.T, check_finite=False)
+    except linalg.LinAlgError:
+        solved = linalg.solve(small_system, columns.T, assume_a="pos")
+    posterior = base_inverse - columns @ solved
+    return (posterior + posterior.T) / 2.0
+
+
+def posterior_trace_from_base_inverse(base_inverse, sensors, obs_weight, base_trace):
+    sensors = np.asarray(sensors, dtype=int)
+    if sensors.size == 0:
+        return float(base_trace)
+    weight = float(obs_weight)
+    sensor_cov = base_inverse[np.ix_(sensors, sensors)]
+    small_system = sensor_cov + (1.0 / weight) * np.eye(sensors.size)
+    columns = base_inverse[:, sensors]
+    try:
+        factor = linalg.cho_factor(small_system, lower=False, check_finite=False)
+        solved = linalg.cho_solve(factor, columns.T, check_finite=False)
+    except linalg.LinAlgError:
+        solved = linalg.solve(small_system, columns.T, assume_a="pos")
+    return float(base_trace - np.sum(columns * solved.T))
+
+
+def posterior_inverse_for_layout(base_matrix, sensors, obs_weight, trace_cache=None):
+    if can_use_posterior_cache(obs_weight):
+        entry = posterior_base_cache_entry(base_matrix, trace_cache)
+        if entry is not None:
+            return posterior_inverse_from_base_inverse(entry["inverse"], sensors, obs_weight)
     selector = np.zeros(base_matrix.shape[0])
     selector[np.asarray(sensors, dtype=int)] = obs_weight
     return linalg.inv(base_matrix + np.diag(selector))
 
 
-def posterior_trace_for_layout(base_matrix, sensors, obs_weight):
+def posterior_trace_for_layout(base_matrix, sensors, obs_weight, trace_cache=None):
+    if can_use_posterior_cache(obs_weight):
+        bucket = posterior_cache_bucket(trace_cache, "trace")
+        entry = posterior_base_cache_entry(base_matrix, trace_cache)
+        if bucket is not None and entry is not None:
+            key = posterior_cache_layout_key(base_matrix, sensors, obs_weight)
+            if key not in bucket:
+                bucket[key] = posterior_trace_from_base_inverse(entry["inverse"], sensors, obs_weight, entry["trace"])
+            return bucket[key]
     return float(np.trace(posterior_inverse_for_layout(base_matrix, sensors, obs_weight)))
 
 
-def posterior_condition_for_layout(base_matrix, sensors, obs_weight):
+def posterior_condition_for_layout(base_matrix, sensors, obs_weight, trace_cache=None):
+    bucket = posterior_cache_bucket(trace_cache, "condition")
+    if bucket is not None and np.asarray(obs_weight, dtype=float).ndim == 0:
+        key = posterior_cache_layout_key(base_matrix, sensors, obs_weight)
+        if key in bucket:
+            return bucket[key]
     selector = np.zeros(base_matrix.shape[0])
     selector[np.asarray(sensors, dtype=int)] = obs_weight
-    return float(np.linalg.cond(base_matrix + np.diag(selector)))
+    value = float(np.linalg.cond(base_matrix + np.diag(selector)))
+    if bucket is not None and np.asarray(obs_weight, dtype=float).ndim == 0:
+        bucket[key] = value
+    return value
 
 
 def posterior_logdet_for_layout(base_matrix, sensors, obs_weight):
@@ -515,8 +600,8 @@ def posterior_logdet_for_layout(base_matrix, sensors, obs_weight):
     return float(logdet if sign > 0 else np.nan)
 
 
-def scenario_cvar_trace_for_layout(base_matrices, sensors, obs_weight, tail_fraction):
-    traces = np.array([posterior_trace_for_layout(matrix, sensors, obs_weight) for matrix in base_matrices], dtype=float)
+def scenario_cvar_trace_for_layout(base_matrices, sensors, obs_weight, tail_fraction, trace_cache=None):
+    traces = np.array([posterior_trace_for_layout(matrix, sensors, obs_weight, trace_cache=trace_cache) for matrix in base_matrices], dtype=float)
     tail_count = max(1, int(math.ceil(len(traces) * tail_fraction)))
     return float(np.sort(traces)[-tail_count:].mean())
 
@@ -779,21 +864,21 @@ def rcss_candidate_scores(rows, args, weights=None):
     return rows
 
 
-def make_rcss_row(source, layout_id, sensors, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args):
+def make_rcss_row(source, layout_id, sensors, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
     sensors = np.array(sorted(int(x) for x in sensors), dtype=int)
     return {
         "source": source,
         "layout_id": layout_id,
         "sensors": sensors,
         "validation_mae": validation_mae(val, tod, distance, laplacian, precision, mean, std, sensors, args),
-        "posterior_trace": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight),
-        "scenario_cvar_trace": scenario_cvar_trace_for_layout(scenario_matrices, sensors, args.obs_weight, args.cvar_tail_fraction),
-        "condition_number": posterior_condition_for_layout(gls_matrix, sensors, args.obs_weight),
+        "posterior_trace": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
+        "scenario_cvar_trace": scenario_cvar_trace_for_layout(scenario_matrices, sensors, args.obs_weight, args.cvar_tail_fraction, trace_cache=trace_cache),
+        "condition_number": posterior_condition_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
         "coverage_penalty": coverage_penalty(distance, sensors),
     }
 
 
-def build_rcss_rows(candidates, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args):
+def build_rcss_rows(candidates, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
     rows = []
     seen = set()
     for source, layout_id, sensors in candidates:
@@ -802,15 +887,15 @@ def build_rcss_rows(candidates, eval_data, tod, distance, laplacian, precision, 
         if key in seen:
             continue
         seen.add(key)
-        rows.append(make_rcss_row(source, layout_id, sensors, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args))
+        rows.append(make_rcss_row(source, layout_id, sensors, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache))
     if not rows:
         raise ValueError("RCSS requires at least one candidate layout")
     return rows
 
 
-def select_auto_rcss_weights(candidates, selector_val, tuner_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args):
-    selector_rows = build_rcss_rows(candidates, selector_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args)
-    tuner_rows = build_rcss_rows(candidates, tuner_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args)
+def select_auto_rcss_weights(candidates, selector_val, tuner_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
+    selector_rows = build_rcss_rows(candidates, selector_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
+    tuner_rows = build_rcss_rows(candidates, tuner_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
     tuner_by_key = {tuple(row["sensors"].tolist()): row["validation_mae"] for row in tuner_rows}
     best = None
     for weights in parse_weight_grid(args.rcss_auto_weight_grid):
@@ -830,17 +915,17 @@ def select_auto_rcss_weights(candidates, selector_val, tuner_val, tod, distance,
     return selected, final_rows, weights
 
 
-def select_rcss_candidate(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args):
-    rows = build_rcss_rows(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args)
+def select_rcss_candidate(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
+    rows = build_rcss_rows(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
     rows = rcss_candidate_scores(rows, args)
     return min(rows, key=lambda row: row["rcss_score"]), rows
 
 
-def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, rng):
+def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, rng, trace_cache=None):
     selected = set(int(x) for x in initial_sensors)
     n_nodes = gls_matrix.shape[0]
     best_sensors = np.array(sorted(selected), dtype=int)
-    best_row = make_rcss_row("validation_swap", 0, best_sensors, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args)
+    best_row = make_rcss_row("validation_swap", 0, best_sensors, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
     candidate_nodes = [int(x) for x in candidate_nodes if int(x) not in selected]
     history = []
     for iteration in range(args.validation_swap_iter):
@@ -851,11 +936,11 @@ def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance,
             remove_scores = []
             for node in remove_pool:
                 trial = np.array(sorted(selected - {node}), dtype=int)
-                remove_scores.append((posterior_trace_for_layout(gls_matrix, trial, args.obs_weight), node))
+                remove_scores.append((posterior_trace_for_layout(gls_matrix, trial, args.obs_weight, trace_cache=trace_cache), node))
             remove_pool = [node for _, node in sorted(remove_scores, reverse=True)[: args.validation_swap_remove_pool]]
         add_pool = candidate_nodes
         if args.validation_swap_add_pool > 0 and len(add_pool) > args.validation_swap_add_pool:
-            posterior_inv = posterior_inverse_for_layout(gls_matrix, sorted(selected), args.obs_weight)
+            posterior_inv = posterior_inverse_for_layout(gls_matrix, sorted(selected), args.obs_weight, trace_cache=trace_cache)
             add_scores = [(float(posterior_inv[node, node]), node) for node in add_pool]
             add_pool = [node for _, node in sorted(add_scores, reverse=True)[: args.validation_swap_add_pool]]
         trials = []
@@ -866,7 +951,7 @@ def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance,
                 trial = set(selected)
                 trial.remove(remove_node)
                 trial.add(add_node)
-                row = make_rcss_row("validation_swap", iteration + 1, np.array(sorted(trial), dtype=int), val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args)
+                row = make_rcss_row("validation_swap", iteration + 1, np.array(sorted(trial), dtype=int), val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
                 trials.append((row, remove_node, add_node, trial))
         if not trials:
             break
@@ -1151,6 +1236,7 @@ def main():
     rcss_records = []
     rng = np.random.default_rng(args.layout_seed)
     gls_matrix = args.gls_prior_weight * precision
+    trace_cache = {}
     cost_proxy_values = derive_cost_proxy(train, distance) if args.cost_proxy != "none" else None
     for budget in args.budgets:
         sensor_count = max(1, min(n_nodes - 1, int(round(n_nodes * budget))))
@@ -1165,7 +1251,7 @@ def main():
                 layout_id,
                 sensors,
                 validation_mae(val, tod, distance, laplacian, precision, mean, std, sensors, args),
-                posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight),
+                posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
             )
             for layout_id, sensors in random_layouts
         ]
@@ -1253,7 +1339,7 @@ def main():
             rcss_candidates = []
             for layout_id, sensors, _, _ in sorted(random_validation, key=lambda item: item[2])[: args.rcss_random_candidates]:
                 rcss_candidates.append(("random_validation_pool", layout_id, sensors))
-            posterior_inv = posterior_inverse_for_layout(gls_matrix, [], args.obs_weight)
+            posterior_inv = posterior_inverse_for_layout(gls_matrix, [], args.obs_weight, trace_cache=trace_cache)
             quality = np.diag(posterior_inv)
             for candidate_id in range(args.rcss_quality_candidates):
                 sensors = quality_coverage_sample(distance, quality, sensor_count, rng, args.rcss_coverage_power)
@@ -1307,6 +1393,7 @@ def main():
                     gls_matrix,
                     scenario_matrices,
                     args,
+                    trace_cache=trace_cache,
                 )
             else:
                 rcss_best, rcss_all = select_rcss_candidate(
@@ -1321,6 +1408,7 @@ def main():
                     gls_matrix,
                     scenario_matrices,
                     args,
+                    trace_cache=trace_cache,
                 )
                 selected_weights = (
                     args.rcss_validation_weight,
@@ -1349,6 +1437,7 @@ def main():
                         scenario_matrices,
                         args,
                         rng,
+                        trace_cache=trace_cache,
                     )
                     swap_row["source"] = "validation_swap"
                     swap_row["layout_id"] = start_rank
@@ -1372,7 +1461,7 @@ def main():
                 "sensor_count": sensor_count,
                 "layout_type": layout_type,
                 "layout_id": layout_id,
-                "posterior_trace_objective": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight),
+                "posterior_trace_objective": posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
                 "validation_selected_mae": float(validation_selected_mae) if np.isfinite(validation_selected_mae) else None,
                 "sensors": sorted(int(x) for x in sensors),
             }
