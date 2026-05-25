@@ -567,21 +567,37 @@ def can_use_posterior_cache(obs_weight):
     return weight.ndim == 0 and float(weight) > 0.0 and np.isfinite(float(weight))
 
 
+def solve_selected_sensor_system(base_inverse, sensors, obs_weight, rhs):
+    sensors = np.asarray(sensors, dtype=int)
+    if sensors.size == 0:
+        return np.zeros((0, rhs.shape[1]), dtype=float)
+    weight = float(obs_weight)
+    sensor_cov = base_inverse[np.ix_(sensors, sensors)]
+    small_system = sensor_cov + (1.0 / weight) * np.eye(sensors.size)
+    try:
+        factor = linalg.cho_factor(small_system, lower=False, check_finite=False)
+        return linalg.cho_solve(factor, rhs, check_finite=False)
+    except linalg.LinAlgError:
+        return linalg.solve(small_system, rhs, assume_a="pos")
+
+
 def posterior_inverse_from_base_inverse(base_inverse, sensors, obs_weight):
     sensors = np.asarray(sensors, dtype=int)
     if sensors.size == 0:
         return base_inverse.copy()
-    weight = float(obs_weight)
-    sensor_cov = base_inverse[np.ix_(sensors, sensors)]
-    small_system = sensor_cov + (1.0 / weight) * np.eye(sensors.size)
     columns = base_inverse[:, sensors]
-    try:
-        factor = linalg.cho_factor(small_system, lower=False, check_finite=False)
-        solved = linalg.cho_solve(factor, columns.T, check_finite=False)
-    except linalg.LinAlgError:
-        solved = linalg.solve(small_system, columns.T, assume_a="pos")
+    solved = solve_selected_sensor_system(base_inverse, sensors, obs_weight, columns.T)
     posterior = base_inverse - columns @ solved
     return (posterior + posterior.T) / 2.0
+
+
+def posterior_gain_from_base_inverse(base_inverse, sensors, obs_weight):
+    sensors = np.asarray(sensors, dtype=int)
+    if sensors.size == 0:
+        return np.zeros((base_inverse.shape[0], 0), dtype=float)
+    columns = base_inverse[:, sensors]
+    solved = solve_selected_sensor_system(base_inverse, sensors, obs_weight, np.eye(sensors.size))
+    return columns @ solved
 
 
 def posterior_trace_from_base_inverse(base_inverse, sensors, obs_weight, base_trace):
@@ -592,11 +608,7 @@ def posterior_trace_from_base_inverse(base_inverse, sensors, obs_weight, base_tr
     sensor_cov = base_inverse[np.ix_(sensors, sensors)]
     small_system = sensor_cov + (1.0 / weight) * np.eye(sensors.size)
     columns = base_inverse[:, sensors]
-    try:
-        factor = linalg.cho_factor(small_system, lower=False, check_finite=False)
-        solved = linalg.cho_solve(factor, columns.T, check_finite=False)
-    except linalg.LinAlgError:
-        solved = linalg.solve(small_system, columns.T, assume_a="pos")
+    solved = solve_selected_sensor_system(base_inverse, sensors, obs_weight, columns.T)
     return float(base_trace - np.sum(columns * solved.T))
 
 
@@ -819,7 +831,7 @@ def robust_coverage_cvar_layout(base_matrices, distance, sensor_count, obs_weigh
     return np.array(selected, dtype=int)
 
 
-def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args):
+def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args, trace_cache=None):
     n_nodes = test.shape[1]
     sensors = np.array(sorted(sensors), dtype=int)
     hidden = np.array([i for i in range(n_nodes) if i not in set(sensors)], dtype=int)
@@ -845,6 +857,15 @@ def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors
         matrix = args.gls_prior_weight * precision
     else:
         raise ValueError(f"Unsupported selection method: {method}")
+
+    if can_use_posterior_cache(args.obs_weight):
+        entry = posterior_base_cache_entry(matrix, trace_cache)
+        if entry is not None:
+            residual = observed_z[:, sensors] - prior_z[:, sensors]
+            gain = posterior_gain_from_base_inverse(entry["inverse"], sensors, args.obs_weight)
+            pred_z = prior_z + residual @ gain.T
+            pred = mean + std * pred_z
+            return metrics(pred[:, hidden], true_hidden)["mae"]
 
     pred_z, _ = solve_quadratic(observed_z, prior_z, sensors, matrix, args.obs_weight)
     pred = mean + std * pred_z
@@ -913,7 +934,7 @@ def make_rcss_row(source, layout_id, sensors, val, tod, distance, laplacian, pre
         "source": source,
         "layout_id": layout_id,
         "sensors": sensors,
-        "validation_mae": validation_mae(val, tod, distance, laplacian, precision, mean, std, sensors, args),
+        "validation_mae": validation_mae(val, tod, distance, laplacian, precision, mean, std, sensors, args, trace_cache=trace_cache),
     }
     if include_diagnostics:
         row.update(
@@ -1428,7 +1449,7 @@ def main():
             (
                 layout_id,
                 sensors,
-                validation_mae(val, tod, distance, laplacian, precision, mean, std, sensors, args),
+                validation_mae(val, tod, distance, laplacian, precision, mean, std, sensors, args, trace_cache=trace_cache),
                 posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache),
             )
             for layout_id, sensors in random_layouts
