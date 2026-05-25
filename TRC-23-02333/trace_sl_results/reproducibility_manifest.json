@@ -3826,6 +3826,1550 @@
         }
       ],
       "stage": "supporting"
+    },
+    {
+      "claim_status": "external Stage12 ten-split evidence",
+      "directory": "pems7_1026_stage12_baseline_portfolio",
+      "inventory": {
+        "artifact_count": 113,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/SUMMARY.md",
+            "size_bytes": 118818
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/candidate_sensitivity_summary.csv",
+            "size_bytes": 20265
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/certificate_correlation_summary.csv",
+            "size_bytes": 1307
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/combined_certificate_correlations.csv",
+            "size_bytes": 4192
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/combined_metrics.csv",
+            "size_bytes": 2992761
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/combined_rcss_candidates.csv",
+            "size_bytes": 8371316
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_ablation_summary.csv",
+            "size_bytes": 3885
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_delta_summary.csv",
+            "size_bytes": 7590
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+            "size_bytes": 7260
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+            "size_bytes": 25192
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_per_split_winners.csv",
+            "size_bytes": 3058
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_win_counts.csv",
+            "size_bytes": 918
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_25_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_26_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_27_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_28_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_29_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_30_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_31_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_32_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_33_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/progress/seed_34_checkpoint.json",
+            "size_bytes": 451
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/rcss_selected_sources.csv",
+            "size_bytes": 766
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/config.json",
+            "size_bytes": 2507
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/layouts.json",
+            "size_bytes": 1044967
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/metrics.csv",
+            "size_bytes": 301518
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/metrics.json",
+            "size_bytes": 1216086
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/rcss_candidates.csv",
+            "size_bytes": 837867
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/rcss_candidates.json",
+            "size_bytes": 2162638
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_25/swap_history.json",
+            "size_bytes": 79841
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/layouts.json",
+            "size_bytes": 1044910
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/metrics.csv",
+            "size_bytes": 301217
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/metrics.json",
+            "size_bytes": 1215785
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/rcss_candidates.csv",
+            "size_bytes": 837900
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/rcss_candidates.json",
+            "size_bytes": 2162671
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_26/swap_history.json",
+            "size_bytes": 80239
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/certificate_correlations.csv",
+            "size_bytes": 449
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/layouts.json",
+            "size_bytes": 1044841
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/metrics.csv",
+            "size_bytes": 301465
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/metrics.json",
+            "size_bytes": 1216033
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/rcss_candidates.csv",
+            "size_bytes": 837893
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/rcss_candidates.json",
+            "size_bytes": 2162664
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_27/swap_history.json",
+            "size_bytes": 80840
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/certificate_correlations.csv",
+            "size_bytes": 445
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/layouts.json",
+            "size_bytes": 1044934
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/metrics.csv",
+            "size_bytes": 301496
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/metrics.json",
+            "size_bytes": 1216064
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/rcss_candidates.csv",
+            "size_bytes": 837922
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/rcss_candidates.json",
+            "size_bytes": 2162693
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_28/swap_history.json",
+            "size_bytes": 79964
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/certificate_correlations.csv",
+            "size_bytes": 456
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/layouts.json",
+            "size_bytes": 1044953
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/metrics.csv",
+            "size_bytes": 301315
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/metrics.json",
+            "size_bytes": 1215883
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/rcss_candidates.csv",
+            "size_bytes": 836561
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/rcss_candidates.json",
+            "size_bytes": 2159316
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_29/swap_history.json",
+            "size_bytes": 81508
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/certificate_correlations.csv",
+            "size_bytes": 445
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/layouts.json",
+            "size_bytes": 1045066
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/metrics.csv",
+            "size_bytes": 301342
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/metrics.json",
+            "size_bytes": 1215910
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/rcss_candidates.csv",
+            "size_bytes": 837946
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/rcss_candidates.json",
+            "size_bytes": 2162717
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_30/swap_history.json",
+            "size_bytes": 81015
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/certificate_correlations.csv",
+            "size_bytes": 448
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/layouts.json",
+            "size_bytes": 1044814
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/metrics.csv",
+            "size_bytes": 300929
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/metrics.json",
+            "size_bytes": 1215497
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/rcss_candidates.csv",
+            "size_bytes": 837791
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/rcss_candidates.json",
+            "size_bytes": 2162562
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_31/swap_history.json",
+            "size_bytes": 81100
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/certificate_correlations.csv",
+            "size_bytes": 447
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/layouts.json",
+            "size_bytes": 1044955
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/metrics.csv",
+            "size_bytes": 301509
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/metrics.json",
+            "size_bytes": 1216077
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/rcss_candidates.csv",
+            "size_bytes": 838461
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/rcss_candidates.json",
+            "size_bytes": 2163232
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_32/swap_history.json",
+            "size_bytes": 80880
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/SUMMARY.md",
+            "size_bytes": 31646
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/certificate_correlations.csv",
+            "size_bytes": 448
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/layouts.json",
+            "size_bytes": 1044898
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/metrics.csv",
+            "size_bytes": 301001
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/metrics.json",
+            "size_bytes": 1215569
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/rcss_candidates.csv",
+            "size_bytes": 837964
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/rcss_candidates.json",
+            "size_bytes": 2162735
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_33/swap_history.json",
+            "size_bytes": 81403
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/SUMMARY.md",
+            "size_bytes": 31658
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/config.json",
+            "size_bytes": 2503
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/layouts.json",
+            "size_bytes": 1044988
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/metrics.csv",
+            "size_bytes": 301104
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/metrics.json",
+            "size_bytes": 1215672
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/rcss_candidates.csv",
+            "size_bytes": 837666
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/rcss_candidates.json",
+            "size_bytes": 2162437
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/seed_34/swap_history.json",
+            "size_bytes": 80144
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
+      },
+      "launcher": "scripts/run_stage12_pems7_1026.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' NUM_LAYOUTS='100' OUTPUT_DIR='TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='100' RCSS_RANDOM_CANDIDATES='100' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29 30 31 32 33 34' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage12_pems7_1026.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.10",
+          "0.20",
+          "0.30"
+        ],
+        "NUM_LAYOUTS": "100",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio",
+        "PYTHON_BIN": "python",
+        "RCSS_QUALITY_CANDIDATES": "100",
+        "RCSS_RANDOM_CANDIDATES": "100",
+        "SCENARIO_COUNT": "8",
+        "SEEDS": [
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "30",
+        "VALIDATION_SWAP_ITER": "8",
+        "VALIDATION_SWAP_REMOVE_POOL": "10",
+        "VALIDATION_SWAP_STARTS": "3"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/SUMMARY.md",
+          "size_bytes": 118818
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/combined_metrics.csv",
+          "size_bytes": 2992761
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+          "size_bytes": 7260
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_delta_summary.csv",
+          "size_bytes": 7590
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+          "size_bytes": 25192
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_win_counts.csv",
+          "size_bytes": 918
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/rcss_selected_sources.csv",
+          "size_bytes": 766
+        }
+      ],
+      "stage": "external-stage12"
+    },
+    {
+      "claim_status": "external Stage12 ten-split evidence",
+      "directory": "seattle_stage12_baseline_portfolio",
+      "inventory": {
+        "artifact_count": 114,
+        "artifacts": [
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/SUMMARY.md",
+            "size_bytes": 118860
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/candidate_sensitivity_summary.csv",
+            "size_bytes": 20211
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/certificate_correlation_summary.csv",
+            "size_bytes": 1304
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/combined_certificate_correlations.csv",
+            "size_bytes": 4189
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/combined_metrics.csv",
+            "size_bytes": 1712188
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/combined_rcss_candidates.csv",
+            "size_bytes": 2004500
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_ablation_summary.csv",
+            "size_bytes": 3895
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_delta_summary.csv",
+            "size_bytes": 7573
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+            "size_bytes": 7281
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+            "size_bytes": 25158
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_per_split_winners.csv",
+            "size_bytes": 3092
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_win_counts.csv",
+            "size_bytes": 771
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_25_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_26_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_27_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_28_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_29_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_30_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_31_checkpoint.json",
+            "size_bytes": 440
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_32_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_33_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/progress/seed_34_checkpoint.json",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/rcss_selected_sources.csv",
+            "size_bytes": 962
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/certificate_correlations.csv",
+            "size_bytes": 450
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/layouts.json",
+            "size_bytes": 282469
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/metrics.csv",
+            "size_bytes": 172558
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/metrics.json",
+            "size_bytes": 705826
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/rcss_candidates.csv",
+            "size_bytes": 200919
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/rcss_candidates.json",
+            "size_bytes": 618982
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_25/swap_history.json",
+            "size_bytes": 80060
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/certificate_correlations.csv",
+            "size_bytes": 453
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/layouts.json",
+            "size_bytes": 282417
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/metrics.csv",
+            "size_bytes": 172616
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/metrics.json",
+            "size_bytes": 705884
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/rcss_candidates.csv",
+            "size_bytes": 200910
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/rcss_candidates.json",
+            "size_bytes": 618973
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_26/swap_history.json",
+            "size_bytes": 80737
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/certificate_correlations.csv",
+            "size_bytes": 443
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/layouts.json",
+            "size_bytes": 282432
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/metrics.csv",
+            "size_bytes": 172565
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/metrics.json",
+            "size_bytes": 705833
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/rcss_candidates.csv",
+            "size_bytes": 200926
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/rcss_candidates.json",
+            "size_bytes": 618989
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_27/swap_history.json",
+            "size_bytes": 79806
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/certificate_correlations.csv",
+            "size_bytes": 444
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/layouts.json",
+            "size_bytes": 282323
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/metrics.csv",
+            "size_bytes": 172488
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/metrics.json",
+            "size_bytes": 705756
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/rcss_candidates.csv",
+            "size_bytes": 200836
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/rcss_candidates.json",
+            "size_bytes": 618899
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_28/swap_history.json",
+            "size_bytes": 80180
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/certificate_correlations.csv",
+            "size_bytes": 442
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/layouts.json",
+            "size_bytes": 282422
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/metrics.csv",
+            "size_bytes": 172578
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/metrics.json",
+            "size_bytes": 705846
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/rcss_candidates.csv",
+            "size_bytes": 200949
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/rcss_candidates.json",
+            "size_bytes": 619012
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_29/swap_history.json",
+            "size_bytes": 80596
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/certificate_correlations.csv",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/layouts.json",
+            "size_bytes": 282486
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/metrics.csv",
+            "size_bytes": 172559
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/metrics.json",
+            "size_bytes": 705827
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/rcss_candidates.csv",
+            "size_bytes": 200986
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/rcss_candidates.json",
+            "size_bytes": 619049
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_30/swap_history.json",
+            "size_bytes": 78512
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/SUMMARY.md",
+            "size_bytes": 31408
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/certificate_correlations.csv",
+            "size_bytes": 447
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/layouts.json",
+            "size_bytes": 282420
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/metrics.csv",
+            "size_bytes": 172450
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/metrics.json",
+            "size_bytes": 705718
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/rcss_candidates.csv",
+            "size_bytes": 200918
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/rcss_candidates.json",
+            "size_bytes": 618981
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_31/swap_history.json",
+            "size_bytes": 80701
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/SUMMARY.md",
+            "size_bytes": 31408
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/certificate_correlations.csv",
+            "size_bytes": 446
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/layouts.json",
+            "size_bytes": 282360
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/metrics.csv",
+            "size_bytes": 172520
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/metrics.json",
+            "size_bytes": 705788
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/rcss_candidates.csv",
+            "size_bytes": 200830
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/rcss_candidates.json",
+            "size_bytes": 618893
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_32/swap_history.json",
+            "size_bytes": 81031
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/certificate_correlations.csv",
+            "size_bytes": 448
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/layouts.json",
+            "size_bytes": 282391
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/metrics.csv",
+            "size_bytes": 172580
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/metrics.json",
+            "size_bytes": 705848
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/rcss_candidates.csv",
+            "size_bytes": 200878
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/rcss_candidates.json",
+            "size_bytes": 618941
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_33/swap_history.json",
+            "size_bytes": 81370
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/SUMMARY.md",
+            "size_bytes": 31388
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/certificate_correlations.csv",
+            "size_bytes": 441
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/config.json",
+            "size_bytes": 2482
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/layouts.json",
+            "size_bytes": 282496
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/metrics.csv",
+            "size_bytes": 172632
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/metrics.json",
+            "size_bytes": 705900
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/rcss_candidates.csv",
+            "size_bytes": 201008
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/rcss_candidates.json",
+            "size_bytes": 619071
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/seed_34/swap_history.json",
+            "size_bytes": 79675
+          },
+          {
+            "exists": true,
+            "is_evidence_artifact": true,
+            "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/stage12_status.json",
+            "size_bytes": 511
+          }
+        ],
+        "directory": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio",
+        "exists": true,
+        "raw_dataset_policy": "excluded_from_evidence",
+        "raw_dataset_prefix": "protected local raw dataset input prefix"
+      },
+      "launcher": "scripts/run_stage12_seattle.sh",
+      "launcher_command_template": "BUDGETS='0.10 0.20 0.30' NUM_LAYOUTS='50' OUTPUT_DIR='TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio' PYTHON_BIN='python' RCSS_QUALITY_CANDIDATES='50' RCSS_RANDOM_CANDIDATES='50' SCENARIO_COUNT='8' SEEDS='25 26 27 28 29 30 31 32 33 34' THREADS_PER_JOB='1' VALIDATION_SWAP_ADD_POOL='30' VALIDATION_SWAP_ITER='8' VALIDATION_SWAP_REMOVE_POOL='10' VALIDATION_SWAP_STARTS='3' bash scripts/run_stage12_seattle.sh",
+      "launcher_defaults": {
+        "BUDGETS": [
+          "0.10",
+          "0.20",
+          "0.30"
+        ],
+        "NUM_LAYOUTS": "50",
+        "OUTPUT_DIR": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio",
+        "PYTHON_BIN": "python",
+        "RCSS_QUALITY_CANDIDATES": "50",
+        "RCSS_RANDOM_CANDIDATES": "50",
+        "SCENARIO_COUNT": "8",
+        "SEEDS": [
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34"
+        ],
+        "THREADS_PER_JOB": "1",
+        "VALIDATION_SWAP_ADD_POOL": "30",
+        "VALIDATION_SWAP_ITER": "8",
+        "VALIDATION_SWAP_REMOVE_POOL": "10",
+        "VALIDATION_SWAP_STARTS": "3"
+      },
+      "launcher_exists": true,
+      "required_artifacts": [
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/SUMMARY.md",
+          "size_bytes": 118860
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/combined_metrics.csv",
+          "size_bytes": 1712188
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_layout_summary.csv",
+          "size_bytes": 7281
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_delta_summary.csv",
+          "size_bytes": 7573
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
+          "size_bytes": 25158
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_win_counts.csv",
+          "size_bytes": 771
+        },
+        {
+          "exists": true,
+          "is_evidence_artifact": true,
+          "path": "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/rcss_selected_sources.csv",
+          "size_bytes": 962
+        }
+      ],
+      "stage": "external-stage12"
     }
   ],
   "environment": {
@@ -3863,16 +5407,11 @@
   "generated_by": "scripts/generate_trace_sl_repro_manifest.py",
   "git": {
     "branch": "main",
-    "commit": "4910f0508c8ee133fdcf8cd6385cf25f43b5af27",
+    "commit": "e3491f819c3f277b63c8d3929fd51e369fd0c92f",
     "commit_scope": "latest commit affecting manifest generator inputs; generated manifest outputs excluded for idempotence",
     "raw_dataset_policy": "protected local input only; excluded from paper-visible evidence artifacts",
-    "status_short_relevant": [
-      " M TRC-23-02333/trace_sl_results/REPRODUCIBILITY_MANIFEST.md",
-      " M TRC-23-02333/trace_sl_results/reproducibility_manifest.json",
-      " M scripts/generate_trace_sl_repro_manifest.py",
-      " M scripts/test_generate_trace_sl_repro_manifest.py"
-    ],
-    "status_short_total_count": 13,
+    "status_short_relevant": [],
+    "status_short_total_count": 7,
     "tracked_raw_dataset_path_count": 0,
     "tracked_raw_dataset_paths": []
   },

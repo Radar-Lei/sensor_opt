@@ -1191,10 +1191,10 @@
   ],
   "metadata": {
     "external_gate_snapshot": {
-      "pems7_1026_stage12_complete": false,
-      "seattle_core_claim_blocked": true,
-      "seattle_stage12_complete": false,
-      "v1_1_completion_allowed": false
+      "pems7_1026_stage12_complete": true,
+      "seattle_core_claim_blocked": false,
+      "seattle_stage12_complete": true,
+      "v1_1_completion_allowed": true
     },
     "generated_at_utc": "1970-01-01T00:00:00Z",
     "generated_at_utc_note": "fixed deterministic timestamp; regenerate command provenance is captured by git commit/status",
