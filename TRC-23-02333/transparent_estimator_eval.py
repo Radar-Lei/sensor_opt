@@ -1,6 +1,8 @@
 import argparse
+import gc
 import json
 import math
+import resource
 from pathlib import Path
 
 import numpy as np
@@ -240,6 +242,11 @@ def validate_cli_settings(args):
         raise ValueError(f"cost_budget must be nonnegative, got {args.cost_budget}")
 
 
+def current_max_rss_mb():
+    rss_kb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    return float(rss_kb) / 1024.0
+
+
 def progress_record(args, stage, budget=None, **counts):
     record = {
         "dataset": Path(args.data_root).name,
@@ -260,11 +267,18 @@ def progress_record(args, stage, budget=None, **counts):
         elif isinstance(value, (np.floating,)):
             value = float(value)
         record[key] = value
+    record["max_rss_mb"] = round(current_max_rss_mb(), 3)
     return record
 
 
 def write_progress(args, stage, budget=None, **counts):
     record = progress_record(args, stage, budget=budget, **counts)
+    max_rss_mb = float(getattr(args, "max_rss_mb", 0.0) or 0.0)
+    if max_rss_mb > 0.0 and record["max_rss_mb"] > max_rss_mb:
+        raise MemoryError(
+            f"Stage12 memory guard exceeded at {stage}: "
+            f"{record['max_rss_mb']:.1f} MB > {max_rss_mb:.1f} MB"
+        )
     progress_log = getattr(args, "progress_log", "")
     checkpoint_json = getattr(args, "checkpoint_json", "")
     if progress_log:
@@ -370,6 +384,10 @@ def metrics(pred, true):
         "rmse": float(np.sqrt(np.mean(error**2))),
         "mape": float(np.mean(np.abs(error) / denom)),
     }
+
+
+def mae(pred, true):
+    return float(np.mean(np.abs(pred - true)))
 
 
 def historical_mean_predict(tod, test_steps):
@@ -726,9 +744,13 @@ def graph_sampling_laplacian_layout(laplacian, distance, sensor_count):
 def qr_pod_layout(train, sensor_count):
     centered = train - train.mean(axis=0)
     scaled = centered / (train.std(axis=0) + 1e-6)
-    _, _, vh = linalg.svd(scaled, full_matrices=False)
-    mode_count = min(sensor_count, vh.shape[0])
-    modes = vh[:mode_count]
+    mode_count = min(sensor_count, scaled.shape[1])
+    covariance = (scaled.T @ scaled) / max(1, scaled.shape[0] - 1)
+    if mode_count < covariance.shape[0]:
+        _, vectors = linalg.eigh(covariance, subset_by_index=[covariance.shape[0] - mode_count, covariance.shape[0] - 1])
+    else:
+        _, vectors = linalg.eigh(covariance)
+    modes = vectors.T[::-1]
     if modes.size == 0:
         return top_variance_layout(train, sensor_count).astype(int)
     _, _, pivots = linalg.qr(modes, pivoting=True, mode="economic")
@@ -843,14 +865,14 @@ def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors
     method = args.selection_method
 
     if method == "historical_tod_mean":
-        return metrics(tod_test[:, hidden], true_hidden)["mae"]
+        return mae(tod_test[:, hidden], true_hidden)
 
     if method == "neighbor_average":
         if sensors.size == 0:
             pred = tod_test[:, hidden]
         else:
             pred = neighbor_average_predict(test, distance, sensors.tolist(), hidden.tolist(), args.num_neighbors)
-        return metrics(pred, true_hidden)["mae"]
+        return mae(pred, true_hidden)
 
     observed_z = (test - mean) / std
     prior_z = (tod_test - mean) / std
@@ -866,9 +888,8 @@ def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors
         if entry is not None:
             residual = observed_z[:, sensors] - prior_z[:, sensors]
             gain = posterior_gain_from_base_inverse(entry["inverse"], sensors, args.obs_weight)
-            pred_z = prior_z + residual @ gain.T
-            pred = mean + std * pred_z
-            return metrics(pred[:, hidden], true_hidden)["mae"]
+            pred_hidden = mean[hidden] + std[hidden] * (prior_z[:, hidden] + residual @ gain[hidden].T)
+            return mae(pred_hidden, true_hidden)
 
     pred_z, _ = solve_quadratic(observed_z, prior_z, sensors, matrix, args.obs_weight)
     pred = mean + std * pred_z
@@ -1397,6 +1418,7 @@ def main():
     parser.add_argument("--progress-log", type=str, default="", help="Append durable Stage12 progress records as JSONL")
     parser.add_argument("--checkpoint-json", type=str, default="", help="Overwrite latest Stage12 checkpoint metadata as JSON")
     parser.add_argument("--non-evidence-feasibility-run", action="store_true", help="Mark outputs as Phase 8.5 feasibility diagnostics, not ten-split evidence")
+    parser.add_argument("--max-rss-mb", type=float, default=0.0, help="Fail fast if process maximum RSS exceeds this many MB; 0 disables the guard")
     args = parser.parse_args()
     validate_cli_settings(args)
     args.budgets = parse_budgets(args.budgets)
@@ -1700,6 +1722,7 @@ def main():
             metric_row_count=len(rows),
             rcss_record_count=len(rcss_records),
         )
+        gc.collect()
 
     frame = pd.DataFrame(rows)
     correlations = summarize_correlations(rows)

@@ -166,7 +166,7 @@ def test_solve_quadratic_accepts_per_node_observation_weights():
 
     solution, lhs = tev.solve_quadratic(observed_z, prior_z, np.array([0, 1]), matrix, np.array([[0.0, 1.0]]))
 
-    assert_close_array(lhs, np.array([[[1.0, 0.0], [0.0, 2.0]]]))
+    assert_close_array(lhs, np.array([[1.0, 0.0], [0.0, 2.0]]))
     assert abs(solution[0, 0] - prior_z[0, 0]) < 1e-9
     assert solution[0, 1] > prior_z[0, 1]
 

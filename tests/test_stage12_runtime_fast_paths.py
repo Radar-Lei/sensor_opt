@@ -58,6 +58,18 @@ class Stage12RuntimeFastPathTests(unittest.TestCase):
             num_neighbors=2,
         )
 
+    def progress_args(self, max_rss_mb=0.0):
+        return Namespace(
+            data_root="synthetic",
+            output_dir="/tmp/stage12-runtime-fast-paths",
+            split_seed=1,
+            layout_seed=2,
+            non_evidence_feasibility_run=True,
+            progress_log="",
+            checkpoint_json="",
+            max_rss_mb=max_rss_mb,
+        )
+
     def test_validation_mae_returns_finite_values_for_supported_methods(self):
         for method in ["historical_tod_mean", "neighbor_average", "gsp", "gls_map"]:
             with self.subTest(method=method):
@@ -89,6 +101,25 @@ class Stage12RuntimeFastPathTests(unittest.TestCase):
                 self.args_for("gls_map"),
             )
         self.assertTrue(np.isfinite(result))
+
+    def test_qr_pod_layout_uses_covariance_eigh_not_full_svd(self):
+        rng = np.random.default_rng(123)
+        train = rng.normal(size=(20, 6))
+        with mock.patch.object(tee.linalg, "svd", side_effect=AssertionError("full SVD called")):
+            sensors = tee.qr_pod_layout(train, 3)
+
+        self.assertEqual(len(sensors), 3)
+        self.assertEqual(len(set(sensors.tolist())), 3)
+        self.assertTrue(np.all(sensors >= 0))
+        self.assertTrue(np.all(sensors < train.shape[1]))
+
+    def test_progress_records_memory_and_guard_raises(self):
+        record = tee.write_progress(self.progress_args(), "synthetic_stage")
+        self.assertIn("max_rss_mb", record)
+        self.assertGreater(record["max_rss_mb"], 0.0)
+
+        with self.assertRaises(MemoryError):
+            tee.write_progress(self.progress_args(max_rss_mb=0.001), "synthetic_stage")
 
     def test_solve_quadratic_collapses_constant_observation_weights(self):
         observed_z = (self.test - self.mean) / self.std

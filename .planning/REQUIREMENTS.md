@@ -22,6 +22,8 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 - [ ] **EVID-04**: Author has completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim.
 - [x] **EVID-05**: Author can classify each dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
 
+**Execution constraint for EVID-03/EVID-04 closure:** run the remaining Stage12 evidence jobs with `max_jobs=1` and only one active dataset/split/seed job at a time. Do not parallelize the closure run across PeMS7_1026, Seattle, splits, or seeds.
+
 ### Stage12 Runtime Unblock
 
 - [x] **RUN-01**: Author has a runtime-only fast validation path that computes only the selected RCSS validation method without changing Stage12 evidence semantics.
@@ -79,6 +81,7 @@ Deferred to future writing or theory milestones.
 | Globally robust claims | Current robustness is stress-test evidence unless multi-seed perturbation evidence is added. |
 | Strong cross-network generalization claims | PeMS7_1026 and Seattle need Stage12 10-split evidence before stronger external claims. |
 | Raw dataset commits | Raw traffic datasets are local/ignored inputs and must not be committed. |
+| Parallel Stage12 closure execution | Remaining EVID-03/EVID-04 closure runs are constrained to `max_jobs=1` for compute reliability. |
 
 ## Traceability
 
@@ -132,4 +135,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026/05/23*
-*Last updated: 2026/05/25 after Phase 10 theory and handoff artifact sync*
+*Last updated: 2026/05/25 after v1.1 closure preflight constraint update*

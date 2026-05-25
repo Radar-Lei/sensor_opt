@@ -23,6 +23,7 @@ The repository now has:
 - Organize or fill ablation evidence showing the separate roles of certificate candidate generation, validation selection, and validation-aware swap refinement.
 - Complete PeMS7_1026 Stage12 10-split external evidence so PeMS external evidence is no longer only lower-power supporting evidence.
 - Complete Seattle Stage12 10-split external/transfer-style evidence; otherwise Seattle cannot enter the core claim and the milestone should not be marked complete.
+- Run the remaining PeMS7_1026 and Seattle Stage12 evidence work with `max_jobs=1` / one active job only; do not parallelize dataset, split, or seed jobs during the closure run.
 - Keep robustness as stress-test or appendix evidence unless multi-seed perturbation results are added.
 - Prepare the Transportation Science theory layer: posterior trace bridge, monotonicity, validation-aware swap local optimality, and complexity.
 - Avoid TR Part B-level or unsupported wording such as optimal, certified, globally robust, guaranteed MAE improvement, or generalizes across networks.
@@ -97,6 +98,7 @@ Known evidence caveats after v1.0:
 - **Claim strategy:** Strong claims should be preserved and strengthened with evidence rather than narrowed prematurely.
 - **Evidence standard:** Core claims must be supported by held-out test results, paired comparisons, statistical uncertainty, robustness checks, and reproducible artifacts.
 - **External evidence:** PeMS7_1026 and Seattle must both receive Stage12 10-split evidence in v1.1 before being elevated beyond supporting or conditional status.
+- **Execution concurrency:** Remaining Stage12 external evidence jobs must run with max jobs set to 1. Treat concurrent split/seed/dataset execution as out of scope for the v1.1 closure run because compute reliability is the limiting constraint.
 - **Reproducibility:** Raw datasets stay local and ignored; curated result summaries, scripts, and non-sensitive artifacts should remain synchronized with paper claims.
 
 ## Key Decisions
@@ -108,6 +110,7 @@ Known evidence caveats after v1.0:
 | Frame v1.1 as paper foundation, not manuscript drafting | The claim, external evidence, ablation logic, and theory layer need to be frozen before writing begins | — Pending |
 | Require PeMS7_1026 Stage12 10-split evidence before stronger external PeMS claims | The existing PeMS7_1026 evidence is promising but lower-power | — Pending |
 | Require Seattle Stage12 10-split evidence before core-claim use | Seattle should not remain conditional if it is used as external/transfer-style evidence | — Pending |
+| Limit remaining Stage12 closure execution to max_jobs=1 | User-confirmed compute constraint; parallel split/seed/dataset jobs risk overrunning the available environment | — Pending |
 | Use “certificate-guided” unless formal certification is proved | Current posterior diagnostics correlate with MAE but are not formal certificates | ✓ Good |
 | Treat multistart validation refinement as a serious comparator or portfolio member | At 10% budget it can outperform validation-swap RCSS, so ignoring it would invite reviewer criticism | ✓ Good |
 | Use generated paper-source tables as the manuscript handoff | This keeps paper-visible numbers tied to committed aggregate evidence and provenance | ✓ Good |
@@ -131,4 +134,4 @@ Archived files:
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026/05/23 after v1.1 milestone initialization*
+*Last updated: 2026/05/25 after v1.1 closure preflight constraint update*

@@ -14,7 +14,8 @@ VALIDATION_SWAP_ITER="${VALIDATION_SWAP_ITER:-8}"
 VALIDATION_SWAP_ADD_POOL="${VALIDATION_SWAP_ADD_POOL:-30}"
 VALIDATION_SWAP_REMOVE_POOL="${VALIDATION_SWAP_REMOVE_POOL:-10}"
 THREADS_PER_JOB="${THREADS_PER_JOB:-1}"
-MAX_JOBS="${MAX_JOBS:-2}"
+MAX_JOBS="${MAX_JOBS:-1}"
+MAX_RSS_MB="${MAX_RSS_MB:-0}"
 DRY_RUN="${DRY_RUN:-0}"
 ENABLE_PROGRESS="${ENABLE_PROGRESS:-1}"
 PROGRESS_DIR="${PROGRESS_DIR:-${OUTPUT_DIR}/progress}"
@@ -83,6 +84,7 @@ for seed in ${SEEDS}; do
     --include-observability-proxy
     --include-graph-sampling-baseline
     --include-qr-pod-baseline
+    --max-rss-mb "${MAX_RSS_MB}"
     "${progress_args[@]}"
   )
   if [ "${DRY_RUN}" = "1" ]; then

@@ -92,6 +92,8 @@ Plans:
 
 **Runtime status**: real Stage12 execution exposed a structural runtime blocker; do not continue hard-waiting, do not count DRY_RUN or downscaled diagnostics as evidence, and route to Phase 8.5 before Phase 9.
 
+**Closure execution constraint**: when resuming EVID-03/EVID-04 closure, run at most one Stage12 job at a time (`max_jobs=1`). Do not parallelize PeMS7_1026/Seattle, split, or seed jobs during the closure run.
+
 **Plans**: 5 plans
 Plans:
 **Wave 1**

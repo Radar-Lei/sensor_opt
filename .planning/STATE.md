@@ -4,7 +4,7 @@ milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
 status: blocked
 stopped_at: Completed Phase 10; blocked by EVID-03/EVID-04 external Stage12 gate
-last_updated: "2026-05-25T12:00:00.000Z"
+last_updated: "2026-05-25T20:45:00.000+08:00"
 last_activity: 2026-05-25
 progress:
   total_phases: 5
@@ -77,6 +77,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - v1.1 must freeze claim-evidence-theory-experiment foundation before manuscript drafting.
 - PeMS7_1026 Stage12 10-split external evidence is mandatory for stronger external PeMS claims.
 - Seattle Stage12 10-split external/transfer-style evidence is mandatory before Seattle enters any core claim.
+- Remaining Stage12 closure runs for EVID-03/EVID-04 must use max_jobs=1, with only one active dataset/split/seed job at a time.
 - PeMS7_228 low-budget multistart caveat must remain visible in claim-facing artifacts.
 - Raw traffic datasets remain local/ignored and must not be committed.
 - Phase 7 claim-facing evidence uses held-out Stage12 PeMS7_228 test aggregates and paired comparisons, not validation MAE.
@@ -120,6 +121,7 @@ None yet.
 
 - Phase 8 gate blocks v1.1 completion: PeMS7_1026 Stage12 aggregate artifacts are missing, so EVID-03 remains incomplete.
 - Phase 8 gate blocks Seattle core claims: Seattle Stage12 `stage12_status.json` reports blocked, so EVID-04 remains incomplete.
+- EVID-03/EVID-04 closure must respect the compute constraint `max_jobs=1`; do not launch parallel Stage12 jobs while clearing the gate.
 - Phase 8.5 no longer blocks Phase 9 planning: one full Stage12-compatible seed for PeMS7_1026 and Seattle completed, but Phase 8 ten-split external evidence remains incomplete.
 - All phases: do not draft manuscript prose in this milestone.
 
