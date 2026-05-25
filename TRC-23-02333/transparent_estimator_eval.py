@@ -671,11 +671,35 @@ def robust_coverage_cvar_layout(base_matrices, distance, sensor_count, obs_weigh
 
 
 def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors, args):
-    rows, _, _ = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args, apply_robustness=False)
-    for row in rows:
-        if row["method"] == args.selection_method:
-            return row["mae"]
-    raise ValueError(f"Selection method not evaluated: {args.selection_method}")
+    n_nodes = test.shape[1]
+    sensors = np.array(sorted(sensors), dtype=int)
+    hidden = np.array([i for i in range(n_nodes) if i not in set(sensors)], dtype=int)
+    tod_test = historical_mean_predict(tod, test.shape[0])
+    true_hidden = test[:, hidden]
+    method = args.selection_method
+
+    if method == "historical_tod_mean":
+        return metrics(tod_test[:, hidden], true_hidden)["mae"]
+
+    if method == "neighbor_average":
+        if sensors.size == 0:
+            pred = tod_test[:, hidden]
+        else:
+            pred = neighbor_average_predict(test, distance, sensors.tolist(), hidden.tolist(), args.num_neighbors)
+        return metrics(pred, true_hidden)["mae"]
+
+    observed_z = (test - mean) / std
+    prior_z = (tod_test - mean) / std
+    if method == "gsp":
+        matrix = args.gsp_lambda * laplacian + args.prior_gamma * np.eye(n_nodes)
+    elif method == "gls_map":
+        matrix = args.gls_prior_weight * precision
+    else:
+        raise ValueError(f"Unsupported selection method: {method}")
+
+    pred_z, _ = solve_quadratic(observed_z, prior_z, sensors, matrix, args.obs_weight)
+    pred = mean + std * pred_z
+    return metrics(pred[:, hidden], true_hidden)["mae"]
 
 
 def split_validation_for_tuning(val):
