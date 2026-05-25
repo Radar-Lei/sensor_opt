@@ -240,6 +240,49 @@ def validate_cli_settings(args):
         raise ValueError(f"cost_budget must be nonnegative, got {args.cost_budget}")
 
 
+def progress_record(args, stage, budget=None, **counts):
+    record = {
+        "dataset": Path(args.data_root).name,
+        "data_root": str(args.data_root),
+        "output_dir": str(args.output_dir),
+        "split_seed": int(args.split_seed),
+        "layout_seed": int(args.layout_seed),
+        "stage": stage,
+        "non_evidence_feasibility_run": bool(getattr(args, "non_evidence_feasibility_run", False)),
+    }
+    if budget is not None:
+        record["budget"] = float(budget)
+    for key, value in counts.items():
+        if value is None:
+            continue
+        if isinstance(value, (np.integer,)):
+            value = int(value)
+        elif isinstance(value, (np.floating,)):
+            value = float(value)
+        record[key] = value
+    return record
+
+
+def write_progress(args, stage, budget=None, **counts):
+    record = progress_record(args, stage, budget=budget, **counts)
+    progress_log = getattr(args, "progress_log", "")
+    checkpoint_json = getattr(args, "checkpoint_json", "")
+    if progress_log:
+        progress_path = Path(progress_log)
+        progress_path.parent.mkdir(parents=True, exist_ok=True)
+        with progress_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(record, sort_keys=True) + "\n")
+    if checkpoint_json:
+        checkpoint_path = Path(checkpoint_json)
+        checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+        checkpoint = dict(record)
+        checkpoint["latest_stage"] = stage
+        tmp_path = checkpoint_path.with_name(f"{checkpoint_path.name}.tmp")
+        tmp_path.write_text(json.dumps(checkpoint, indent=2, sort_keys=True), encoding="utf-8")
+        tmp_path.replace(checkpoint_path)
+    return record
+
+
 def adjacency_to_distance(adjacency):
     adjacency = np.asarray(adjacency, dtype=float)
     graph = np.where(adjacency > 0, 1.0, np.inf)
@@ -878,24 +921,65 @@ def make_rcss_row(source, layout_id, sensors, val, tod, distance, laplacian, pre
     }
 
 
-def build_rcss_rows(candidates, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
+def build_rcss_rows(candidates, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None, budget=None, progress_stage="rcss_candidate_batch"):
     rows = []
     seen = set()
-    for source, layout_id, sensors in candidates:
+    total_candidates = len(candidates)
+    batch_interval = max(1, min(25, max(1, total_candidates // 4)))
+    for candidate_index, (source, layout_id, sensors) in enumerate(candidates, start=1):
         sensors = np.array(sorted(int(x) for x in sensors), dtype=int)
         key = tuple(sensors.tolist())
         if key in seen:
             continue
         seen.add(key)
         rows.append(make_rcss_row(source, layout_id, sensors, eval_data, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache))
+        if candidate_index == total_candidates or candidate_index % batch_interval == 0:
+            write_progress(
+                args,
+                progress_stage,
+                budget=budget,
+                candidate_index=candidate_index,
+                candidate_total=total_candidates,
+                unique_candidate_count=len(rows),
+            )
     if not rows:
         raise ValueError("RCSS requires at least one candidate layout")
     return rows
 
 
-def select_auto_rcss_weights(candidates, selector_val, tuner_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
-    selector_rows = build_rcss_rows(candidates, selector_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
-    tuner_rows = build_rcss_rows(candidates, tuner_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
+def select_auto_rcss_weights(candidates, selector_val, tuner_val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None, budget=None):
+    selector_rows = build_rcss_rows(
+        candidates,
+        selector_val,
+        tod,
+        distance,
+        laplacian,
+        precision,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        args,
+        trace_cache=trace_cache,
+        budget=budget,
+        progress_stage="rcss_selector_candidate_batch",
+    )
+    tuner_rows = build_rcss_rows(
+        candidates,
+        tuner_val,
+        tod,
+        distance,
+        laplacian,
+        precision,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        args,
+        trace_cache=trace_cache,
+        budget=budget,
+        progress_stage="rcss_tuner_candidate_batch",
+    )
     tuner_by_key = {tuple(row["sensors"].tolist()): row["validation_mae"] for row in tuner_rows}
     best = None
     for weights in parse_weight_grid(args.rcss_auto_weight_grid):
@@ -915,13 +999,13 @@ def select_auto_rcss_weights(candidates, selector_val, tuner_val, tod, distance,
     return selected, final_rows, weights
 
 
-def select_rcss_candidate(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None):
-    rows = build_rcss_rows(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
+def select_rcss_candidate(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=None, budget=None):
+    rows = build_rcss_rows(candidates, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache, budget=budget)
     rows = rcss_candidate_scores(rows, args)
     return min(rows, key=lambda row: row["rcss_score"]), rows
 
 
-def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, rng, trace_cache=None):
+def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, rng, trace_cache=None, budget=None, start_rank=None):
     selected = set(int(x) for x in initial_sensors)
     n_nodes = gls_matrix.shape[0]
     best_sensors = np.array(sorted(selected), dtype=int)
@@ -929,7 +1013,31 @@ def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance,
     candidate_nodes = [int(x) for x in candidate_nodes if int(x) not in selected]
     history = []
     for iteration in range(args.validation_swap_iter):
+        write_progress(
+            args,
+            "validation_swap_iteration_start",
+            budget=budget,
+            iteration=iteration + 1,
+            max_iterations=int(args.validation_swap_iter),
+            start_rank=start_rank,
+            candidate_node_count=len(candidate_nodes),
+            selected_sensor_count=len(selected),
+            best_validation_mae=float(best_row["validation_mae"]),
+        )
         if not candidate_nodes:
+            write_progress(
+                args,
+                "validation_swap_iteration_complete",
+                budget=budget,
+                iteration=iteration + 1,
+                max_iterations=int(args.validation_swap_iter),
+                start_rank=start_rank,
+                candidate_node_count=0,
+                selected_sensor_count=len(selected),
+                improvement=False,
+                stop_reason="empty_candidate_nodes",
+                best_validation_mae=float(best_row["validation_mae"]),
+            )
             break
         remove_pool = sorted(selected)
         if args.validation_swap_remove_pool > 0:
@@ -954,9 +1062,35 @@ def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance,
                 row = make_rcss_row("validation_swap", iteration + 1, np.array(sorted(trial), dtype=int), val, tod, distance, laplacian, precision, mean, std, gls_matrix, scenario_matrices, args, trace_cache=trace_cache)
                 trials.append((row, remove_node, add_node, trial))
         if not trials:
+            write_progress(
+                args,
+                "validation_swap_iteration_complete",
+                budget=budget,
+                iteration=iteration + 1,
+                max_iterations=int(args.validation_swap_iter),
+                start_rank=start_rank,
+                trial_count=0,
+                improvement=False,
+                stop_reason="no_trials",
+                best_validation_mae=float(best_row["validation_mae"]),
+            )
             break
+        trial_count = len(trials)
         trials = [(row, remove_node, add_node, trial) for row, remove_node, add_node, trial in trials if row["validation_mae"] < best_row["validation_mae"] - args.validation_swap_min_improve]
         if not trials:
+            write_progress(
+                args,
+                "validation_swap_iteration_complete",
+                budget=budget,
+                iteration=iteration + 1,
+                max_iterations=int(args.validation_swap_iter),
+                start_rank=start_rank,
+                trial_count=trial_count,
+                improving_trial_count=0,
+                improvement=False,
+                stop_reason="no_improving_trials",
+                best_validation_mae=float(best_row["validation_mae"]),
+            )
             break
         row, remove_node, add_node, trial = min(trials, key=lambda item: item[0]["validation_mae"])
         selected = trial
@@ -966,6 +1100,20 @@ def validation_swap_search(initial_sensors, candidate_nodes, val, tod, distance,
         if remove_node not in candidate_nodes:
             candidate_nodes.append(remove_node)
         history.append({"iteration": iteration + 1, "remove": remove_node, "add": add_node, "validation_mae": best_row["validation_mae"]})
+        write_progress(
+            args,
+            "validation_swap_iteration_complete",
+            budget=budget,
+            iteration=iteration + 1,
+            max_iterations=int(args.validation_swap_iter),
+            start_rank=start_rank,
+            trial_count=trial_count,
+            improving_trial_count=len(trials),
+            improvement=True,
+            remove_node=int(remove_node),
+            add_node=int(add_node),
+            best_validation_mae=float(best_row["validation_mae"]),
+        )
     best_row["sensors"] = best_sensors
     return best_sensors, best_row, history
 
@@ -1200,6 +1348,9 @@ def main():
     parser.add_argument("--robustness-seed", type=int, default=505)
     parser.add_argument("--cost-proxy", type=str, default="none", choices=["none", "graph_traffic"])
     parser.add_argument("--cost-budget", type=float, default=0.0)
+    parser.add_argument("--progress-log", type=str, default="", help="Append durable Stage12 progress records as JSONL")
+    parser.add_argument("--checkpoint-json", type=str, default="", help="Overwrite latest Stage12 checkpoint metadata as JSON")
+    parser.add_argument("--non-evidence-feasibility-run", action="store_true", help="Mark outputs as Phase 8.5 feasibility diagnostics, not ten-split evidence")
     args = parser.parse_args()
     validate_cli_settings(args)
     args.budgets = parse_budgets(args.budgets)
@@ -1212,6 +1363,10 @@ def main():
         args.include_observability_proxy = True
         args.include_graph_sampling_baseline = True
         args.include_qr_pod_baseline = True
+
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    write_progress(args, "run_start", budget=None, budget_count=len(args.budgets))
 
     train, val, test, test_index, distance, val_days, test_days = load_pems_dataset(args.data_root, args.split_seed, split_mode=args.split_mode)
     args.val_days = val_days
@@ -1240,6 +1395,7 @@ def main():
     cost_proxy_values = derive_cost_proxy(train, distance) if args.cost_proxy != "none" else None
     for budget in args.budgets:
         sensor_count = max(1, min(n_nodes - 1, int(round(n_nodes * budget))))
+        write_progress(args, "budget_start", budget=budget, sensor_count=sensor_count, node_count=n_nodes)
         layouts = []
         random_layouts = []
         for layout_id in range(args.num_layouts):
@@ -1394,6 +1550,7 @@ def main():
                     scenario_matrices,
                     args,
                     trace_cache=trace_cache,
+                    budget=budget,
                 )
             else:
                 rcss_best, rcss_all = select_rcss_candidate(
@@ -1409,6 +1566,7 @@ def main():
                     scenario_matrices,
                     args,
                     trace_cache=trace_cache,
+                    budget=budget,
                 )
                 selected_weights = (
                     args.rcss_validation_weight,
@@ -1438,6 +1596,8 @@ def main():
                         args,
                         rng,
                         trace_cache=trace_cache,
+                        budget=budget,
+                        start_rank=start_rank,
                     )
                     swap_row["source"] = "validation_swap"
                     swap_row["layout_id"] = start_rank
@@ -1485,9 +1645,16 @@ def main():
                 )
                 row.update(robustness_row_metadata(args, layout_metadata, eval_context))
                 rows.append(row)
+        write_progress(
+            args,
+            "budget_complete",
+            budget=budget,
+            sensor_count=sensor_count,
+            layout_count=len(layouts),
+            metric_row_count=len(rows),
+            rcss_record_count=len(rcss_records),
+        )
 
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
     frame = pd.DataFrame(rows)
     correlations = summarize_correlations(rows)
     frame.to_csv(output_dir / "metrics.csv", index=False)
@@ -1506,6 +1673,15 @@ def main():
     config["test_shape"] = list(test.shape)
     (output_dir / "config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
     write_summary(output_dir, args, rows, correlations, test_days)
+    write_progress(
+        args,
+        "run_complete",
+        budget=None,
+        budget_count=len(args.budgets),
+        metric_row_count=len(rows),
+        layout_record_count=len(layout_records),
+        rcss_record_count=len(rcss_records),
+    )
     print(frame.groupby(["budget", "layout_type", "method"])[["mae", "rmse"]].mean().round(4))
     print(f"Wrote outputs to {output_dir}")
 
