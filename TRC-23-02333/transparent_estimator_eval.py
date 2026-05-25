@@ -345,31 +345,52 @@ def solve_quadratic(observed_z, prior_z, sensors, matrix, obs_weight):
     n_nodes = observed_z.shape[1]
     sensors = np.asarray(sensors, dtype=int)
     weights = np.asarray(obs_weight, dtype=float)
+
     if weights.ndim == 0:
         selector = np.zeros(n_nodes)
         selector[sensors] = float(weights)
-        lhs = matrix + np.diag(selector)
-        rhs = prior_z @ matrix.T
-        rhs[:, sensors] += float(weights) * observed_z[:, sensors]
-        solution = linalg.solve(lhs, rhs.T, assume_a="pos").T
-        return solution, lhs
-
-    if weights.ndim == 1:
+        weights_by_time = None
+    elif weights.ndim == 1:
         if weights.shape[0] != n_nodes:
             raise ValueError(f"obs_weight vector must have {n_nodes} entries")
-        weights = np.repeat(weights.reshape(1, n_nodes), observed_z.shape[0], axis=0)
-    elif weights.shape != observed_z.shape:
+        selector = np.zeros(n_nodes)
+        selector[sensors] = weights[sensors]
+        weights_by_time = None
+    elif weights.shape == observed_z.shape:
+        if np.allclose(weights, weights[0:1], rtol=1e-12, atol=1e-12):
+            selector = np.zeros(n_nodes)
+            selector[sensors] = weights[0, sensors]
+            weights_by_time = None
+        else:
+            selector = None
+            weights_by_time = weights
+    else:
         raise ValueError(f"obs_weight matrix must match observed_z shape {observed_z.shape}")
+
+    if weights_by_time is None:
+        lhs = matrix + np.diag(selector)
+        rhs = prior_z @ matrix.T
+        rhs[:, sensors] += selector[sensors] * observed_z[:, sensors]
+        try:
+            factor = linalg.cho_factor(lhs, lower=False, check_finite=False)
+            solution = linalg.cho_solve(factor, rhs.T, check_finite=False).T
+        except linalg.LinAlgError:
+            solution = linalg.solve(lhs, rhs.T, assume_a="pos").T
+        return solution, lhs
 
     solutions = []
     lhs_stack = []
     for row_idx in range(observed_z.shape[0]):
         selector = np.zeros(n_nodes)
-        selector[sensors] = weights[row_idx, sensors]
+        selector[sensors] = weights_by_time[row_idx, sensors]
         lhs = matrix + np.diag(selector)
         rhs = prior_z[row_idx] @ matrix.T
-        rhs[sensors] += weights[row_idx, sensors] * observed_z[row_idx, sensors]
-        solutions.append(linalg.solve(lhs, rhs, assume_a="pos"))
+        rhs[sensors] += weights_by_time[row_idx, sensors] * observed_z[row_idx, sensors]
+        try:
+            factor = linalg.cho_factor(lhs, lower=False, check_finite=False)
+            solutions.append(linalg.cho_solve(factor, rhs, check_finite=False))
+        except linalg.LinAlgError:
+            solutions.append(linalg.solve(lhs, rhs, assume_a="pos"))
         lhs_stack.append(lhs)
     return np.vstack(solutions), np.stack(lhs_stack, axis=0)
 
