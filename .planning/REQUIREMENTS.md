@@ -27,7 +27,7 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 - [x] **RUN-01**: Author has a runtime-only fast validation path that computes only the selected RCSS validation method without changing Stage12 evidence semantics.
 - [x] **RUN-02**: Author has dense-solve performance fixes for constant observation weights and posterior/scenario trace scoring that preserve numerical outputs within documented tolerances.
 - [x] **RUN-03**: Author has Stage12 progress logs or checkpoints that make long PeMS7_1026 and Seattle runs diagnosable before a full seed completes.
-- [ ] **RUN-04**: Author can complete at least one Stage12-compatible full seed for both PeMS7_1026 and Seattle before launching the formal ten-split rerun.
+- [x] **RUN-04**: Author can complete at least one Stage12-compatible full seed for both PeMS7_1026 and Seattle before launching the formal ten-split rerun.
 
 ### Ablation Logic
 
@@ -97,7 +97,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RUN-01 | Phase 8.5 | Complete |
 | RUN-02 | Phase 8.5 | Complete |
 | RUN-03 | Phase 8.5 | Complete |
-| RUN-04 | Phase 8.5 | Pending |
+| RUN-04 | Phase 8.5 | Complete |
 | EVID-05 | Phase 9 | Pending |
 | ABLT-01 | Phase 9 | Pending |
 | ABLT-02 | Phase 9 | Pending |

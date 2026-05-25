@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: executing
+status: verifying
 stopped_at: Completed 08.5-03-PLAN.md
-last_updated: "2026-05-25T08:53:01.851Z"
+last_updated: "2026-05-25T10:17:14.113Z"
 last_activity: 2026-05-25
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 11
-  completed_plans: 10
-  percent: 40
+  completed_plans: 11
+  percent: 60
 ---
 
 # GSD State: TRACE-SL Transportation Science Readiness
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026/05/23)
 
 Phase: 08.5 (stage12-performance-unblock) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-05-25
 
-Progress: [█████████░] 91%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Progress: [█████████░] 91%
 | Phase 08.5 P01 | 3min | 3 tasks | 2 files |
 | Phase 08.5 P02 | 6min | 3 tasks | 2 files |
 | Phase 08.5 P03 | 11min | 3 tasks | 5 files |
+| Phase 08.5 P04 | 80min | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 08.5]: Plan 02 external evidence gate artifacts remain fail-closed; EVID-03 and EVID-04 are still incomplete after runtime-only cache work.
 - [Phase 08.5 Plan 03]: Stage12 progress/checkpoint records serialize only metadata, stages, counts, budgets, seeds, and non-evidence feasibility markers; raw arrays and observation values are excluded.
 - [Phase 08.5 Plan 03]: Stage12 launchers enable per-seed progress artifacts under OUTPUT_DIR/progress by default while preserving ten-split defaults and fail-closed evidence gates.
+- [Phase 08.5 Plan 04]: RUN-04 complete; PeMS7_1026 and Seattle each completed one Stage12-compatible seed, while EVID-03/EVID-04 remain incomplete until ten-split evidence exists.
+- [Phase 08.5 Plan 04]: validation-swap trial rows compute validation MAE only while selected rows keep full diagnostics; scalar-weight validation MAE uses selected-sensor Woodbury gains.
 
 ### Pending Todos
 
@@ -102,7 +105,7 @@ None yet.
 
 - Phase 8 gate blocks v1.1 completion: PeMS7_1026 Stage12 aggregate artifacts are missing, so EVID-03 remains incomplete.
 - Phase 8 gate blocks Seattle core claims: Seattle Stage12 `stage12_status.json` reports blocked, so EVID-04 remains incomplete.
-- Phase 8.5 blocks Phase 9: Stage12 runtime must be optimized and one full Stage12-compatible seed for PeMS7_1026 and Seattle must complete before ten-split rerun planning.
+- Phase 8.5 no longer blocks Phase 9 planning: one full Stage12-compatible seed for PeMS7_1026 and Seattle completed, but Phase 8 ten-split external evidence remains incomplete.
 - All phases: do not draft manuscript prose in this milestone.
 
 ## Deferred Items
@@ -114,6 +117,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-25T08:53:01.844Z
+Last session: 2026-05-25T10:16:48.409Z
 Stopped at: Completed 08.5-03-PLAN.md
 Resume file: None
