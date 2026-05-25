@@ -1,0 +1,14 @@
+{
+  "budget_count": 3,
+  "data_root": "TRC-23-02333/dataset/PeMS7_1026",
+  "dataset": "PeMS7_1026",
+  "latest_stage": "run_complete",
+  "layout_record_count": 360,
+  "layout_seed": 3051,
+  "metric_row_count": 1440,
+  "non_evidence_feasibility_run": true,
+  "output_dir": "TRC-23-02333/trace_sl_results/pems7_1026_stage12_feasibility_seed25/seed_25",
+  "rcss_record_count": 657,
+  "split_seed": 25,
+  "stage": "run_complete"
+}
