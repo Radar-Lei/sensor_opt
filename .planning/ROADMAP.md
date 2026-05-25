@@ -124,7 +124,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 08.5-01-PLAN.md — Add selected-method validation and dense constant-weight solve fast paths.
+- [x] 08.5-01-PLAN.md — Add selected-method validation and dense constant-weight solve fast paths.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -183,7 +183,7 @@ Phases execute in numeric order: 7 → 8 → 8.5 → 9 → 10
 | 6. Reproducibility and Artifact Curation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 7. Claim and Main Table Contract | v1.1 | 2/2 | Complete   | 2026-05-23 |
 | 8. External Stage12 Evidence | v1.1 | 5/5 | Blocked by gate/runtime |  |
-| 8.5. Stage12 Performance Unblock | v1.1 | 0/4 | Planned | - |
+| 8.5. Stage12 Performance Unblock | v1.1 | 1/4 | In Progress|  |
 | 9. Ablation and Evidence Classification | v1.1 | 0/TBD | Blocked on Phase 8.5 | - |
 | 10. Theory and Handoff Package | v1.1 | 0/TBD | Not started | - |
 

@@ -24,8 +24,8 @@ Requirements for the TRACE-SL Transportation Science paper-foundation milestone.
 
 ### Stage12 Runtime Unblock
 
-- [ ] **RUN-01**: Author has a runtime-only fast validation path that computes only the selected RCSS validation method without changing Stage12 evidence semantics.
-- [ ] **RUN-02**: Author has dense-solve performance fixes for constant observation weights and posterior/scenario trace scoring that preserve numerical outputs within documented tolerances.
+- [x] **RUN-01**: Author has a runtime-only fast validation path that computes only the selected RCSS validation method without changing Stage12 evidence semantics.
+- [x] **RUN-02**: Author has dense-solve performance fixes for constant observation weights and posterior/scenario trace scoring that preserve numerical outputs within documented tolerances.
 - [ ] **RUN-03**: Author has Stage12 progress logs or checkpoints that make long PeMS7_1026 and Seattle runs diagnosable before a full seed completes.
 - [ ] **RUN-04**: Author can complete at least one Stage12-compatible full seed for both PeMS7_1026 and Seattle before launching the formal ten-split rerun.
 
@@ -94,8 +94,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EVID-02 | Phase 7 | Complete |
 | EVID-03 | Phase 8 | Pending |
 | EVID-04 | Phase 8 | Pending |
-| RUN-01 | Phase 8.5 | Pending |
-| RUN-02 | Phase 8.5 | Pending |
+| RUN-01 | Phase 8.5 | Complete |
+| RUN-02 | Phase 8.5 | Complete |
 | RUN-03 | Phase 8.5 | Pending |
 | RUN-04 | Phase 8.5 | Pending |
 | EVID-05 | Phase 9 | Pending |
