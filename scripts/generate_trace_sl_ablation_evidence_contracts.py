@@ -607,8 +607,10 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
             "external" if pems_complete else "conditional",
             "external" if pems_complete else "conditional",
             "completed" if pems_complete else str(pems_summary.get("evidence_status", "blocked") or "blocked"),
-            "external/supporting PeMS discussion only until tracked ten-split Stage12 evidence exists",
-            "core claim support or EVID-03 completion from Stage11, DRY_RUN, or one-seed feasibility artifacts",
+            "external PeMS evidence for multi-network discussion after tracked ten-split Stage12 evidence exists"
+            if pems_complete
+            else "external/supporting PeMS discussion only until tracked ten-split Stage12 evidence exists",
+            "universal cross-network generalization claims; EVID-03 completion from Stage11, DRY_RUN, or one-seed feasibility artifacts",
             "tracked Stage12 baseline portfolio with exactly ten splits and reviewer-facing aggregate artifacts",
             pems_actual,
             int(pems_summary.get("required_split_count", REQUIRED_SPLIT_COUNT) or REQUIRED_SPLIT_COUNT),
@@ -617,7 +619,7 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
             pems_complete,
             pems_complete,
             pems_complete,
-            "external_supporting_until_gate_complete",
+            "external_stage12_complete" if pems_complete else "external_supporting_until_gate_complete",
             pems_blocker if not pems_complete else "",
             str(pems_summary.get("source_dir", TRACE_RESULTS_ROOT / "pems7_1026_stage12_baseline_portfolio")),
         ),
@@ -627,8 +629,10 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
             "conditional" if seattle_blocked else "external",
             "conditional" if seattle_blocked else "external",
             "completed" if seattle_complete else str(seattle_summary.get("evidence_status", "blocked") or "blocked"),
-            "external/transfer-style support only after complete tracked ten-split Stage12 evidence",
-            "core claims while external_evidence_gate or stage12_status.json reports incomplete evidence",
+            "external heterogeneous-network evidence after complete tracked ten-split Stage12 evidence"
+            if seattle_complete and not seattle_blocked
+            else "external/transfer-style support only after complete tracked ten-split Stage12 evidence",
+            "universal cross-network generalization claims; core claims while external_evidence_gate or stage12_status.json reports incomplete evidence",
             "completed tracked Seattle Stage12 ten-split aggregate artifacts and completed stage12_status.json",
             seattle_actual,
             int(seattle_summary.get("required_split_count", REQUIRED_SPLIT_COUNT) or REQUIRED_SPLIT_COUNT),
@@ -637,7 +641,7 @@ def build_dataset_classification(project_root: Path) -> list[dict[str, object]]:
             seattle_complete,
             seattle_complete and not seattle_blocked,
             seattle_complete and not seattle_blocked,
-            "blocked_from_core_until_gate_complete",
+            "external_stage12_complete" if seattle_complete and not seattle_blocked else "blocked_from_core_until_gate_complete",
             seattle_blocker if not seattle_complete or seattle_blocked else "",
             str(seattle_summary.get("source_dir", TRACE_RESULTS_ROOT / "seattle_stage12_baseline_portfolio")),
         ),

@@ -1,12 +1,14 @@
 # TRACE-SL Narrative Report
 
 **Project**: TRACE-SL — Transparent Reconstruction-Aware Sensor Layout
-**Date**: 2026-05-18
-**Current stage**: Method strengthened with Robust Certificate-guided Sensor Search (RCSS) plus validation-aware swap refinement; PeMS7_228 confirmatory evidence complete.
+**Date**: 2026-05-26
+**Current stage**: Stage 12 baseline-portfolio evidence is complete for PeMS7_228, PeMS7_1026, and Seattle; TR-B positioning should emphasize reconstruction-aware inverse-problem design, scoped theory, and multi-network evidence rather than a single heuristic benchmark win.
 
 ## Core Claim
 
-TRACE-SL improves full-network traffic state reconstruction by optimizing sensor placement for the recoverability of a transparent inverse problem. Its key mechanism is not a black-box state estimator, but an OR-guided sensor-layout search that uses posterior uncertainty, robust scenario risk, validation reconstruction error, and spatial coverage to select layouts that generalize better than random or topology-only placement.
+TRACE-SL improves full-network traffic state reconstruction by optimizing sensor placement for the recoverability of a transparent inverse problem. Its key mechanism is not a black-box state estimator, but an OR-guided sensor-layout search that uses posterior uncertainty, robust scenario risk, validation reconstruction error, and spatial coverage to select layouts that are empirically more recoverable than random, topology-only, variance, graph-sampling, observability, and POD-style placements in the tested settings.
+
+For a TR-B manuscript, the main contribution should be framed as **reconstruction-aware network design / transparent inverse problem design**: sensors are not selected to cover the graph as an end in itself, but to make the hidden complement of the traffic network recoverable under transparent GLS/MAP and GSP reconstruction models. The claim boundary is certificate-guided and posterior-certificate-aware, not certified, globally optimal, globally robust, or a guaranteed MAE improvement beyond the tested evidence.
 
 ## Method Summary
 
@@ -27,7 +29,7 @@ The strengthened method is **Robust Certificate-guided Sensor Search (RCSS)**:
 3. Select the layout with the resulting data-driven score and evaluate it on unseen test days.
 4. Refine the strongest RCSS candidates with validation-aware stochastic swap search. The swap search only accepts exchanges that improve validation GLS/MAP reconstruction error, using the OR-guided candidate pool as the add-node universe.
 
-The final RCSS configuration was confirmed on held-out split seeds 25–29 after an earlier diagnostic stage on seeds 20–24. Stage 10 strengthens the method by adding validation-aware swap refinement; Stage 11 removes the manual-weight concern by selecting RCSS weights through inner validation.
+The final paper-facing evidence is Stage 12 baseline-portfolio evidence. Stage 10 strengthened the method by adding validation-aware swap refinement; Stage 11 removed the manual-weight concern by selecting RCSS weights through inner validation; Stage 12 expanded the comparator portfolio and external ten-split evidence. Stage 11 remains useful development history, but Stage 12 artifacts under `TRC-23-02333/trace_sl_results/paper_sources/` are the current manuscript-facing source of truth.
 
 ### Formulation and theory bridge
 
@@ -37,7 +39,46 @@ The RCSS surrogate combines validation reconstruction loss with posterior-certif
 
 Detailed paper-writing support is in `.planning/phases/02-formulation-and-theory-bridge/02-FORMULATION-THEORY-BRIDGE.md`. Optional TR Part B extension requirements are separated in `.planning/phases/02-formulation-and-theory-bridge/02-TR-PART-B-THEORY-GAP-NOTE.md`, including deferred v2 monotonicity, approximate-submodularity, approximation, stability, and stochastic/bilevel analysis needs.
 
-## Key Evidence
+## Current manuscript source of truth
+
+The current paper-source package is generated from committed aggregate artifacts under `TRC-23-02333/trace_sl_results/paper_sources/`. It includes Stage 12 core performance, paired deltas, external evidence gates, ablation contracts, dataset evidence classification, certificate correlations, and scoped theory statements.
+
+### Stage 12 core PeMS7_228 evidence
+
+Directory: `TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/`
+
+Mean GLS/MAP test MAE across ten held-out splits:
+
+| Budget | Validation-swap selected | Best random by validation | Random mean | Top variance |
+|---:|---:|---:|---:|---:|
+| 10% | 3.5901 | 3.7131 | 3.8331 | 3.7304 |
+| 20% | 3.3547 | 3.4495 | 3.5746 | 3.4276 |
+| 30% | 3.0842 | 3.2469 | 3.4037 | 3.2004 |
+
+Paired tests against validation-selected random support improvement at all three budgets: p=0.0000876 at 10%, p=0.00537 at 20%, and p=0.000509 at 30%. The 10% PeMS7_228 budget carries the caveat `pems7_228_low_budget_multistart_not_dominant`, because the multistart swap comparator is statistically close.
+
+### Stage 12 external evidence
+
+The external evidence gate reports PeMS7_1026 and Seattle as complete: both have ten tracked split seeds, held-out aggregate artifacts, paired evidence, and `core_claim_eligible=True` in `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.md`.
+
+| Dataset | Budget | Validation-swap selected MAE | Split count |
+|---|---:|---:|---:|
+| PeMS7_1026 | 10% | 3.7674 | 10 |
+| PeMS7_1026 | 20% | 3.3467 | 10 |
+| PeMS7_1026 | 30% | 3.0740 | 10 |
+| Seattle | 10% | 3.1012 | 10 |
+| Seattle | 20% | 2.8281 | 10 |
+| Seattle | 30% | 2.6241 | 10 |
+
+This evidence supports a multi-network empirical claim. It should not be phrased as universal generalization. At PeMS7_1026 10%, internal OR variants such as `swap_from_greedy_a_trace` and `greedy_a_trace` slightly outperform `validation_swap_selected`, so the safest and most accurate method identity is TRACE-SL as a reconstruction-aware layout design framework/portfolio with a main selected layout, not a single selector that dominates every internal variant everywhere.
+
+### Stage 12 theory and claim contracts
+
+The theory contract now covers formulation, posterior trace squared-error identity under scoped linear-Gaussian assumptions, posterior covariance monotonicity, validation-aware one-swap local optimality, and RCSS workload complexity. These statements are ready to be converted into manuscript theorem/proposition form, but they do not imply non-Gaussian traffic MAE guarantees, submodularity, approximation ratios, global optimality, or certified robustness.
+
+## Legacy development evidence
+
+The sections below record the development path through Stages 9--11. They should not be used as the primary manuscript source of truth when Stage 12 paper-source artifacts are available.
 
 ### Stage 9 confirmatory experiment
 
@@ -145,11 +186,11 @@ Selected weight distribution in the original five-split Stage 11 run:
 
 This means the paper should not present `0.70/0.10/0.20` as a manually chosen coefficient vector. The cleaner claim is that TRACE-SL creates an OR-guided candidate space, then uses inner validation to select either validation-only or certificate-regularized RCSS scoring depending on the split.
 
-### PeMS7_1026 external validation
+### Stage 11 PeMS7_1026 external-validation history
 
 Directory: `TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/`
 
-PeMS7_1026 uses the same Stage 11 pipeline with 100 random layouts and 100 quality-coverage candidates per split. This is an external-network validation relative to the PeMS7_228 development and confirmatory runs.
+PeMS7_1026 used the same Stage 11 pipeline with 100 random layouts and 100 quality-coverage candidates per split. This remains useful history, but Stage 12 PeMS7_1026 evidence supersedes it for manuscript claims.
 
 Mean GLS/MAP test MAE across five PeMS7_1026 splits:
 
@@ -167,13 +208,13 @@ Validation-swap RCSS deltas against best-random by validation:
 | 20% | -0.2105 | 5/5 | 0.0007 | 0.0625 |
 | 30% | -0.2531 | 5/5 | 0.0001 | 0.0625 |
 
-This resolves the main external-validation concern: TRACE-SL's Stage 11 validation-swap RCSS transfers to a larger PeMS7 network and keeps a clear advantage over validation-selected random, random mean, and top variance across all tested budgets.
+This was the first external-validation signal that TRACE-SL's validation-swap RCSS transferred to a larger PeMS7 network. Use Stage 12 paper-source rows for final external evidence and for any baseline-portfolio claims.
 
-### Seattle heterogeneous-network validation
+### Stage 11 Seattle heterogeneous-network history
 
 Directory: `TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light/`
 
-Seattle uses the same Stage 11 pipeline on the available 323-sensor tensor representation, with five split seeds, 50 random layouts, and 50 quality-coverage candidates per split. This is a lightweight external validation on a non-PeMS, spatially heterogeneous network.
+Seattle used the same Stage 11 pipeline on the available 323-sensor tensor representation, with five split seeds, 50 random layouts, and 50 quality-coverage candidates per split. This remains historical lightweight external validation; Stage 12 Seattle ten-split evidence supersedes it for current claims.
 
 Mean GLS/MAP test MAE across five Seattle splits:
 
@@ -191,19 +232,19 @@ Validation-swap RCSS deltas against best-random by validation:
 | 20% | -0.1452 | 5/5 | 0.0032 | 0.0625 |
 | 30% | -0.1061 | 5/5 | 0.0025 | 0.0625 |
 
-Seattle is supporting, conditional evidence rather than a core claim until Phase 4 curates repository-visible outputs and synchronizes the documentation. In the current lightweight run, validation-swap RCSS wins against validation-selected random on every split and every budget, while GLS/MAP certificates remain strongly aligned with hidden reconstruction error.
+This lightweight run was later superseded by the completed Stage 12 Seattle gate. The current repository-visible source of truth is `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.md`.
 
 ### Certificate validity
 
-GLS/MAP posterior certificates are stable predictors of hidden reconstruction error in the 10-split Stage 11 aggregate:
+GLS/MAP posterior certificates are stable predictors of hidden reconstruction error in the Stage 12 PeMS7_228 aggregate:
 
 | Certificate | Pearson with MAE | Spearman with MAE |
 |---|---:|---:|
-| posterior trace | 0.8612 | 0.8513 |
-| condition number | 0.8327 | 0.8592 |
-| information logdet | -0.8209 | -0.8130 |
+| posterior trace | 0.7931 | 0.8068 |
+| condition number | 0.8129 | 0.8548 |
+| information logdet | -0.7019 | -0.7625 |
 
-This supports the interpretability claim: the OR certificates are not decorative; they are strongly aligned with empirical hidden-link reconstruction quality. On PeMS7_1026, the GLS/MAP certificate correlations are even stronger: posterior trace Spearman 0.9315, condition number Spearman 0.8930, and information logdet Spearman -0.8982. Seattle correlations are currently supporting-only pending Phase 4 curation of repository-visible outputs.
+This supports the interpretability claim: the OR certificates are not decorative; they are aligned with empirical hidden-link reconstruction quality. They should still be described as empirical diagnostic certificates, not formal MAE guarantees.
 
 ### Mechanism evidence
 
@@ -220,8 +261,8 @@ This suggests the improvement comes from adding an OR-guided, certificate-aware 
 ## Claim Status
 
 - C1: Transparent GLS/MAP reconstruction from sparse sensors is viable — supported.
-- C2: OR-guided RCSS layouts improve reconstruction over random placement and validation-selected random placement — strengthened by the PeMS7_228 Stage 11 ten-split aggregate and externally supported on PeMS7_1026; Seattle remains supporting-only until Phase 4 curation.
-- C3: Certificates explain layout quality — strongly supported by stable correlation on PeMS7_228 and PeMS7_1026, with Seattle treated as supporting-only pending curation.
+- C2: OR-guided TRACE-SL layouts improve reconstruction over random placement, validation-selected random placement, and multiple reviewer-facing baselines in Stage 12 PeMS7_228 evidence; PeMS7_1026 and Seattle provide completed ten-split external evidence for multi-network discussion.
+- C3: Certificates explain layout quality — supported by Stage 12 certificate-error correlations, but only as empirical diagnostic certificates rather than certified MAE guarantees.
 - C4: RL is not yet needed for the core claim — RCSS currently provides an OR-guided non-DL method; RL can remain optional for amortizing repeated search later.
 - C5: Regime-aware TS insight remains a paper extension, not required for the current core evidence.
 
@@ -248,6 +289,7 @@ Recommended figures:
 
 ## Remaining Follow-up
 
-1. Generate final paper figures from PeMS7_228 ten-split and PeMS7_1026 external-validation CSV files; include Seattle only after Phase 4 curates repository-visible outputs.
-2. Consider increasing PeMS7_1026 or Seattle split count only if the target venue demands stronger nonparametric tests; all five current external-validation splits already beat validation-selected random at every budget.
-3. If RL is retained, frame it as optional amortized search over the RCSS candidate-generation process, not as the estimator.
+1. Convert the theory contract into manuscript theorem/proposition form: problem definition, posterior trace identity, posterior covariance monotonicity, finite-candidate validation-selection bound, one-swap local optimality, and complexity.
+2. Generate final figures from Stage 12 `paper_sources` and include PeMS7_228, PeMS7_1026, and Seattle in the main evidence package.
+3. Add or clearly defer chronological and regime-shift splits; random split evidence should not be the only temporal validation story for TR-B.
+4. If RL is retained, frame it as optional amortized search over the RCSS candidate-generation process, not as the estimator.

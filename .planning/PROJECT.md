@@ -9,7 +9,7 @@ The repository now has:
 - A claim-evidence contract constraining TRACE-SL claims to explicit theory, held-out evidence, robustness evidence, statistical comparisons, or limitations.
 - A formal budgeted sensor-set formulation, RCSS surrogate, GLS/MAP posterior-error bridge, and validation-aware swap analysis.
 - A reviewer-facing baseline portfolio covering observability/TSLP-style baselines, A/D-optimal design, graph/GSP connections, QR/SVD/POD sparse placement, learning-check framing, and multistart comparators.
-- Curated PeMS7_228, PeMS7_1026, Seattle-supporting, candidate-count, runtime, and certificate-error evidence with paired statistics and bounded caveats.
+- Curated PeMS7_228, PeMS7_1026, Seattle, candidate-count, runtime, and certificate-error evidence with paired statistics and bounded caveats.
 - Stage 14 robustness artifacts for sensor failure, observation noise, missingness, nonuniform costs, temporal shift, and candidate-count sensitivity.
 - A reproducibility handoff with deterministic manifests, generated paper-source tables, launcher smoke checks, aggregate validators, and raw-data hygiene boundaries.
 
@@ -21,9 +21,9 @@ The repository now has:
 - Freeze the paper-level narrative as transparent reconstruction-aware sensor layout design, not a heuristic or baseline-beating story.
 - Freeze the main method and main evidence around `validation_swap_selected` and the Stage12 PeMS7_228 baseline portfolio, while preserving the multistart caveat.
 - Organize or fill ablation evidence showing the separate roles of certificate candidate generation, validation selection, and validation-aware swap refinement.
-- Complete PeMS7_1026 Stage12 10-split external evidence so PeMS external evidence is no longer only lower-power supporting evidence.
-- Complete Seattle Stage12 10-split external/transfer-style evidence; otherwise Seattle cannot enter the core claim and the milestone should not be marked complete.
-- Run the remaining PeMS7_1026 and Seattle Stage12 evidence work with `max_jobs=1` / one active job only; do not parallelize dataset, split, or seed jobs during the closure run.
+- Use completed PeMS7_1026 Stage12 10-split external evidence as multi-network empirical support, without claiming universal cross-network generalization.
+- Use completed Seattle Stage12 10-split external/transfer-style evidence according to the regenerated external evidence gate.
+- Keep the completed PeMS7_1026 and Seattle Stage12 closure provenance tied to the `max_jobs=1` / one-active-job execution constraint used for reliability.
 - Keep robustness as stress-test or appendix evidence unless multi-seed perturbation results are added.
 - Prepare the Transportation Science theory layer: posterior trace bridge, monotonicity, validation-aware swap local optimality, and complexity.
 - Avoid TR Part B-level or unsupported wording such as optimal, certified, globally robust, guaranteed MAE improvement, or generalizes across networks.
@@ -40,8 +40,8 @@ Make strong, publishable claims about transparent reconstruction-aware traffic s
 
 - ✓ TRACE-SL has a runnable experiment pipeline for PeMS7_228, PeMS7_1026, and Seattle-style inputs — existing
 - ✓ The repository evaluates transparent reconstruction methods including historical mean, neighbor average, GSP, and GLS/MAP — existing
-- ✓ Stage 11 outputs show validation-swap RCSS improves over random, validation-selected random, and variance/topology baselines at moderate/high PeMS7_228 budgets — existing
-- ✓ PeMS7_228 has 10-split aggregate evidence and PeMS7_1026 has external validation evidence — existing
+- ✓ Stage 12 outputs show validation-swap RCSS improves over random, validation-selected random, and reviewer-facing baselines on PeMS7_228 while preserving the low-budget multistart caveat — v1.1
+- ✓ PeMS7_228, PeMS7_1026, and Seattle have tracked 10-split Stage12 aggregate evidence — v1.1
 - ✓ The method emits posterior trace, condition number, logdet, scenario CVaR trace, coverage, and validation diagnostics — existing
 - ✓ TRACE-SL is framed as transparent reconstruction-aware sensor placement rather than an empirical candidate-pool heuristic — v1.0
 - ✓ Primary claims are mapped to explicit evidence or bounded limitation wording — v1.0
@@ -57,13 +57,13 @@ Make strong, publishable claims about transparent reconstruction-aware traffic s
 
 ### Active
 
-- [ ] Freeze the TRACE-SL paper foundation around a Transportation Science claim, not a toy-project or heuristic-improvement framing.
-- [ ] Freeze the Stage12 PeMS7_228 baseline portfolio as the main in-domain result table and preserve the multistart caveat.
-- [ ] Organize or complete the ablation evidence needed to show why certificate candidate generation, validation selection, and validation-aware swap each matter.
-- [ ] Complete PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
-- [ ] Complete Seattle Stage12 10-split external/transfer-style evidence before allowing Seattle into any core claim.
-- [ ] Prepare a theory-ready package for posterior trace identity, monotonicity, validation-aware swap local optimality, and complexity.
-- [ ] Produce paper-foundation artifacts that a later writing milestone can consume without starting manuscript prose now.
+- [x] Freeze the TRACE-SL paper foundation around a Transportation Science claim, not a toy-project or heuristic-improvement framing.
+- [x] Freeze the Stage12 PeMS7_228 baseline portfolio as the main in-domain result table and preserve the multistart caveat.
+- [x] Organize or complete the ablation evidence needed to show why certificate candidate generation, validation selection, and validation-aware swap each matter.
+- [x] Complete PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
+- [x] Complete Seattle Stage12 10-split external/transfer-style evidence before allowing Seattle into any core claim.
+- [x] Prepare a theory-ready package for posterior trace identity, monotonicity, validation-aware swap local optimality, and complexity.
+- [x] Produce paper-foundation artifacts that a later writing milestone can consume without starting manuscript prose now.
 
 ### Out of Scope
 
@@ -83,11 +83,11 @@ After v1.1, the next milestone should begin manuscript drafting from the frozen 
 
 The research direction is strong because it connects sparse traffic sensor layout decisions directly to full-network reconstruction quality. The intended distinction from classical traffic sensor location problems is that TRACE-SL does not pursue deterministic full observability or minimum counting-point coverage; it optimizes partial-observation reconstruction quality, uncertainty, robustness, and validation performance under limited budgets.
 
-Known evidence caveats after v1.0:
+Known evidence caveats after v1.1:
 
-- PeMS7_228 supports strong improvements at moderate/high budgets, while low-budget claims must preserve the multistart validation refinement caveat.
-- PeMS7_1026 must be upgraded to Stage12 10-split evidence in v1.1 before it can support stronger external PeMS claims.
-- Seattle must be upgraded to Stage12 10-split evidence in v1.1 before it can enter core claims.
+- PeMS7_228 supports strong improvements against reviewer-facing baselines, while low-budget claims must preserve the multistart validation refinement caveat.
+- PeMS7_1026 and Seattle have complete Stage12 10-split evidence and may support multi-network empirical discussion.
+- Multi-network evidence must not be phrased as universal cross-network generalization.
 - Stage 14 robustness is bounded to the tested perturbations and reduced PeMS7_228 settings.
 - Raw datasets remain local/ignored and must not be committed.
 
@@ -97,8 +97,8 @@ Known evidence caveats after v1.0:
 - **Backup venue:** TR Part B remains possible only with stronger mathematical modeling, posterior-error theory, algorithmic properties, and generality beyond PeMS tuning.
 - **Claim strategy:** Strong claims should be preserved and strengthened with evidence rather than narrowed prematurely.
 - **Evidence standard:** Core claims must be supported by held-out test results, paired comparisons, statistical uncertainty, robustness checks, and reproducible artifacts.
-- **External evidence:** PeMS7_1026 and Seattle must both receive Stage12 10-split evidence in v1.1 before being elevated beyond supporting or conditional status.
-- **Execution concurrency:** Remaining Stage12 external evidence jobs must run with max jobs set to 1. Treat concurrent split/seed/dataset execution as out of scope for the v1.1 closure run because compute reliability is the limiting constraint.
+- **External evidence:** PeMS7_1026 and Seattle have complete Stage12 10-split evidence; use them as external empirical evidence, not as universal generalization proof.
+- **Execution concurrency:** Completed Stage12 external evidence closure used max jobs set to 1. Future reruns should preserve this constraint unless the compute environment changes.
 - **Reproducibility:** Raw datasets stay local and ignored; curated result summaries, scripts, and non-sensitive artifacts should remain synchronized with paper claims.
 
 ## Key Decisions
@@ -107,10 +107,10 @@ Known evidence caveats after v1.0:
 |----------|-----------|---------|
 | Target Transportation Science first | The contribution fits transportation network design and transparent optimization better than a theory-heavy TR Part B submission in its present state | ✓ Good |
 | Keep strong claims, but require evidence-backed wording | The research has real promise; the right response is to add evidence and sharpen claims, not dilute the contribution | ✓ Good |
-| Frame v1.1 as paper foundation, not manuscript drafting | The claim, external evidence, ablation logic, and theory layer need to be frozen before writing begins | — Pending |
-| Require PeMS7_1026 Stage12 10-split evidence before stronger external PeMS claims | The existing PeMS7_1026 evidence is promising but lower-power | — Pending |
-| Require Seattle Stage12 10-split evidence before core-claim use | Seattle should not remain conditional if it is used as external/transfer-style evidence | — Pending |
-| Limit remaining Stage12 closure execution to max_jobs=1 | User-confirmed compute constraint; parallel split/seed/dataset jobs risk overrunning the available environment | — Pending |
+| Frame v1.1 as paper foundation, not manuscript drafting | The claim, external evidence, ablation logic, and theory layer needed to be frozen before writing begins | ✓ Good |
+| Require PeMS7_1026 Stage12 10-split evidence before stronger external PeMS claims | The earlier PeMS7_1026 evidence was promising but lower-power | ✓ Done |
+| Require Seattle Stage12 10-split evidence before core-claim use | Seattle should not remain conditional if it is used as external/transfer-style evidence | ✓ Done |
+| Limit remaining Stage12 closure execution to max_jobs=1 | User-confirmed compute constraint; parallel split/seed/dataset jobs risk overrunning the available environment | ✓ Done |
 | Use “certificate-guided” unless formal certification is proved | Current posterior diagnostics correlate with MAE but are not formal certificates | ✓ Good |
 | Treat multistart validation refinement as a serious comparator or portfolio member | At 10% budget it can outperform validation-swap RCSS, so ignoring it would invite reviewer criticism | ✓ Good |
 | Use generated paper-source tables as the manuscript handoff | This keeps paper-visible numbers tied to committed aggregate evidence and provenance | ✓ Good |
@@ -134,4 +134,4 @@ Archived files:
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026/05/25 after v1.1 closure preflight constraint update*
+*Last updated: 2026/05/26 after EVID-03/EVID-04 Stage12 closure and TR-B narrative alignment*

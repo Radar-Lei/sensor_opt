@@ -284,7 +284,8 @@ def _claim_row(
 def build_claim_contract_rows(stage12_dir: Path, layout_csv: Path, paired_csv: Path) -> list[dict[str, object]]:
     layout_artifact = project_relative(layout_csv)
     paired_artifact = project_relative(paired_csv)
-    pems7_1026_artifact = "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_layout_summary.csv"
+    pems7_1026_artifact = "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_layout_summary.csv"
+    seattle_artifact = "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_layout_summary.csv"
     robustness_layout_artifact = "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv"
     robustness_summary_artifact = "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md"
     rows = [
@@ -331,18 +332,32 @@ def build_claim_contract_rows(stage12_dir: Path, layout_csv: Path, paired_csv: P
             "main in-domain table is derived from committed Stage12 aggregate evidence only",
         ),
         _claim_row(
-            evidence_metadata("stage11_external_evidence", pems7_1026_artifact),
+            evidence_metadata("external_stage12_baseline_portfolio", pems7_1026_artifact),
             "EVID-EXT-PeMS7_1026",
             "external_evidence",
-            "supporting_until_phase8",
+            "external_stage12_complete",
             "external evidence",
             "generalizes across networks",
             "PeMS7_1026",
             pems7_1026_artifact,
-            "phase8_stage12_10_split_required_before_core_claim",
+            "held_out_test_with_paired_comparisons",
             "",
-            "phase7_external_boundary",
-            "PeMS7_1026 cannot be core_in_domain or transportation_science_ready in Phase 7",
+            "phase8_external_evidence",
+            "completed ten-split Stage12 external evidence supports external-network discussion without claiming universal cross-network generalization",
+        ),
+        _claim_row(
+            evidence_metadata("external_stage12_baseline_portfolio", seattle_artifact),
+            "EVID-EXT-Seattle",
+            "external_evidence",
+            "external_stage12_complete",
+            "external evidence",
+            "generalizes across networks",
+            "Seattle",
+            seattle_artifact,
+            "held_out_test_with_paired_comparisons",
+            "",
+            "phase8_external_evidence",
+            "completed ten-split Stage12 Seattle evidence supports heterogeneous-network discussion without claiming universal cross-network generalization",
         ),
         _claim_row(
             evidence_metadata("stage14_robustness", robustness_layout_artifact),
@@ -580,7 +595,7 @@ def build_claim_contract_policy(claim_rows: Sequence[dict[str, object]], main_ro
         "claim_statuses": sorted({str(row["claim_status"]) for row in claim_rows}),
         "evidence_routing": {
             "core_in_domain": "PeMS7_228 Stage12 baseline portfolio only in Phase 7",
-            "external_evidence": "PeMS7_1026 stays supporting until Phase 8 Stage12 10-split evidence; Seattle remains out of the Phase 7 contract until routed through tracked summary artifacts",
+            "external_evidence": "PeMS7_1026 and Seattle route through completed Phase 8 Stage12 ten-split evidence for multi-network empirical discussion, without elevating them to universal cross-network generalization claims",
             "robustness": "stress_test or appendix unless source row declares multi-seed perturbation evidence",
             "claim_metric_basis": "held-out test evidence with paired comparisons where paired_evidence_status=paired_stats_available; rows marked descriptive_only are layout-summary evidence only",
             "main_table_paired_evidence_status": {
@@ -644,9 +659,34 @@ def write_readme(output_dir: Path) -> None:
         "- `robustness_condition_table.csv`: Stage 14 condition-preserving robustness performance rows.\n"
         "- `candidate_runtime_table.csv`: Stage 14 candidate-count runtime and candidate diagnostic sensitivity rows.\n"
         "- `certificate_correlation_table.csv`: Stage 12/13 empirical certificate-error correlation summaries.\n"
-        "- `claim_contract.csv` / `claim_contract.json` / `claim_contract.md`: Phase 7 claim wording, evidence routing, and caveat policy.\n"
+        "- `claim_contract.csv` / `claim_contract.json` / `claim_contract.md`: claim wording, evidence routing, and caveat policy across core PeMS7_228, completed external Stage12 evidence, robustness stress tests, and theory boundaries.\n"
         "- `main_table_contract.csv` / `main_table_contract.md`: Phase 7 Stage12 PeMS7_228 main-table contract with `paired_evidence_status`; descriptive-only rows keep layout-summary provenance and are not paired-test evidence.\n\n"
-        "Every generated row includes `source_stage`, `source_dir`, and `source_csv` provenance columns. The generators verify that source CSVs and nonempty evidence artifacts are tracked by git and read only committed aggregate CSVs, not raw traffic datasets.\n",
+        "Every generated row includes `source_stage`, `source_dir`, and `source_csv` provenance columns. The generators verify that source CSVs and nonempty evidence artifacts are tracked by git and read only committed aggregate CSVs, not raw traffic datasets.\n\n"
+        "## External Stage12 Evidence Sources\n\n"
+        "Regenerate external evidence contracts from the repository root with:\n\n"
+        "```bash\n"
+        "python scripts/generate_trace_sl_external_evidence_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources\n"
+        "```\n\n"
+        "Generated files:\n\n"
+        "- `external_evidence_contract.csv` / `external_evidence_contract.json` / `external_evidence_contract.md`: Phase 8 external Stage12 evidence rows with split counts, tracking provenance, paired-stat honesty, and blocker status.\n"
+        "- `external_evidence_gate.json` / `external_evidence_gate.md`: machine-checkable PeMS7_1026 and Seattle Stage12 completion gate. In the current generated gate, both datasets have complete tracked ten-split Stage12 evidence and `v1_1_completion_allowed=true`.\n\n"
+        "## Phase 9 Ablation and Dataset Classification Sources\n\n"
+        "Regenerate Phase 9 ablation contracts from the repository root with:\n\n"
+        "```bash\n"
+        "python scripts/generate_trace_sl_ablation_evidence_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources\n"
+        "```\n\n"
+        "Generated files:\n\n"
+        "- `ablation_contract.csv` / `ablation_contract.json` / `ablation_contract.md`: Phase 9 ablation rows with layer, question, held-out evidence basis, paired-stat honesty, and caveat routing.\n"
+        "- `dataset_evidence_classification.csv` / `dataset_evidence_classification.json` / `dataset_evidence_classification.md`: dataset evidence lanes and fail-closed EVID-03/EVID-04 status classification.\n\n"
+        "## Phase 10 Theory and Handoff Sources\n\n"
+        "Regenerate Phase 10 theory and handoff contracts from the repository root with:\n\n"
+        "```bash\n"
+        "python scripts/generate_trace_sl_theory_handoff_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources\n"
+        "```\n\n"
+        "Generated files:\n\n"
+        "- `theory_statement_contract.csv` / `theory_statement_contract.json` / `theory_statement_contract.md`: Phase 10 theory-ready scoped statements, assumptions, and non-claim boundaries.\n"
+        "- `paper_foundation_handoff_manifest.csv` / `paper_foundation_handoff_manifest.json` / `paper_foundation_handoff_manifest.md`: reproducibility-safe paper-foundation artifact pointers for later writing.\n\n"
+        "These are row-level paper-foundation contracts, not manuscript prose. Raw traffic datasets under `TRC-23-02333/dataset/` are protected local inputs and are not evidence artifacts.\n",
         encoding="utf-8",
     )
 

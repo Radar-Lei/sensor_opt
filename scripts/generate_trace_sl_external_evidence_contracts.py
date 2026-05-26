@@ -593,7 +593,7 @@ def write_readme(output_dir: Path) -> None:
         "```\n\n"
         "Generated files:\n\n"
         "- `external_evidence_contract.csv` / `external_evidence_contract.json` / `external_evidence_contract.md`: Phase 8 external Stage12 evidence rows with split counts, tracking provenance, paired-stat honesty, and blocker status.\n"
-        "- `external_evidence_gate.json` / `external_evidence_gate.md`: machine-checkable PeMS7_1026 and Seattle Stage12 completion gate; Seattle remains blocked from core claims unless complete tracked ten-split Stage12 evidence is present.\n\n"
+        "- `external_evidence_gate.json` / `external_evidence_gate.md`: machine-checkable PeMS7_1026 and Seattle Stage12 completion gate; completed gates support bounded external empirical discussion and still block universal cross-network generalization claims.\n\n"
         "Raw traffic datasets under `TRC-23-02333/dataset/` are protected local inputs and are not evidence artifacts.\n"
     )
     marker = "## External Stage12 Evidence Sources"

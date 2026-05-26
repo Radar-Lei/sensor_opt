@@ -154,9 +154,13 @@ class ClaimContractGenerationTests(unittest.TestCase):
 
         evidence_sources = {row["evidence_source"] for row in rows}
         self.assertIn("PeMS7_1026", evidence_sources)
-        self.assertNotIn("Seattle", evidence_sources)
+        self.assertIn("Seattle", evidence_sources)
         self.assertNotIn(
             "TRC-23-02333/trace_sl_results/seattle_stage11_auto_weight_light",
+            {row["evidence_artifact"] for row in rows},
+        )
+        self.assertIn(
+            "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_layout_summary.csv",
             {row["evidence_artifact"] for row in rows},
         )
 
@@ -402,6 +406,8 @@ class ClaimContractGenerationTests(unittest.TestCase):
             set(policy["evidence_routing"]["main_table_paired_evidence_status"]),
             {"paired_stats_available", "descriptive_only"},
         )
+        self.assertIn("completed Phase 8 Stage12 ten-split evidence", policy["evidence_routing"]["external_evidence"])
+        self.assertIn("without elevating", policy["evidence_routing"]["external_evidence"])
 
     def test_source_tracking_rejects_raw_dataset_or_untracked_sources(self) -> None:
         generator = import_generator()

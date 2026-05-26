@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: ready_for_audit
-stopped_at: Completed EVID-03/EVID-04 Stage12 closure; ready to rerun v1.1 milestone audit
-last_updated: "2026-05-25T20:45:00.000+08:00"
-last_activity: 2026-05-25
+status: complete
+stopped_at: v1.1 paper foundation complete after EVID-03/EVID-04 Stage12 closure and audit refresh
+last_updated: "2026-05-26T00:00:00.000+08:00"
+last_activity: 2026-05-26
 progress:
   total_phases: 5
   completed_phases: 5
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026/05/23)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** Phase 10 — Theory and Handoff Package
+**Current focus:** v1.1 complete; next work is manuscript drafting from the frozen paper-source foundation.
 
 ## Current Position
 
 Phase: 10 (Theory and Handoff Package) — COMPLETE
 Plan: 1 of 1
-Status: Phase 10 complete; EVID-03/EVID-04 external Stage12 ten-split gate is open and v1.1 is ready for milestone audit
-Last activity: 2026-05-25
+Status: v1.1 complete after EVID-03/EVID-04 external Stage12 ten-split gate opened and the milestone audit was refreshed
+Last activity: 2026-05-26
 
 Progress: [██████████] 100%
 
@@ -53,14 +53,14 @@ Progress: [██████████] 100%
 | 08 | 1 | 5min | 5min |
 | 08.5 | 4 | - | - |
 
-**Recent Trend:**
+**Historical Trend Before Closure:**
 
 - Last 5 plans: 08-01, 08-02, 08-03, 08-04, 08-05
-- Trend: Phase 8 produced fail-closed external Stage12 gate artifacts rather than claiming incomplete evidence.
+- Trend: Phase 8 initially produced fail-closed external Stage12 gate artifacts; the later formal closure run completed EVID-03/EVID-04 and opened the gate.
 
 | Phase 08 P02 | 12min | 2 tasks | 1 files |
 | Phase 08 P03 | blocked status | Seattle Stage12 | EVID-04 incomplete |
-| Phase 08 P04 | gate generated | 2 contract rows | v1.1 blocked |
+| Phase 08 P04 | pre-closure gate generated | 2 contract rows | later reopened by Stage12 closure |
 | Phase 08.5 P01 | 3min | 3 tasks | 2 files |
 | Phase 08.5 P02 | 6min | 3 tasks | 2 files |
 | Phase 08.5 P03 | 11min | 3 tasks | 5 files |
@@ -85,9 +85,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - Robustness evidence remains stress-test or appendix routed unless a row explicitly declares multi-seed perturbation evidence.
 - Keep Phase 7 contract outputs CSV/JSON-first, with Markdown as generated views rather than manuscript prose.
 - Use the plan-required trace_sl_claim_contract_v1 schema marker as the machine-readable policy identifier.
-- Treat PeMS7_1026, Seattle, and robustness evidence as non-core Phase 7 lanes until later evidence phases complete.
+- Treat PeMS7_1026 and Seattle as completed external Stage12 evidence lanes after Phase 8 closure; robustness evidence remains non-core stress-test/appendix evidence unless stronger perturbation evidence is added.
 - External Stage12 completion requires existing, git-tracked aggregate artifacts and exactly ten split seeds; untracked aggregates remain pending_tracking rather than complete.
-- Seattle remains blocked from core claims unless tracked ten-split Stage12 evidence is complete and any stage12_status.json reports completion.
+- Seattle is no longer blocked by the external gate because tracked ten-split Stage12 evidence is complete and `stage12_status.json` reports completion; still avoid universal transfer/generalization wording.
 - [Phase 08 Closure]: PeMS7_1026 Stage12 formal closure completed ten split seeds 25-34 with tracked aggregate and seed-level artifacts; EVID-03 is complete.
 - [Phase 08 Closure]: Seattle Stage12 formal closure completed ten split seeds 25-34, `stage12_status.json` reports completed, and tracked aggregate/seed-level artifacts exist; EVID-04 is complete.
 - [Phase 08 Closure]: `paper_sources/external_evidence_gate.json` is the machine gate: `v1_1_completion_allowed=true`, `pems7_1026_stage12_complete=true`, `seattle_stage12_complete=true`, and `seattle_core_claim_blocked=false`.
@@ -120,7 +120,7 @@ None yet.
 ### Blockers/Concerns
 
 - No active EVID-03/EVID-04 blocker remains after the formal Stage12 closure run.
-- Downstream Phase 9/10 generated artifacts that require committed gate inputs should be regenerated after committing the new external evidence and gate.
+- Downstream generated artifacts should remain synchronized with the completed external evidence gate before manuscript drafting.
 - All phases: do not draft manuscript prose in this milestone.
 
 ## Deferred Items
@@ -132,6 +132,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-25T12:00:00.000Z
-Stopped at: Completed 10-01-PLAN.md
+Last session: 2026-05-26T00:00:00.000+08:00
+Stopped at: v1.1 complete after external Stage12 closure
 Resume file: None

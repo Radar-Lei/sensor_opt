@@ -21,15 +21,15 @@
   "claim_statuses": [
     "bounded_appendix_evidence",
     "bounded_stress_test_evidence",
+    "external_stage12_complete",
     "forbidden",
     "requires_stronger_theory",
-    "supporting_until_phase8",
     "transportation_science_ready"
   ],
   "evidence_routing": {
     "claim_metric_basis": "held-out test evidence with paired comparisons where paired_evidence_status=paired_stats_available; rows marked descriptive_only are layout-summary evidence only",
     "core_in_domain": "PeMS7_228 Stage12 baseline portfolio only in Phase 7",
-    "external_evidence": "PeMS7_1026 stays supporting until Phase 8 Stage12 10-split evidence; Seattle remains out of the Phase 7 contract until routed through tracked summary artifacts",
+    "external_evidence": "PeMS7_1026 and Seattle route through completed Phase 8 Stage12 ten-split evidence for multi-network empirical discussion, without elevating them to universal cross-network generalization claims",
     "main_table_paired_evidence_status": {
       "descriptive_only": "paired statistics are blank and row provenance is limited to gls_map_layout_summary.csv",
       "paired_stats_available": "paired statistics are present and row provenance includes gls_map_paired_delta_tests.csv"
@@ -61,16 +61,17 @@
     "greedy_d_logdet"
   ],
   "row_counts": {
-    "claim_contract": 11,
+    "claim_contract": 12,
     "main_table_contract": 33
   },
   "secondary_certificate_baseline_if_present": "greedy_d_logdet",
   "source_artifacts": [
     ".planning/REQUIREMENTS.md",
-    "TRC-23-02333/trace_sl_results/pems7_1026_stage11_auto_weight/gls_map_layout_summary.csv",
+    "TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/gls_map_layout_summary.csv",
     "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_layout_summary.csv",
     "TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/gls_map_paired_delta_tests.csv",
     "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/SUMMARY.md",
-    "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv"
+    "TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/gls_map_layout_summary.csv",
+    "TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/gls_map_layout_summary.csv"
   ]
 }
