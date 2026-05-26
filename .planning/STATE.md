@@ -1,36 +1,35 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: TRACE-SL Transportation Science Paper Foundation
-status: complete
-stopped_at: v1.1 paper foundation complete after EVID-03/EVID-04 Stage12 closure and audit refresh
-last_updated: "2026-05-26T00:00:00.000+08:00"
+milestone: v1.2
+milestone_name: TRACE-SL Transportation Research Part B Manuscript Drafting
+status: planning
+last_updated: "2026-05-26T10:48:17.674Z"
 last_activity: 2026-05-26
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 15
-  completed_plans: 15
-  percent: 100
+  total_phases: 6
+  completed_phases: 0
+  total_plans: 6
+  completed_plans: 0
+  percent: 0
 ---
 
-# GSD State: TRACE-SL Transportation Science Readiness
+# GSD State: TRACE-SL Transportation Research Part B Readiness
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026/05/23)
+See: .planning/PROJECT.md (updated 2026/05/26)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** v1.1 complete; next work is manuscript drafting from the frozen paper-source foundation.
+**Current focus:** v1.2 TR Part B manuscript drafting from the frozen v1.1 paper-source foundation using `els-cas-templates` and `$paper-writing` with submission assurance.
 
 ## Current Position
 
-Phase: 10 (Theory and Handoff Package) — COMPLETE
-Plan: 1 of 1
-Status: v1.1 complete after EVID-03/EVID-04 external Stage12 ten-split gate opened and the milestone audit was refreshed
-Last activity: 2026-05-26
+Phase: Not started (defining requirements)
+Plan: —
+Status: Requirements and roadmap defined; ready for Phase 11 planning/execution
+Last activity: 2026-05-26 — Milestone v1.2 started
 
-Progress: [██████████] 100%
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
@@ -112,6 +111,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 10 Plan 01]: Theory statement contracts provide row-level scoped statements for formulation, posterior trace identity, monotonicity, validation-aware one-swap local optimality, and RCSS workload complexity.
 - [Phase 10 Plan 01]: Paper-foundation handoff manifest links claim/table/evidence/theory artifacts to committed generated sources and manifests without raw dataset paths or manuscript prose.
 - [Phase 10 Plan 01]: Phase 10 completion did not change EVID-03/EVID-04; the later formal Stage12 closure run opened the external evidence gate.
+- [v1.2]: User corrected the manuscript target from Transportation Science to Transportation Research Part B before writing began.
+- [v1.2]: Use local `els-cas-templates/` as the paper source template and run `$paper-writing` with `assurance: submission`.
+- [v1.2]: Skip additional pre-requirements research; base the writing milestone on `NARRATIVE_REPORT.md` and v1.1 paper-source artifacts.
 
 ### Pending Todos
 
@@ -120,18 +122,19 @@ None yet.
 ### Blockers/Concerns
 
 - No active EVID-03/EVID-04 blocker remains after the formal Stage12 closure run.
-- Downstream generated artifacts should remain synchronized with the completed external evidence gate before manuscript drafting.
-- All phases: do not draft manuscript prose in this milestone.
+- Downstream generated artifacts should remain synchronized with the completed external evidence gate during manuscript drafting.
+- Submission assurance is required: proof, claim, citation, and external verifier artifacts must be present before declaring submission readiness.
+- Paper generation should not commit raw datasets or introduce unsupported global optimality/generalization claims.
 
 ## Deferred Items
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| Manuscript drafting | PAPER-01 through PAPER-05 | Deferred to post-v1.1 writing milestone | v1.1 scope definition |
-| TR Part B theory extension | TRB-01 through TRB-04 | Deferred to later theory milestone | v1.1 scope definition |
+| Submission packaging | SUBMIT-01 through SUBMIT-03 | Deferred to post-draft submission-preparation milestone | v1.2 scope definition |
+| Theory/evidence patches | PATCH-01 through PATCH-03 | Deferred unless audits expose blockers | v1.2 scope definition |
 
 ## Session Continuity
 
 Last session: 2026-05-26T00:00:00.000+08:00
-Stopped at: v1.1 complete after external Stage12 closure
+Stopped at: v1.2 initialized for TR Part B manuscript drafting
 Resume file: None
