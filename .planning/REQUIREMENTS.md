@@ -1,87 +1,82 @@
-# Requirements: TRACE-SL Transportation Science Paper Foundation
+# Requirements: TRACE-SL Transportation Research Part B Manuscript Drafting
 
-**Defined:** 2026/05/23
+**Defined:** 2026/05/26
 **Core Value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where the formulation, theory, baselines, robustness tests, and held-out evidence can support them.
 
-## v1.1 Requirements
+## v1.2 Requirements
 
-Requirements for the TRACE-SL Transportation Science paper-foundation milestone. This milestone does not start manuscript prose.
+Requirements for the TR Part B manuscript-writing milestone. The paper-writing pipeline should use `NARRATIVE_REPORT.md`, v1.1 paper-source artifacts, local `els-cas-templates/`, and `assurance: submission`.
 
-### Claim Foundation
+### Paper Planning
 
-- [x] **CLAIM-01**: Author can state the paper-level contribution as transparent reconstruction-aware sparse sensor layout design, not as a heuristic improvement story.
-- [x] **CLAIM-02**: Author can distinguish Transportation Science-ready claims from TR Part B-level claims that need stronger mathematical theory.
-- [x] **CLAIM-03**: Author has an explicit forbidden-wording list covering optimal, certified, globally robust, guaranteed MAE improvement, and generalizes across networks.
-- [x] **CLAIM-04**: Author can preserve the PeMS7_228 low-budget multistart caveat in all claim-facing artifacts.
+- [ ] **PLAN-01**: Author has a `PAPER_PLAN.md` that targets Transportation Research Part B rather than Transportation Science.
+- [ ] **PLAN-02**: Author has a claims-evidence matrix mapping every main claim to `NARRATIVE_REPORT.md` and `TRC-23-02333/trace_sl_results/paper_sources/` artifacts.
+- [ ] **PLAN-03**: Author has a section plan covering abstract, introduction, related work, formulation, method, theory, experiments, robustness/ablation discussion, limitations, and conclusion.
+- [ ] **PLAN-04**: Author has explicit claim-boundary notes preserving low-budget multistart caveats, multi-network non-universal wording, and certificate-guided rather than certified wording.
 
-### Main Evidence
+### Elsevier CAS LaTeX
 
-- [x] **EVID-01**: Author can use Stage12 PeMS7_228 baseline portfolio as the frozen main in-domain result table.
-- [x] **EVID-02**: Author has paired delta and p-value summaries for TRACE-SL against validation-selected random, random mean, top variance, greedy A-trace, graph sampling, observability, and QR/POD-style baselines where available.
-- [x] **EVID-03**: Author has completed PeMS7_1026 Stage12 10-split evidence using the same budgets and reviewer-facing baseline portfolio.
-- [x] **EVID-04**: Author has completed Seattle Stage12 10-split external/transfer-style evidence before Seattle appears in any core claim.
-- [x] **EVID-05**: Author can classify each dataset as core, external, supporting, conditional, or appendix-only based on evidence strength.
+- [ ] **TEX-01**: Author has a `paper/` source tree based on local `els-cas-templates/` CAS files.
+- [ ] **TEX-02**: Author can compile `paper/main.tex` to `paper/main.pdf` with the selected CAS class and bibliography style.
+- [ ] **TEX-03**: Author has paper metadata placeholders or completed fields for title, authors, affiliations, abstract, keywords, highlights, and declarations required by the template.
+- [ ] **TEX-04**: Author has all paper-specific macros, figure paths, table inputs, and bibliography files organized under `paper/` without relying on raw dataset paths.
 
-**Execution constraint for EVID-03/EVID-04 closure:** run the remaining Stage12 evidence jobs with `max_jobs=1` and only one active dataset/split/seed job at a time. Do not parallelize the closure run across PeMS7_1026, Seattle, splits, or seeds.
+### Figures and Tables
 
-### Stage12 Runtime Unblock
+- [ ] **FIG-01**: Author has data-driven main performance tables generated from committed paper-source CSV/JSON artifacts.
+- [ ] **FIG-02**: Author has ablation and external-evidence tables or figures that preserve dataset evidence lanes and caveats.
+- [ ] **FIG-03**: Author has at least one method/workflow figure explaining TRACE-SL as reconstruction-aware inverse-problem design.
+- [ ] **FIG-04**: Author can trace every paper-visible numeric value to machine-readable result artifacts.
 
-- [x] **RUN-01**: Author has a runtime-only fast validation path that computes only the selected RCSS validation method without changing Stage12 evidence semantics.
-- [x] **RUN-02**: Author has dense-solve performance fixes for constant observation weights and posterior/scenario trace scoring that preserve numerical outputs within documented tolerances.
-- [x] **RUN-03**: Author has Stage12 progress logs or checkpoints that make long PeMS7_1026 and Seattle runs diagnosable before a full seed completes.
-- [x] **RUN-04**: Author can complete at least one Stage12-compatible full seed for both PeMS7_1026 and Seattle before launching the formal ten-split rerun.
+### Manuscript Draft
 
-### Ablation Logic
+- [ ] **WRITE-01**: Author has a complete English abstract and introduction written for a TR Part B audience.
+- [ ] **WRITE-02**: Author has related work positioning against TSLP, traffic sensor location, graph sampling, Bayesian/A-optimal design, sparse reconstruction, and traffic imputation/forecasting.
+- [ ] **WRITE-03**: Author has formulation, method, and theory sections that correctly scope posterior trace identity, monotonicity, validation-aware swap local optimality, and RCSS complexity.
+- [ ] **WRITE-04**: Author has experiment, ablation, robustness, and external evidence sections grounded in held-out Stage12 evidence.
+- [ ] **WRITE-05**: Author has limitations and conclusion prose that avoids overclaiming and explains where the evidence does not support universal generalization or optimality.
 
-- [x] **ABLT-01**: Author can compare random mean, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap variants.
-- [x] **ABLT-02**: Author can answer whether certificate candidate pools improve over random candidate pools.
-- [x] **ABLT-03**: Author can answer whether validation selection and validation-aware swap each add measurable value.
-- [x] **ABLT-04**: Author can explain RCSS as certificate layer, validation layer, and local refinement layer rather than a kitchen-sink heuristic.
+### Compilation and Improvement
 
-### Theory Foundation
+- [ ] **COMP-01**: Author has a successfully compiled `paper/main.pdf`.
+- [ ] **COMP-02**: Author has preserved `paper/main_round0_original.pdf`, `paper/main_round1.pdf`, and `paper/main_round2.pdf` after the improvement loop.
+- [ ] **COMP-03**: Author has no blocking undefined citations, undefined references, missing figures, or main-body overfull boxes after the final compile.
+- [ ] **COMP-04**: Author has a `PAPER_IMPROVEMENT_LOG.md` summarizing two review/fix rounds and final remaining risks.
 
-- [x] **THEORY-01**: Author has a clean budgeted hidden-network reconstruction formulation with train/validation/test separation.
-- [x] **THEORY-02**: Author has a posterior trace identity for the linear-Gaussian squared-error setting.
-- [x] **THEORY-03**: Author has a monotonicity proposition showing additional sensors do not increase posterior covariance or posterior trace under the stated Gaussian linear model.
-- [x] **THEORY-04**: Author has a validation-aware swap local-optimality statement over the one-swap neighborhood.
-- [x] **THEORY-05**: Author has a complexity statement for the RCSS candidate/search/evaluation process.
+### Submission Assurance
 
-### Robustness and Handoff
-
-- [x] **HAND-01**: Author can keep robustness evidence as stress-test or appendix evidence unless multi-seed perturbation evidence is added.
-- [x] **HAND-02**: Author has paper-foundation artifacts that a later writing milestone can consume without generating manuscript prose now.
-- [x] **HAND-03**: Author has reproducibility-safe pointers from every paper-foundation claim/table to committed summaries, generated tables, scripts, or manifests without committing raw datasets.
+- [ ] **AUDIT-01**: Author has `paper/PROOF_AUDIT.{md,json}` emitted by the proof checker, with `PASS`, `WARN`, or `NOT_APPLICABLE` and no unresolved blocking verdict.
+- [ ] **AUDIT-02**: Author has `paper/PAPER_CLAIM_AUDIT.{md,json}` emitted by the numeric claim audit, with all paper-visible numbers checked against raw result artifacts.
+- [ ] **AUDIT-03**: Author has `paper/CITATION_AUDIT.{md,json}` emitted by the citation audit, with no unresolved `REPLACE` or `REMOVE` verdicts.
+- [ ] **AUDIT-04**: Author has `paper/.aris/audit-verifier-report.json` from `verify_paper_audits.sh` with exit code 0 under `--assurance submission`.
+- [ ] **AUDIT-05**: Author has a final paper-writing pipeline report that labels submission readiness only if the external verifier is green.
 
 ## Future Requirements
 
-Deferred to future writing or theory milestones.
+Deferred to post-draft revision or submission-preparation milestones.
 
-### Manuscript Drafting
+### Submission Packaging
 
-- **PAPER-01**: Author has a full Transportation Science introduction draft.
-- **PAPER-02**: Author has a related work section positioning TRACE-SL against TSLP, graph sampling, Bayesian design, and traffic reconstruction.
-- **PAPER-03**: Author has a method section written from the frozen claim/evidence/theory foundation.
-- **PAPER-04**: Author has a results section written from frozen tables, ablations, and external evidence.
-- **PAPER-05**: Author has limitations and discussion prose aligned with evidence boundaries.
+- **SUBMIT-01**: Author has completed final author metadata, affiliations, ORCID, highlights, graphical abstract decision, declarations, and cover letter.
+- **SUBMIT-02**: Author has a clean final PDF plus source archive matching Elsevier submission portal requirements.
+- **SUBMIT-03**: Author has an internal reviewer response checklist before formal submission.
 
-### TR Part B Theory Extension
+### Theory or Evidence Patches
 
-- **TRB-01**: Author has an approximate submodularity or weak-submodularity analysis where valid.
-- **TRB-02**: Author has a covariance perturbation or stability bound.
-- **TRB-03**: Author has a sample-splitting or validation-selection generalization argument.
-- **TRB-04**: Author has a stochastic or bilevel optimization interpretation with suitable convergence or consistency discussion.
+- **PATCH-01**: Author has additional theorem/proof work if proof audit finds blocking theory gaps.
+- **PATCH-02**: Author has additional experiment or table regeneration if claim audit finds unsupported numeric claims.
+- **PATCH-03**: Author has replacement citations or related-work rewrites if citation audit rejects context support.
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Manuscript prose drafting | v1.1 only prepares the foundation; prose belongs to the next writing milestone. |
-| Optimal or certified optimal placement claims | Current theory supports certificate-guided design, not global optimality or formal certification. |
-| Guaranteed MAE improvement claims | Held-out empirical gains are statistical evidence, not universal guarantees. |
-| Globally robust claims | Current robustness is stress-test evidence unless multi-seed perturbation evidence is added. |
-| Strong cross-network generalization claims | PeMS7_1026 and Seattle need Stage12 10-split evidence before stronger external claims. |
+| Transportation Science formatting | User corrected the target to Transportation Research Part B before writing. |
+| New Stage12 experiments by default | v1.1 already froze Stage12 evidence; reruns are only for blocking audit gaps. |
+| Global optimality or certified-optimal claims | Current theory supports certificate-guided reconstruction-aware design, not global guarantees. |
+| Universal cross-network generalization claims | PeMS7_1026 and Seattle support multi-network empirical evidence, not universal generalization. |
 | Raw dataset commits | Raw traffic datasets are local/ignored inputs and must not be committed. |
-| Parallel Stage12 closure execution | Remaining EVID-03/EVID-04 closure runs are constrained to `max_jobs=1` for compute reliability. |
+| Submission portal upload | This milestone creates and audits the manuscript package; actual submission is a later human-controlled step. |
 
 ## Traceability
 
@@ -89,50 +84,39 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLAIM-01 | Phase 7 | Complete |
-| CLAIM-02 | Phase 7 | Complete |
-| CLAIM-03 | Phase 7 | Complete |
-| CLAIM-04 | Phase 7 | Complete |
-| EVID-01 | Phase 7 | Complete |
-| EVID-02 | Phase 7 | Complete |
-| EVID-03 | Phase 8 | Complete |
-| EVID-04 | Phase 8 | Complete |
-| RUN-01 | Phase 8.5 | Complete |
-| RUN-02 | Phase 8.5 | Complete |
-| RUN-03 | Phase 8.5 | Complete |
-| RUN-04 | Phase 8.5 | Complete |
-| EVID-05 | Phase 9 | Complete |
-| ABLT-01 | Phase 9 | Complete |
-| ABLT-02 | Phase 9 | Complete |
-| ABLT-03 | Phase 9 | Complete |
-| ABLT-04 | Phase 9 | Complete |
-| THEORY-01 | Phase 10 | Complete |
-| THEORY-02 | Phase 10 | Complete |
-| THEORY-03 | Phase 10 | Complete |
-| THEORY-04 | Phase 10 | Complete |
-| THEORY-05 | Phase 10 | Complete |
-| HAND-01 | Phase 7 | Complete |
-| HAND-02 | Phase 10 | Complete |
-| HAND-03 | Phase 10 | Complete |
+| PLAN-01 | Phase 11 | Pending |
+| PLAN-02 | Phase 11 | Pending |
+| PLAN-03 | Phase 11 | Pending |
+| PLAN-04 | Phase 11 | Pending |
+| TEX-01 | Phase 11 | Pending |
+| TEX-03 | Phase 11 | Pending |
+| FIG-01 | Phase 12 | Pending |
+| FIG-02 | Phase 12 | Pending |
+| FIG-03 | Phase 12 | Pending |
+| FIG-04 | Phase 12 | Pending |
+| WRITE-01 | Phase 13 | Pending |
+| WRITE-02 | Phase 13 | Pending |
+| WRITE-03 | Phase 13 | Pending |
+| WRITE-04 | Phase 13 | Pending |
+| WRITE-05 | Phase 13 | Pending |
+| TEX-02 | Phase 14 | Pending |
+| TEX-04 | Phase 14 | Pending |
+| COMP-01 | Phase 14 | Pending |
+| COMP-02 | Phase 15 | Pending |
+| COMP-03 | Phase 15 | Pending |
+| COMP-04 | Phase 15 | Pending |
+| AUDIT-01 | Phase 16 | Pending |
+| AUDIT-02 | Phase 16 | Pending |
+| AUDIT-03 | Phase 16 | Pending |
+| AUDIT-04 | Phase 16 | Pending |
+| AUDIT-05 | Phase 16 | Pending |
 
 **Coverage:**
-- v1.1 requirements: 25 total
-- Mapped to phases: 25
+- v1.2 requirements: 26 total
+- Mapped to phases: 26
 - Unmapped: 0
 - Duplicate mappings: 0
 
-## Phase 9 Completion Rationale
-
-- `ABLT-01`, `ABLT-02`, `ABLT-03`, and `ABLT-04` are complete because `TRC-23-02333/trace_sl_results/paper_sources/ablation_contract.csv` exposes the required random, validation-selected random, certificate-only greedy, RCSS-selected, validation-swap-selected, and multistart validation-swap row families with component-layer fields.
-- `EVID-05` is complete because `TRC-23-02333/trace_sl_results/paper_sources/dataset_evidence_classification.csv` classifies PeMS7_228, PeMS7_1026, Seattle, and robustness stress-test evidence by evidence class and allowed/blocked use.
-- `EVID-03` and `EVID-04` are complete because `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.json` reports PeMS7_1026 and Seattle Stage12 complete with 10/10 splits and `v1_1_completion_allowed=true`.
-
-## Phase 10 Completion Rationale
-
-- `THEORY-01` through `THEORY-05` are complete because `TRC-23-02333/trace_sl_results/paper_sources/theory_statement_contract.csv` provides row-level scoped statements for formulation, posterior trace identity, monotonicity, validation-aware one-swap local optimality, and RCSS complexity.
-- `HAND-02` and `HAND-03` are complete because `TRC-23-02333/trace_sl_results/paper_sources/paper_foundation_handoff_manifest.csv` links the paper foundation to committed contracts, generated tables, scripts, and manifests without raw dataset paths or manuscript prose.
-- `EVID-03` and `EVID-04` were completed after Phase 10 by the formal Stage12 closure run; theory/handoff completion itself did not open the external Stage12 evidence gate.
-
 ---
-*Requirements defined: 2026/05/23*
-*Last updated: 2026/05/25 after EVID-03/EVID-04 Stage12 closure*
+*Requirements defined: 2026/05/26*
+*Last updated: 2026/05/26 after v1.2 milestone initialization*
