@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\caption{Component ablation at the 30\% PeMS7\_228 budget. Lower MAE is better.}
+\label{tab:ablation}
+\small
+\begin{tabular}{llc}
+\toprule
+Layout & Component role & MAE \\
+\midrule
+Random mean & random baseline pool & 3.404 \\
+Best random by validation & validation based candidate selection & 3.247 \\
+Greedy A-trace & certificate candidate generation & 3.351 \\
+RCSS selected & validation based candidate selection & 3.183 \\
+TRACE-SL & validation aware local refinement & 3.084 \\
+Multistart swap & validation aware local refinement & 3.204 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,14 @@
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Traffic count and detector location.}
+Traffic sensor location has a long history in transportation methodology. A central line of work chooses counting points to support origin-destination estimation or network monitoring, using criteria such as OD coverage, flow interception, and link independence \citep{yang1998optimal}. TRACE-SL keeps the same infrastructure-design spirit but changes the operational target: the selected sensors are judged by full-network state reconstruction on held-out days, not by deterministic coverage rules alone.
+
+\paragraph{Sensor selection and optimal experimental design.}
+The broader signal-processing and control literature studies subset selection for parameter estimation, including convex relaxations and A/D/E-optimal design criteria \citep{joshi2009sensor}. Gaussian-process sensor placement uses information gain and submodularity to choose informative locations \citep{krause2008near}. TRACE-SL borrows the idea that uncertainty certificates can guide placement, but it treats the certificate as one component of a traffic-specific validation and reconstruction workflow rather than as a stand-alone optimality guarantee.
+
+\paragraph{Graph sampling and sparse reconstruction.}
+Graph signal processing provides sampling theory and reconstruction tools for signals supported on graph vertices \citep{chen2015sampling,anis2016sampling}. Data-driven sparse sensor placement similarly exploits low-dimensional patterns to reconstruct high-dimensional states from few sensors \citep{manohar2018sparse}. TRACE-SL differs by coupling these reconstruction ideas to a deployment-style validation protocol and by comparing against graph/POD-style baselines within traffic networks.
+
+\paragraph{Traffic state estimation and forecasting.}
+Deep spatiotemporal traffic models, including diffusion convolution and graph convolutional forecasting models, have improved prediction accuracy when data are available on a fixed sensor graph \citep{li2018dcrnn,yu2018stgcn}. TRACE-SL addresses a different decision layer: before training a complex estimator, where should the fixed sparse sensors be placed if the downstream objective is hidden-network reconstruction? This separation is important because an estimator benchmark does not by itself justify the observation design.

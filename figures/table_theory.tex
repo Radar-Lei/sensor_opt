@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Scoped theoretical statements used in the manuscript. Each statement is intentionally bounded by its assumptions and non-claim boundary.}
+\label{tab:theory}
+\small
+\begin{tabular}{p{0.18\textwidth}p{0.39\textwidth}p{0.34\textwidth}}
+\toprule
+Statement & Scoped content & Non-claim boundary \\
+\midrule
+budgeted hidden network reconstruction & Choose a fixed sensor set S with |S| <= k from observed candidates; learn reconstruction ingredients on training splits, tune layout selection on validation splits, and report final reconstruction only on held-out test splits after the selection rule is fixed. & does not assert global optimality or guaranteed MAE improvement \\
+posterior trace squared error identity & Under the stated linear-Gaussian squared-error model, the posterior covariance trace over hidden components equals the conditional expected squared reconstruction error up to the fixed observation/noise model used by the estimator. & does not convert posterior trace into an MAE guarantee for non-Gaussian traffic data \\
+posterior covariance monotonicity & For the same linear-Gaussian model, conditioning on an additional sensor cannot increase the posterior covariance in positive-semidefinite order, so posterior trace is nonincreasing as sensors are added. & does not imply submodularity, approximation ratio, or monotone empirical MAE on every split \\
+validation aware one swap local optimality & A validation-aware swap output is locally optimal with respect to the evaluated one-swap neighborhood when no tested remove/add exchange from the configured candidate pool strictly improves validation reconstruction loss. & does not assert global optimality outside the evaluated one-swap neighborhood \\
+rcss candidate search evaluation complexity & RCSS runtime can be stated as candidate generation plus candidate scoring plus validation-aware swap evaluation, scaling with the configured candidate counts, budgets, validation windows, swap starts, swap iterations, and add/remove pool sizes recorded by launchers and manifests. & does not claim polynomial-time optimal placement certification or hardware-independent runtime guarantees \\
+\bottomrule
+\end{tabular}
+\end{table*}

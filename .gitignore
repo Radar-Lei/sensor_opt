@@ -14,6 +14,18 @@ train_results/
 vali_results/
 *.svg
 
+# LaTeX build intermediates
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.abs
+*.toc
+*.synctex.gz
+
 # Large local datasets: keep on disk, do not commit.
 dataset/
 TRC-23-02333/dataset/

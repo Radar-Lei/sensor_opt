@@ -1,0 +1,14 @@
+\section{TRACE-SL method and scoped theory}
+\label{sec:method}
+
+\input{tables/table_theory}
+
+TRACE-SL has three layers. The first layer constructs a candidate pool using transparent certificate and coverage criteria. Candidate generators include greedy A-trace, greedy log-determinant, scenario-average A-trace, scenario-CVaR A-trace, posterior-trace swap refinements, quality-coverage sampling, degree, top-variance, coverage, and random candidate families. The second layer selects the scoring weights on validation data rather than fixing them by hand. A selector-validation split chooses a layout for each score vector, and a tuner-validation split selects the vector with the lowest GLS/MAP reconstruction MAE. The third layer applies validation-aware one-swap refinement to strong candidates: a remove/add exchange is accepted only when it improves validation reconstruction loss.
+
+Under a linear-Gaussian GLS/MAP model with fixed prior and observation noise, the posterior covariance on hidden components provides a principled squared-error uncertainty proxy. In this setting, the trace of $\SigmaPost$ equals the conditional expected squared hidden-state reconstruction error up to the fixed observation model. Moreover, conditioning on additional sensors cannot increase posterior covariance in positive-semidefinite order, so the posterior trace is nonincreasing for nested sensor sets. These statements motivate posterior-trace candidate generation, but they do not imply non-Gaussian MAE guarantees.
+
+The validation-aware swap output is locally optimal only with respect to the evaluated one-swap neighborhood. If no tested remove/add exchange from the configured candidate pool strictly improves validation reconstruction loss, the returned layout is locally optimal for that finite neighborhood. This is not a global optimality result; it is a precise algorithmic statement about the search actually performed.
+
+\input{tables/table_ablation}
+
+The workload can be decomposed into candidate generation, candidate scoring, and swap evaluation. The relevant scaling variables are the number of candidate generators, candidate counts, budget levels, validation windows, swap starts, swap iterations, and add/remove pool sizes. TRACE-SL therefore exposes runtime and manifest artifacts rather than claiming hardware-independent optimal-placement certification.

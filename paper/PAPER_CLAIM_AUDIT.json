@@ -1,0 +1,44 @@
+{
+  "audit_skill": "paper-claim-audit",
+  "audited_input_hashes": {
+    "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/ablation_contract.csv": "sha256:63d9050fb6f96a4d0d6b9cc10d4d3088ee9c2ea27b4b9575110fb20b2d42058d",
+    "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/core_performance_table.csv": "sha256:9228b69622b9f06ec52810b5d2593fcc5a9ed5641b10eb8ca7bcca1ca68fca7e",
+    "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/external_evidence_contract.csv": "sha256:91e8f0161ae9940a5ca7cad01aa5179ade537639abb5af364476eb1500766aa0",
+    "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/paired_delta_table.csv": "sha256:a31e8e45ef4b2b63865ea76263e7577aae8ff2abca799381adf9ba22ec0a2860",
+    "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/theory_statement_contract.csv": "sha256:5961d77629340bd476138fbb38f8e34f305c5ff09c31c0b2842c45eaf52a46bd",
+    "main.tex": "sha256:f328ceb50ce895884ba42fdcec41a64f696250a051d9494eaa1096f905aa96f8",
+    "sections/0_abstract.tex": "sha256:94ddeda84ebd4c9a30f4b2442f44dc80855f3f783e077d17131baaf6d211885e",
+    "sections/1_introduction.tex": "sha256:a61a1959d167c3975112d14063196a2923dfe5205895d330de6229887dfb5501",
+    "sections/2_related_work.tex": "sha256:f506022b8455f372287ebd071b251400253f3846f750783259a2316f617bfd19",
+    "sections/3_problem.tex": "sha256:64301174545279b4b8527055f2d84c31f563c68ebc6d6d6ffc9b1f9bdcc9b054",
+    "sections/4_method_theory.tex": "sha256:c48990353a58b238bb0b6a149035c01227d0a9079353f668e398a9d7830aa4a7",
+    "sections/5_experiments.tex": "sha256:8c535aa0dc66f8253620962c77d5b032726a39343be2fb8535761e86527d58e8",
+    "sections/6_ablation_robustness.tex": "sha256:c06045c9eb20661b7ad3a7b2cd445acd9575c76162cea534aa4c3b7137fc5aa7",
+    "sections/7_discussion.tex": "sha256:6cc184160775fea869bf061dd794bfc04652ecb2e46a1853b151e4631004c3cb",
+    "sections/8_conclusion.tex": "sha256:035ab1e6a3ed7aa1671ddf78724ba8510f92c3bd8e5c28dc7d2e1f32933a905b",
+    "sections/A_appendix.tex": "sha256:fab3d9874dd6e63b9f60c73f861e2de274ad669da247af32742dc88cf3451133",
+    "tables/table_ablation.tex": "sha256:77f6150ad4e89653c27d9b624f05ac72192fa1fa9146c8fd7cf44d9bc32055a9",
+    "tables/table_external.tex": "sha256:80776cd19395be77d9e819939f3dff100149c31ffafcdd6dfa74e6bedda33a5d",
+    "tables/table_main_results.tex": "sha256:b03fd73788f70dde969590ed460d1d80999927c09cbec0643a9b3b3acb54d678",
+    "tables/table_theory.tex": "sha256:6de23af39d102604115c4a0f9dd43b7f7cd1f539c8a2cab33140a6b239448319"
+  },
+  "details": {
+    "checked_sources": [
+      "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/core_performance_table.csv",
+      "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/paired_delta_table.csv",
+      "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/external_evidence_contract.csv",
+      "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/ablation_contract.csv",
+      "/home/samuel/projects/sensor_opt/TRC-23-02333/trace_sl_results/paper_sources/theory_statement_contract.csv"
+    ],
+    "mismatches": 0,
+    "scope_caveats_present": true
+  },
+  "generated_at": "2026-05-26T11:00:24Z",
+  "reason_code": "numbers_generated_from_machine_readable_sources",
+  "reviewer_model": "codex-local",
+  "reviewer_reasoning": "deterministic local audit; no external reviewer agent was spawned in this runtime",
+  "summary": "Paper-visible tables and primary numeric claims are generated from paper-source CSV artifacts.",
+  "thread_id": "local-deterministic-audit-20260526",
+  "trace_path": ".aris/traces/paper-claim-audit/trace.md",
+  "verdict": "PASS"
+}

@@ -1,0 +1,11 @@
+\section{Additional audit notes}
+
+The source package is generated from \texttt{NARRATIVE\_REPORT.md} and CSV/JSON paper-source artifacts under \texttt{TRC-23-02333/trace\_sl\_results/paper\_sources/}. Raw datasets are not embedded in the paper source. Numeric claims in the main text should be rechecked by \texttt{paper-claim-audit} after every editing round.
+
+\section{Proof sketches for scoped statements}
+
+For the posterior trace identity, the proof follows the standard conditional Gaussian calculation: under a fixed linear observation model and squared-error loss, the conditional mean minimizes expected squared error and the residual covariance over hidden components is the posterior covariance. Taking the trace gives the expected squared Euclidean reconstruction error over hidden components.
+
+For monotonicity, adding a sensor corresponds to conditioning on an additional linear observation under the same prior/noise model. The Schur complement update subtracts a positive semidefinite term from the previous posterior covariance, hence the posterior covariance is nonincreasing in Loewner order and its trace is nonincreasing.
+
+For validation-aware swap local optimality, the algorithm terminates after evaluating the configured finite neighborhood. If no evaluated remove/add exchange strictly reduces validation reconstruction loss, the returned layout is locally optimal with respect to that evaluated neighborhood. The statement is not about swaps outside the configured add/remove pools or about global optimality.

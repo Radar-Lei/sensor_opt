@@ -1,0 +1,66 @@
+\documentclass[a4paper,fleqn]{cas-sc}
+
+\usepackage[authoryear,longnamesfirst]{natbib}
+\usepackage{amsmath,amssymb,booktabs,array,tabularx}
+\usepackage{graphicx}
+\usepackage{xurl}
+
+\input{math_commands}
+
+\begin{document}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
+
+\shorttitle{TRACE-SL}
+\shortauthors{Anonymous Authors}
+
+\title[mode=title]{TRACE-SL: Reconstruction-Aware Sensor Layout Design\\for Traffic State Estimation}
+
+\author[1]{Anonymous Author}
+\affiliation[1]{organization={Anonymous Institution},
+            city={Anonymous City},
+            country={Anonymous Country}}
+
+\begin{abstract}
+Sparse traffic sensor deployments are long-lived infrastructure decisions: once a subset of links or stations is instrumented, the remaining network state must be inferred from partial observations. Classical traffic counting formulations and many learning-based traffic estimators do not directly ask which sensors make the hidden complement most recoverable under a transparent reconstruction model. We propose TRACE-SL, a reconstruction-aware sensor layout framework that couples GLS/MAP and graph-signal reconstruction with posterior uncertainty certificates, validation-based score tuning, and validation-aware local swap refinement. The design protocol keeps model fitting, layout selection, and held-out evaluation separate. On PeMS7\_228 Stage12 evidence, TRACE-SL reduces held-out GLS/MAP MAE relative to validation-selected random layouts by 0.123, 0.095, and 0.163 at 10\%, 20\%, and 30\% sensor budgets, respectively. PeMS7\_1026 and Seattle provide additional ten-split empirical evidence. The contribution is not a claim of globally optimal or universally robust placement; it is a transparent inverse-problem design workflow whose claims are tied to scoped theory, held-out evidence, and auditable result artifacts.
+\end{abstract}
+
+\begin{highlights}
+\item We formulate sparse traffic sensing as reconstruction-aware hidden-network design.
+\item TRACE-SL combines posterior certificates, validation selection, and local swap refinement.
+\item Held-out Stage12 evidence spans PeMS7\_228, PeMS7\_1026, and Seattle.
+\item Submission-facing claims are explicitly bounded by evidence and scoped theory.
+\end{highlights}
+
+\begin{keywords}
+traffic sensor placement \sep network design \sep traffic state reconstruction \sep optimal experimental design \sep graph signal sampling
+\end{keywords}
+
+\maketitle
+
+\input{sections/1_introduction}
+\input{sections/2_related_work}
+\input{sections/3_problem}
+\input{sections/4_method_theory}
+\input{sections/5_experiments}
+\input{sections/6_ablation_robustness}
+\input{sections/7_discussion}
+\input{sections/8_conclusion}
+
+\section*{CRediT authorship contribution statement}
+Anonymous for review.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Data and code availability}
+The manuscript reports curated aggregate artifacts and generation scripts. Raw traffic datasets are local inputs and are not distributed with the paper source.
+
+\bibliographystyle{cas-model2-names}
+\bibliography{references}
+
+\appendix
+\input{sections/A_appendix}
+
+\end{document}

@@ -1,0 +1,19 @@
+\section{Experimental design and main results}
+\label{sec:experiments}
+
+\input{tables/table_external}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/fig2_main_mae.pdf}
+\caption{Held-out PeMS7\_228 GLS/MAP reconstruction MAE across sensor budgets. TRACE-SL refers to the validation-aware selected layout.}
+\label{fig:main-mae}
+\end{figure}
+
+The Stage12 experiments evaluate PeMS7\_228, PeMS7\_1026, and Seattle under 10\%, 20\%, and 30\% sensor budgets. Each reported aggregate uses ten held-out splits. Baselines include random mean, validation-selected random, top variance, greedy A-trace, greedy log-determinant, observability proxy, graph sampling, QR/POD-style sparse placement, scenario risk variants, RCSS-selected layouts, and multistart validation-swap comparators.
+
+Table~\ref{tab:main-results} reports the main PeMS7\_228 evidence. TRACE-SL reaches mean held-out GLS/MAP MAE of 3.590, 3.355, and 3.084 at 10\%, 20\%, and 30\% budgets. Against validation-selected random layouts, the paired mean deltas are -0.123, -0.095, and -0.163 with paired $p$ values 8.8e-05, 0.0054, and 0.0005. Against random mean layouts, the paired mean deltas are -0.243, -0.220, and -0.320.
+
+The low-budget PeMS7\_228 comparison with the multistart swap baseline is deliberately reported as a caveat. At 10\%, TRACE-SL and multistart validation swap are statistically close, and the evidence does not justify a claim that one selected layout dominates every strong internal variant at every budget. The paper-level claim is therefore about reconstruction-aware layout design and the TRACE-SL portfolio, not about a universal winner on every row.
+
+Table~\ref{tab:external} summarizes external evidence. PeMS7\_1026 and Seattle both have ten tracked Stage12 splits and support multi-network empirical discussion. This evidence should not be read as a universal generalization theorem: it shows that the same design logic transfers across the tested networks and protocols.

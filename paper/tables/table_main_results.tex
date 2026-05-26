@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\centering
+\caption{PeMS7\_228 Stage12 held-out GLS/MAP MAE. Lower is better. Paired $p$ values compare TRACE-SL with the listed baseline on the same ten splits.}
+\label{tab:main-results}
+\small
+\begin{tabular}{lccc}
+\toprule
+Layout & 10\% & 20\% & 30\% \\
+\midrule
+\textbf{TRACE-SL} & \textbf{3.590} & \textbf{3.355} & \textbf{3.084} \\
+Best random by validation & 3.713 & 3.450 & 3.247 \\
+Random mean & 3.833 & 3.575 & 3.404 \\
+Top variance & 3.730 & 3.428 & 3.200 \\
+Greedy A-trace & 3.686 & 3.465 & 3.351 \\
+Observability proxy & 4.001 & 3.924 & 3.887 \\
+Graph sampling & 4.133 & 3.992 & 3.805 \\
+QR/POD & 3.977 & 3.784 & 3.447 \\
+Multistart swap & 3.595 & 3.397 & 3.204 \\
+\midrule
+$p$ vs. best random & 8.8e-05 & 0.0054 & 0.0005 \\
+$p$ vs. random mean & 9.5e-08 & 1.2e-06 & 7.6e-08 \\
+$p$ vs. top variance & 0.0004 & 0.0026 & 0.0042 \\
+\bottomrule
+\end{tabular}
+\end{table*}

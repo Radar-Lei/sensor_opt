@@ -1,0 +1,14 @@
+{
+  "verifier_version": "1",
+  "paper_dir": "/home/samuel/projects/sensor_opt/paper",
+  "assurance": "submission",
+  "generated_at": "2026-05-26T11:00:50Z",
+  "any_problem": false,
+  "submission_blocking": false,
+  "audits": [
+    {"audit":"proof-checker","status":"OK","verdict":"WARN","stale":false,"issues":[]},
+    {"audit":"paper-claim-audit","status":"OK","verdict":"PASS","stale":false,"issues":[]},
+    {"audit":"citation-audit","status":"OK","verdict":"WARN","stale":false,"issues":[]},
+    {"audit":"kill-argument","status":"OK","verdict":"WARN","stale":false,"issues":[]}
+  ]
+}

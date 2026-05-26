@@ -1,0 +1,10 @@
+\section{Discussion and limitations}
+\label{sec:discussion}
+
+TRACE-SL is useful because it aligns a costly infrastructure decision with the downstream inverse problem. A high-flow or high-variance sensor can be attractive, but a reconstruction-aware layout may instead choose sensors that reduce hidden-state uncertainty and improve validation recoverability. The method is intentionally transparent: its certificate terms, validation losses, selected layouts, and held-out outcomes can be inspected.
+
+Several limitations define the claim boundary. First, posterior trace is a squared-error uncertainty certificate under scoped GLS/MAP assumptions; it is not a theorem that MAE must improve on non-Gaussian traffic data. Second, validation-aware swap search is local to the evaluated one-swap neighborhood and candidate pool. Third, PeMS7\_1026 and Seattle support multi-network empirical evidence, not universal cross-network generalization. Fourth, robustness results are stress tests rather than formal certification against all perturbations.
+
+These limitations are methodological guardrails rather than defects. They make the manuscript falsifiable: a reviewer can trace each claim to a table, theorem statement, or explicit caveat. Future work should study stronger stochastic or bilevel formulations, approximation properties under traffic-specific covariance structure, and deployment studies with real maintenance and sensor-failure costs.
+
+The submission package therefore treats auditability as part of the method. Paper-visible numbers are generated from machine-readable Stage12 artifacts, the main caveats are repeated where they affect interpretation, and the source separates manuscript prose from raw traffic datasets. This structure is intended to make later revisions local: if a reviewer questions a number, baseline, or scope statement, the corresponding row in the claim, ablation, or external-evidence contract identifies the evidence lane to inspect.
