@@ -1,14 +1,14 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: TRACE-SL Transportation Research Part B Manuscript Drafting
-status: drafting
-last_updated: "2026-05-26T11:39:00.000Z"
+milestone: v2.0
+milestone_name: TRACE-BiOpt Robust Bilevel Method Development
+status: planning
+last_updated: "2026-05-26T14:19:05.170Z"
 last_activity: 2026-05-26
 progress:
-  total_phases: 6
+  total_phases: 0
   completed_phases: 0
-  total_plans: 6
+  total_plans: 0
   completed_plans: 0
   percent: 0
 ---
@@ -26,10 +26,8 @@ See: .planning/PROJECT.md (updated 2026/05/26)
 
 Phase: Not started (defining requirements)
 Plan: —
-Status: Requirements and roadmap defined; first targeted TR-B manuscript revision completed in draft assurance mode
-Last activity: 2026-05-26 — `$paper-writing` quick revision added formal theory, algorithm details, external baseline table, expanded related work, and reproducibility notes
-
-Progress: [░░░░░░░░░░] 0%
+Status: Defining requirements
+Last activity: 2026-05-26 — Milestone v2.0 started
 
 ## Performance Metrics
 

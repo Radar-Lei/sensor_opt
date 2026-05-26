@@ -13,21 +13,21 @@ The repository now has:
 - Robustness artifacts for sensor failure, observation noise, missingness, nonuniform costs, temporal shift, and candidate-count sensitivity.
 - A reproducibility handoff with deterministic manifests, generated paper-source tables, launcher smoke checks, aggregate validators, and raw-data hygiene boundaries.
 
-## Current Milestone: v1.2 TRACE-SL Transportation Research Part B Manuscript Drafting
+## Current Milestone: v2.0 TRACE-BiOpt Robust Bilevel Method Development
 
-**Goal:** Produce a complete English Transportation Research Part B manuscript package from the frozen v1.1 paper foundation using `els-cas-templates`, then bring it through submission-level proof, claim, citation, and audit-verifier gates.
+**Goal:** Upgrade TRACE-SL from a candidate-pool / validation-selector narrative into a single robust bilevel reconstruction-aware sensor layout optimization method, then produce Stage15 evidence showing TRACE-BiOpt dominates or is not significantly outperformed by pre-registered baselines.
 
 **Target features:**
-- Run `$paper-writing` from `NARRATIVE_REPORT.md` and the v1.1 handoff artifacts, with `assurance: submission`.
-- Use local `els-cas-templates/` as the LaTeX template basis, targeting a TR Part B / Elsevier journal manuscript rather than Transportation Science.
-- Generate a claim-evidence-aware `PAPER_PLAN.md` that routes every major contribution, theorem/proposition, table, and figure to v1.1 source artifacts.
-- Generate publication figures and tables from `TRC-23-02333/trace_sl_results/paper_sources/` without committing raw traffic datasets.
-- Write complete manuscript prose: abstract, introduction, related work, formulation, method, theory, experiments, robustness/ablation discussion, limitations, and conclusion.
-- Compile `paper/main.pdf` under the CAS template and preserve round0/round1/round2 PDFs from the improvement loop.
-- Run mandatory submission audits: proof-checker, paper-claim-audit, citation-audit, and `verify_paper_audits.sh`.
-- Keep claim wording bounded: certificate-guided, posterior-certificate-aware, empirically supported in tested networks; no global optimality, universal generalization, or guaranteed MAE improvement.
+- Define `TRACE_BIOPT_SPEC.md` with one objective, lower-level MAP/GLS reconstruction, Huber hidden-state validation risk, posterior uncertainty, CVaR tail risk, spatial regularization, solver details, and deterministic stopping rules.
+- Implement the TRACE-BiOpt method as a single optimizer rather than a portfolio selector, with projected continuous relaxation, top-k rounding, and deterministic exchange refinement.
+- Add Stage15 launch/evaluation entry points for TRACE-BiOpt and all pre-registered baselines.
+- First validate weak regimes: PeMS7_1026 10%, Seattle 10%, and PeMS7_228 10%.
+- Expand to full Stage15 evidence over PeMS7_228, PeMS7_1026, Seattle, 10/20/30% budgets, 10 splits, and all pre-registered baselines.
+- Generate dominance, best-baseline delta, theory-contract, and claim-contract artifacts for paper reuse.
+- Reframe the previous TRACE-SL pool method as a previous version, ablation, or comparator rather than the final main method.
+- Strengthen theory around MAP uniqueness/stability, posterior trace Bayes risk, all-layout validation generalization, and exchange local optimality certificates.
 
-**Explicit non-goal:** This milestone does not add new experiments unless the writing or audits uncover a blocking evidence gap. It does not change raw datasets, rerun Stage12 by default, or target Transportation Science formatting.
+**Explicit non-goal:** This milestone does not continue polishing the current pool-centered manuscript as the final submission story. It does not claim global exact optimality, universal dominance beyond pre-registered baselines, or guaranteed improvement before Stage15 evidence supports the wording.
 
 ## Core Value
 
@@ -57,12 +57,13 @@ Make strong, publishable claims about transparent reconstruction-aware traffic s
 
 ### Active
 
-- [ ] Produce a complete TR Part B manuscript plan from `NARRATIVE_REPORT.md` and v1.1 paper-source artifacts.
-- [ ] Generate data-driven figures and tables from committed paper-source CSV/JSON artifacts.
-- [ ] Write an English CAS-template LaTeX manuscript for TR Part B.
-- [ ] Compile `paper/main.pdf` and preserve all improvement-loop PDFs.
-- [ ] Run two improvement rounds and update source until compilation and formatting checks pass.
-- [ ] Pass submission-level proof, numeric-claim, citation, and external audit-verifier gates.
+- [ ] Define TRACE-BiOpt as one robust bilevel reconstruction-risk optimization method with a deterministic solver.
+- [ ] Implement TRACE-BiOpt and Stage15-compatible launch/evaluation scripts.
+- [ ] Pre-register baselines and keep them outside the method itself.
+- [ ] Run weak-regime probes before committing full Stage15 compute.
+- [ ] Run full Stage15 experiments when probes justify scaling.
+- [ ] Generate dominance, best-baseline, theory, and claim artifacts for a revised TR Part B paper.
+- [ ] Rewrite the paper narrative around TRACE-BiOpt only after method and evidence gates pass.
 
 ### Out of Scope
 
@@ -73,38 +74,49 @@ Make strong, publishable claims about transparent reconstruction-aware traffic s
 - Re-targeting to Transportation Science formatting in this milestone — the user corrected the target to Transportation Research Part B.
 - Running new Stage12 or robustness experiments by default — only do this if audits reveal a blocking evidence gap.
 - Deleting or committing raw traffic datasets — datasets are local inputs and must remain protected unless explicitly approved.
+- Treating baselines as candidates inside the main TRACE-BiOpt method — this would recreate the pool/selector critique.
+- Claiming TRACE-BiOpt beats all possible baselines — allowed wording is limited to pre-registered baselines and tested dataset-budget regimes.
+- Continuing v1.2 manuscript polishing as the final story before the method pivot is evaluated — paper writing should follow the v2.0 method/evidence outcome.
 
 ## Next Milestone Goals
 
-After v1.2, the next milestone should handle post-draft submission polishing: author metadata, cover letter, response to internal review, final Elsevier checklist, and any experiment/theory patch required by audit findings.
+After v2.0, the next milestone should rewrite and audit the TR Part B manuscript around TRACE-BiOpt if Stage15 supports the stronger method story. If Stage15 does not support dominance, the next milestone should either narrow claims or decide whether to return to a bounded TRACE-SL comparator narrative.
 
 ## Context
 
 The research direction is strong because it connects sparse traffic sensor layout decisions directly to full-network reconstruction quality. The intended distinction from classical traffic sensor location problems is that TRACE-SL does not pursue deterministic full observability or minimum counting-point coverage; it optimizes partial-observation reconstruction quality, uncertainty, robustness, and validation performance under limited budgets.
 
-Known evidence caveats for v1.2 writing:
+Known evidence caveats for v2.0:
 
 - PeMS7_228 supports strong improvements against reviewer-facing baselines, while low-budget claims must preserve the multistart validation refinement caveat.
 - PeMS7_1026 and Seattle have complete Stage12 10-split evidence and may support multi-network empirical discussion.
+- The existing pool-centered TRACE-SL story risks reading as a portfolio or AutoML-style selector rather than a unified traffic network design method.
+- The weakest current regimes are PeMS7_1026 10% and Seattle 10%, so v2.0 should probe those before scaling full Stage15.
 - Multi-network evidence must not be phrased as universal cross-network generalization.
 - Robustness is bounded to the tested perturbations and reduced PeMS7_228 settings.
 - Raw datasets remain local/ignored and must not be committed.
 
 ## Constraints
 
-- **Target venue:** Transportation Research Part B is the primary submission target for v1.2.
+- **Target venue:** Transportation Research Part B remains the primary submission target, but v2.0 changes the method story before final manuscript submission.
 - **Template:** Use the local `els-cas-templates/` CAS template files for the paper source.
-- **Claim strategy:** Strong claims should be preserved and strengthened with evidence rather than narrowed prematurely.
+- **Method strategy:** TRACE-BiOpt must be presented as one objective and one deterministic optimization pipeline, not as a candidate pool or baseline selector.
+- **Claim strategy:** Strong claims should be preserved and strengthened with Stage15 evidence rather than narrowed prematurely.
 - **Evidence standard:** Core claims must be supported by held-out test results, paired comparisons, statistical uncertainty, robustness checks, and reproducible artifacts.
 - **External evidence:** PeMS7_1026 and Seattle have complete Stage12 10-split evidence; use them as external empirical evidence, not as universal generalization proof.
 - **Execution concurrency:** Completed Stage12 external evidence closure used max jobs set to 1. Future reruns should preserve this constraint unless the compute environment changes.
 - **Reproducibility:** Raw datasets stay local and ignored; curated result summaries, scripts, and non-sensitive artifacts should remain synchronized with paper claims.
-- **Submission assurance:** `$paper-writing` must run with `assurance: submission`; final completion requires proof, claim, citation, and verifier artifacts.
+- **Stage15 scale gate:** Full Stage15 should follow weak-regime probes rather than launch blindly.
+- **Submission assurance:** Later paper-writing must run with `assurance: submission`; final completion requires proof, claim, citation, and verifier artifacts.
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
+| Pivot v2.0 to TRACE-BiOpt as the main method | A pool/selector story risks weakening originality and theory; a single robust bilevel reconstruction-risk objective better fits TR Part B network design expectations | — Pending |
+| Keep baselines outside the method | Baselines should be pre-registered comparators, not candidates selected by the main algorithm | — Pending |
+| Gate full Stage15 on weak-regime probes | PeMS7_1026 10% and Seattle 10% are the critical credibility tests for the stronger claim | — Pending |
+| Treat v1.2 manuscript polishing as superseded until the method pivot is evaluated | Final paper writing should not polish a method story the project may replace | — Pending |
 | Retarget v1.2 manuscript to Transportation Research Part B | User corrected the submission target before manuscript drafting; the existing theory and evidence foundation should now be written for TR Part B expectations | — Pending |
 | Use `els-cas-templates` for manuscript source | TR Part B is an Elsevier journal and the user provided the local template directory | — Pending |
 | Run `$paper-writing` with submission assurance | The requested deliverable is a submission-gated paper package, not only a draft PDF | — Pending |
@@ -148,4 +160,4 @@ Archived files:
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026/05/26 after starting v1.2 TR Part B manuscript drafting*
+*Last updated: 2026/05/26 after starting v2.0 TRACE-BiOpt robust bilevel method development*
