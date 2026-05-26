@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: TRACE-SL Transportation Research Part B Manuscript Drafting
-status: planning
-last_updated: "2026-05-26T10:48:17.674Z"
+status: drafting
+last_updated: "2026-05-26T11:39:00.000Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 6
@@ -20,18 +20,24 @@ progress:
 See: .planning/PROJECT.md (updated 2026/05/26)
 
 **Core value:** Make strong, publishable claims about transparent reconstruction-aware traffic sensor placement, but only where formulation, theory, baselines, robustness tests, and held-out evidence support them.
-**Current focus:** v1.2 TR Part B manuscript drafting from the frozen v1.1 paper-source foundation using `els-cas-templates` and `$paper-writing` with submission assurance.
+**Current focus:** v1.2 TR Part B manuscript drafting from the frozen v1.1 paper-source foundation using `els-cas-templates` and `$paper-writing`.
 
 ## Current Position
 
 Phase: Not started (defining requirements)
 Plan: —
-Status: Requirements and roadmap defined; ready for Phase 11 planning/execution
-Last activity: 2026-05-26 — Milestone v1.2 started
+Status: Requirements and roadmap defined; first targeted TR-B manuscript revision completed in draft assurance mode
+Last activity: 2026-05-26 — `$paper-writing` quick revision added formal theory, algorithm details, external baseline table, expanded related work, and reproducibility notes
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
+
+## Quick Tasks Completed
+
+| Date | Quick ID | Slug | Summary |
+|------|----------|------|---------|
+| 2026-05-26 | 260526-r4c | trace-sl-tr-b-theory-algorithm-details-e | Revised TRACE-SL TR-B draft with formal theory, algorithm tables, external baseline comparisons, expanded experiments/related work, and compiled `paper/main.pdf`. |
 
 **Velocity:**
 

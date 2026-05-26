@@ -1,18 +1,19 @@
-\begin{table}[t]
+\begin{table*}[t]
 \centering
-\caption{External Stage12 evidence. TRACE-SL is evaluated on ten splits for each dataset and budget.}
+\caption{External Stage12 evidence with baseline context. Values are ten-split held-out GLS/MAP MAE; lower is better.}
 \label{tab:external}
-\small
-\begin{tabular}{lccc}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrrrrrrp{0.25\textwidth}}
 \toprule
-Dataset & Budget & MAE & Splits \\
+Dataset & Budget & TRACE-SL & Best rand. & Greedy A & Top var. & QR/POD & Graph samp. & Obs. & Boundary note \\
 \midrule
-PeMS7\_1026 & 10\% & 3.767 & 10 \\
-PeMS7\_1026 & 20\% & 3.347 & 10 \\
-PeMS7\_1026 & 30\% & 3.074 & 10 \\
-Seattle & 10\% & 3.101 & 10 \\
-Seattle & 20\% & 2.828 & 10 \\
-Seattle & 30\% & 2.624 & 10 \\
+PeMS7\_1026 & 10\% & 3.767 & 3.879 & 3.739 & 4.026 & 4.085 & 4.853 & 4.484 & Greedy A and swap-from-A are slightly lower; TRACE-SL still improves over random, variance, POD, graph, and observability baselines. \\
+PeMS7\_1026 & 20\% & 3.347 & 3.560 & 3.351 & 3.724 & 3.545 & 4.561 & 4.348 & TRACE-SL is close to RCSS/A-trace and better than the reviewer-facing baselines. \\
+PeMS7\_1026 & 30\% & 3.074 & 3.332 & 3.096 & 3.430 & 3.168 & 4.475 & 4.183 & TRACE-SL is the best row among the listed baselines and strong internal variants. \\
+Seattle & 10\% & 3.101 & 3.218 & 3.123 & 3.551 & 3.465 & 3.939 & 3.573 & TRACE-SL is effectively tied with RCSS and multistart; no low-budget dominance claim is made. \\
+Seattle & 20\% & 2.828 & 2.944 & 2.904 & 3.101 & 3.066 & 3.760 & 3.427 & TRACE-SL improves over key reviewer-facing baselines. \\
+Seattle & 30\% & 2.624 & 2.739 & 2.775 & 2.834 & 2.807 & 3.571 & 3.410 & TRACE-SL improves over key reviewer-facing baselines and strong internal comparators. \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}

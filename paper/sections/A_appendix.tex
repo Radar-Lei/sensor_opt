@@ -1,11 +1,21 @@
 \section{Additional audit notes}
 
-The source package is generated from \texttt{NARRATIVE\_REPORT.md} and CSV/JSON paper-source artifacts under \texttt{TRC-23-02333/trace\_sl\_results/paper\_sources/}. Raw datasets are not embedded in the paper source. Numeric claims in the main text should be rechecked by \texttt{paper-claim-audit} after every editing round.
+The source package is generated from \path{NARRATIVE_REPORT.md} and CSV/JSON paper-source artifacts under \path{TRC-23-02333/trace_sl_results/paper_sources/}. Raw datasets are not embedded in the paper source. Numeric claims in the main text should be rechecked by \path{paper-claim-audit} after every editing round.
+
+\section{Reproducibility route}
+
+The paper-facing evidence is organized as contracts rather than freehand manuscript numbers. The main PeMS7\_228 table is generated from \path{core_performance_table.csv} and \path{paired_delta_table.csv}. External-network comparisons are routed through \path{external_evidence_contract.csv}. Component claims use \path{ablation_contract.csv}; scoped theoretical statements use \path{theory_statement_contract.csv}. Each contract records source directories, source CSV names, split counts, evidence status, and caveat tags. This structure is intended to make reviewer-driven changes local: if a table row or caveat changes, the corresponding contract row identifies the generating experiment lane.
+
+Full reproduction requires obtaining the underlying PeMS and Seattle traffic datasets and placing them in the local dataset layout expected by the experiment scripts. The paper source itself distributes aggregate artifacts and launch metadata, not raw traffic data.
 
 \section{Proof sketches for scoped statements}
 
-For the posterior trace identity, the proof follows the standard conditional Gaussian calculation: under a fixed linear observation model and squared-error loss, the conditional mean minimizes expected squared error and the residual covariance over hidden components is the posterior covariance. Taking the trace gives the expected squared Euclidean reconstruction error over hidden components.
+The main text contains the formal proposition statements used for the manuscript claims. This appendix records the proof obligations and non-claim boundaries in prose.
 
-For monotonicity, adding a sensor corresponds to conditioning on an additional linear observation under the same prior/noise model. The Schur complement update subtracts a positive semidefinite term from the previous posterior covariance, hence the posterior covariance is nonincreasing in Loewner order and its trace is nonincreasing.
+For the posterior trace identity, the proof follows the standard conditional Gaussian calculation: under a fixed linear observation model and squared-error loss, the conditional mean minimizes expected squared error and the residual covariance over hidden components is the posterior covariance. Taking the trace gives the expected squared Euclidean reconstruction error over hidden components. This statement is tied to squared loss and the fitted linear-Gaussian model.
+
+For monotonicity, adding a sensor corresponds to conditioning on an additional linear observation under the same prior/noise model. The Schur complement update subtracts a positive semidefinite term from the previous posterior covariance, hence the posterior covariance is nonincreasing in Loewner order and its trace is nonincreasing. The comparison must use a fixed reconstruction target; otherwise the hidden complement changes with the layout.
+
+For validation selection, the proof uses a concentration inequality for each fixed candidate layout and then unions over the finite candidate class. The bound justifies validation-calibrated selection as a finite-class model-selection step, not as a post-selection guarantee on the held-out test split.
 
 For validation-aware swap local optimality, the algorithm terminates after evaluating the configured finite neighborhood. If no evaluated remove/add exchange strictly reduces validation reconstruction loss, the returned layout is locally optimal with respect to that evaluated neighborhood. The statement is not about swaps outside the configured add/remove pools or about global optimality.

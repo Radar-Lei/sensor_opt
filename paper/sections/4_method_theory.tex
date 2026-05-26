@@ -1,14 +1,126 @@
 \section{TRACE-SL method and scoped theory}
 \label{sec:method}
 
+TRACE-SL is a reconstruction-aware candidate-selection and refinement protocol. It is not a single closed-form score. The method is organized around three decisions that are common in deployment studies: which candidate layouts to consider, which score vector to trust on validation data, and whether a local exchange improves actual reconstruction rather than only a proxy certificate.
+
+\subsection{Transparent reconstruction layer}
+
+For a fixed layout $\calS$, the GLS/MAP reconstruction layer estimates training means and covariances and reconstructs hidden components from observed components. In the linear-Gaussian version used to motivate the certificates, let
+\[
+    x \sim \mathcal{N}(\mu,\Sigma), \qquad
+    y_{\calS}=H_{\calS}x+\varepsilon, \qquad
+    \varepsilon\sim \mathcal{N}(0,R_{\calS}),
+\]
+where $H_{\calS}$ selects observed components and $R_{\calS}$ is observation noise. The posterior mean is the transparent reconstruction rule and the hidden posterior covariance is
+\[
+    \Sigma_{\calH|\calS}
+    =
+    \Sigma_{\calH\calH}
+    -
+    \Sigma_{\calH\calS}
+    \left(\Sigma_{\calS\calS}+R_{\calS}\right)^{-1}
+    \Sigma_{\calS\calH}.
+\]
+Graph-signal reconstruction uses the same layout interface but replaces the covariance-conditioned estimator with graph-regularized recovery. TRACE-SL can therefore compare covariance, graph, POD, and validation losses without changing the held-out metric.
+
+\subsection{Candidate generation and validation-calibrated selection}
+
+\begin{table*}[t]
+\centering
+\caption{Algorithm 1: TRACE-SL candidate generation and validation-calibrated layout selection.}
+\label{alg:trace-sl}
+\small
+\begin{tabularx}{\textwidth}{p{0.15\textwidth}X}
+\toprule
+Input & traffic graph $G=(\calV,E)$; budget $k$; train, selector-validation, tuner-validation, and test splits; candidate generator family $\mathcal{G}$; score vectors $\Lambda$; transparent reconstruction family $f_{\calS}$; swap limits. \\
+\midrule
+1 & Fit reconstruction ingredients on training data: means, covariance/precision or graph operators, shrinkage, and regularization. \\
+2 & For each generator $g\in\mathcal{G}$, build candidate layouts using posterior A-trace, D-logdet, scenario-average trace, scenario-CVaR trace, top variance, coverage, degree, graph sampling, QR/POD, and random candidate families. \\
+3 & For each score vector $\lambda\in\Lambda$, score candidates using certificate, coverage, conditioning, and validation diagnostics; choose the best selector-validation layout for that vector. \\
+4 & Evaluate the selected layout for each $\lambda$ on tuner-validation reconstruction MAE and choose $\lambda^\star$ with the lowest tuner-validation loss. \\
+5 & Starting from the chosen layout and strong internal candidates, run Algorithm~\ref{alg:swap} for validation-aware one-swap refinement. \\
+6 & Freeze the resulting layout $\hat{\calS}$ and evaluate hidden-component MAE/RMSE/MAPE on the held-out test split only. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Algorithm 2: validation-aware one-swap refinement.}
+\label{alg:swap}
+\small
+\begin{tabularx}{\textwidth}{p{0.15\textwidth}X}
+\toprule
+Input & initial layout $\calS_0$; add pool $\calA\subseteq\calV\setminus\calS_0$; remove pool $\calR\subseteq\calS_0$; validation loss $\hat R_{\mathrm{tun}}(\calS)$; maximum starts and iterations. \\
+\midrule
+1 & Set $\calS\leftarrow \calS_0$ and compute $\hat R_{\mathrm{tun}}(\calS)$. \\
+2 & Enumerate feasible exchanges $(r,a)$ with $r\in\calR\cap\calS$ and $a\in\calA\setminus\calS$, preserving $|\calS|=k$. \\
+3 & Evaluate $\hat R_{\mathrm{tun}}((\calS\setminus\{r\})\cup\{a\})$ for the configured neighborhood. \\
+4 & Accept the best strict validation improvement; update $\calS$, $\calA$, and $\calR$ if the implementation refreshes pools. \\
+5 & Stop when no evaluated exchange strictly improves validation loss or when iteration limits are reached. Return $\calS$. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+The candidate pool is intentionally heterogeneous. Posterior A-trace and D-logdet represent classical uncertainty certificates; scenario-average and scenario-CVaR trace expose average-case and tail-risk variants; top variance and degree are simple reviewer-facing heuristics; graph sampling and QR/POD represent graph-signal and modal reconstruction baselines; random and validation-selected random isolate the value of validation selection from certificate-guided candidate generation. The final TRACE-SL layout is selected by reconstruction loss on validation data rather than by assuming that any single proxy score is universally correct.
+
+\subsection{Formal scoped properties}
+
+\begin{proposition}[Posterior trace identity]
+\label{prop:trace}
+Under the linear-Gaussian model above, the posterior mean $\E[x_{\calH}\mid y_{\calS}]$ minimizes conditional squared reconstruction error among measurable estimators of $x_{\calH}$, and
+\[
+    \E\!\left[\left\|x_{\calH}-\E[x_{\calH}\mid y_{\calS}]\right\|_2^2 \mid \calS\right]
+    =\tr(\Sigma_{\calH|\calS}).
+\]
+\end{proposition}
+
+\begin{proof}
+For squared loss, the conditional expectation is the Bayes estimator. Conditional on $y_{\calS}$, the residual $x_{\calH}-\E[x_{\calH}\mid y_{\calS}]$ has covariance $\Sigma_{\calH|\calS}$. Taking the trace of the residual second moment gives the conditional expected squared Euclidean error. The statement is conditional on the fixed prior and observation model; it does not imply an MAE guarantee for non-Gaussian traffic data.
+\end{proof}
+
+\begin{proposition}[Posterior covariance monotonicity for fixed targets]
+\label{prop:mono}
+Fix a target set $\calQ\subseteq\calV$ whose state is to be reconstructed, and compare two observation sets $\calS\subseteq\calS'$ disjoint from $\calQ$ under the same prior and observation-noise model. Then
+\[
+    \Sigma_{\calQ|\calS'} \preceq \Sigma_{\calQ|\calS},
+    \qquad
+    \tr(\Sigma_{\calQ|\calS'}) \le \tr(\Sigma_{\calQ|\calS}).
+\]
+\end{proposition}
+
+\begin{proof}
+Conditioning on $\calS'$ is equivalent to conditioning first on $\calS$ and then on the additional observations $\calS'\setminus\calS$. The Gaussian conditioning update subtracts a positive semidefinite Schur-complement term from the previous posterior covariance. Trace monotonicity follows from the Loewner-order relation. The fixed-target condition is needed because the hidden complement changes when sensors are added.
+\end{proof}
+
+\begin{proposition}[Finite-candidate validation selection bound]
+\label{prop:validation}
+Let $\calC$ be a finite candidate-layout class evaluated on an independent validation split of size $n_{\mathrm{v}}$. Suppose the validation losses $\ell(x_{\calH},f_{\calS}(x_{\calS}))$ are bounded in $[0,B]$ for every $\calS\in\calC$. Then, for any $\epsilon>0$,
+\[
+    \Pr\!\left(
+    \sup_{\calS\in\calC}
+    \left|R(\calS)-\hat R_{\mathrm{v}}(\calS)\right|>\epsilon
+    \right)
+    \le
+    2|\calC|\exp\!\left(-\frac{2n_{\mathrm{v}}\epsilon^2}{B^2}\right).
+\]
+\end{proposition}
+
+\begin{proof}
+For a fixed layout, Hoeffding's inequality controls the deviation between validation loss and deployment risk. A union bound over the finite candidate class gives the displayed inequality. For sub-exponential traffic losses the same role is played by the corresponding Bernstein-type bound with different constants. The proposition supports validation-calibrated selection as a statistically meaningful model-selection step; it is not a test-set performance theorem.
+\end{proof}
+
+\begin{proposition}[Finite termination and evaluated-neighborhood local optimality]
+\label{prop:swap}
+For fixed validation data, deterministic validation loss, finite add/remove pools, and finite iteration limits, Algorithm~\ref{alg:swap} terminates. If it stops because no evaluated remove/add exchange strictly improves validation loss, the returned layout is locally optimal with respect to the evaluated one-swap neighborhood.
+\end{proposition}
+
+\begin{proof}
+The configured neighborhood is finite and each accepted step strictly decreases the deterministic validation loss among evaluated layouts. With finite iteration limits termination is immediate; without repeated strict improvements among a finite set also cannot continue indefinitely. At the no-improvement stopping condition, every evaluated one-swap neighbor has validation loss at least as large as the returned layout. The statement says nothing about unevaluated swaps, larger neighborhoods, or global optimality.
+\end{proof}
+
+\begin{remark}[Complexity and non-claims]
+The workload decomposes into candidate generation, candidate scoring, reconstruction evaluation, and swap evaluation. If $M$ candidates are evaluated, $|\Lambda|$ score vectors are tuned, $n_{\mathrm{v}}$ validation time points are used, and each reconstruction evaluation costs $C_{\mathrm{rec}}(k,|\calV|)$, the validation-scoring component scales as $O(M|\Lambda|n_{\mathrm{v}}C_{\mathrm{rec}})$. Swap refinement adds the number of evaluated remove/add exchanges times the same reconstruction cost. TRACE-SL therefore reports launcher and manifest artifacts rather than claiming polynomial-time optimal placement certification, submodularity, approximation ratios, or universally monotone empirical MAE.
+\end{remark}
+
 \input{tables/table_theory}
-
-TRACE-SL has three layers. The first layer constructs a candidate pool using transparent certificate and coverage criteria. Candidate generators include greedy A-trace, greedy log-determinant, scenario-average A-trace, scenario-CVaR A-trace, posterior-trace swap refinements, quality-coverage sampling, degree, top-variance, coverage, and random candidate families. The second layer selects the scoring weights on validation data rather than fixing them by hand. A selector-validation split chooses a layout for each score vector, and a tuner-validation split selects the vector with the lowest GLS/MAP reconstruction MAE. The third layer applies validation-aware one-swap refinement to strong candidates: a remove/add exchange is accepted only when it improves validation reconstruction loss.
-
-Under a linear-Gaussian GLS/MAP model with fixed prior and observation noise, the posterior covariance on hidden components provides a principled squared-error uncertainty proxy. In this setting, the trace of $\SigmaPost$ equals the conditional expected squared hidden-state reconstruction error up to the fixed observation model. Moreover, conditioning on additional sensors cannot increase posterior covariance in positive-semidefinite order, so the posterior trace is nonincreasing for nested sensor sets. These statements motivate posterior-trace candidate generation, but they do not imply non-Gaussian MAE guarantees.
-
-The validation-aware swap output is locally optimal only with respect to the evaluated one-swap neighborhood. If no tested remove/add exchange from the configured candidate pool strictly improves validation reconstruction loss, the returned layout is locally optimal for that finite neighborhood. This is not a global optimality result; it is a precise algorithmic statement about the search actually performed.
-
-\input{tables/table_ablation}
-
-The workload can be decomposed into candidate generation, candidate scoring, and swap evaluation. The relevant scaling variables are the number of candidate generators, candidate counts, budget levels, validation windows, swap starts, swap iterations, and add/remove pool sizes. TRACE-SL therefore exposes runtime and manifest artifacts rather than claiming hardware-independent optimal-placement certification.

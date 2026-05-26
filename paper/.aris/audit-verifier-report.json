@@ -1,8 +1,8 @@
 {
   "verifier_version": "1",
   "paper_dir": "/home/samuel/projects/sensor_opt/paper",
-  "assurance": "submission",
-  "generated_at": "2026-05-26T11:01:24Z",
+  "assurance": "draft",
+  "generated_at": "2026-05-26T11:38:51Z",
   "any_problem": false,
   "submission_blocking": false,
   "audits": [

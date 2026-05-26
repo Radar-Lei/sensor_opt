@@ -10,10 +10,24 @@
 \label{fig:main-mae}
 \end{figure}
 
-The Stage12 experiments evaluate PeMS7\_228, PeMS7\_1026, and Seattle under 10\%, 20\%, and 30\% sensor budgets. Each reported aggregate uses ten held-out splits. Baselines include random mean, validation-selected random, top variance, greedy A-trace, greedy log-determinant, observability proxy, graph sampling, QR/POD-style sparse placement, scenario risk variants, RCSS-selected layouts, and multistart validation-swap comparators.
+\subsection{Datasets, splits, and metrics}
+
+The Stage12 experiments evaluate three traffic networks: PeMS7\_228, PeMS7\_1026, and Seattle. Each network is evaluated at 10\%, 20\%, and 30\% sensor budgets, with budget counts obtained by applying the fraction to the candidate sensor set and then using the run manifest's deterministic rounding rule. Each reported aggregate uses ten held-out splits. Training data fit reconstruction ingredients; selector-validation data choose candidates within a score vector; tuner-validation data select score vectors and accept swap refinements; test data are used only for final reporting.
+
+The primary metric is hidden-component MAE under the transparent GLS/MAP reconstruction protocol. RMSE and MAPE are retained in the paper-source contracts when available, but the main claim is written around MAE because it is directly interpretable in the same scale as the traffic state variable and is less dominated by large residuals than squared loss. All reported paired deltas compare TRACE-SL with a baseline on the same split index. The tables report ten-split means and, where used for claims, paired $t$ tests, Wilcoxon signed-rank tests, confidence intervals, and win counts in the source artifacts.
+
+\subsection{Baselines}
+
+The baseline portfolio is designed to separate mechanism from performance. Random mean averages unselected random layouts, while best random by validation tests whether validation selection alone is enough. Top variance selects high-variance locations. Greedy A-trace and greedy D-logdet are certificate-only OED-style layouts. Observability proxy and degree represent transportation/topological heuristics. Graph sampling and QR/POD represent graph-signal and low-rank modal placement. Scenario-average and scenario-CVaR variants test risk-weighted posterior certificates. RCSS-selected layouts test score-based portfolio selection before local refinement. Multistart validation swap is retained as a strong internal comparator rather than hidden as an implementation detail.
+
+\subsection{PeMS7\_228 main evidence}
 
 Table~\ref{tab:main-results} reports the main PeMS7\_228 evidence. TRACE-SL reaches mean held-out GLS/MAP MAE of 3.590, 3.355, and 3.084 at 10\%, 20\%, and 30\% budgets. Against validation-selected random layouts, the paired mean deltas are -0.123, -0.095, and -0.163 with paired $p$ values 8.8e-05, 0.0054, and 0.0005. Against random mean layouts, the paired mean deltas are -0.243, -0.220, and -0.320.
 
-The low-budget PeMS7\_228 comparison with the multistart swap baseline is deliberately reported as a caveat. At 10\%, TRACE-SL and multistart validation swap are statistically close, and the evidence does not justify a claim that one selected layout dominates every strong internal variant at every budget. The paper-level claim is therefore about reconstruction-aware layout design and the TRACE-SL portfolio, not about a universal winner on every row.
+The low-budget comparison with the multistart swap baseline is deliberately reported as a caveat. At 10\%, TRACE-SL and multistart validation swap are statistically close (3.590 versus 3.595, paired $p=0.812$), and the evidence does not justify a claim that one selected layout dominates every strong internal variant at every budget. The paper-level claim is therefore about reconstruction-aware layout design and the TRACE-SL portfolio, not about a universal winner on every row.
 
-Table~\ref{tab:external} summarizes external evidence. PeMS7\_1026 and Seattle both have ten tracked Stage12 splits and support multi-network empirical discussion. This evidence should not be read as a universal generalization theorem: it shows that the same design logic transfers across the tested networks and protocols.
+\subsection{External-network evidence}
+
+Table~\ref{tab:external} expands the external evidence beyond TRACE-SL-only MAE. PeMS7\_1026 and Seattle both have ten tracked Stage12 splits and include the same major baseline families. The table makes two boundary cases visible. On PeMS7\_1026 at 10\%, greedy A-trace and swap-from-A-trace are slightly better than the final TRACE-SL selection, while TRACE-SL remains better than random, top-variance, QR/POD, graph-sampling, and observability baselines. On Seattle at 10\%, TRACE-SL is effectively tied with RCSS and multistart swap. At higher budgets, TRACE-SL improves over the listed reviewer-facing baselines on both external networks.
+
+This evidence supports a multi-network empirical claim, not a universal generalization theorem. The same protocol transfers across the tested networks, but the external rows also show why the manuscript avoids saying that the final selector is globally optimal or uniformly dominant over every internal variant.
