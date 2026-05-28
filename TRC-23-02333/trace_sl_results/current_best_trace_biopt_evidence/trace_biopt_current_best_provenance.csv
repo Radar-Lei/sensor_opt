@@ -1,0 +1,10 @@
+dataset,budget,source,paired_status,wins
+PeMS7_1026,0.1,Stage16 calibrated rerun,submission-ready paired dominance,10/10
+PeMS7_1026,0.2,Stage16 calibrated rerun,submission-ready paired dominance,10/10
+PeMS7_1026,0.3,Stage16 calibrated rerun,submission-ready paired dominance,10/10
+PeMS7_228,0.1,Stage16 calibrated rerun,submission-ready paired dominance,10/10
+PeMS7_228,0.2,Stage16 calibrated rerun,submission-ready paired dominance,10/10
+PeMS7_228,0.3,Stage16 calibrated rerun,submission-ready paired dominance,10/10
+Seattle,0.1,Stage15 main evidence,submission-ready paired dominance,10/10
+Seattle,0.2,Stage16 calibrated rerun,submission-ready paired dominance,10/10
+Seattle,0.3,Stage16 calibrated rerun,submission-ready paired dominance,10/10

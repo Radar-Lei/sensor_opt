@@ -1,0 +1,10 @@
+dataset,budget_pct,source_label,searched_one_exchange_coverage_pct_mean,no_improving_stop_runs,exchange_budget_exhausted_runs,certificate_scope,certificate_reading
+PeMS7_1026,10,Stage16 calibrated rerun,1.346391,4,6,mixed searched certificate,"Some runs end with no improving searched swap, but other runs still hit the declared exchange-iteration cap."
+PeMS7_1026,20,Stage16 calibrated rerun,0.760524,0,10,budget-limited certificate,The solver typically exhausts the declared exchange budget before a no-improving searched-swap stop is observed.
+PeMS7_1026,30,Stage16 calibrated rerun,0.578808,0,10,budget-limited certificate,The solver typically exhausts the declared exchange budget before a no-improving searched-swap stop is observed.
+PeMS7_228,10,Stage16 calibrated rerun,100.000000,10,0,complete one-exchange certificate,All runs searched the full one-exchange neighborhood and stopped only after no improving swap remained.
+PeMS7_228,20,Stage16 calibrated rerun,100.000000,4,6,mixed searched certificate,"Some runs end with no improving searched swap, but other runs still hit the declared exchange-iteration cap."
+PeMS7_228,30,Stage16 calibrated rerun,100.000000,1,9,mixed searched certificate,"Some runs end with no improving searched swap, but other runs still hit the declared exchange-iteration cap."
+Seattle,10,Stage15 main evidence,13.745704,9,1,mixed searched certificate,"Some runs end with no improving searched swap, but other runs still hit the declared exchange-iteration cap."
+Seattle,20,Stage16 calibrated rerun,7.632677,10,0,searched active-set certificate,"Runs stop by no improving searched exchange, but the searched active set is smaller than the full k(n-k) swap set."
+Seattle,30,Stage16 calibrated rerun,5.838883,10,0,searched active-set certificate,"Runs stop by no improving searched exchange, but the searched active set is smaller than the full k(n-k) swap set."

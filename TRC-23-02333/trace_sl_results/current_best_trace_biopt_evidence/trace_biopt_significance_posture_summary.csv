@@ -1,0 +1,11 @@
+dataset,budget,budget_pct,evidence_source,significantly_worse_baselines_holm,non_worse_baselines_holm,baseline_significantly_better_holm,closest_challenger_layout,closest_challenger_label,closest_challenger_mean_delta,max_paired_t_p_holm,max_wilcoxon_p_less,baseline_count
+PeMS7_1026,0.1,10,stage16_replaceable:pems7_1026_10_20_posterior_iter20,21,0,0,validation_swap_selected,Prev. TRACE-SL,-0.14324036021039127,0.00012363770053216777,0.0009765625,21
+PeMS7_1026,0.2,20,stage16_replaceable:pems7_1026_10_20_posterior_iter20,21,0,0,rcss_selected,RCSS,-0.12450667298152811,8.25251503262802e-06,0.0009765625,21
+PeMS7_1026,0.3,30,stage16_replaceable:pems1026_30_trainval_lowcert,21,0,0,validation_swap_selected,Prev. TRACE-SL,-0.037541480186449185,0.00047450846143351055,0.0009765625,21
+PeMS7_228,0.1,10,stage16_replaceable:train_val_lowcert_delta1_fullsearch,21,0,0,scenario_cvar_a_trace,scenario cvar a trace,-0.23409607323974332,0.0006857544626755656,0.0009765625,21
+PeMS7_228,0.2,20,stage16_replaceable:pems7_228_20_30_fullsearch,21,0,0,top_variance,top variance,-0.383993238232274,1.1508228964800211e-05,0.0009765625,21
+PeMS7_228,0.3,30,stage16_replaceable:pems7_228_20_30_fullsearch,21,0,0,rcss_selected,RCSS,-0.41591782261783916,4.334695338439213e-06,0.0009765625,21
+Seattle,0.1,10,stage15_main,21,0,0,multistart_swap_by_validation,Multistart validation-swap,-0.05573628256687435,0.002617011842110027,0.0048828125,21
+Seattle,0.2,20,stage16_replaceable:seattle_10_20_30_trainval,21,0,0,validation_swap_selected,Prev. TRACE-SL,-0.08272332066176111,0.0003069576508503637,0.0009765625,21
+Seattle,0.3,30,stage16_replaceable:seattle_10_20_30_trainval,21,0,0,validation_swap_selected,Prev. TRACE-SL,-0.0952063382135953,0.0003200476234798224,0.0009765625,21
+All rows,,,current_best,189,0,0,multistart_swap_by_validation,Multistart validation-swap,-0.05573628256687435,0.002617011842110027,0.0048828125,189

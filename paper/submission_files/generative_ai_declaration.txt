@@ -1,0 +1,27 @@
+Generative AI Statement
+=======================
+
+In accordance with Elsevier's policy on the use of generative AI and AI-assisted technologies in scientific publishing, the authors declare the following:
+
+During the preparation of this manuscript, the authors used large language model-based tools (specifically, Anthropic Claude and OpenAI GPT series) for the following limited purposes:
+
+1. Language polishing: To improve the clarity, grammar, and readability of portions of the manuscript text originally drafted by the authors.
+
+2. Code review assistance: To assist in reviewing and debugging the experimental Python code used for sensor placement optimization and traffic state reconstruction.
+
+The authors affirm that:
+
+- Generative AI tools were NOT used in the design of the research methodology, formulation of the optimization models, or development of the mathematical proofs presented in this paper.
+
+- Generative AI tools were NOT used to analyze experimental data, interpret results, or draw scientific conclusions. All data analysis, result interpretation, and scientific judgments were made exclusively by the human authors.
+
+- Generative AI tools were NOT used to generate, fabricate, or manipulate any experimental data, figures, or numerical results reported in this paper.
+
+- All content generated with AI assistance was critically reviewed, substantially edited where necessary, and approved by the authors, who take full responsibility for the final published work.
+
+- No AI-generated text, figures, or data were incorporated into the manuscript without thorough human verification against the underlying evidence and mathematical derivations.
+
+The authors confirm that the scientific integrity, intellectual contributions, and scholarly rigor of this work are entirely the product of human authorship.
+
+[AUTHOR NAME]
+[DATE]

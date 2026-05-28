@@ -1,0 +1,7 @@
+axis,trace_biopt_contract,paper_should_not_be_read_as
+Decision timing,Freeze one sparse siting plan before most future traffic states are observed.,A benchmark that starts after the sensor graph is already fixed.
+Optimized quantity,Optimize hidden-state recoverability under one transparent GLS/MAP inverse problem.,"Coverage maximization, OD identifiability, observability only, or a pure graph-sampling score."
+Method identity,Solve one fixed-infrastructure transportation network-design method centered on one recoverability-driven bilevel stochastic objective and one deterministic solver route.,"A pool of candidate generators, a portfolio selector, or a post-hoc AutoML layout chooser."
+Role of baselines,Keep 21 pre-registered baselines spanning 11 audited method families outside the solver as an external audited comparison class.,A method that quietly reuses baselines as internal candidates and then reports the winner as new.
+Empirical claim,"On the current-best chain, all 9/9 rows are submission-ready paired wins and Holm-corrected paired tests still show 189/189 significant wins with no surviving challenger.",A weak-baseline benchmark win that survives only because the comparison class is narrow or uncorrected.
+Explicit scope,Keep global optimality and untested-baseline dominance out of scope while exact-hitting 27/27 audited 16-node subnetworks with zero objective gap.,A paper that silently upgrades bounded evidence into universal exactness or universal superiority.

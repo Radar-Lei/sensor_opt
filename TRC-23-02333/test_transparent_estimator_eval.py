@@ -582,6 +582,16 @@ def run_all():
     test_robustness_metadata_defaults_and_cost_layout_record()
     test_candidate_robustness_metadata_records_failure_counts()
     test_candidate_robustness_metadata_non_failure_keeps_all_active()
+    # TRACE-BiOpt unit tests
+    test_smooth_l1_mean_matches_huber_semantics()
+    test_trace_biopt_objective_exposes_single_method_terms()
+    test_trace_biopt_eval_frame_uses_deterministic_time_subset()
+    test_project_capped_simplex_preserves_budget_and_bounds()
+    test_trace_biopt_relaxed_objective_exposes_continuous_terms()
+    test_trace_biopt_layout_is_deterministic_and_not_pool_selected()
+    test_trace_biopt_relaxed_rounding_initializer_is_deterministic()
+    test_trace_biopt_posterior_greedy_warm_start_is_deterministic()
+    test_trace_biopt_auto_initializer_uses_network_size_threshold()
     print("transparent-estimator-tests-ok")
 
 

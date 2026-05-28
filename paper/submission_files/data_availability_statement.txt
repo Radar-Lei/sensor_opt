@@ -1,0 +1,61 @@
+Data Availability Statement
+===========================
+
+The data and code supporting the findings of this study are available as follows:
+
+1. PeMS (Caltrans Performance Measurement System) datasets
+   --------------------------------------------------------
+   The PeMS7 traffic speed datasets used in this study are derived from the
+   Caltrans Performance Measurement System (PeMS), which is publicly accessible at:
+
+       https://pems.dot.ca.gov/
+
+   The PeMS data are collected and maintained by the California Department of
+   Transportation (Caltrans) and are freely available for research use. Specific
+   dataset configurations used:
+
+   - PeMS7_228: A subnetwork of 228 sensor stations from District 7.
+   - PeMS7_1026: A larger subnetwork of 1,026 sensor stations from District 7.
+
+   Citation format:
+   Caltrans. Performance Measurement System (PeMS).
+   https://pems.dot.ca.gov/ [accessed: DATE].
+
+2. Seattle Loop Detector dataset
+   --------------------------------
+   The Seattle heterogeneous network data are from the Seattle Loop Detector
+   dataset, which has been used in prior transportation research publications and
+   is publicly available. The dataset includes traffic speed tensor data and the
+   corresponding adjacency matrix for the Seattle metropolitan area highway network.
+
+   Citation format:
+   [AUTHOR NAME et al.]. Seattle Loop Detector Dataset.
+   [URL or reference to the original publication].
+
+3. Code and curated results
+   --------------------------
+   The experimental code, configuration scripts, and curated result summaries
+   are available in the project repository at:
+
+       https://github.com/[REPOSITORY_PATH]
+
+   The repository includes:
+   - Python implementation of the TRACE-SL sensor placement and reconstruction
+     pipeline (transparent_estimator_eval.py, summarize_trace_sl_rcss.py)
+   - Bash reproduction scripts for all experiments reported in the paper
+   - Curated aggregate result tables in CSV and Markdown format
+   - A README with complete reproduction instructions
+
+4. Raw experiment outputs
+   ------------------------
+   Raw per-seed experiment outputs (individual metrics.csv, layouts.json, and
+   swap_history.json files) are not distributed with the repository due to their
+   aggregate size. However, all raw outputs can be exactly reproduced by running
+   the provided shell scripts with the documented parameters and random seeds.
+   Complete reproduction instructions are provided in the repository README.
+
+5. Third-party dependencies
+   --------------------------
+   All software dependencies (NumPy, SciPy, pandas, scikit-learn) are standard,
+   open-source Python packages available via pip. Version requirements are
+   documented in the requirements.txt file included in the repository.

@@ -1,0 +1,10 @@
+dataset,budget,runs,source_label,dominant_initializer,sensor_count_mean,exchange_steps_mean,exchange_steps_min,exchange_steps_max,searched_one_exchange_coverage_pct_mean,peak_trace_rss_mb_mean,peak_trace_rss_mb_min,peak_trace_rss_mb_max,no_improving_stop_runs,exchange_budget_exhausted_runs,validation_mae_mean,final_objective_mean
+PeMS7_1026,0.1,10,Stage16 calibrated rerun,posterior_greedy_warm_start,103.0,18.9,16,20,1.3463905163618004,1420.4075,1323.227,1460.824,4,6,3.499638220611938,3.599717268205081
+PeMS7_1026,0.2,10,Stage16 calibrated rerun,posterior_greedy_warm_start,205.0,20.0,20,20,0.76052404860224,2935.3166,2846.023,2992.43,0,10,3.1399679292861737,2.8912694890254707
+PeMS7_1026,0.3,10,Stage16 calibrated rerun,posterior_greedy_warm_start,308.0,8.0,8,8,0.5788083782512752,1537.6059,1530.531,1543.746,0,10,2.9596591212037975,2.511568231472757
+PeMS7_228,0.1,10,Stage16 calibrated rerun,objective_forward,23.0,7.1,4,10,100.0,405.3065,341.293,530.121,10,0,3.357464220684812,4.023661530959092
+PeMS7_228,0.2,10,Stage16 calibrated rerun,objective_forward,46.0,11.3,9,12,100.0,737.9112,673.129,749.727,4,6,2.982112010490231,3.29007164167824
+PeMS7_228,0.3,10,Stage16 calibrated rerun,objective_forward,68.0,11.9,11,12,100.0,1594.8058,1529.902,1606.488,1,9,2.6839790082155677,2.8278640830301933
+Seattle,0.1,10,Stage15 main evidence,objective_forward,32.0,5.4,0,8,13.745704467353951,280.0587,240.457,296.684,9,1,3.1759697282748727,4.926850596722327
+Seattle,0.2,10,Stage16 calibrated rerun,objective_forward,65.0,3.7,0,7,7.6326774001192605,374.0979,306.988,530.121,10,0,2.8853941213926078,3.8415589277971045
+Seattle,0.3,10,Stage16 calibrated rerun,objective_forward,97.0,3.0,0,7,5.8388833135662805,456.7856,377.457,537.176,10,0,2.6484060324847296,3.2956546714651296

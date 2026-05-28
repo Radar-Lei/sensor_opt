@@ -1,0 +1,7 @@
+dataset,budget_pct,layout_role,layout_label,layout_type,best_baseline_layout,coordinate_mode,node_count,selected_unique_nodes,always_selected_nodes,mean_selection_frequency,max_selection_frequency,evidence_source
+PeMS7_1026,10,trace_biopt_current_best,TRACE-BiOpt,trace_biopt,swap_from_greedy_a_trace,distance_spectral_embedding,1026,291,11,0.353952,1.000000,stage16_replaceable:pems7_1026_10_20_posterior_iter20
+PeMS7_1026,10,strongest_baseline,Swap from A-trace,swap_from_greedy_a_trace,swap_from_greedy_a_trace,distance_spectral_embedding,1026,246,20,0.418699,1.000000,stage15_baseline
+PeMS7_228,10,trace_biopt_current_best,TRACE-BiOpt,trace_biopt,validation_swap_selected,geographic_station_coordinates,228,58,5,0.396552,1.000000,stage16_replaceable:train_val_lowcert_delta1_fullsearch
+PeMS7_228,10,strongest_baseline,Prev. TRACE-SL,validation_swap_selected,validation_swap_selected,geographic_station_coordinates,228,74,0,0.310811,0.900000,stage15_baseline
+Seattle,10,trace_biopt_current_best,TRACE-BiOpt,trace_biopt,rcss_selected,geographic_cabinet_coordinates,323,142,0,0.225352,0.800000,stage15_main
+Seattle,10,strongest_baseline,RCSS,rcss_selected,rcss_selected,geographic_cabinet_coordinates,323,100,3,0.320000,1.000000,stage15_baseline

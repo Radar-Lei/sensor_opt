@@ -1,0 +1,10 @@
+dataset,budget,budget_pct,trace_biopt_mean,best_baseline_mean,best_baseline_layout,best_baseline_label,trace_minus_best_baseline,evidence_source
+PeMS7_1026,0.1,10,3.604650735973128,3.734264512894056,swap_from_greedy_a_trace,Swap from A-trace,-0.12961377692092801,stage16_replaceable:pems7_1026_10_20_posterior_iter20
+PeMS7_1026,0.2,20,3.2230901138167076,3.3466673348562805,validation_swap_selected,Prev. TRACE-SL,-0.12357722103957292,stage16_replaceable:pems7_1026_10_20_posterior_iter20
+PeMS7_1026,0.3,30,3.0365031789125085,3.0740446590989574,validation_swap_selected,Prev. TRACE-SL,-0.03754148018644887,stage16_replaceable:pems1026_30_trainval_lowcert
+PeMS7_228,0.1,10,3.453318517234316,3.5956974141304676,validation_swap_selected,Prev. TRACE-SL,-0.14237889689615146,stage16_replaceable:train_val_lowcert_delta1_fullsearch
+PeMS7_228,0.2,20,3.0436171595991808,3.3198407464134334,validation_swap_selected,Prev. TRACE-SL,-0.27622358681425263,stage16_replaceable:pems7_228_20_30_fullsearch
+PeMS7_228,0.3,30,2.7413618195321257,3.0772643702038547,validation_swap_selected,Prev. TRACE-SL,-0.335902550671729,stage16_replaceable:pems7_228_20_30_fullsearch
+Seattle,0.1,10,3.041613165957095,3.097330767024402,rcss_selected,RCSS,-0.055717601067307,stage15_main
+Seattle,0.2,20,2.7329821723136427,2.815705492975404,validation_swap_selected,Prev. TRACE-SL,-0.08272332066176125,stage16_replaceable:seattle_10_20_30_trainval
+Seattle,0.3,30,2.5143781653231017,2.6095845035366967,validation_swap_selected,Prev. TRACE-SL,-0.09520633821359503,stage16_replaceable:seattle_10_20_30_trainval

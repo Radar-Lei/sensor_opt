@@ -1,0 +1,199 @@
+dataset,layout_type,layout_label,budget_pct,mean_mae,rank,trace_gap,avg_rank
+PeMS7_1026,best_random_by_trace,Best random (trace),10,3.9064933635,11,0.3018426275,12.0000
+PeMS7_1026,best_random_by_trace,Best random (trace),20,3.6106798919,13,0.3875897781,12.0000
+PeMS7_1026,best_random_by_trace,Best random (trace),30,3.3671897813,12,0.3306866024,12.0000
+PeMS7_1026,best_random_by_validation,Best random (val),10,3.8991720824,10,0.2945213464,11.0000
+PeMS7_1026,best_random_by_validation,Best random (val),20,3.5879863705,12,0.3648962567,11.0000
+PeMS7_1026,best_random_by_validation,Best random (val),30,3.3558314422,11,0.3193282633,11.0000
+PeMS7_1026,coverage,Coverage,10,3.9617292621,15,0.3570785261,16.0000
+PeMS7_1026,coverage,Coverage,20,3.6197664245,14,0.3966763107,16.0000
+PeMS7_1026,coverage,Coverage,30,3.4665177127,19,0.4300145338,16.0000
+PeMS7_1026,degree,Degree,10,4.4931662517,20,0.8885155157,20.6667
+PeMS7_1026,degree,Degree,20,4.3638622884,21,1.1407721746,20.6667
+PeMS7_1026,degree,Degree,30,4.2119701515,21,1.1754669726,20.6667
+PeMS7_1026,graph_sampling_laplacian,Graph-spectral,10,4.8534655632,22,1.2488148272,22.0000
+PeMS7_1026,graph_sampling_laplacian,Graph-spectral,20,4.5612380519,22,1.3381479381,22.0000
+PeMS7_1026,graph_sampling_laplacian,Graph-spectral,30,4.4747926778,22,1.4382894989,22.0000
+PeMS7_1026,greedy_a_trace,Greedy A-trace,10,3.7389902123,3,0.1343394763,4.3333
+PeMS7_1026,greedy_a_trace,Greedy A-trace,20,3.3509532251,5,0.1278631113,4.3333
+PeMS7_1026,greedy_a_trace,Greedy A-trace,30,3.0955114993,5,0.0590083204,4.3333
+PeMS7_1026,greedy_d_logdet,Greedy D-logdet,10,4.4975130075,21,0.8928622715,19.0000
+PeMS7_1026,greedy_d_logdet,Greedy D-logdet,20,3.8668342530,19,0.6437441392,19.0000
+PeMS7_1026,greedy_d_logdet,Greedy D-logdet,30,3.4466825321,17,0.4101793532,19.0000
+PeMS7_1026,multistart_swap_by_validation,Multistart swap,10,3.7686100731,6,0.1639593371,6.3333
+PeMS7_1026,multistart_swap_by_validation,Multistart swap,20,3.4631902547,6,0.2401001409,6.3333
+PeMS7_1026,multistart_swap_by_validation,Multistart swap,30,3.2450303102,7,0.2085271313,6.3333
+PeMS7_1026,observability_proxy,Observability,10,4.4836979789,19,0.8790472429,19.6667
+PeMS7_1026,observability_proxy,Observability,20,4.3477526526,20,1.1246625388,19.6667
+PeMS7_1026,observability_proxy,Observability,30,4.1827486677,20,1.1462454888,19.6667
+PeMS7_1026,qr_pod_modes,QR/POD,10,4.0854021140,18,0.4807513780,11.3333
+PeMS7_1026,qr_pod_modes,QR/POD,20,3.5449130709,10,0.3218229571,11.3333
+PeMS7_1026,qr_pod_modes,QR/POD,30,3.1683273414,6,0.1318241625,11.3333
+PeMS7_1026,random,Random,10,3.9400342571,13,0.3353835211,14.3333
+PeMS7_1026,random,Random,20,3.6310184472,16,0.4079283334,14.3333
+PeMS7_1026,random,Random,30,3.4223644068,14,0.3858612279,14.3333
+PeMS7_1026,rcss_selected,RCSS,10,3.7394217569,4,0.1347710209,3.6667
+PeMS7_1026,rcss_selected,RCSS,20,3.3475967868,3,0.1245066730,3.6667
+PeMS7_1026,rcss_selected,RCSS,30,3.0855652522,4,0.0490620733,3.6667
+PeMS7_1026,robust_coverage_cvar,Robust coverage,10,3.9086389382,12,0.3039882022,12.0000
+PeMS7_1026,robust_coverage_cvar,Robust coverage,20,3.5802462409,11,0.3571561271,12.0000
+PeMS7_1026,robust_coverage_cvar,Robust coverage,30,3.3783116867,13,0.3418085078,12.0000
+PeMS7_1026,scenario_average_a_trace,Avg-scenario A,10,4.0031370143,16,0.3984862783,16.0000
+PeMS7_1026,scenario_average_a_trace,Avg-scenario A,20,3.6580874992,17,0.4349973854,16.0000
+PeMS7_1026,scenario_average_a_trace,Avg-scenario A,30,3.4260834954,15,0.3895803165,16.0000
+PeMS7_1026,scenario_cvar_a_trace,CVaR-scenario A,10,3.9475165550,14,0.3428658190,15.6667
+PeMS7_1026,scenario_cvar_a_trace,CVaR-scenario A,20,3.6297689483,15,0.4066788345,15.6667
+PeMS7_1026,scenario_cvar_a_trace,CVaR-scenario A,30,3.4512716033,18,0.4147684244,15.6667
+PeMS7_1026,swap_from_best_random_trace,Swap-random,10,3.8118170052,8,0.2071662692,8.0000
+PeMS7_1026,swap_from_best_random_trace,Swap-random,20,3.5158951886,8,0.2928050748,8.0000
+PeMS7_1026,swap_from_best_random_trace,Swap-random,30,3.2549490191,8,0.2184458402,8.0000
+PeMS7_1026,swap_from_greedy_a_trace,Swap-A,10,3.7342645129,2,0.1296137769,3.0000
+PeMS7_1026,swap_from_greedy_a_trace,Swap-A,20,3.3487197011,4,0.1256295873,3.0000
+PeMS7_1026,swap_from_greedy_a_trace,Swap-A,30,3.0841121999,3,0.0476090210,3.0000
+PeMS7_1026,swap_from_scenario_average,Swap-avg-scen,10,3.8449279930,9,0.2402772570,9.0000
+PeMS7_1026,swap_from_scenario_average,Swap-avg-scen,20,3.5239608362,9,0.3008707224,9.0000
+PeMS7_1026,swap_from_scenario_average,Swap-avg-scen,30,3.2736797539,9,0.2371765750,9.0000
+PeMS7_1026,swap_from_scenario_cvar,Swap-CVaR-scen,10,3.8089638342,7,0.2043130982,8.0000
+PeMS7_1026,swap_from_scenario_cvar,Swap-CVaR-scen,20,3.5031188706,7,0.2800287568,8.0000
+PeMS7_1026,swap_from_scenario_cvar,Swap-CVaR-scen,30,3.3074020343,10,0.2708988554,8.0000
+PeMS7_1026,top_variance,Top variance,10,4.0257280514,17,0.4210773154,17.0000
+PeMS7_1026,top_variance,Top variance,20,3.7241588856,18,0.5010687718,17.0000
+PeMS7_1026,top_variance,Top variance,30,3.4298747647,16,0.3933715858,17.0000
+PeMS7_1026,trace_biopt,TRACE-BiOpt,10,3.6046507360,1,0.0000000000,1.0000
+PeMS7_1026,trace_biopt,TRACE-BiOpt,20,3.2230901138,1,0.0000000000,1.0000
+PeMS7_1026,trace_biopt,TRACE-BiOpt,30,3.0365031789,1,0.0000000000,1.0000
+PeMS7_1026,validation_swap_selected,Prev. TRACE-SL,10,3.7478910962,5,0.1432403602,3.0000
+PeMS7_1026,validation_swap_selected,Prev. TRACE-SL,20,3.3466673349,2,0.1235772211,3.0000
+PeMS7_1026,validation_swap_selected,Prev. TRACE-SL,30,3.0740446591,2,0.0375414802,3.0000
+PeMS7_228,best_random_by_trace,Best random (trace),10,3.8208890738,15,0.3675705566,15.0000
+PeMS7_228,best_random_by_trace,Best random (trace),20,3.5305135528,15,0.4868963932,15.0000
+PeMS7_228,best_random_by_trace,Best random (trace),30,3.3633025817,15,0.6219407622,15.0000
+PeMS7_228,best_random_by_validation,Best random (val),10,3.7233109506,13,0.2699924334,10.0000
+PeMS7_228,best_random_by_validation,Best random (val),20,3.4555282779,11,0.4119111183,10.0000
+PeMS7_228,best_random_by_validation,Best random (val),30,3.2445921401,6,0.5032303206,10.0000
+PeMS7_228,coverage,Coverage,10,3.9173738727,17,0.4640553555,16.6667
+PeMS7_228,coverage,Coverage,20,3.6481573663,17,0.6045402067,16.6667
+PeMS7_228,coverage,Coverage,30,3.3778428277,16,0.6364810082,16.6667
+PeMS7_228,degree,Degree,10,4.1465533042,21,0.6932347870,21.3333
+PeMS7_228,degree,Degree,20,4.1110818200,21,1.0674646604,21.3333
+PeMS7_228,degree,Degree,30,3.9761529666,22,1.2347911471,21.3333
+PeMS7_228,graph_sampling_laplacian,Graph-spectral,10,4.1328750235,20,0.6795565063,19.6667
+PeMS7_228,graph_sampling_laplacian,Graph-spectral,20,3.9917093197,20,0.9480921601,19.6667
+PeMS7_228,graph_sampling_laplacian,Graph-spectral,30,3.8048403423,19,1.0634785228,19.6667
+PeMS7_228,greedy_a_trace,Greedy A-trace,10,3.6859786731,10,0.2326601559,12.0000
+PeMS7_228,greedy_a_trace,Greedy A-trace,20,3.4653892437,12,0.4217720841,12.0000
+PeMS7_228,greedy_a_trace,Greedy A-trace,30,3.3506427542,14,0.6092809347,12.0000
+PeMS7_228,greedy_d_logdet,Greedy D-logdet,10,4.5554445485,22,1.1021260313,21.3333
+PeMS7_228,greedy_d_logdet,Greedy D-logdet,20,4.1782364378,22,1.1346192782,21.3333
+PeMS7_228,greedy_d_logdet,Greedy D-logdet,30,3.8792569859,20,1.1378951664,21.3333
+PeMS7_228,multistart_swap_by_validation,Multistart swap,10,3.6068010599,4,0.1534825427,4.0000
+PeMS7_228,multistart_swap_by_validation,Multistart swap,20,3.3886916636,3,0.3450745040,4.0000
+PeMS7_228,multistart_swap_by_validation,Multistart swap,30,3.2372177344,5,0.4958559149,4.0000
+PeMS7_228,observability_proxy,Observability,10,4.0013402743,19,0.5480217571,19.6667
+PeMS7_228,observability_proxy,Observability,20,3.9236073531,19,0.8799901935,19.6667
+PeMS7_228,observability_proxy,Observability,30,3.8871706038,21,1.1458087843,19.6667
+PeMS7_228,qr_pod_modes,QR/POD,10,3.9769370021,18,0.5236184849,18.0000
+PeMS7_228,qr_pod_modes,QR/POD,20,3.7840418951,18,0.7404247355,18.0000
+PeMS7_228,qr_pod_modes,QR/POD,30,3.4465034621,18,0.7051416426,18.0000
+PeMS7_228,random,Random,10,3.8320103322,16,0.3786918150,16.3333
+PeMS7_228,random,Random,20,3.5624617429,16,0.5188445833,16.3333
+PeMS7_228,random,Random,30,3.4029207288,17,0.6615589093,16.3333
+PeMS7_228,rcss_selected,RCSS,10,3.5959003807,3,0.1425818635,3.3333
+PeMS7_228,rcss_selected,RCSS,20,3.3922971678,4,0.3486800082,3.3333
+PeMS7_228,rcss_selected,RCSS,30,3.1572796421,3,0.4159178226,3.3333
+PeMS7_228,robust_coverage_cvar,Robust coverage,10,3.6739475868,9,0.2206290696,7.3333
+PeMS7_228,robust_coverage_cvar,Robust coverage,20,3.4398152392,6,0.3961980796,7.3333
+PeMS7_228,robust_coverage_cvar,Robust coverage,30,3.2933800087,7,0.5520181892,7.3333
+PeMS7_228,scenario_average_a_trace,Avg-scenario A,10,3.6889372222,12,0.2356187050,12.3333
+PeMS7_228,scenario_average_a_trace,Avg-scenario A,20,3.5029995280,14,0.4593823684,12.3333
+PeMS7_228,scenario_average_a_trace,Avg-scenario A,30,3.3349099478,11,0.5935481283,12.3333
+PeMS7_228,scenario_cvar_a_trace,CVaR-scenario A,10,3.6874145905,11,0.2340960733,10.6667
+PeMS7_228,scenario_cvar_a_trace,CVaR-scenario A,20,3.4680406029,13,0.4244234433,10.6667
+PeMS7_228,scenario_cvar_a_trace,CVaR-scenario A,30,3.3260253647,8,0.5846635452,10.6667
+PeMS7_228,swap_from_best_random_trace,Swap-random,10,3.6211146330,7,0.1677961158,9.0000
+PeMS7_228,swap_from_best_random_trace,Swap-random,20,3.4495970721,8,0.4059799125,9.0000
+PeMS7_228,swap_from_best_random_trace,Swap-random,30,3.3381220956,12,0.5967602761,9.0000
+PeMS7_228,swap_from_greedy_a_trace,Swap-A,10,3.6184889796,6,0.1651704624,9.3333
+PeMS7_228,swap_from_greedy_a_trace,Swap-A,20,3.4505423083,9,0.4069251487,9.3333
+PeMS7_228,swap_from_greedy_a_trace,Swap-A,30,3.3493999343,13,0.6080381148,9.3333
+PeMS7_228,swap_from_scenario_average,Swap-avg-scen,10,3.6081354062,5,0.1548168890,8.0000
+PeMS7_228,swap_from_scenario_average,Swap-avg-scen,20,3.4516795691,10,0.4080624095,8.0000
+PeMS7_228,swap_from_scenario_average,Swap-avg-scen,30,3.3265168703,9,0.5851550508,8.0000
+PeMS7_228,swap_from_scenario_cvar,Swap-CVaR-scen,10,3.6315235440,8,0.1782050268,8.3333
+PeMS7_228,swap_from_scenario_cvar,Swap-CVaR-scen,20,3.4467013520,7,0.4030841924,8.3333
+PeMS7_228,swap_from_scenario_cvar,Swap-CVaR-scen,30,3.3342364103,10,0.5928745908,8.3333
+PeMS7_228,top_variance,Top variance,10,3.7304124113,14,0.2770938941,7.6667
+PeMS7_228,top_variance,Top variance,20,3.4276103978,5,0.3839932382,7.6667
+PeMS7_228,top_variance,Top variance,30,3.2003911838,4,0.4590293643,7.6667
+PeMS7_228,trace_biopt,TRACE-BiOpt,10,3.4533185172,1,0.0000000000,1.0000
+PeMS7_228,trace_biopt,TRACE-BiOpt,20,3.0436171596,1,0.0000000000,1.0000
+PeMS7_228,trace_biopt,TRACE-BiOpt,30,2.7413618195,1,0.0000000000,1.0000
+PeMS7_228,validation_swap_selected,Prev. TRACE-SL,10,3.5956974141,2,0.1423788969,2.0000
+PeMS7_228,validation_swap_selected,Prev. TRACE-SL,20,3.3198407464,2,0.2762235868,2.0000
+PeMS7_228,validation_swap_selected,Prev. TRACE-SL,30,3.0772643702,2,0.3359025507,2.0000
+Seattle,best_random_by_trace,Best random (trace),10,3.2843499212,14,0.2427367552,13.3333
+Seattle,best_random_by_trace,Best random (trace),20,3.0037321305,12,0.2707499582,13.3333
+Seattle,best_random_by_trace,Best random (trace),30,2.8532568133,14,0.3388786480,13.3333
+Seattle,best_random_by_validation,Best random (val),10,3.2268072914,10,0.1851941254,10.3333
+Seattle,best_random_by_validation,Best random (val),20,2.9460678699,11,0.2130856976,10.3333
+Seattle,best_random_by_validation,Best random (val),30,2.7834621763,10,0.2690840110,10.3333
+Seattle,coverage,Coverage,10,3.2810566777,13,0.2394435117,7.3333
+Seattle,coverage,Coverage,20,2.8963930844,5,0.1634109121,7.3333
+Seattle,coverage,Coverage,30,2.6922653791,4,0.1778872138,7.3333
+Seattle,degree,Degree,10,3.6205770424,20,0.5789638764,20.6667
+Seattle,degree,Degree,20,3.5418274348,21,0.8088452625,20.6667
+Seattle,degree,Degree,30,3.4175421532,21,0.9031639879,20.6667
+Seattle,graph_sampling_laplacian,Graph-spectral,10,3.9385311838,22,0.8969180178,22.0000
+Seattle,graph_sampling_laplacian,Graph-spectral,20,3.7602957423,22,1.0273135700,22.0000
+Seattle,graph_sampling_laplacian,Graph-spectral,30,3.5711421981,22,1.0567640328,22.0000
+Seattle,greedy_a_trace,Greedy A-trace,10,3.1230552360,7,0.0814420700,6.6667
+Seattle,greedy_a_trace,Greedy A-trace,20,2.9040123479,6,0.1710301756,6.6667
+Seattle,greedy_a_trace,Greedy A-trace,30,2.7754241660,7,0.2610460007,6.6667
+Seattle,greedy_d_logdet,Greedy D-logdet,10,3.8660410830,21,0.8244279170,20.0000
+Seattle,greedy_d_logdet,Greedy D-logdet,20,3.5142747819,20,0.7812926096,20.0000
+Seattle,greedy_d_logdet,Greedy D-logdet,30,3.2046778683,19,0.6902997030,20.0000
+Seattle,multistart_swap_by_validation,Multistart swap,10,3.0973494485,3,0.0557362825,4.0000
+Seattle,multistart_swap_by_validation,Multistart swap,20,2.8909366282,4,0.1579544559,4.0000
+Seattle,multistart_swap_by_validation,Multistart swap,30,2.7328844726,5,0.2185063073,4.0000
+Seattle,observability_proxy,Observability,10,3.5727984230,19,0.5311852570,19.3333
+Seattle,observability_proxy,Observability,20,3.4271586253,19,0.6941764530,19.3333
+Seattle,observability_proxy,Observability,30,3.4103239637,20,0.8959457984,19.3333
+Seattle,qr_pod_modes,QR/POD,10,3.4650978010,17,0.4234846350,14.6667
+Seattle,qr_pod_modes,QR/POD,20,3.0663947554,15,0.3334125831,14.6667
+Seattle,qr_pod_modes,QR/POD,30,2.8066748003,12,0.2922966350,14.6667
+Seattle,random,Random,10,3.3390016391,16,0.2973884731,15.3333
+Seattle,random,Random,20,3.0262602098,14,0.2932780375,15.3333
+Seattle,random,Random,30,2.8632245111,16,0.3488463458,15.3333
+Seattle,rcss_selected,RCSS,10,3.0973307670,2,0.0557176010,2.6667
+Seattle,rcss_selected,RCSS,20,2.8415816975,3,0.1085995252,2.6667
+Seattle,rcss_selected,RCSS,30,2.6560651901,3,0.1416870248,2.6667
+Seattle,robust_coverage_cvar,Robust coverage,10,3.2626562068,12,0.2210430408,13.3333
+Seattle,robust_coverage_cvar,Robust coverage,20,3.0085014034,13,0.2755192311,13.3333
+Seattle,robust_coverage_cvar,Robust coverage,30,2.8535449875,15,0.3391668222,13.3333
+Seattle,scenario_average_a_trace,Avg-scenario A,10,3.2442277605,11,0.2026145945,14.6667
+Seattle,scenario_average_a_trace,Avg-scenario A,20,3.0948831314,16,0.3619009591,14.6667
+Seattle,scenario_average_a_trace,Avg-scenario A,30,2.9356305258,17,0.4212523605,14.6667
+Seattle,scenario_cvar_a_trace,CVaR-scenario A,10,3.3002844494,15,0.2586712834,17.0000
+Seattle,scenario_cvar_a_trace,CVaR-scenario A,20,3.1037683468,18,0.3707861745,17.0000
+Seattle,scenario_cvar_a_trace,CVaR-scenario A,30,2.9520638013,18,0.4376856360,17.0000
+Seattle,swap_from_best_random_trace,Swap-random,10,3.1256236910,8,0.0840105250,9.6667
+Seattle,swap_from_best_random_trace,Swap-random,20,2.9454833750,10,0.2125012027,9.6667
+Seattle,swap_from_best_random_trace,Swap-random,30,2.7905303385,11,0.2761521732,9.6667
+Seattle,swap_from_greedy_a_trace,Swap-A,10,3.1125297441,5,0.0709165781,6.0000
+Seattle,swap_from_greedy_a_trace,Swap-A,20,2.9052088394,7,0.1722266671,6.0000
+Seattle,swap_from_greedy_a_trace,Swap-A,30,2.7574110471,6,0.2430328818,6.0000
+Seattle,swap_from_scenario_average,Swap-avg-scen,10,3.1160572824,6,0.0744441164,7.6667
+Seattle,swap_from_scenario_average,Swap-avg-scen,20,2.9433354220,9,0.2103532497,7.6667
+Seattle,swap_from_scenario_average,Swap-avg-scen,30,2.7762929360,8,0.2619147707,7.6667
+Seattle,swap_from_scenario_cvar,Swap-CVaR-scen,10,3.1485061573,9,0.1068929913,8.6667
+Seattle,swap_from_scenario_cvar,Swap-CVaR-scen,20,2.9387202625,8,0.2057380902,8.6667
+Seattle,swap_from_scenario_cvar,Swap-CVaR-scen,30,2.7819618681,9,0.2675837028,8.6667
+Seattle,top_variance,Top variance,10,3.5507602309,18,0.5091470649,16.0000
+Seattle,top_variance,Top variance,20,3.1013639505,17,0.3683817782,16.0000
+Seattle,top_variance,Top variance,30,2.8339583036,13,0.3195801383,16.0000
+Seattle,trace_biopt,TRACE-BiOpt,10,3.0416131660,1,0.0000000000,1.0000
+Seattle,trace_biopt,TRACE-BiOpt,20,2.7329821723,1,0.0000000000,1.0000
+Seattle,trace_biopt,TRACE-BiOpt,30,2.5143781653,1,0.0000000000,1.0000
+Seattle,validation_swap_selected,Prev. TRACE-SL,10,3.1025478946,4,0.0609347286,2.6667
+Seattle,validation_swap_selected,Prev. TRACE-SL,20,2.8157054930,2,0.0827233207,2.6667
+Seattle,validation_swap_selected,Prev. TRACE-SL,30,2.6095845035,2,0.0952063382,2.6667

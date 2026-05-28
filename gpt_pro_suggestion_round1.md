@@ -1,670 +1,345 @@
-对，你这个判断是对的。**如果主方法被写成“一个 pool，里面有很多候选，然后从中挑最优”，TR-B reviewer 可能会觉得它更像 portfolio / AutoML selector，而不是一个原创、统一、可分析的交通网络设计方法。** 这会削弱 contribution。
+我仔细看了一轮后，判断是：**方向已经大幅升级，而且升级方向是对的；但现在还不能直接投 TR-B。**
+你现在最需要做的不是继续“堆实验”，而是把 **证据链、仓库主叙事、论文表达和可复现入口统一起来**。否则审稿人看到的会是：论文很强，contract 很强，但 README、manifest、结果目录、paper pipeline report 之间存在版本断裂。
 
-你想要的是：
+## 1. 总体判断
 
-> **一个唯一的方法，一个统一目标，一个确定性优化过程；它不是从 baselines 里挑，而是直接优化一个 reconstruction-aware traffic sensor design problem，并且在实验上打败所有预先定义的 baselines。**
+之前我建议你不要再把主方法写成 candidate pool / selector，而是升级成一个单一的 robust bilevel reconstruction-aware sensor layout optimization 方法。现在仓库基本已经执行了这个方向：`TRACE_BIOPT_SPEC.md` 明确写出 TRACE-BiOpt 不是 candidate pool、portfolio selector 或 AutoML-style chooser，baseline 只作为 evaluation rows，不进入方法本身；方法身份也被压缩为“一个 recoverability-driven bilevel objective + 一个 GLS/MAP lower-level inverse problem + CVaR tail-risk + deterministic initialization-and-exchange solver + 外部 baseline contract”。这和之前建议的主线一致。 
 
-我建议下一步不要继续强化 “candidate pool story”，而是把论文升级成：
+从 TR-B 角度看，这个 pivot 很关键。TR-B 的 scope 强调 methodological aspects，尤其是需要数学分析、并服务于 transportation system design/analysis 的问题；你的新表述“fixed-infrastructure transportation network design + transparent inverse problem + bilevel stochastic optimization”比旧的 TRACE-SL/RCSS selector 叙事更贴近 Part B。([ScienceDirect][1])
 
-> **TRACE-BiOpt / TRACE-Opt：a robust bilevel reconstruction-aware sensor layout optimization method**
+我的结论是：
 
-也就是把 TRACE-SL 从 portfolio framework 改成 **单一 bilevel stochastic network design method**。
-
----
-
-## 1. 为什么现在的 pool 思路不适合你想要的强 claim
-
-当前论文 Section 4 其实还是说 TRACE-SL 有多个 candidate generators：posterior A-trace、D-logdet、scenario risk、top variance、degree、graph sampling、QR/POD、random 等，然后用 validation-calibrated selection 和 swap refinement。
-
-这个在工程上有效，但从论文贡献看有三个问题。
-
-**第一，它像 meta-selector，而不是新方法。**
-审稿人可能会问：你的方法到底是新的 sensor placement principle，还是把很多已有 baselines 放一起再挑？
-
-**第二，它难以 claim “打败所有 baselines”。**
-如果你把 baseline 放进 pool，最后赢了，别人会说你只是选择了 baseline；如果没放进 pool，强 baseline 又可能打败你。这个逻辑很尴尬。
-
-**第三，理论很难强。**
-当前 finite-candidate validation bound 只能说“在有限候选集内选择不会太差”。这不是 TR-B 最想要的那种强 network design / optimization result。
-
-所以我建议换叙事：**不要再把 pool 作为主方法。**
+**可以继续冲 TR-B，但下一步应进入“submission hardening”阶段，而不是继续无限扩展方法。**
 
 ---
 
-## 2. 新方法应该是什么：一个统一的 bilevel reconstruction-risk optimization
+## 2. 现在仓库里最重要的积极变化
 
-把方法定义成一个唯一的优化问题：
+第一，主方法已经从旧的 TRACE-SL/RCSS 候选池转成 TRACE-BiOpt。论文标题也已改成 “TRACE-BiOpt: Recoverability-Driven Bilevel Transportation Network Design for Sparse Traffic Sensor Siting”，摘要直接把问题定义为 fixed-infrastructure transportation network-design decision，并声明 baseline 不进入方法候选池。
 
+第二，方法定义已经比较完整。`TRACE_BIOPT_SPEC.md` 给出了统一目标：
 [
-\min_{s\in{0,1}^n}
-\quad
-J(s)
-\qquad
-\text{s.t.}
-\quad
-\mathbf 1^\top s=k,
+J(S)=\text{hidden Huber reconstruction loss}+\beta\text{ posterior trace}/n+\gamma\text{ scenario CVaR}/n+\eta\text{ spatial penalty}
 ]
+并说明四项共同优化，而不是从多个 baseline 里选择。 lower-level GLS/MAP 也写成 convex quadratic，并给出闭式解 ( \hat z_t=A(S)^{-1}b_t(S) )。
 
-其中 (s_i=1) 表示第 (i) 个位置安装 sensor。
+第三，代码层面确实实现了这个 objective。`transparent_estimator_eval.py` 里 `trace_biopt_objective` 把 hidden Huber loss、posterior trace、scenario CVaR trace 和 spatial penalty 合成一个 objective；`trace_biopt_layout` 用 initializer + exchange refinement 输出布局，而不是选 baseline。  
 
-核心是 (J(s)) 不是 coverage、variance、trace 这种代理目标，而是直接面向 hidden-network reconstruction：
+第四，理论包比之前强很多。`TRACE_BIOPT_THEORY.md` 已经列出 MAP closed form/stability、posterior trace Bayes risk、uniform generalization over all size-(k) layouts、exchange certificate、continuous relaxation consistency、CVaR epigraph 等内容。  论文的 method/theory 节也已经把这些写进 theorem/proposition 环境。 
 
-[
-J(s)
-====
+第五，主实验表已经非常强。`table_trace_biopt_dominance.tex` 显示三组数据 PeMS7_1026、PeMS7_228、Seattle，在 10%、20%、30% 共 9 行上，TRACE-BiOpt 都低于 row-wise strongest challenger，而且全部是 10/10 split wins。 全 baseline 显著性表进一步写成 21/21 baseline worse per row，合计 189/189 Holm-corrected wins，0 tied，0 better。
 
-\underbrace{
-\frac{1}{|\mathcal T_v|}
-\sum_{t\in\mathcal T_v}
-\frac{1}{n-k}
-\sum_{i=1}^n
-(1-s_i)
-\rho_\delta
-\left(x_{ti}-\hat x_{ti}(s)\right)
-}*{\text{validation hidden reconstruction loss}}
-+
-\beta
-\underbrace{
-\operatorname{tr}
-\left[
-(I-M_s)\Sigma*{\mathrm{post}}(s)(I-M_s)
-\right]
-}*{\text{posterior uncertainty}}
-+
-\gamma
-\underbrace{
-\operatorname{CVaR}*{\alpha}
-\left(
-\ell_t(s)
-\right)
-}*{\text{tail-risk robustness}}
-+
-\eta
-\underbrace{
-\Omega*{\mathrm{spatial}}(s)
-}_{\text{redundancy / deployment regularization}}.
-]
-
-这里：
-
-* (\rho_\delta) 是 Huber / smooth-L1 loss，比 MAE 更容易优化，也比 squared loss 更 robust；
-* (\hat x_t(s)) 是在 sensor set (s) 下由透明 MAP/GLS estimator 重构出的 full network state；
-* posterior trace 是理论 certificate；
-* CVaR 是 robust transportation network design 的味道；
-* spatial regularization 防止 sensors 全堆在局部区域；
-* 但所有东西都在 **一个 objective** 里面，不是 pool 选择。
-
-这个方法的 lower-level reconstruction 可以写成：
-
-[
-\hat x_t(s)
-===========
-
-\arg\min_z
-\left{
-\frac{1}{2}
-|M_s(z-x_t)|_{R^{-1}}^2
-+
-\frac{\lambda_Q}{2}
-(z-\mu)^\top Q(z-\mu)
-+
-\frac{\lambda_L}{2}
-z^\top Lz
-\right}.
-]
-
-这就是一个 convex quadratic MAP reconstruction problem。给定 (s)，它有闭式解：
-
-[
-\hat x_t(s)
-===========
-
-A(s)^{-1}b_t(s),
-]
-
-其中：
-
-[
-A(s)=M_s^\top R^{-1}M_s+\lambda_Q Q+\lambda_L L.
-]
-
-于是 sensor layout 是 upper-level discrete optimization，reconstruction 是 lower-level convex optimization。这个就很像 TR-B 会认可的 **bilevel network design / stochastic optimization / traffic system design**。
+这些变化说明：**文章已经不再是“还缺主贡献”的状态，而是进入“强 claim 是否可审计、可复现、可被 TR-B reviewer 接受”的状态。**
 
 ---
 
-## 3. 这个方法怎么命名和定位
+## 3. 当前最大问题：证据链和仓库主叙事不一致
 
-建议保留 TRACE 品牌，但换成更强的主方法名：
+这是我最担心的地方。
 
-### 方案 A：TRACE-BiOpt
+论文和 BiOpt contract 反复引用：
 
-**Transparent Reconstruction-Aware Bilevel Optimization for Sensor Layout**
+```text
+TRC-23-02333/trace_sl_results/current_best_trace_biopt_evidence/
+```
 
-优点：一听就是 bilevel optimization，不像 heuristic。
+并把它作为 current-best evidence chain。`TRACE_BIOPT_SPEC.md` 明确说 current-best evidence status 是 `supported_submission_ready`，并允许 claim “lowest mean held-out GLS/MAP MAE against the pre-registered non-BiOpt baseline set”。 `paper/main.tex` 的 data/code availability 也说 primary TRACE-BiOpt result 来自 `current_best_trace_biopt_evidence/`。
 
-### 方案 B：TRACE-RBO
+但我直接查看仓库可见结果目录时，`trace_sl_results` 页面主要还是 Stage6–Stage14/Stage12 的旧目录和旧 README 叙事，没有清晰显示 Stage15/Stage16/current-best 结果目录。可见 README 还在讲 Stage12/Stage14 的旧 evidence flow。([GitHub][2]) 同时，根目录 `README.md` 仍然把项目描述为 TRACE-SL/RCSS candidate pool，甚至写着“validation_swap_selected remains the main reported selector”，这已经和现在论文主线冲突。 `RESEARCH_PIPELINE_REPORT.md` 也还是 2026-05-18 的旧 RCSS pipeline，写着 chosen method 是 RCSS，并且 venue 还不是 TR-B。
 
-**Transparent Reconstruction-Aware Robust Bilevel Optimization**
+这会给 reviewer 或 co-author 一个很坏的第一印象：**论文声称 current-best BiOpt，仓库首页却像旧 TRACE-SL 项目。**
 
-优点：强调 CVaR / robust network design。
-
-### 方案 C：TRACE-Opt
-
-**Transparent Reconstruction-Aware Sensor Layout Optimization**
-
-最简单，适合论文标题。
-
-我更建议：
-
-> **TRACE-BiOpt: A Recoverability-Driven Bilevel Optimization Method for Sparse Traffic Sensor Layout**
-
-然后把当前 TRACE-SL portfolio 改成 old version / ablation / candidate heuristic，不再作为最终主方法。
+这不是小问题。你现在最优先要做的是把仓库“唯一事实源”统一。
 
 ---
 
-## 4. 这个唯一方法怎么优化，才能真的打败 baselines
+## 4. 第二个问题：论文表达太像“审计合同”，不够像自然的 TR-B 论文
 
-你不能只定义一个漂亮 objective，还要让它在实验上强。我的建议是：
+现在论文方向是对的，但 prose 有点过度工程化。Introduction、Related Work、Conclusion 多次重复：
 
-### 4.1 连续松弛 + 投影优化 + 离散修复
+> one long-lived infrastructure decision, one transparent inverse problem, one deterministic solver, one scoped theory package, one external audited comparison-class contract.
 
-把 (s\in{0,1}^n) 松弛成：
+这个句子本身很好，但重复太多。Introduction 第 12–28 行连续堆叠了 “one method / one contract / one decision” 的表达；Related Work 开头也再次用类似话术开场；Conclusion 又重复一次。  
 
-[
-s\in[0,1]^n,\qquad \mathbf 1^\top s=k.
-]
+TR-B reviewer 更希望先看到：
 
-然后优化 (J(s))。因为 lower MAP solution (\hat x_t(s)) 对 (s) 可微，可以用 projected gradient / Frank-Wolfe / mirror descent。
+1. 交通网络设计问题是什么；
+2. 为什么现有 sensor location / observability / OD / graph sampling 方法不够；
+3. 你的 bilevel formulation 新在哪里；
+4. 算法怎么解；
+5. 理论保证是什么；
+6. 多网络实验如何支持 scoped claim。
 
-最后取 top-(k) rounding：
-
-[
-S_0=\operatorname{TopK}(s).
-]
-
-### 4.2 确定性 exchange refinement，不是 pool
-
-rounding 后做 deterministic local improvement：
-
-[
-S^{(m+1)}
-=========
-
-\arg\min_{S'\in\mathcal N_1(S^{(m)})}
-J(S'),
-]
-
-其中 (\mathcal N_1(S)) 是 one-swap neighborhood。
-
-这里的 swap refinement 是 **这个单一优化算法的一部分**，不是从 candidate pool 里挑。区别很重要。
-
-### 4.3 可以做 two-swap / beam，但仍然是一个方法
-
-为了打败所有 baselines，one-swap 可能不够。可以用：
-
-* one-swap until convergence；
-* top candidates 进入 limited two-swap；
-* beam width (q)；
-* deterministic stopping rule；
-* objective 永远是同一个 (J(S))。
-
-这仍然是一个唯一方法，因为它不是多个 methods 之间选择，而是同一个 objective 的 solver。
-
-### 4.4 不要再把 baselines 放进方法里
-
-Baselines 只用于比较，不进入主方法。
-
-这符合你的要求：
-
-> 我们的方法不是 pool，不是从 baselines 中选择。我们的方法是直接求解一个 reconstruction-aware bilevel sensor layout objective。
+“audit contract” 可以保留，但建议放在 tables / appendix / reproducibility section，不要在 abstract/introduction/related work/conclusion 里反复喊。否则文章会显得像项目报告，而不是学术论文。
 
 ---
 
-## 5. 理论应该怎么大幅加强
+## 5. 第三个问题：abstract 和 highlights 可能不符合 Elsevier 投稿要求
 
-现在论文已有 posterior trace identity、fixed-target monotonicity、validation bound、swap local optimality。 这些可以保留，但要升级成更强的理论体系。
+TR-B guide for authors 要求 abstract concise and factual，且不超过 250 words。([ScienceDirect][1]) 你现在 abstract 是一整段非常长的 statement，把方法、21 baselines、189 comparisons、27/27 exact benchmark、non-claims、intended reading 全塞进去。 这大概率超过 250 words，而且读起来太满。
 
-我建议理论 section 改成四个核心 theorem。
+Highlights 也要单独提供，3–5 bullets，每条最多 85 characters including spaces。([ScienceDirect][1]) 你现在 LaTeX highlights 的每条都比较长，尤其第 3 条和第 4 条基本不可能满足 85 characters。
 
----
-
-### Theorem 1：MAP reconstruction closed form and stability
-
-给定 sensor vector (s)，lower-level MAP problem 是 strongly convex，存在唯一解：
-
-[
-\hat x_t(s)=A(s)^{-1}b_t(s).
-]
-
-如果 (Q+\lambda_L L\succ 0)，则 (A(s)\succ 0)，并且 reconstruction map 对 observation 和 sensor relaxation 是 Lipschitz stable。
-
-这个 theorem 的作用是：说明方法不是黑箱 estimator，而是一个稳定、透明、可分析的 inverse problem。
+这是投稿前必须改的格式问题。
 
 ---
 
-### Theorem 2：posterior trace equals Bayes squared reconstruction risk
+## 6. 第四个问题：当前 paper pipeline report 自己说 “Submission-ready: no”
 
-当前 Proposition 1 可以升级成 theorem。它说明在线性 Gaussian model 下：
+`paper/PAPER_WRITING_PIPELINE_REPORT.md` 写了很多 audit pass：proof audit、paper claim audit、citation audit、kill argument audit、assurance verifier 都通过；但顶部仍然写着 `Submission-ready: no`。 它的 remaining issues 也写着作者信息、affiliations、declarations、portal-specific files 还没填，文章 18 页，可能还短于完整 TR-B submission package。
 
-[
-\mathbb E
-\left[
-|x_H-\mathbb E[x_H\mid y_S]|_2^2
-\right]
-=======
+所以现在不能说“可以马上投”。更准确地说：
 
-\operatorname{tr}(\Sigma_{H|S}).
-]
-
-这个证明 posterior trace 不是随便加的 proxy，而是有 Bayes risk 意义。
-
-当前论文已经写了这个方向。 但下一版要写得更正式，放在 theorem 环境，不要只是 proposition sketch。
+**方法和主结果接近 submission-ready；投稿包还不是 submission-ready。**
 
 ---
 
-### Theorem 3：uniform generalization over all size-(k) layouts
+## 7. 第五个问题：代码可复现入口还不够干净
 
-这个是最关键的。不要再只对 finite candidate pool 给 bound，而是对 **所有可能的 size-(k) sensor layouts** 给 uniform bound。
+现在 `TRC-23-02333/trace_biopt.py` 只是一个 wrapper：它 import `transparent_estimator_eval.main`，如果没有 `--include-biopt` 就自动 append。 主实现仍然在一个很大的 `transparent_estimator_eval.py` 里，里面同时包含老 baseline、RCSS、validation swap、robustness、BiOpt、evaluation、CLI。这个对快速研究没问题，但对 TR-B reproducibility 来说不够优雅。
 
-令：
-
-[
-\mathcal S_k={S\subseteq\mathcal V: |S|=k}.
-]
-
-因为：
-
-[
-|\mathcal S_k|=\binom{n}{k}
-\le
-\left(\frac{en}{k}\right)^k,
-]
-
-如果 loss bounded in ([0,B])，则以概率至少 (1-\delta)：
-
-[
-\sup_{S\in\mathcal S_k}
-|R(S)-\hat R_v(S)|
-\le
-B\sqrt{
-\frac{
-k\log(en/k)+\log(2/\delta)
-}{
-2n_v
-}
-}.
-]
-
-如果 (\hat S) 是 empirical objective 的 (\epsilon_{\mathrm{opt}})-近似解：
-
-[
-\hat R_v(\hat S)
-\le
-\min_{|S|=k}\hat R_v(S)+\epsilon_{\mathrm{opt}},
-]
-
-那么：
-
-[
-R(\hat S)
-\le
-\min_{|S|=k}R(S)
-+
-2B\sqrt{
-\frac{
-k\log(en/k)+\log(2/\delta)
-}{
-2n_v
-}
-}
-+
-\epsilon_{\mathrm{opt}}.
-]
-
-这个理论很强。它说：
-
-> TRACE-BiOpt 不只是和一个候选池比较，而是在所有 budget-feasible layouts 上有 finite-sample near-optimality bound，误差来自 validation sample size 和 optimization gap。
-
-这会比当前 finite-candidate bound 强很多，也更像 TR-B。
-
-注意交通时间序列不一定 IID，所以要加 block/effective sample size 版本：
-
-[
-n_v \rightarrow n_{\mathrm{eff}}.
-]
-
-写成：
-
-> For temporally dependent traffic data, the same expression should be interpreted using independent validation blocks or an effective sample size under mixing assumptions.
+更麻烦的是测试文件里已经写了很多 BiOpt-specific tests，例如 objective terms、relaxed objective、deterministic and not pool-selected、posterior greedy warm start、auto initializer threshold。  但 `run_all()` 只调用旧的一批 tests，没有把这些 BiOpt tests 加进去。 如果你用 pytest，它们会被发现；但如果按脚本直接运行，BiOpt tests 会被跳过。这种小问题很容易被 reviewer 或复现者发现。
 
 ---
 
-### Theorem 4：exchange local optimality with computable optimality gap
+## 8. 第六个问题：理论强，但要小心别被 reviewer 抓“理论—实验不完全对齐”
 
-现在论文有 one-swap local optimality。 可以加强成：
+你的理论现在足够作为 TR-B 方法论文支撑，但表达上要更谨慎。
 
-定义 exchange gap：
+例如 uniform generalization theorem 假设 validation losses bounded and independent；正文已经说 temporal traffic data 应用时要用 independent blocks 或 effective sample size。 但实验里 validation window 是固定两天，论文还写了 PeMS7_1026 30% 的 uniform deviation burden 更大。 这很好，但你要明确：这个 theorem 是 finite-sample layout-class burden，不是证明 current run 一定赢。
 
-[
-G_1(S)
-======
+同样，posterior trace theorem 是 Gaussian squared-error Bayes risk identity。 但主指标是 MAE，交通数据也不一定 Gaussian。因此正文已经有一句 limitation：posterior trace is not a theorem that MAE must improve on non-Gaussian traffic data。 这句话要保留，并且建议在 theory section 前后也加一次。
 
-J(S)-
-\min_{i\in S, j\notin S}
-J(S\setminus{i}\cup{j}).
-]
-
-如果 algorithm 停止时 (G_1(S)=0)，则 (S) 是 one-exchange stationary point。
-
-如果做 (p)-swap：
-
-[
-G_p(S)=0,
-]
-
-则是 (p)-exchange local optimum。
-
-再进一步，如果你愿意引入 approximate submodularity / weak submodularity condition，可以给 approximation bound：
-
-[
-J(S)-J(S^\star)
-\le
-C(\alpha,p)\cdot G_p(S)
-]
-
-或者在 benefit function 近似 submodular时给近似保证。这个需要小心，如果暂时不好证明，可以先只给 exchange certificate。
+Exchange certificate 也要谨慎。理论只保证 searched one-exchange neighborhood，不保证全局最优；而 PeMS7_1026 rows 搜索覆盖率低且常 hitting exchange cap，没有 zero-gap certificate。 这不是缺陷，但必须让 reviewer 清楚：你 claim 的是 deterministic solver with auditable local/search certificate，不是 exact MIP/global optimum。
 
 ---
 
-## 6. 新论文的理论贡献会变成什么
+## 9. 下一步怎么做：按优先级来
 
-这样改后，你的 theory 不再是“posterior trace 有点合理”，而是：
+### 第一步：立刻统一仓库主叙事
 
-1. **透明 MAP reconstruction 有唯一解和稳定性；**
-2. **posterior trace 在 Gaussian model 下等于 Bayes squared reconstruction risk；**
-3. **TRACE-BiOpt 在所有 size-(k) layouts 上有 uniform validation generalization bound；**
-4. **solver 有明确 exchange local optimality certificate；**
-5. **CVaR term 提供 robust risk-sensitive design interpretation。**
+这是最高优先级。你应该新建或更新这些文件：
 
-这个理论厚度就明显更像 TR-B。
+```text
+README.md
+TRC-23-02333/trace_sl_results/README.md
+RESEARCH_PIPELINE_REPORT.md
+MANIFEST.md
+NARRATIVE_REPORT.md
+PAPER_PLAN.md
+```
 
----
+把旧的 “TRACE-SL / RCSS main method / Stage12 truth” 全部改成：
 
-## 7. 实验上怎么实现“打败所有 baselines”
+```text
+Current paper-facing method: TRACE-BiOpt
+Prior TRACE-SL/RCSS: historical baseline / diagnostic comparator
+Main paper evidence: current_best_trace_biopt_evidence
+Venue target: Transportation Research Part B: Methodological
+```
 
-你需要重新跑实验，不是只改论文。
-
-目标应该是：
-
-> **TRACE-BiOpt beats every pre-registered baseline on mean MAE across all dataset-budget pairs, and no baseline significantly outperforms TRACE-BiOpt under paired tests.**
-
-更强版本：
-
-> **TRACE-BiOpt significantly outperforms the best standalone baseline in most dataset-budget regimes and dominates all standard baselines in every tested regime.**
-
-### 7.1 先锁定 baseline list
-
-建议预注册这些 baseline：
-
-* random mean；
-* best random by validation；
-* top variance；
-* degree；
-* coverage；
-* observability proxy；
-* graph sampling；
-* QR/POD；
-* greedy A-trace；
-* greedy D-logdet；
-* scenario average trace；
-* scenario CVaR trace；
-* RCSS old method；
-* old validation-swap TRACE-SL；
-* multistart swap；
-* swap-from-greedy-A；
-* cost-aware / robust coverage baseline, if included.
-
-### 7.2 主表直接比较 best baseline
-
-最重要的表不是列所有数字，而是：
-
-| Dataset | Budget | TRACE-BiOpt | Best baseline | Best baseline name | Delta | p-value | Win count |
-| ------- | -----: | ----------: | ------------: | ------------------ | ----: | ------: | --------: |
-
-如果这张表每一行 TRACE-BiOpt 都赢，你就可以很强地写：
-
-> TRACE-BiOpt achieves the lowest mean hidden-state reconstruction MAE among all pre-registered baselines across all tested networks and budgets.
-
-注意是 **pre-registered baselines**，不是世界上所有可能 baselines。
-
-### 7.3 专门攻当前两个薄弱点
-
-当前 external table 暴露了两个问题：
-
-* PeMS7_1026 10%：greedy A 比当前 TRACE-SL 稍好；
-* Seattle 10%：TRACE-SL 和 RCSS / multistart 基本 tied。
-
-新方法最先要验证这两个点。
-如果 TRACE-BiOpt 在这两个点赢了，论文气质会完全不一样。
-
-### 7.4 加 optimization diagnostics
-
-为了证明不是调参偶然，要加：
-
-* objective descent curve；
-* exchange gap curve；
-* validation vs test correlation；
-* selected sensors map；
-* hidden error heatmap；
-* posterior trace / CVaR / MAE relation；
-* runtime and convergence table；
-* sensitivity to (\beta,\gamma,\eta)。
-
-这样“研究内容”会明显增加。
+README 首页必须在前 20 行就说明：**current TR-B manuscript is TRACE-BiOpt, not TRACE-SL candidate-pool selector.**
 
 ---
 
-## 8. 论文结构应该扩成这样
+### 第二步：修复 current-best evidence 可见性
 
-现在 12 页太短。最终 TR-B draft 建议扩到 22–30 页左右，包括 appendix。
+你现在的 paper 和 spec 都引用 `current_best_trace_biopt_evidence/`，但可见结果树没有清晰呈现它。你需要确认以下文件是否真的 committed：
 
-### Section 1 Introduction
+```text
+TRC-23-02333/trace_sl_results/current_best_trace_biopt_evidence/
+  trace_biopt_claim_contract.json
+  trace_biopt_best_baseline_delta.csv
+  TRACE_BIOPT_DOMINANCE.md
+  trace_biopt_current_best_provenance.csv
+  trace_biopt_significance_posture_detail.csv
+  trace_biopt_exact_subnetwork_summary.csv
+  trace_biopt_exact_subnetwork_detail.csv
+```
 
-强讲：
+同时，`scripts/generate_current_best_trace_biopt_evidence.py` 依赖 Stage15/Stage16 输入目录，例如 `stage15_biopt_allbudget_10seed_v2/combined` 和 `stage16_calibrated_trace_sweep/replacement_status`。 这些输入也要么 commit 精简版 CSV/JSON，要么在 `SUBMISSION_EVIDENCE_INDEX.md` 里解释如何生成、哪些 raw outputs 因体积原因不进仓库。
 
-> sparse traffic sensing is a recoverability-driven network design problem.
+建议新增一个文件：
 
-贡献写成：
+```text
+SUBMISSION_EVIDENCE_INDEX.md
+```
 
-1. bilevel reconstruction-aware sensor layout formulation；
-2. transparent MAP reconstruction and robust risk objective；
-3. TRACE-BiOpt optimization algorithm；
-4. finite-sample layout generalization and exchange optimality theory；
-5. multi-network experiments beating all pre-registered baselines。
+里面列：
 
-### Section 2 Literature
+| Paper claim | Table/Figure | Source CSV/JSON | Generation script | Input stage | Status |
+| ----------- | ------------ | --------------- | ----------------- | ----------- | ------ |
 
-扩到 30–45 references。重点放交通 sensor location / observability / OD / sparse TSE，而不是只放 ML。
-
-### Section 3 Bilevel reconstruction-aware layout problem
-
-正式定义：
-
-[
-\min_{S:|S|=k} R(S)
-]
-
-以及 lower MAP problem。
-
-### Section 4 TRACE-BiOpt method
-
-给：
-
-* objective；
-* lower-level closed form；
-* continuous relaxation；
-* projected optimization；
-* rounding；
-* exchange refinement；
-* convergence / stopping criterion。
-
-### Section 5 Theory
-
-放 theorem：
-
-* MAP uniqueness / stability；
-* posterior trace Bayes risk；
-* uniform generalization over all layouts；
-* approximate optimality with optimization gap；
-* exchange local optimality；
-* CVaR interpretation。
-
-### Section 6 Experiments
-
-三网络、三预算、全部 baselines。
-
-### Section 7 Results
-
-主表：best baseline comparison。
-次表：full baseline matrix。
-图：performance curves。
-
-### Section 8 Mechanism analysis
-
-* sensor maps；
-* validation-test calibration；
-* posterior trace vs MAE；
-* why low-budget design works；
-* ablations。
-
-### Section 9 Robustness / cost / failure
-
-放 stress tests。
-
-### Section 10 Discussion
-
-边界：
-
-* not universal all possible baselines；
-* not global exact MIP unless solved exactly；
-* theory depends on bounded/block assumptions；
-* but it is a principled bilevel network design method.
+这个比“audit contract”更容易让 reviewer 信服。
 
 ---
 
-## 9. 你现在应该怎么安排下一步
+### 第三步：重写 abstract 和 highlights
 
-我建议下一步不是继续修当前论文，而是先开一个 **v2 method branch**：
+建议 abstract 缩到 180–230 words。现在不要把所有数字都塞进去。可以写成：
 
-### Step 1：定义新唯一方法
+> We study sparse traffic sensor siting as a recoverability-driven network design problem. Given a fixed sensor budget, the goal is to choose a long-lived layout that minimizes hidden-state reconstruction error under a transparent estimator. We formulate the problem as TRACE-BiOpt, a bilevel stochastic design method whose lower level is a GLS/MAP reconstruction problem and whose upper level combines hidden Huber reconstruction loss, posterior uncertainty, tail-risk, and spatial redundancy. A deterministic solver uses scale-adaptive initialization and one-exchange refinement under the same objective. We prove lower-level stability, a posterior-risk identity, an all-layout validation generalization bound, and an exchange-stationarity certificate. Across PeMS7_228, PeMS7_1026, and Seattle at 10%, 20%, and 30% budgets over ten split seeds, TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered non-BiOpt baselines on all nine dataset-budget rows. Holm-corrected paired tests leave no tied or better pre-registered challenger. The claim is scoped to the tested regimes and does not assert global layout optimality or dominance over untested baselines.
 
-写一个 `TRACE_BIOPT_SPEC.md`：
+Highlights 则控制在 85 characters 左右，例如：
 
-* objective (J(S))；
-* lower MAP estimator；
-* hyperparameters；
-* solver；
-* stopping rule；
-* no pool, no baseline selection。
-
-### Step 2：实现 TRACE-BiOpt
-
-新增脚本：
-
-* `trace_biopt.py`
-* `run_stage15_biopt.py`
-* `evaluate_biopt_all_baselines.py`
-
-### Step 3：先跑 current weak points
-
-先只跑：
-
-* PeMS7_1026 10%；
-* Seattle 10%；
-* PeMS7_228 10%。
-
-如果这些点能赢当前最强 baseline，再扩到全量。
-
-### Step 4：全量 Stage15
-
-跑：
-
-* PeMS7_228；
-* PeMS7_1026；
-* Seattle；
-* 10/20/30%；
-* 10 splits；
-* all pre-registered baselines。
-
-### Step 5：生成 dominance report
-
-生成：
-
-* `stage15_all_baseline_dominance.csv`
-* `best_baseline_delta_table.csv`
-* `biopt_theory_contract.md`
-* `biopt_claim_contract.md`
-
-### Step 6：重写论文
-
-把 current TRACE-SL pool 方法降级为：
-
-* previous version；
-* ablation；
-* baseline portfolio；
-* supplementary.
-
-主文只讲 TRACE-BiOpt。
+```text
+• Sparse traffic sensing is cast as bilevel network design.
+• TRACE-BiOpt optimizes one reconstruction-aware layout objective.
+• GLS/MAP reconstruction gives a transparent lower-level inverse problem.
+• Ten-seed tests beat 21 pre-registered baselines on nine regimes.
+• Theory gives stability, risk, generalization, and exchange certificates.
+```
 
 ---
 
-## 10. 关键提醒：强 claim 应该怎么说
+### 第四步：把“audit contract”从主文前台降噪
 
-如果新方法真的跑赢所有预注册 baselines，可以写：
+建议保留这些词，但减少频率：
 
-> **TRACE-BiOpt achieves the lowest mean held-out hidden-network reconstruction MAE among all pre-registered baselines across all evaluated datasets and budgets.**
+```text
+external audited comparison-class contract
+current-best evidence chain
+submission-ready paired dominance
+```
 
-如果多数显著，但少数只是 tied，可以写：
+在 Introduction 中最多出现一次。Related Work 不要再开头讲 contract，直接从文献脉络进入。Conclusion 也不要重复长句，改成 transport planning takeaway。
 
-> **TRACE-BiOpt is never significantly outperformed by any pre-registered baseline and achieves the best mean MAE in all evaluated dataset-budget regimes.**
+你可以把 “contract language” 集中放到：
 
-如果某个地方没赢，就不要硬说 all。那时可以说：
+```text
+Table 1 Contribution stack
+Table 2 Claim boundary
+Appendix Evidence contract
+SUBMISSION_EVIDENCE_INDEX.md
+```
 
-> **TRACE-BiOpt dominates all standard reviewer-facing baselines and is competitive with the strongest internal exchange-search comparator.**
-
-但你的目标应该是第一种。
+主文正文要更像论文，不要像审计报告。
 
 ---
 
-## 11. 最核心建议
+### 第五步：补齐 TR-B 投稿文件
 
-**不要再把主方法写成 pool。**
-改成：
+TR-B/Elsevier author guide 要求 abstract ≤250 words，submission highlights，data statement 等。([ScienceDirect][1]) ([ScienceDirect][1]) ([ScienceDirect][1]) 还要求如果用了 generative AI 辅助 manuscript preparation，需要在首次提交时声明。([ScienceDirect][1])
 
-> **一个 bilevel robust reconstruction-risk minimization problem + 一个 deterministic solver + 一组 formal generalization / optimality theorems。**
+所以投稿包至少要准备：
 
-这才像 TR-B。
+```text
+cover_letter_TRB.txt
+highlights.docx 或 highlights.txt
+declaration_of_interest.docx
+credit_author_statement.txt
+data_availability_statement.txt
+generative_ai_declaration.txt
+```
 
-我会把最终方法定义为：
+如果你使用过 ChatGPT/Claude/GPT 辅助写作或代码审查，建议用 Elsevier template 形式透明声明，并强调作者已审核、编辑并对内容负责。
 
-[
-\boxed{
-\textbf{TRACE-BiOpt}
-====================
+---
 
-\text{Bilevel MAP reconstruction}
-+
-\text{Huber hidden-state validation risk}
-+
-\text{posterior uncertainty}
-+
-\text{CVaR tail risk}
-+
-\text{projected continuous optimization}
-+
-\text{deterministic exchange refinement}
-}
-]
+### 第六步：清理代码入口和测试
 
-这就是一个唯一方法，不是 pool。
-它在理论上可以讲得很强，在实验上也更有机会真正打败所有 baselines。
+最小改法：
+
+1. 新建 `TRC-23-02333/trace_biopt_core.py`，把 BiOpt objective、layout solver、relaxed initializer、exchange refinement 从 `transparent_estimator_eval.py` 中拆出来。
+2. `transparent_estimator_eval.py` 只保留 CLI/evaluation。
+3. `trace_biopt.py` 变成真正入口，而不是只 append flag。
+4. 把 `test_trace_biopt_*` 加进 `run_all()`，或者删除 `run_all()`，统一要求 `pytest`。
+5. 在 README 给出一条 smoke-test command 和一条 paper-table regeneration command。
+
+最小可接受版本是不拆文件，但必须补 README：
+
+```bash
+python TRC-23-02333/trace_biopt.py \
+  --data-root TRC-23-02333/dataset/PeMS7_228 \
+  --budgets "0.10 0.20 0.30" \
+  --include-baseline-portfolio \
+  --output-dir TRC-23-02333/trace_sl_results/example_trace_biopt
+```
+
+并说明 raw datasets 不随仓库分发。
+
+---
+
+### 第七步：把 Stage16 / Seattle 10% 的 provenance 讲清楚
+
+你现在的 strongest-challenger table 说 8/9 rows 是 Stage16 promoted，Seattle 10% 保留 Stage15。 `TRACE_BIOPT_SPEC.md` 也明确 Seattle 10% 是唯一 intentionally retained non-promoted row，因为 Stage16 replacement gate fail-closed。
+
+这是合理的，但必须解释得非常清楚：
+
+* Seattle 10% 为什么没有 promoted？
+* Stage15 retained 是否仍然是完整 ten-seed evidence？
+* 它是否仍然 10/10 paired wins？
+* 为什么 fail-closed 不削弱主 claim？
+* 哪张 CSV/JSON 证明这一点？
+
+建议在主文只保留一句，在 appendix 和 evidence index 放完整解释。
+
+---
+
+### 第八步：把 robustness 退到“bounded deployment stress”，不要让它抢主线
+
+Robustness section 现在做得比较诚实：它说 stress tests 包括 failure/noise/missingness/cost/temporal shift，但不支持 globally robust，不替代 main Stage15 evidence。 这很好。
+
+但是有一点要注意：Table 文本说 graph_sampling_laplacian 在 8/9 perturbation slices 上是 frontier winner，不是 TRACE-BiOpt。 所以 robustness 不能放太前，也不能在 abstract 里暗示 TRACE-BiOpt robust dominance。它只能支持：
+
+> TRACE-BiOpt is the nominal recoverability design method; stress-test results define bounded deployment screens and motivate robust extensions.
+
+---
+
+## 10. 我建议的最终投稿前路线图
+
+按顺序做，不要跳：
+
+1. **冻结一个 `trb-submission-v1` branch。**
+2. **运行 `scripts/refresh_current_best_trace_biopt_paper_chain.sh`。** 这个脚本会生成 current-best evidence、paper tables/figures、audit artifacts，并编译 LaTeX。
+3. **确认 `current_best_trace_biopt_evidence/` 和 Stage15/Stage16 summary artifacts 已经进入仓库或 supplementary。**
+4. **更新 README / MANIFEST / RESEARCH_PIPELINE_REPORT，删除旧 TRACE-SL 主线冲突。**
+5. **压缩 abstract 和 highlights，按 Elsevier 要求重写。**
+6. **把 Introduction / Related Work / Conclusion 中重复的 “contract” 句子删掉一半以上。**
+7. **新增 `SUBMISSION_EVIDENCE_INDEX.md`。**
+8. **补 clean CLI + smoke test + pytest command。**
+9. **让一位交通/OR 方向读者只看 abstract、intro、method、main table，问他是否能在 10 分钟内说出贡献。**
+10. **最后再准备 cover letter 和 declarations。**
+
+---
+
+## 11. 现在最适合的主 claim
+
+我建议主文只用这个版本：
+
+> TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered non-BiOpt baselines across all nine tested dataset-budget regimes, and no pre-registered challenger remains tied or better after Holm-corrected paired tests over the current-best comparison family.
+
+不要写：
+
+> beats all baselines universally
+> globally optimal
+> robust under all perturbations
+> generalizes to all networks
+> exact solver for full networks
+
+你自己的 spec 也已经明确禁止这些 claim：不能 claim global optimality、untested baseline dominance、universal cross-network generalization、untested robustness、或 relaxed-rounding-specific performance without matching multi-seed evidence。
+
+---
+
+## 12. 最核心建议
+
+**方法不用再大改。实验也不需要盲目再扩。现在最重要的是“统一、压缩、可复现”。**
+
+你的文章现在已经有 TR-B 论文的骨架：
+
+* transportation network design framing；
+* bilevel stochastic optimization；
+* transparent inverse problem；
+* theorem package；
+* multi-network, multi-budget, ten-seed evidence；
+* strong pre-registered baselines；
+* paired and Holm-corrected inference；
+* explicit non-claims。
+
+但它还带着研究过程中留下的“旧仓库叙事”和“审计式过度表达”。
+下一步应该把它整理成一篇 reviewer 一眼能读懂的 TR-B manuscript：
+
+> **一个交通基础设施布局问题，一个 reconstruction-aware bilevel 方法，一个透明 estimator，一个确定性 solver，一个清楚边界的强实验结论。**
+
+[1]: https://www.sciencedirect.com/journal/transportation-research-part-b-methodological/publish/guide-for-authors "Guide for authors - Transportation Research Part B: Methodological - ISSN 0191-2615 | ScienceDirect.com by Elsevier"
+[2]: https://github.com/Radar-Lei/sensor_opt/tree/main/TRC-23-02333/trace_sl_results "sensor_opt/TRC-23-02333/trace_sl_results at main · Radar-Lei/sensor_opt · GitHub"

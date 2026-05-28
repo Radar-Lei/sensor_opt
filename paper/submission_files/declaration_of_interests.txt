@@ -1,0 +1,30 @@
+Declaration of Competing Interests
+===================================
+
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+[If competing interests exist, replace the statement above with the following
+template and provide details:]
+
+The authors declare the following financial interests/personal relationships
+which may be considered as potential competing interests:
+
+[DESCRIBE COMPETING INTERESTS HERE]
+
+---
+
+Notes:
+------
+- This declaration covers all forms of competing interests, including but not
+  limited to: financial interests (employment, consultancies, stock ownership,
+  honoraria, paid expert testimony, patent applications/registrations, grants),
+  personal relationships, and academic competing interests.
+
+- If there are no competing interests, the first statement should be used as-is.
+
+- This statement will be published with the manuscript.
+
+[AUTHOR NAME]
+[DATE]

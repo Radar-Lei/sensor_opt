@@ -1,0 +1,12 @@
+family,baseline_count,comparison_count,strongest_mean_rows,hardest_corrected_rows,closest_mean_delta,largest_holm_p,surviving_challengers
+Coverage / observability,2,18,0,0,-0.1634109121075275,6.975076994584386e-06,0
+Exchange-refined baseline,4,36,1,0,-0.0476090209912332,0.00261701184211,0
+Graph heuristic,1,9,0,0,-0.578963876456397,3.272423621612219e-06,0
+Graph signal processing,1,9,0,0,-0.6795565062480174,0.0003069576508503,0
+Optimal-design surrogate,2,18,0,0,-0.0590083203768184,0.0002078233236628,0
+Prior TRACE-SL / RCSS,3,27,8,7,-0.0375414801864491,0.00261701184211,0
+Random / validation-selected,3,27,0,0,-0.1851941254619132,0.0003200476234798,0
+Robust coverage,1,9,0,0,-0.2206290695930772,5.489985723806201e-05,0
+Scenario-risk surrogate,2,18,0,1,-0.2026145945312262,0.0006857544626755,0
+Simple traffic heuristic,1,9,0,1,-0.277093894075452,1.7128382012831642e-05,0
+Sparse modal placement,1,9,0,0,-0.1318241624555637,7.41314036312699e-05,0

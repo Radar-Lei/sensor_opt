@@ -1,0 +1,8 @@
+case_label,dataset,budget,budget_pct,route_label,weights_label,risk_source,risk_source_label,search_route,validation_mae,test_mae,posterior_trace,test_delta_vs_case_best
+Seattle 20\%,Seattle,0.2,20,Seattle diagnostic certified,"(2.00,0.05,0.01)",val,val,Stage15 active-set,2.956907,2.674346,392.865101,0.000000
+Seattle 20\%,Seattle,0.2,20,Zero-weight probe,"(0.00,0.00,0.00)",val,val,Strong-search 96,2.970256,2.710052,413.291400,0.035706
+Seattle 30\%,Seattle,0.3,30,Seattle diagnostic certified,"(2.00,0.05,0.01)",val,val,Stage15 active-set,2.710750,2.487537,345.779869,0.000000
+Seattle 30\%,Seattle,0.3,30,Zero-weight probe,"(0.00,0.00,0.00)",val,val,Strong-search 96,2.732324,2.519570,355.193422,0.032033
+PeMS7\_228 10\%,PeMS7_228,0.1,10,Stage15 certified,"(2.00,0.05,0.01)",val,val,Stage15 active-set,3.572703,3.377498,382.606022,0.129056
+PeMS7\_228 10\%,PeMS7_228,0.1,10,Zero-weight probe,"(0.00,0.00,0.00)",val,val,Strong-search 96,3.444989,3.417499,375.175751,0.169057
+PeMS7\_228 10\%,PeMS7_228,0.1,10,Calibrated low-cert,"(0.50,0.01,0.00)",train_val,train+val,Train+val full-search 192,3.492506,3.248442,347.039813,0.000000

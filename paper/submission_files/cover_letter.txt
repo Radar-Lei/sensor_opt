@@ -1,0 +1,104 @@
+Cover Letter
+============
+
+[AUTHOR NAME]
+[AFFILIATION]
+[ADDRESS]
+[EMAIL]
+
+[DATE]
+
+Professor [EDITOR NAME], Editor-in-Chief
+Transportation Research Part B: Methodological
+Elsevier
+
+Dear Professor [EDITOR NAME],
+
+RE: Submission of manuscript entitled "TRACE-SL: Transparent Reconstruction-Aware
+Sensor Placement for Full-Network Traffic State Estimation"
+
+We are pleased to submit the enclosed manuscript for consideration for publication
+in Transportation Research Part B: Methodological.
+
+SUMMARY OF CONTRIBUTIONS
+------------------------
+
+This paper addresses the fundamental problem of optimally placing sparse traffic
+sensors to enable accurate, transparent, and certifiable reconstruction of
+full-network traffic states. Our contributions are as follows:
+
+1. We formulate sensor placement as a bilevel network design problem, where the
+   upper level selects sensor locations to minimize reconstruction uncertainty
+   and the lower level performs transparent, closed-form traffic state estimation
+   via generalized least squares (GLS) and graph signal processing (GSP) methods.
+
+2. We develop a reconstruction-aware candidate selection (RCSS) framework that
+   integrates posterior-trace certificates, scenario-based robustness scores, and
+   validation-aware swap refinement, enabling data-driven selection among diverse
+   candidate layouts without requiring black-box surrogate models.
+
+3. We provide theoretical analysis of the posterior error certificate, establishing
+   conditions under which the certificate serves as a reliable predictor of
+   out-of-sample reconstruction accuracy.
+
+4. We conduct extensive computational experiments on three benchmark networks
+   (PeMS7 with 228 nodes, PeMS7 with 1,026 nodes, and the Seattle heterogeneous
+   highway network), demonstrating that our approach consistently outperforms
+   established baselines including random, degree-based, variance-based, and
+   coverage-based placement strategies, with statistically significant improvements
+   confirmed through paired tests.
+
+SUITABILITY FOR TRANSPORTATION RESEARCH PART B
+-----------------------------------------------
+
+We believe this manuscript is well suited for Transportation Research Part B:
+Methodological for the following reasons:
+
+- The paper contributes a principled optimization methodology for a core
+  transportation system design problem (sensor network design), which aligns
+  with TR-B's focus on methodological advances in transportation.
+
+- The bilevel optimization formulation, posterior certificate theory, and robust
+  candidate selection framework constitute significant methodological innovations
+  that extend beyond incremental empirical improvements.
+
+- The rigorous computational experimentation across multiple real-world networks,
+  combined with statistical validation and ablation studies, meets the high
+  evidence standards expected by the journal.
+
+- The transparent, closed-form nature of the reconstruction framework offers
+  practical advantages for transportation agencies that require interpretable
+  and auditable sensor placement decisions.
+
+DECLARATIONS
+------------
+
+We confirm that:
+
+- This manuscript has not been published elsewhere and is not under consideration
+  by any other journal.
+
+- All authors have approved the manuscript and agree with its submission to
+  Transportation Research Part B: Methodological.
+
+- All authors have contributed significantly to the work and agree to be
+  accountable for the content.
+
+- The authors have no competing interests to declare.
+
+- All data used in this study are publicly available, as detailed in the Data
+  Availability Statement included with the manuscript.
+
+We believe this work makes substantial methodological contributions to the
+transportation sensor network design literature and would be of significant
+interest to the readership of Transportation Research Part B. We look forward
+to your consideration of this manuscript.
+
+Thank you for your time and consideration.
+
+Sincerely,
+
+[AUTHOR NAME]
+[Corresponding Author]
+[AFFILIATION]
+[EMAIL]

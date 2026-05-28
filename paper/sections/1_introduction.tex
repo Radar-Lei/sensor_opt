@@ -7,21 +7,13 @@ This paper studies sparse traffic sensor siting as recoverability-driven stochas
 
 We propose TRACE-BiOpt, a transparent recoverability-driven bilevel stochastic optimization method for fixed-infrastructure traffic sensor siting. The lower level is a GLS/MAP reconstruction problem that estimates the full traffic state from the chosen sensors. The upper level chooses the sensor set by minimizing one objective: hidden-state Huber reconstruction loss plus posterior uncertainty, tail-risk, and spatial redundancy terms. This design is deliberately not a portfolio or AutoML-style selector. Classical and reviewer-facing layouts such as random, top variance, degree, coverage, graph sampling, QR/POD, greedy A-trace, D-logdet, RCSS, validation-swap TRACE-SL, and multistart swap appear only as pre-registered baselines.
 
-The intended reading is therefore narrow and deliberate: TRACE-BiOpt should be
-evaluated as one fixed-infrastructure transportation network-design method
-built around a transparent inverse problem and judged under an external
-audited comparison-class contract that compresses to row-wise
-strongest-baseline dominance on held-out reconstruction error and then
-survives all-baseline corrected paired tests, not as a sparse-sensor benchmark
-result with a different winner on each table.
-The reviewer-facing summary is equally simple: one method, one deterministic
-solver, one scoped theory package, and one external audited comparison-class
-contract.
-Put even more compactly, the front-screen contract is one long-lived
-infrastructure decision, one transparent inverse problem, one deterministic
-solver, one scoped theory package, and one external audited comparison-class
-contract.
-Operationally, that contract means one auditable design argument tested
+The intended reading is deliberately narrow: TRACE-BiOpt should be evaluated
+as one fixed-infrastructure transportation network-design method
+built around a transparent inverse problem and judged by whether it
+achieves row-wise strongest-baseline dominance on held-out reconstruction error
+and survives all-baseline corrected paired tests, not as a sparse-sensor
+benchmark entry with a different winner on each table.
+Operationally, this means one auditable design argument tested
 against 21 pre-registered baselines spanning 11 method families, with no
 surviving challenger after 189 Holm-corrected paired comparisons.
 
@@ -30,27 +22,26 @@ First, we formulate sparse traffic sensing as a recoverability-driven bilevel st
 Second, we define the lower level as a transparent GLS/MAP inverse problem and the upper level as one recoverability-driven objective over hidden-state loss, posterior uncertainty, tail-risk, and spatial redundancy.
 Third, we develop TRACE-BiOpt as a deterministic single-objective solver with scale-adaptive initialization and one-exchange refinement under that same recoverability-driven objective.
 Fourth, we give a theory package for the method: MAP closed form and stability, posterior trace as Bayes squared reconstruction risk, a formal CVaR tail-risk interpretation, uniform validation generalization over all size-$k$ layouts, and a computable exchange-stationarity certificate for the deterministic design solver.
-Fifth, we provide a current-best ten-seed evidence chain across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets. TRACE-BiOpt has the lowest mean GLS/MAP MAE against the best pre-registered non-BiOpt baseline in all nine dataset-budget regimes, the audited comparison class spans 21 baselines across 11 method families, all nine rows now satisfy the submission-ready paired-dominance gate, Holm-corrected one-sided paired tests across all 189 current-best row-baseline comparisons leave no statistically tied or significantly better pre-registered challenger, and a bounded exact benchmark shows 27/27 exact hits on deterministic 16-node induced subnetworks under row-wise current-best parameters. The claim remains explicitly scoped to the tested baselines and regimes.
+Fifth, we provide a ten-seed experimental evaluation across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets. TRACE-BiOpt achieves the lowest mean GLS/MAP MAE against the best pre-registered non-BiOpt baseline in all nine dataset-budget regimes; Holm-corrected one-sided paired tests across all 189 comparisons leave no statistically tied or significantly better challenger, and a bounded exact benchmark shows 27/27 exact hits on deterministic 16-node induced subnetworks under row-wise parameters. All claims are explicitly scoped to the tested baselines and regimes.
 
-Table~\ref{tab:trace-biopt-contribution-stack} compresses the contribution stack
-that this paper asks a TR-B reader to evaluate: the formulation is a bilevel
-recoverability-driven design problem, the algorithm is a single-objective
-deterministic solver, the theory package is scoped but nontrivial, and the
-evidence chain is strong because it is row-wise strongest-baseline,
-split-paired, and now also bounded-exact on audited subnetworks rather than
-portfolio-selected.
+Table~\ref{tab:trace-biopt-contribution-stack} compresses the contribution
+stack that this paper asks a TR-B reader to evaluate: the formulation is a
+bilevel recoverability-driven design problem, the algorithm is a
+single-objective deterministic solver, the theory package is scoped but
+nontrivial, and the empirical results are row-wise strongest-baseline,
+split-paired, and bounded-exact on deterministic subnetworks.
 
 \input{tables/table_trace_biopt_contribution_stack}
 
-Table~\ref{tab:trace-biopt-reader-guide} moves the same story one step closer
-to the reviewer front screen. It answers the four questions that most directly
+Table~\ref{tab:trace-biopt-reader-guide} clarifies the same story from a
+reviewer's perspective. It answers the four questions that most directly
 separate a TR-B network-design contribution from a layout benchmark: is
 TRACE-BiOpt one method or a selector, does it beat the row-wise strongest
-audited comparator, how far does the solver guarantee go, and what still
-remains explicitly bounded even after the current-best promotions.
+pre-registered baseline, how far does the solver guarantee go, and what
+remains explicitly bounded.
 
 \input{tables/table_trace_biopt_reader_guide}
 
 \input{tables/table_trace_biopt_dominance}
 
-The rest of the paper is organized as follows. Section~\ref{sec:related} positions TRACE-BiOpt relative to traffic count location, sensor selection, graph sampling, and traffic estimation. Section~\ref{sec:problem} defines the recoverability-driven bilevel stochastic network design problem. Section~\ref{sec:method} presents TRACE-BiOpt and the scoped theoretical statements. Section~\ref{sec:experiments} reports the main current-best dominance evidence. Section~\ref{sec:mechanism} develops the mechanism and calibration diagnostics, Section~\ref{sec:robustness} separates bounded deployment-stress evidence from the main claim lane, Section~\ref{sec:discussion} discusses limitations, and Section~\ref{sec:conclusion} concludes.
+The rest of the paper is organized as follows. Section~\ref{sec:related} positions TRACE-BiOpt relative to traffic count location, sensor selection, graph sampling, and traffic estimation. Section~\ref{sec:problem} defines the recoverability-driven bilevel stochastic network design problem. Section~\ref{sec:method} presents TRACE-BiOpt and the scoped theoretical statements. Section~\ref{sec:experiments} reports the main dominance results. Section~\ref{sec:mechanism} develops the mechanism and calibration diagnostics, Section~\ref{sec:robustness} separates bounded deployment-stress evidence from the main claim lane, Section~\ref{sec:discussion} discusses limitations, and Section~\ref{sec:conclusion} concludes.

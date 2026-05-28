@@ -1,0 +1,10 @@
+dataset,budget,budget_pct,node_count,sensor_count,validation_days,slots_per_day,n_v,delta,log10_layout_family_size,union_term,uniform_gap_factor_over_B,evidence_source_label,practical_reading
+PeMS7_1026,0.1,10,1026,103,2,288,576,0.05,143.850897,339.765486,0.546020,Stage16 calibrated rerun,high combinatorial burden; stronger calibration/search support is most valuable here
+PeMS7_1026,0.2,20,1026,205,2,288,576,0.05,221.345169,535.134675,0.683907,Stage16 calibrated rerun,high combinatorial burden; stronger calibration/search support is most valuable here
+PeMS7_1026,0.3,30,1026,308,2,288,576,0.05,270.700234,678.623559,0.769601,Stage16 calibrated rerun,largest all-layout validation burden under the same two-day window
+PeMS7_228,0.1,10,228,23,2,288,576,0.05,31.321409,75.758582,0.262612,Stage16 calibrated rerun,smallest all-layout validation burden among the nine main rows
+PeMS7_228,0.2,20,228,46,2,288,576,0.05,48.606928,119.632395,0.327185,Stage16 calibrated rerun,moderate burden within the common two-day validation window
+PeMS7_228,0.3,30,228,68,2,288,576,0.05,59.100305,150.268979,0.365573,Stage16 calibrated rerun,moderate burden within the common two-day validation window
+Seattle,0.1,10,323,32,2,288,576,0.05,44.184602,105.981325,0.308545,Stage15 main evidence,mid-scale validation burden between the two PeMS extremes
+Seattle,0.2,20,323,65,2,288,576,0.05,69.177822,169.212228,0.387412,Stage16 calibrated rerun,mid-scale validation burden between the two PeMS extremes
+Seattle,0.3,30,323,97,2,288,576,0.05,84.411699,213.685310,0.434388,Stage16 calibrated rerun,mid-scale validation burden between the two PeMS extremes

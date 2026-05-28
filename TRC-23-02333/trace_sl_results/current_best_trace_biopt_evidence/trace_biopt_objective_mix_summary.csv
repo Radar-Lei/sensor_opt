@@ -1,0 +1,10 @@
+dataset,budget,budget_pct,evidence_source,reconstruction_share_pct,posterior_share_pct,cvar_share_pct,spatial_share_pct
+PeMS7_1026,0.1,10,stage16_replaceable:pems7_1026_10_20_posterior_iter20,83.595440,16.257380,0.147180,0.000000
+PeMS7_1026,0.2,20,stage16_replaceable:pems7_1026_10_20_posterior_iter20,85.352997,14.526069,0.120934,0.000000
+PeMS7_1026,0.3,30,stage16_replaceable:pems1026_30_trainval_lowcert,86.955075,12.933656,0.111269,0.000000
+PeMS7_228,0.1,10,stage16_replaceable:train_val_lowcert_delta1_fullsearch,80.890061,18.849844,0.260095,0.000000
+PeMS7_228,0.2,20,stage16_replaceable:pems7_228_20_30_fullsearch,81.404740,18.373836,0.221424,0.000000
+PeMS7_228,0.3,30,stage16_replaceable:pems7_228_20_30_fullsearch,81.788816,18.005862,0.205322,0.000000
+Seattle,0.1,10,stage15_main,37.354508,61.122161,1.514544,0.008787
+Seattle,0.2,20,stage16_replaceable:seattle_10_20_30_trainval,35.429350,63.105871,1.457364,0.007415
+Seattle,0.3,30,stage16_replaceable:seattle_10_20_30_trainval,34.782266,63.783040,1.427718,0.006976

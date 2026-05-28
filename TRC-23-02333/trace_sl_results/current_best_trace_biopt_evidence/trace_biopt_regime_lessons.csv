@@ -1,0 +1,10 @@
+regime,best_baseline_family,evidence_lane,search_signal,lesson
+PeMS7_1026 10%,A-trace swap family,Stage16 calibrated rerun,search-budget sensitive,"Direct A-trace local search is insufficient once hidden-state risk, tail risk, and redundancy are optimized jointly."
+PeMS7_1026 20%,prior TRACE-SL swap family,Stage16 calibrated rerun,search-budget sensitive,The regime benefits from more aggressive searched one-exchange refinement because the declared budget often binds before local stability.
+PeMS7_1026 30%,prior TRACE-SL swap family,Stage16 calibrated rerun,search-budget sensitive,Large networks need both calibrated risk estimation and more search budget to convert a weak margin into a stable paired win.
+PeMS7_228 10%,prior TRACE-SL swap family,Stage16 calibrated rerun,searched-neighborhood stable,Thin validation windows can mis-rank low-budget layouts; calibrating reconstruction risk on train+validation resolves the row.
+PeMS7_228 20%,prior TRACE-SL swap family,Stage16 calibrated rerun,searched-neighborhood stable,The dominant gain is robust direct optimization of reconstruction risk over the prior TRACE-SL swap family under the same evaluation protocol.
+PeMS7_228 30%,prior TRACE-SL swap family,Stage16 calibrated rerun,searched-neighborhood stable,The dominant gain is robust direct optimization of reconstruction risk over the prior TRACE-SL swap family under the same evaluation protocol.
+Seattle 10%,RCSS selector,Stage15 main evidence,searched-neighborhood stable,"TRACE-BiOpt beats a certificate-ranked selector directly, so the gain is not only from candidate-pool curation."
+Seattle 20%,prior TRACE-SL swap family,Stage16 calibrated rerun,searched-neighborhood stable,The dominant gain is robust direct optimization of reconstruction risk over the prior TRACE-SL swap family under the same evaluation protocol.
+Seattle 30%,prior TRACE-SL swap family,Stage16 calibrated rerun,searched-neighborhood stable,The dominant gain is robust direct optimization of reconstruction risk over the prior TRACE-SL swap family under the same evaluation protocol.

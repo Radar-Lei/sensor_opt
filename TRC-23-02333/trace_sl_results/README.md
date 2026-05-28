@@ -1,8 +1,55 @@
-# TRACE-SL result stages
+# TRACE-BiOpt and TRACE-SL result stages
 
-This directory contains checked-in TRACE-SL reproducibility outputs for PeMS7_228 and curated external/supporting TRACE-SL evidence. Local sanity runs and new external-validation outputs may also appear here, but only curated result stages are intended to be committed.
+This directory contains checked-in reproducibility outputs for the TRACE-BiOpt bilevel optimization method and the predecessor TRACE-SL/RCSS candidate-pool framework. The current manuscript-facing method is TRACE-BiOpt; TRACE-SL/RCSS stages are preserved as historical baseline and development evidence.
 
-## Stage inventory
+## Current TRACE-BiOpt evidence
+
+### `current_best_trace_biopt_evidence/` — TRACE-BiOpt paper-facing evidence chain
+
+This is the authoritative headline-evidence source for the current manuscript. Aggregate claim status: `supported_submission_ready`.
+
+Key artifacts:
+- `trace_biopt_claim_contract.json`: row-level and aggregate wording contract.
+- `trace_biopt_best_baseline_delta.csv`: TRACE-BiOpt MAE vs best baseline per dataset-budget.
+- `trace_biopt_full_baseline_matrix.csv`: full 9-row x 21-baseline comparison matrix.
+- `trace_biopt_current_best_provenance.csv`: row-level source policy (Stage 15 or Stage 16).
+- `TRACE_BIOPT_DOMINANCE.md`: Holm-corrected dominance summary (189/189 wins).
+- `trace_biopt_exact_subnetwork_summary.csv`: 27/27 exact 16-node subnetwork hits.
+- `trace_biopt_significance_posture_summary.csv`: Holm-corrected significance posture.
+- `trace_biopt_solver_scale_summary.csv`: solver scale and runtime evidence.
+- `trace_biopt_route_ablation_summary.csv`: objective component ablation.
+- `trace_biopt_weight_sensitivity.csv`: objective weight sensitivity.
+- `trace_biopt_exchange_gap_summary.csv`: exchange convergence evidence.
+- `trace_biopt_objective_descent_summary.csv`: objective descent curves.
+
+Paper-visible numbers should be sourced from this directory for the current TRACE-BiOpt manuscript. The refresh pipeline is `scripts/refresh_current_best_trace_biopt_paper_chain.sh`.
+
+### Stage 15 — TRACE-BiOpt main evidence
+
+| Directory | Purpose |
+|---|---|
+| `stage15_biopt_allbudget_10seed_v2/` | Stage 15 TRACE-BiOpt 10-seed run for all datasets and budgets (primary evidence). |
+| `stage15_biopt_allbudget_3seed_v2/` | Stage 15 TRACE-BiOpt 3-seed lightweight run. |
+| `stage15_biopt_allbudget_seed25/` | Stage 15 TRACE-BiOpt single-seed run (seed 25). |
+| `stage15_biopt_allbudget_seed25_v2/` | Stage 15 TRACE-BiOpt single-seed run v2. |
+| `stage15_biopt_pems1026_30_extra/` | Stage 15 PeMS7_1026 30% budget extra evidence. |
+
+Stage 15 is the main TRACE-BiOpt evidence generation stage. Seattle 10% from Stage 15 is intentionally retained in the current-best chain because the Stage 16 calibrated rerun did not satisfy the replacement gate.
+
+### Stage 16 — TRACE-BiOpt calibrated rerun
+
+| Directory | Purpose |
+|---|---|
+| `stage16_calibrated_trace_probe/` | Stage 16 calibrated trace probe. |
+| `stage16_calibrated_trace_sweep/` | Stage 16 calibrated trace sweep. |
+
+8/9 current-best rows are promoted from Stage 16 calibrated reruns (all except Seattle 10%). Stage 16 refined solver parameters produce the strongest TRACE-BiOpt evidence currently available.
+
+## Historical TRACE-SL/RCSS stages (Stages 6--14)
+
+The stages below record the predecessor TRACE-SL/RCSS development path. They are preserved as historical baseline and diagnostic evidence. For current manuscript claims, use the TRACE-BiOpt current-best evidence chain above.
+
+### Stage inventory
 
 | Stage | Directory | Claim status | Purpose |
 |---|---|---|---|
@@ -12,25 +59,25 @@ This directory contains checked-in TRACE-SL reproducibility outputs for PeMS7_22
 | 9 | `pems7_228_stage9_rcss_quality/` | historical/supporting | Adds quality-coverage OR-guided candidates; RCSS beats validation-selected random on mean across budgets. |
 | 10 | `pems7_228_stage10_validation_swap/` | historical/supporting | Adds validation-aware swap refinement; widens the advantage, especially at 30% budget. |
 | 11 | `pems7_228_stage11_auto_weight/` | historical/supporting | Replaces fixed RCSS weights with inner-validation weight selection plus validation-aware swap on the original five held-out split seeds. |
-| 11-10split | `pems7_228_stage11_auto_weight_10split/` | core in-domain evidence | Aggregates Stage 11 seeds 25--34 for stronger statistics. |
-| 12 | `pems7_228_stage12_baseline_portfolio/` | core in-domain baseline-portfolio evidence | Adds Phase 3 reviewer-facing portfolio baselines to ten held-out PeMS7_228 splits. |
-| 13 | `pems7_228_stage13_candidate_sensitivity/` | core tractability/sensitivity evidence | Adds candidate-count sensitivity, selected-source diagnostics, and measured runtime evidence for PeMS7_228. |
-| 14 | `pems7_228_stage14_robustness/` | core stress-test robustness evidence | Adds PeMS7_228 held-out stress-test evidence for baseline, sensor failure, observation noise, random/block missingness, cost proxy, and chronological split conditions; this is usefulness-under-perturbation evidence, not a universal robustness guarantee. |
-| 14 | `pems7_228_stage14_candidate_sensitivity/` | core candidate-count/runtime sensitivity evidence | Adds PeMS7_228 50/100/200/500 candidate-count performance and measured runtime evidence via `stage14_timing.csv`; `candidate_sensitivity_caveat.json` is the only allowed ROBUST-06 limited-tractability exception if present. |
-| External | `pems7_1026_stage11_auto_weight/` | historical external supporting evidence | Runs the Stage 11 pipeline on five held-out PeMS7_1026 splits; superseded for manuscript claims by the Stage12 baseline portfolio. |
-| External Stage12 | `pems7_1026_stage12_baseline_portfolio/` | completed external Stage12 evidence | Ten-split Stage12 baseline-portfolio evidence for PeMS7_1026; use as external empirical evidence, not universal cross-network generalization. |
-| Supporting | `seattle_stage11_auto_weight_light/` | historical supporting evidence | Runs the Stage 11 pipeline on five held-out Seattle splits with light candidate defaults; superseded for manuscript claims by the Stage12 baseline portfolio. |
-| External Stage12 | `seattle_stage12_baseline_portfolio/` | completed external Stage12 evidence | Ten-split Stage12 Seattle baseline-portfolio evidence with completed `stage12_status.json`; use according to the regenerated external evidence gate. |
+| 11-10split | `pems7_228_stage11_auto_weight_10split/` | historical in-domain evidence | Aggregates Stage 11 seeds 25--34 for stronger statistics. |
+| 12 | `pems7_228_stage12_baseline_portfolio/` | historical in-domain baseline-portfolio evidence | Adds Phase 3 reviewer-facing portfolio baselines to ten held-out PeMS7_228 splits. |
+| 13 | `pems7_228_stage13_candidate_sensitivity/` | historical tractability/sensitivity evidence | Adds candidate-count sensitivity, selected-source diagnostics, and measured runtime evidence for PeMS7_228. |
+| 14 | `pems7_228_stage14_robustness/` | historical stress-test robustness evidence | Adds PeMS7_228 held-out stress-test evidence. |
+| 14 | `pems7_228_stage14_candidate_sensitivity/` | historical candidate-count/runtime sensitivity evidence | Adds PeMS7_228 candidate-count performance and measured runtime evidence. |
+| External | `pems7_1026_stage11_auto_weight/` | historical external supporting evidence | Runs the Stage 11 pipeline on five held-out PeMS7_1026 splits. |
+| External Stage12 | `pems7_1026_stage12_baseline_portfolio/` | historical external Stage12 evidence | Ten-split Stage12 baseline-portfolio evidence for PeMS7_1026. |
+| Supporting | `seattle_stage11_auto_weight_light/` | historical supporting evidence | Runs the Stage 11 pipeline on five held-out Seattle splits with light candidate defaults. |
+| External Stage12 | `seattle_stage12_baseline_portfolio/` | historical external Stage12 evidence | Ten-split Stage12 Seattle baseline-portfolio evidence. |
 
 ## Key reproducibility handoff artifacts
 
 - `reproducibility_manifest.json`: machine-readable Phase 6 provenance inventory for curated Stage 12/13/14 results, launcher defaults, package metadata, git provenance, and raw-data hygiene.
 - `REPRODUCIBILITY_MANIFEST.md`: human-readable rendering of the manifest for reproducibility review.
-- `paper_sources/`: generated manuscript-facing CSV/Markdown table sources with `source_stage`, `source_dir`, and `source_csv` provenance on CSV rows.
+- `paper_sources/`: generated manuscript-facing CSV/Markdown table sources with `source_stage`, `source_dir`, and `source_csv` provenance on CSV rows. These are TRACE-SL/RCSS paper-source artifacts; TRACE-BiOpt paper sources are in `current_best_trace_biopt_evidence/`.
 
-Paper-visible numbers should be sourced only from curated aggregate result directories listed below or from generated files under `paper_sources/`. Local raw traffic datasets are launcher inputs, not paper-visible evidence artifacts.
+Paper-visible numbers for the current TRACE-BiOpt manuscript should be sourced from `current_best_trace_biopt_evidence/`. Paper-visible numbers for TRACE-SL/RCSS historical claims should be sourced from curated aggregate result directories listed above or from generated files under `paper_sources/`.
 
-## Key aggregate files
+## Key aggregate files (historical TRACE-SL/RCSS)
 
 - `SUMMARY.md`: human-readable aggregate table.
 - `combined_metrics.csv`: all seed-level evaluation rows.
@@ -42,17 +89,19 @@ Paper-visible numbers should be sourced only from curated aggregate result direc
 - `certificate_correlation_summary.csv`: aggregate certificate stability table.
 - `combined_rcss_candidates.csv`: candidate-level RCSS diagnostics.
 - `rcss_selected_sources.csv`: selected candidate source counts.
-- `candidate_sensitivity_summary.csv`: candidate-source diagnostic stability by budget and, for Stage 13/14, candidate count.
-- `runtime_candidate_sensitivity.csv`: measured runtime summary by candidate count where present.
-- `stage14_timing.csv`: Stage 14 measured runtime/status rows by candidate_count and split seed.
-- `candidate_sensitivity_caveat.json`: machine-readable ROBUST-06 limited-tractability exception, only valid for Stage 14 candidate sensitivity when a required count was attempted but could not complete locally.
-- `validation_swap_delta_tests.csv`: paired tests for validation-swap RCSS against validation-selected random where present.
-- `auto_weight_selection_summary.csv`: selected auto-weight patterns by budget and split where present.
+- `candidate_sensitivity_summary.csv`: candidate-source diagnostic stability by budget and candidate count.
+- `runtime_candidate_sensitivity.csv`: measured runtime summary by candidate count.
+- `stage14_timing.csv`: Stage 14 measured runtime/status rows.
+- `candidate_sensitivity_caveat.json`: machine-readable ROBUST-06 limited-tractability exception.
+- `validation_swap_delta_tests.csv`: paired tests for validation-swap RCSS.
+- `auto_weight_selection_summary.csv`: selected auto-weight patterns by budget and split.
 
 ## Reading the results
 
-Use `validation_swap_selected` as the current main method label, while framing TRACE-SL as a reconstruction-aware layout design framework/portfolio rather than a single selector that dominates every internal OR variant. Use `TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/` for the main in-domain evidence, preserving the documented 10% multistart caveat. Use `TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/` and `TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/` as completed ten-split external empirical evidence, bounded by `paper_sources/external_evidence_gate.json`. Use `TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/` as the core PeMS7_228 robustness/generalization stress-test path with `combined_metrics.csv`, `gls_map_layout_summary.csv`, `gls_map_paired_delta_tests.csv`, and `SUMMARY.md`; interpret it as evaluated perturbation evidence, not a universal deployment proof. Use `TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/` for 50/100/200/500 candidate-count performance/runtime evidence with `combined_metrics.csv`, `candidate_sensitivity_summary.csv`, `runtime_candidate_sensitivity.csv`, `stage14_timing.csv`, and `SUMMARY.md`; if present, `candidate_sensitivity_caveat.json` is the only allowed ROBUST-06 limited-tractability exception. Use `TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/` as predecessor candidate-count sensitivity and measured runtime/tractability evidence, not as a broad scalability guarantee. Use `pems7_1026_stage11_auto_weight/` and `seattle_stage11_auto_weight_light/` as historical development evidence only; Stage12 paper-source artifacts supersede them for current claims.
+For the current TRACE-BiOpt manuscript, use `current_best_trace_biopt_evidence/` as the authoritative source. The layout label is `trace_biopt`. The method contract is in `TRACE_BIOPT_SPEC.md`.
 
-Stage 14 artifacts are stress-test evidence for usefulness under the specified perturbations and candidate budgets. External robustness remains supporting/optional unless a synchronized stronger bundle is generated and reviewed.
+For historical TRACE-SL/RCSS evidence, use `validation_swap_selected` as the TRACE-SL main method label. Stage 12 baseline-portfolio artifacts under `pems7_228_stage12_baseline_portfolio/`, `pems7_1026_stage12_baseline_portfolio/`, and `seattle_stage12_baseline_portfolio/` provide the strongest historical TRACE-SL evidence.
+
+TRACE-SL/RCSS (`validation_swap_selected`) is also a baseline row within the TRACE-BiOpt comparison class in the current manuscript.
 
 See `.planning/phases/04-core-experiment-evidence/04-DATASET-CLAIM-STATUS.md` for the PeMS7_1026 and Seattle claim-status decision record.

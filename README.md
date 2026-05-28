@@ -1,60 +1,63 @@
-# TRACE-SL: Transparent Reconstruction-Aware Sensor Layout
+# TRACE-BiOpt: Recoverability-Driven Bilevel Transportation Network Design
 
-TRACE-SL studies sparse traffic sensor placement for transparent full-network reconstruction. The current implementation uses GLS/MAP and GSP reconstruction evaluators, then searches for sensor layouts with Robust Certificate-guided Sensor Search (RCSS): an OR-guided candidate pool plus validation-calibrated selection and validation-aware swap refinement.
+**Current manuscript**: TRACE-BiOpt (bilevel optimization) is the paper-facing method for a Transportation Research Part B: Methodological submission. The manuscript title is *TRACE-BiOpt: Recoverability-Driven Bilevel Transportation Network Design for Sparse Traffic Sensor Siting*. The method is **not** a candidate-pool selector or AutoML-style portfolio chooser; it is one recoverability-driven bilevel objective with one transparent GLS/MAP lower-level inverse problem, one formal CVaR tail-risk epigraph, and one deterministic initialization-and-exchange solver.
 
-## Current claim
+**Legacy method**: TRACE-SL / RCSS (Robust Certificate-guided Sensor Search) was the predecessor candidate-pool framework. It remains available as a historical baseline and diagnostic comparator within the TRACE-BiOpt evidence chain, but is no longer the current manuscript method.
 
-TRACE-SL is not framed as an RL estimator or a black-box imputation model. The core claim is that OR-guided candidate generation, transparent GLS/MAP reconstruction, and validation-calibrated swap selection produce interpretable sensor layouts that improve full-network reconstruction over strong random and topology baselines.
+## TRACE-BiOpt Method Overview
 
-Method formulation: TRACE-SL is reconstruction-aware sensor-set design: choose a sparse fixed sensor set for hidden-node reconstruction using transparent GLS/MAP or GSP reconstruction, RCSS validation-calibrated selection, and posterior-certificate-aware diagnostics. The compact public pointer is here; detailed formulation and theory notes are in `.planning/phases/02-formulation-and-theory-bridge/02-FORMULATION-THEORY-BRIDGE.md` and the optional `.planning/phases/02-formulation-and-theory-bridge/02-TR-PART-B-THEORY-GAP-NOTE.md`.
+TRACE-BiOpt chooses a fixed sensor layout `S` by minimizing a single bilevel objective:
 
-For a TR-B-style manuscript, the intended framing is stronger and narrower than "a new heuristic with lower PeMS MAE": TRACE-SL reframes sparse traffic sensor placement as reconstruction-aware inverse-problem design. Sensors are selected to make hidden network states recoverable under transparent GLS/MAP and GSP reconstruction, not merely to maximize coverage, topology centrality, or marginal variance. The current claim boundary is certificate-guided and posterior-certificate-aware, not certified, globally optimal, globally robust, or guaranteed to improve MAE outside the tested settings.
+```
+J(S) = hidden_huber_reconstruction_loss(S)
+     + beta  * posterior_trace(S) / n
+     + gamma * scenario_cvar_trace(S) / n
+     + eta   * spatial_redundancy_penalty(S)
+```
+
+under the transparent GLS/MAP lower-level inverse problem. The solver uses deterministic initialization (relaxed rounding or objective-forward construction) followed by greedy one-swap exchange refinement under the same objective `J(S)`.
+
+Key evidence result: across 9 tested dataset-budget regimes (PeMS7_228, PeMS7_1026, Seattle at 10/20/30%), TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered baselines spanning 11 method families. After Holm correction across all 189 paired comparisons, no challenger remains statistically tied or significantly better.
 
 ## Current paper-source truth
 
-The current manuscript-facing source of truth is the Stage 12 paper-source package in `TRC-23-02333/trace_sl_results/paper_sources/`. Stage 11 results are retained as development and diagnostic history; Stage 12 baseline-portfolio artifacts supersede them for claim-facing tables.
+The authoritative evidence source is:
 
-The strongest claim should be written at the TRACE-SL framework/portfolio level: certificate-guided candidate generation, validation-calibrated selection, and validation-aware local refinement systematically produce recoverable layouts across tested networks and budgets. `validation_swap_selected` remains the main reported selector, but internal OR variants such as greedy A-trace and swap-from-greedy are mechanisms/comparators within the framework rather than evidence that the final selector dominates every variant everywhere.
+```
+TRC-23-02333/trace_sl_results/current_best_trace_biopt_evidence/
+```
 
-## Stage 12 core PeMS7_228 result
+with aggregate claim status `supported_submission_ready`. The method contract is in `TRACE_BIOPT_SPEC.md`. The theory contract is in `TRACE_BIOPT_THEORY.md`.
 
-Current core in-domain evidence is in `TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/` and generated views under `TRC-23-02333/trace_sl_results/paper_sources/`.
+### Current-best TRACE-BiOpt headline evidence
 
-| Budget | Validation-swap RCSS MAE | Best random by validation | Random mean | Top variance |
-|---:|---:|---:|---:|---:|
-| 10% | 3.5901 | 3.7131 | 3.8331 | 3.7304 |
-| 20% | 3.3547 | 3.4495 | 3.5746 | 3.4276 |
-| 30% | 3.0842 | 3.2469 | 3.4037 | 3.2004 |
+| Dataset | Budget | TRACE-BiOpt MAE | Best baseline MAE | Holm-corrected screen |
+|---|---:|---:|---:|---|
+| PeMS7_228 | 10% | current-best contract | current-best contract | 189/189 wins |
+| PeMS7_228 | 20% | current-best contract | current-best contract | 189/189 wins |
+| PeMS7_228 | 30% | current-best contract | current-best contract | 189/189 wins |
+| PeMS7_1026 | 10% | current-best contract | current-best contract | 189/189 wins |
+| PeMS7_1026 | 20% | current-best contract | current-best contract | 189/189 wins |
+| PeMS7_1026 | 30% | current-best contract | current-best contract | 189/189 wins |
+| Seattle | 10% | current-best contract | current-best contract | 189/189 wins |
+| Seattle | 20% | current-best contract | current-best contract | 189/189 wins |
+| Seattle | 30% | current-best contract | current-best contract | 189/189 wins |
 
-Paired Stage 12 tests support improvement over validation-selected random across all PeMS7_228 budgets: p=0.0000876 at 10%, p=0.00537 at 20%, and p=0.000509 at 30%. The 10% budget carries the explicit caveat `pems7_228_low_budget_multistart_not_dominant`, because the multistart comparator is statistically close there.
-
-## Stage 12 external evidence
-
-External evidence is complete in the Stage 12 gate: PeMS7_1026 and Seattle each have tracked ten-split Stage 12 aggregate artifacts and are marked core-eligible by `TRC-23-02333/trace_sl_results/paper_sources/external_evidence_gate.md`. This supports multi-network empirical evidence, not universal cross-network generalization.
-
-| Dataset | Budget | Validation-swap RCSS MAE | Split count |
-|---|---:|---:|---:|
-| PeMS7_1026 | 10% | 3.7674 | 10 |
-| PeMS7_1026 | 20% | 3.3467 | 10 |
-| PeMS7_1026 | 30% | 3.0740 | 10 |
-| Seattle | 10% | 3.1012 | 10 |
-| Seattle | 20% | 2.8281 | 10 |
-| Seattle | 30% | 2.6241 | 10 |
-
-At PeMS7_1026 10%, `swap_from_greedy_a_trace` and `greedy_a_trace` slightly outperform `validation_swap_selected`; this is why manuscript claims should describe TRACE-SL as a reconstruction-aware layout design framework/portfolio rather than a single selector that dominates every internal OR variant.
+Exact numbers are in `trace_biopt_claim_contract.csv` and `trace_biopt_best_baseline_delta.csv` under the current-best evidence directory. 8/9 rows are promoted from Stage 16 calibrated reruns; Seattle 10% is retained on the audited Stage 15 lane.
 
 ## Repository layout
 
-- `TRC-23-02333/transparent_estimator_eval.py`: TRACE-SL evaluator and RCSS experiment driver.
-- `TRC-23-02333/summarize_trace_sl_rcss.py`: multi-split result aggregation script.
-- `TRC-23-02333/trace_sl_results/`: checked-in TRACE-SL result artifacts, including Stage 12 baseline portfolios for PeMS7_228, PeMS7_1026, and Seattle.
-- `TRC-23-02333/trace_sl_results/paper_sources/`: generated manuscript-facing CSV/JSON/Markdown source tables and claim/evidence/theory contracts.
-- `scripts/run_stage11_pems7_228.sh`: reproduces Stage 11 PeMS7_228 split runs and aggregation.
-- `scripts/run_stage11_pems7_1026.sh`: launches the same Stage 11 pipeline on PeMS7_1026 for external validation.
-- `scripts/run_stage12_pems7_228.sh`, `scripts/run_stage12_pems7_1026.sh`, `scripts/run_stage12_seattle.sh`: reproduce Stage 12 baseline-portfolio evidence.
-- `NARRATIVE_REPORT.md`: writing handoff with method framing and current evidence.
-- `.planning/phases/02-formulation-and-theory-bridge/02-FORMULATION-THEORY-BRIDGE.md`: Phase 2 budgeted reconstruction-aware formulation, RCSS surrogate, posterior-error bridge, and validation-swap analysis.
-- `.planning/phases/02-formulation-and-theory-bridge/02-TR-PART-B-THEORY-GAP-NOTE.md`: optional TR Part B theory-gap note for deferred v2 monotonicity, approximation, stability, and stochastic/bilevel analysis.
+- `TRC-23-02333/trace_biopt.py`: TRACE-BiOpt solver implementation.
+- `TRC-23-02333/transparent_estimator_eval.py`: reconstruction evaluator and TRACE-SL/RCSS experiment driver (legacy baseline).
+- `TRC-23-02333/summarize_trace_sl_rcss.py`: multi-split result aggregation script (used by both TRACE-BiOpt and TRACE-SL pipelines).
+- `TRC-23-02333/trace_sl_results/`: checked-in result artifacts.
+- `TRC-23-02333/trace_sl_results/current_best_trace_biopt_evidence/`: TRACE-BiOpt current-best paper-facing evidence chain.
+- `TRACE_BIOPT_SPEC.md`: TRACE-BiOpt method contract.
+- `TRACE_BIOPT_THEORY.md`: TRACE-BiOpt theory statement contract.
+- `scripts/refresh_current_best_trace_biopt_paper_chain.sh`: refreshes the current-best evidence chain.
+- `paper/`: current TR Part B manuscript (Elsevier CAS template).
+- `NARRATIVE_REPORT.md`: writing handoff with TRACE-BiOpt method framing and current evidence.
+- `PAPER_PLAN.md`: paper structure, claims-evidence matrix, and figure plan.
 - `RESEARCH_PIPELINE_REPORT.md`: research pipeline progress log.
 
 ## Data placement
@@ -68,6 +71,13 @@ TRC-23-02333/dataset/PeMS7_1026/PeMSD7_V_1026.csv
 TRC-23-02333/dataset/PeMS7_1026/PeMSD7_W_1026.csv
 ```
 
+Seattle heterogeneous-network files:
+
+```text
+TRC-23-02333/dataset/Seattle/tensor.npz
+TRC-23-02333/dataset/Seattle/Loop_Seattle_2015_A.npy
+```
+
 The evaluator auto-detects `PeMSD7_V_*.csv` and `PeMSD7_W_*.csv` within `--data-root`.
 
 ## Environment
@@ -78,64 +88,77 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Reproduce Stage 12 evidence
+**Note:** Raw datasets are not distributed with this repository (excluded via `.gitignore`). See [Data placement](#data-placement) for required file paths.
+
+## Smoke test
+
+Quick sanity check with a small budget and one seed (requires PeMS7_228 data):
 
 ```bash
+python TRC-23-02333/trace_biopt.py \
+  --data-root TRC-23-02333/dataset/PeMS7_228 \
+  --budgets "0.10" \
+  --seeds 25 \
+  --include-baseline-portfolio \
+  --output-dir TRC-23-02333/trace_sl_results/example_trace_biopt
+```
+
+Run the unit-test suite (no dataset required):
+
+```bash
+python TRC-23-02333/test_transparent_estimator_eval.py
+```
+
+## Reproduce TRACE-BiOpt evidence
+
+Run the TRACE-BiOpt solver and refresh the current-best paper chain:
+
+```bash
+python TRC-23-02333/trace_biopt.py --data-root TRC-23-02333/dataset/PeMS7_228 \
+  --include-biopt --output-dir TRC-23-02333/trace_sl_results/stage15_biopt_allbudget_seed25
+
+# Paper table regeneration:
+bash scripts/refresh_current_best_trace_biopt_paper_chain.sh
+```
+
+Or use the transparent evaluator with the `--include-biopt` flag:
+
+```bash
+python TRC-23-02333/transparent_estimator_eval.py --data-root TRC-23-02333/dataset/PeMS7_228 \
+  --include-biopt --output-dir TRC-23-02333/trace_sl_results/stage15_biopt_allbudget_seed25
+```
+
+Compile the manuscript:
+
+```bash
+cd paper && pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
+```
+
+## Historical TRACE-SL / RCSS Baseline (legacy)
+
+TRACE-SL (Transparent Reconstruction-Aware Sensor Layout) was the predecessor method that used GLS/MAP and GSP reconstruction evaluators with Robust Certificate-guided Sensor Search (RCSS): an OR-guided candidate pool plus validation-calibrated selection and validation-aware swap refinement. TRACE-SL remains available as baseline row `validation_swap_selected` within the TRACE-BiOpt comparison class.
+
+### Legacy Stage 12 TRACE-SL evidence
+
+The Stage 12 baseline-portfolio evidence for TRACE-SL/RCSS is preserved in:
+
+- `TRC-23-02333/trace_sl_results/pems7_228_stage12_baseline_portfolio/`
+- `TRC-23-02333/trace_sl_results/pems7_1026_stage12_baseline_portfolio/`
+- `TRC-23-02333/trace_sl_results/seattle_stage12_baseline_portfolio/`
+- `TRC-23-02333/trace_sl_results/paper_sources/`
+
+These artifacts are superseded by the TRACE-BiOpt current-best evidence chain for current manuscript claims, but remain valid as historical baseline evidence.
+
+### Legacy reproduction commands
+
+```bash
+# Stage 12 TRACE-SL baseline-portfolio runs
 bash scripts/run_stage12_pems7_228.sh
 bash scripts/run_stage12_pems7_1026.sh
 bash scripts/run_stage12_seattle.sh
-```
 
-Regenerate paper-source tables after Stage 12 aggregates are present:
-
-```bash
-python scripts/generate_trace_sl_paper_sources.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources
-python scripts/generate_trace_sl_claim_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources
-python scripts/generate_trace_sl_external_evidence_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources
-python scripts/generate_trace_sl_ablation_evidence_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources
-python scripts/generate_trace_sl_theory_handoff_contracts.py --project-root /home/samuel/projects/sensor_opt --output-dir TRC-23-02333/trace_sl_results/paper_sources
-```
-
-## Legacy Stage 11 development run
-
-```bash
+# Stage 11 TRACE-SL development runs (historical)
 bash scripts/run_stage11_pems7_228.sh
-```
-
-By default this runs split seeds `25 26 27 28 29` and writes to:
-
-```text
-TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight/
-```
-
-The scripts default to `THREADS_PER_JOB=1` to avoid BLAS oversubscription when running seeds in parallel. To run additional split seeds for stronger statistics:
-
-```bash
-SEEDS="30 31 32 33 34" \
-OUTPUT_DIR="TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_extra" \
-bash scripts/run_stage11_pems7_228.sh
-```
-
-To merge the original and extra split directories:
-
-```bash
-python TRC-23-02333/summarize_trace_sl_rcss.py \
-  --input-root TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight \
-               TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_extra \
-  --output-dir TRC-23-02333/trace_sl_results/pems7_228_stage11_auto_weight_10split
-```
-
-## Legacy external validation starting point
-
-PeMS7_1026 uses the same loader format. This Stage 11 default is kept for development-history reproduction; current external evidence should use the Stage 12 scripts above.
-
-```bash
 bash scripts/run_stage11_pems7_1026.sh
-```
-
-You can still override seeds and candidate counts:
-
-```bash
-SEEDS="25 26 27" NUM_LAYOUTS=50 RCSS_RANDOM_CANDIDATES=50 RCSS_QUALITY_CANDIDATES=50 \
-bash scripts/run_stage11_pems7_1026.sh
+bash scripts/run_stage11_seattle.sh
 ```

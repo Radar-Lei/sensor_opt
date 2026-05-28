@@ -61,6 +61,8 @@ TRC-23-02333/trace_sl_results/*
 !TRC-23-02333/trace_sl_results/pems7_228_stage13_candidate_sensitivity/
 !TRC-23-02333/trace_sl_results/pems7_228_stage14_robustness/
 !TRC-23-02333/trace_sl_results/pems7_228_stage14_candidate_sensitivity/
+!TRC-23-02333/trace_sl_results/current_best_trace_biopt_evidence/
+!TRC-23-02333/trace_sl_results/current_best_trace_biopt_evidence/*
 !TRC-23-02333/trace_sl_results/paper_sources/
 !TRC-23-02333/trace_sl_results/paper_sources/*
 !TRC-23-02333/trace_sl_results/pems7_228_stage6_multisplit_cvar_seed_*.log

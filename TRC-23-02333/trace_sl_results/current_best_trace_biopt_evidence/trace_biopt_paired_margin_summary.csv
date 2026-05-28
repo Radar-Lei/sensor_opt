@@ -1,0 +1,10 @@
+dataset,budget,budget_pct,evidence_source,source_label,best_baseline_layout,best_baseline_label,mean_paired_margin,min_paired_margin,max_paired_margin,win_count,count
+PeMS7_1026,0.1,10,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,-0.12961377692092874,-0.21128235831549613,-0.07723597683283456,10,10
+PeMS7_1026,0.2,20,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,-0.12357722103957322,-0.17348720756864155,-0.08654580539497791,10,10
+PeMS7_1026,0.3,30,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,-0.037541480186449185,-0.06082730864714847,-0.004487640350796074,10,10
+PeMS7_228,0.1,10,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,-0.14237889689615213,-0.21660576291738565,-0.0455037471634232,10,10
+PeMS7_228,0.2,20,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,-0.2762235868142528,-0.33467855543747493,-0.22983049500155106,10,10
+PeMS7_228,0.3,30,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,-0.3359025506717287,-0.395491275016858,-0.26293085471122524,10,10
+Seattle,0.1,10,stage15_main,Stage15 main evidence,rcss_selected,RCSS,-0.05571760106730732,-0.13618245844561105,-0.0010984342279027892,10,10
+Seattle,0.2,20,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,-0.08272332066176111,-0.15206380364513583,-0.034731422366578446,10,10
+Seattle,0.3,30,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,-0.0952063382135953,-0.1613447737836129,-0.02807430964613955,10,10

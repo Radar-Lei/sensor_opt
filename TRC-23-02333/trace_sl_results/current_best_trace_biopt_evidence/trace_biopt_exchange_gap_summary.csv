@@ -1,0 +1,10 @@
+dataset,budget,budget_pct,evidence_source,source_label,runs,runs_with_exchange,zero_exchange_runs,mean_exchange_steps,mean_residual_gap_25pct,mean_residual_gap_50pct,mean_residual_gap_75pct
+PeMS7_1026,0.1,10,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,10,10,0,18.900000,0.559525,0.284542,0.100273
+PeMS7_1026,0.2,20,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,10,10,0,20.000000,0.592348,0.321545,0.133962
+PeMS7_1026,0.3,30,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,10,10,0,8.000000,0.695833,0.437381,0.211031
+PeMS7_228,0.1,10,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,10,10,0,7.100000,0.533936,0.260537,0.099052
+PeMS7_228,0.2,20,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,10,10,0,11.300000,0.489881,0.220086,0.066894
+PeMS7_228,0.3,30,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,10,10,0,11.900000,0.510103,0.231965,0.076000
+Seattle,0.1,10,stage15_main,Stage15 main evidence,10,9,1,6.000000,0.585439,0.350257,0.174785
+Seattle,0.2,20,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,10,9,1,4.111111,0.654753,0.301667,0.127706
+Seattle,0.3,30,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,10,9,1,3.333333,0.620522,0.362806,0.147026

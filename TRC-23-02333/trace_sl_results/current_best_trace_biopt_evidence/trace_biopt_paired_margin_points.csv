@@ -1,0 +1,91 @@
+dataset,budget,budget_pct,split_seed,evidence_source,source_label,best_baseline_layout,best_baseline_label,trace_biopt_mae,best_baseline_mae,paired_margin
+PeMS7_1026,0.1,10,25,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.5851568866105525,3.7389329853435846,-0.1537760987330321
+PeMS7_1026,0.1,10,26,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.772328167344168,3.856430744530417,-0.0841025771862487
+PeMS7_1026,0.1,10,27,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.3709453973208103,3.45746895372208,-0.08652355640126963
+PeMS7_1026,0.1,10,28,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.24020962163405,3.3551934036578346,-0.11498378202378445
+PeMS7_1026,0.1,10,29,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.5640031114750603,3.687448113059177,-0.12344500158411664
+PeMS7_1026,0.1,10,30,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.4000250241553607,3.611307382470857,-0.21128235831549613
+PeMS7_1026,0.1,10,31,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.984084290554879,4.135018165126375,-0.15093387457149632
+PeMS7_1026,0.1,10,32,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.33037334759541,3.470102722221768,-0.13972937462635793
+PeMS7_1026,0.1,10,33,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.965087519851511,4.042323496684346,-0.07723597683283456
+PeMS7_1026,0.1,10,34,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,swap_from_greedy_a_trace,Swap from A-trace,3.834293993189477,3.988419162124128,-0.15412516893465078
+PeMS7_1026,0.2,20,25,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.245037829564271,3.381138819314028,-0.13610098974975715
+PeMS7_1026,0.2,20,26,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.347857311829464,3.434403117224442,-0.08654580539497791
+PeMS7_1026,0.2,20,27,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.006383194916765,3.0933118587789363,-0.08692866386217135
+PeMS7_1026,0.2,20,28,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.926628201045099,3.026727400274641,-0.10009919922954236
+PeMS7_1026,0.2,20,29,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.197519340128188,3.3380685281345337,-0.14054918800634564
+PeMS7_1026,0.2,20,30,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.985247238295673,3.1587344458643147,-0.17348720756864155
+PeMS7_1026,0.2,20,31,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.55067612718916,3.6810988081127536,-0.13042268092359377
+PeMS7_1026,0.2,20,32,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.979268785220457,3.118838599170402,-0.13956981394994505
+PeMS7_1026,0.2,20,33,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.529220776782504,3.664806781318344,-0.1355860045358397
+PeMS7_1026,0.2,20,34,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.4630623331954964,3.569544990370414,-0.10648265717491778
+PeMS7_1026,0.3,30,25,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.0626952687347573,3.1235225773819058,-0.06082730864714847
+PeMS7_1026,0.3,30,26,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.1195034219852595,3.168167655238107,-0.0486642332528473
+PeMS7_1026,0.3,30,27,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.8338783794961784,2.8383660198469745,-0.004487640350796074
+PeMS7_1026,0.3,30,28,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.7606965955649656,2.814508274798981,-0.05381167923401531
+PeMS7_1026,0.3,30,29,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.008328183824285,3.0310466563841003,-0.022718472559815517
+PeMS7_1026,0.3,30,30,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.8227480015245705,2.847273611240186,-0.02452560971561546
+PeMS7_1026,0.3,30,31,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.337987814509874,3.387849393315094,-0.04986157880522013
+PeMS7_1026,0.3,30,32,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.8476629044517665,2.870195550650983,-0.022532646199216355
+PeMS7_1026,0.3,30,33,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.3185489731229887,3.360968802779578,-0.042419829656589414
+PeMS7_1026,0.3,30,34,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.2529822459104376,3.2985480493536654,-0.045565803443227804
+PeMS7_228,0.1,10,25,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.24844189706894,3.4244078683981343,-0.17596597132919412
+PeMS7_228,0.1,10,26,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.711210528282901,3.779631287005124,-0.06842075872222297
+PeMS7_228,0.1,10,27,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.251134110461712,3.4157442929582422,-0.16461018249653003
+PeMS7_228,0.1,10,28,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.0739839594853247,3.229417641121304,-0.15543368163597915
+PeMS7_228,0.1,10,29,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.397133863781566,3.4508248601577094,-0.053690996376143385
+PeMS7_228,0.1,10,30,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.269026133796202,3.4379601680424368,-0.16893403424623488
+PeMS7_228,0.1,10,31,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.8471012893600847,3.892605036523508,-0.0455037471634232
+PeMS7_228,0.1,10,32,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.1675077603080197,3.379800886769135,-0.2122931264611152
+PeMS7_228,0.1,10,33,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.895446619078533,4.112052381995919,-0.21660576291738565
+PeMS7_228,0.1,10,34,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.6721990107198734,3.834529718333166,-0.1623307076132927
+PeMS7_228,0.2,20,25,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.8978351309679584,3.1300293427526054,-0.23219421178464694
+PeMS7_228,0.2,20,26,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.200691061392335,3.503779040548085,-0.3030879791557499
+PeMS7_228,0.2,20,27,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.842242896982921,3.156673474054942,-0.31443057707202104
+PeMS7_228,0.2,20,28,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.760106313519268,2.989936808520819,-0.22983049500155106
+PeMS7_228,0.2,20,29,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.0477459573392265,3.339335606829459,-0.29158964949023236
+PeMS7_228,0.2,20,30,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.8403631826375464,3.165833764624011,-0.3254705819864645
+PeMS7_228,0.2,20,31,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.431977565072183,3.766656120509658,-0.33467855543747493
+PeMS7_228,0.2,20,32,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.753426637259317,2.986891692960358,-0.23346505570104092
+PeMS7_228,0.2,20,33,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.411435232009388,3.678913271301212,-0.2674780392918237
+PeMS7_228,0.2,20,34,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.250347618811664,3.4803583420331865,-0.23001072322152272
+PeMS7_228,0.3,30,25,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.6551299373264827,2.918060792037708,-0.26293085471122524
+PeMS7_228,0.3,30,26,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.934480038393162,3.299019032549241,-0.3645389941560788
+PeMS7_228,0.3,30,27,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.573043791032625,2.968535066049483,-0.395491275016858
+PeMS7_228,0.3,30,28,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.5089368457465366,2.88489824922316,-0.37596140347662343
+PeMS7_228,0.3,30,29,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.7410185138954324,3.032014678535192,-0.2909961646397594
+PeMS7_228,0.3,30,30,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.5114877750035243,2.84642616184613,-0.3349383868426057
+PeMS7_228,0.3,30,31,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.087611341732129,3.461204909293933,-0.37359356756180384
+PeMS7_228,0.3,30,32,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.4656004221572343,2.7304937682109407,-0.2648933460537064
+PeMS7_228,0.3,30,33,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,3.0368492105462277,3.373166115383827,-0.33631690483759913
+PeMS7_228,0.3,30,34,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.899460319487902,3.258824928908929,-0.3593646094210272
+Seattle,0.1,10,25,stage15_main,Stage15 main evidence,rcss_selected,RCSS,2.9388026894381643,3.004917435338449,-0.06611474590028488
+Seattle,0.1,10,26,stage15_main,Stage15 main evidence,rcss_selected,RCSS,3.1198935386460764,3.2560759970916875,-0.13618245844561105
+Seattle,0.1,10,27,stage15_main,Stage15 main evidence,rcss_selected,RCSS,2.929185754010097,2.946377952106045,-0.017192198095948186
+Seattle,0.1,10,28,stage15_main,Stage15 main evidence,rcss_selected,RCSS,2.84563894932067,2.8989679852578125,-0.05332903593714233
+Seattle,0.1,10,29,stage15_main,Stage15 main evidence,rcss_selected,RCSS,3.276623929621274,3.304063401377575,-0.027439471756300904
+Seattle,0.1,10,30,stage15_main,Stage15 main evidence,rcss_selected,RCSS,2.8338590468596254,2.834957481087528,-0.0010984342279027892
+Seattle,0.1,10,31,stage15_main,Stage15 main evidence,rcss_selected,RCSS,3.12261227451948,3.2073007249681544,-0.08468845044867424
+Seattle,0.1,10,32,stage15_main,Stage15 main evidence,rcss_selected,RCSS,3.234339073054981,3.285274355177967,-0.050935282122985814
+Seattle,0.1,10,33,stage15_main,Stage15 main evidence,rcss_selected,RCSS,3.085562533410905,3.1815455184505685,-0.0959829850396634
+Seattle,0.1,10,34,stage15_main,Stage15 main evidence,rcss_selected,RCSS,3.0296138706896767,3.0538268193882363,-0.02421294869855961
+Seattle,0.2,20,25,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.6876348685187628,2.722366290885341,-0.034731422366578446
+Seattle,0.2,20,26,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.8402613688182505,2.921643586728268,-0.08138221791001765
+Seattle,0.2,20,27,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.5705237161277896,2.6720321113103283,-0.10150839518253862
+Seattle,0.2,20,28,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.5449974213127464,2.6612066409825337,-0.11620921966978726
+Seattle,0.2,20,29,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.972230155045668,3.030073806908234,-0.05784365186256579
+Seattle,0.2,20,30,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.5223778536230608,2.573039005836084,-0.050661152213023364
+Seattle,0.2,20,31,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.820463436805389,2.9093825975885323,-0.08891916078314344
+Seattle,0.2,20,32,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.9096406060941087,2.962104231413689,-0.05246362531958049
+Seattle,0.2,20,33,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.785327208740944,2.93739101238608,-0.15206380364513583
+Seattle,0.2,20,34,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.6763650880497063,2.7678156457149465,-0.09145055766524024
+Seattle,0.3,30,25,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.50467793453005,2.532980989637468,-0.028303055107418373
+Seattle,0.3,30,26,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.630681899031877,2.6587562086780165,-0.02807430964613955
+Seattle,0.3,30,27,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.3517445664597383,2.454503274908637,-0.10275870844889878
+Seattle,0.3,30,28,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.364484184584732,2.464913403341364,-0.10042921875663202
+Seattle,0.3,30,29,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.726717035191632,2.828258891155688,-0.10154185596405574
+Seattle,0.3,30,30,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.330668303615825,2.426992935184121,-0.09632463156829596
+Seattle,0.3,30,31,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.5901882288510047,2.673180209403874,-0.08299198055286938
+Seattle,0.3,30,32,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.6468420655858624,2.758169230814076,-0.11132716522821351
+Seattle,0.3,30,33,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.5488548078173703,2.710199581600983,-0.1613447737836129
+Seattle,0.3,30,34,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,validation_swap_selected,Prev. TRACE-SL,2.448922627562926,2.587890310642743,-0.13896768307981677

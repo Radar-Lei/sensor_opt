@@ -1,0 +1,10 @@
+dataset,budget,budget_pct,evidence_source,source_label,dominant_stage_mode,runs,mean_total_drop_pct,mean_exchange_share_pct,mean_forward_like_steps,mean_exchange_steps
+PeMS7_1026,0.1,10,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,exchange_only_warm_start,10,3.364611,100.000000,0.000000,18.900000
+PeMS7_1026,0.2,20,stage16_replaceable:pems7_1026_10_20_posterior_iter20,Stage16 calibrated rerun,exchange_only_warm_start,10,3.460316,100.000000,0.000000,20.000000
+PeMS7_1026,0.3,30,stage16_replaceable:pems1026_30_trainval_lowcert,Stage16 calibrated rerun,exchange_only_warm_start,10,1.836038,100.000000,0.000000,8.000000
+PeMS7_228,0.1,10,stage16_replaceable:train_val_lowcert_delta1_fullsearch,Stage16 calibrated rerun,forward_then_exchange,10,54.110988,1.082044,23.000000,7.100000
+PeMS7_228,0.2,20,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,forward_then_exchange,10,62.477428,0.980099,46.000000,11.300000
+PeMS7_228,0.3,30,stage16_replaceable:pems7_228_20_30_fullsearch,Stage16 calibrated rerun,forward_then_exchange,10,67.748765,0.909265,68.000000,11.900000
+Seattle,0.1,10,stage15_main,Stage15 main evidence,forward_then_exchange,10,60.045651,0.646458,32.000000,5.400000
+Seattle,0.2,20,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,forward_then_exchange,10,67.288998,0.200190,65.000000,3.700000
+Seattle,0.3,30,stage16_replaceable:seattle_10_20_30_trainval,Stage16 calibrated rerun,forward_then_exchange,10,71.937210,0.275222,97.000000,3.000000
