@@ -55,7 +55,7 @@ usually a strong TRACE-SL-family or RCSS-family layout. The fifth
 links the posterior/certificate quantities back to held-out MAE under the same
 GLS/MAP reconstruction protocol used for the main result.
 
-\input{tables/table_trace_biopt_map_stability_posture}
+% MAP stability posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-map-stability} gives the lower-level stability bridge
 for Theorem~\ref{thm:map-stability}. The promoted Stage16 rows do not improve
@@ -126,7 +126,7 @@ statistics in Figure~\ref{fig:trace-biopt-layout-fingerprints}; it complements
 them by showing that the low-budget gains remain legible as a network design
 pattern rather than only as a graph-space fingerprint.
 
-\input{tables/table_trace_biopt_spatial_posture}
+% Spatial posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-spatial-posture} makes the same spatial argument
 quantitative. On PeMS7\_228 10\% and Seattle 10\%, the current-best TRACE-BiOpt
@@ -140,7 +140,7 @@ from 246 to 291 nodes. The right reading is that the spatial term acts as a
 guardrail against local over-concentration, not as a standalone ``spread
 everything out'' heuristic.
 
-\input{tables/table_trace_biopt_layout_consensus_posture}
+% Layout consensus posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-layout-consensus-posture} adds the split-level
 consensus reading. PeMS7\_228 10\% is the cleanest case: TRACE-BiOpt is
@@ -195,8 +195,8 @@ nodes instead of being carried by one or two extreme error spikes.
 
 \input{tables/table_trace_biopt_optimization}
 \input{tables/table_trace_biopt_solver_scale}
-\input{tables/table_trace_biopt_initializer_posture}
-\input{tables/table_trace_biopt_compute_posture}
+% Initializer posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
+% Compute posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 \input{tables/table_trace_biopt_exchange_certificate}
 
 Table~\ref{tab:trace-biopt-optimization} reports the optimization history
@@ -319,7 +319,7 @@ and the solver-budget discussion: some rows are search-tail heavy, while
 others are already close enough to local stationarity that the exchange phase
 often becomes optional rather than binding.
 
-\input{tables/table_trace_biopt_certificate_removal_probe}
+% Certificate removal probe table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-certificate-removal-probe} asks a narrower but
 important mechanism question on the stable Seattle rows: if the search budget
@@ -355,7 +355,7 @@ probe easier to interpret: when the stable rows are actually posterior-driven,
 removing the certificate terms changes the design problem materially rather
 than merely simplifying notation.
 
-\input{tables/table_trace_biopt_posterior_risk_posture}
+% Posterior risk posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-posterior-risk} is the bounded theorem-to-evidence
 bridge for Theorem~\ref{thm:trace-risk}. It does not ask posterior trace to
@@ -370,7 +370,7 @@ scope for the theorem: posterior trace behaves as a meaningful squared-risk
 certificate within controlled TRACE-BiOpt route comparisons, without being
 overstated as a universal MAE ranking theorem under non-Gaussian traffic data.
 
-\input{tables/table_trace_biopt_weight_sensitivity}
+% Weight sensitivity table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-weight-sensitivity} makes the weight story explicit
 on three representative single-seed slices. On the stable Seattle 20\% and
@@ -387,7 +387,7 @@ certificate weights: stable rows can benefit from heavier posterior/CVaR terms,
 while thin-validation low-budget rows may need lighter weights plus calibrated
 risk estimation and deeper search.
 
-\input{tables/table_trace_biopt_tail_risk_posture}
+% Tail risk posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-tail-risk-posture} closes the reviewer-facing CVaR
 interpretation gap. The current-best routes do not win because the tail-risk
@@ -412,7 +412,7 @@ changes the mean margin against the seed-matched best pre-registered baseline
 from -0.0026 to -0.0338, and wins all ten probed seeds with enhanced-search
 paired t-test $p=1.5e{-}05$ and Wilcoxon signed-rank $p=0.0010$. Because this
 is a row-level search-budget probe rather than a full 90-run Stage15
-replacement, it supports the interpretation that the weakest directional row is
+replacement, it supports the interpretation that the original weakest row was
 search-budget limited; it is not used to replace
 Table~\ref{tab:trace-biopt-dominance}.
 
@@ -447,8 +447,8 @@ Table~\ref{tab:trace-biopt-calibration-probe}, this shows that calibrated
 upper-level risk estimation is not a one-row patch: it resolves the original
 PeMS7\_228 10\% mixed row and also strengthens the weakest remaining margin
 row on PeMS7\_1026 30\%. The current-best evidence chain already promotes both
-completed reruns; only PeMS7\_228 20/30 still awaits the same configuration on
-more seeds before those rows can move off the Stage15 evidence path.
+completed reruns. The current-best evidence chain now promotes all
+Stage16 calibrated rows; Seattle 10\% remains on the audited Stage15 lane.
 
 \input{tables/table_trace_biopt_regime_lessons}
 

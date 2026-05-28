@@ -8,12 +8,9 @@ its contribution is therefore closest to the network-design tradition rather
 than to estimator benchmarking, post-hoc layout selection, or sparse-sensor
 leaderboard studies.
 
-Table~\ref{tab:trace-biopt-comparison-class-contract} summarizes the
-comparison class used throughout the paper: 21 pre-registered baselines
-spanning 11 method families, evaluated by row-wise strongest-baseline
-dominance on held-out reconstruction error with Holm-corrected paired tests.
+The comparison class used throughout the paper consists of 21 pre-registered baselines spanning 11 method families, evaluated by row-wise strongest-baseline dominance on held-out reconstruction error with Holm-corrected paired tests.
 
-\input{tables/table_trace_biopt_comparison_class_contract}
+% Comparison class contract table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 \paragraph{Traffic count location and OD-oriented sensing.}
 Transportation sensor location has usually been studied as an infrastructure design problem for OD estimation, link-flow inference, path reconstruction, or travel-time monitoring. Early count-location work derived OD covering, flow-fraction, flow-interception, and link-independence rules for OD matrix estimation \citep{yang1998optimal}; later formulations optimized informative count locations, accounted for existing detectors or prior OD information, and used posterior OD uncertainty or plate-scanning information as design criteria \citep{ehlert2006optimisation,castillo2008trip,minguez2010plate,simonelli2012od}. Reviews and traffic-flow-estimation variants of this stream emphasize that sensor location can be cast as either flow-estimation, observability, or prediction support, depending on the quantity being inferred \citep{gentili2011survey,zhu2014estimation}. TRACE-BiOpt follows the same fixed-infrastructure planning premise---the layout must be chosen before measurements are collected---but recasts the design target as hidden-network recoverability under a transparent inverse problem rather than OD or route-demand estimation.
@@ -75,4 +72,4 @@ after all layouts are generated, and the final claim is made only on held-out
 GLS/MAP reconstruction error. That is the methodological boundary this paper
 tries to make explicit.
 
-\input{tables/table_trace_biopt_novelty_identity}
+% Novelty identity table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)

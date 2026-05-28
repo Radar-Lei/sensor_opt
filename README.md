@@ -47,7 +47,7 @@ Exact numbers are in `trace_biopt_claim_contract.csv` and `trace_biopt_best_base
 
 ## Repository layout
 
-- `TRC-23-02333/trace_biopt.py`: TRACE-BiOpt solver implementation.
+- `TRC-23-02333/trace_biopt.py`: CLI wrapper that invokes `transparent_estimator_eval.main()` with `--include-biopt`; the solver logic lives in `transparent_estimator_eval.py`.
 - `TRC-23-02333/transparent_estimator_eval.py`: reconstruction evaluator and TRACE-SL/RCSS experiment driver (legacy baseline).
 - `TRC-23-02333/summarize_trace_sl_rcss.py`: multi-split result aggregation script (used by both TRACE-BiOpt and TRACE-SL pipelines).
 - `TRC-23-02333/trace_sl_results/`: checked-in result artifacts.

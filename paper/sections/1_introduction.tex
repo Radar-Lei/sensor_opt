@@ -24,23 +24,13 @@ Third, we develop TRACE-BiOpt as a deterministic single-objective solver with sc
 Fourth, we give a theory package for the method: MAP closed form and stability, posterior trace as Bayes squared reconstruction risk, a formal CVaR tail-risk interpretation, uniform validation generalization over all size-$k$ layouts, and a computable exchange-stationarity certificate for the deterministic design solver.
 Fifth, we provide a ten-seed experimental evaluation across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets. TRACE-BiOpt achieves the lowest mean GLS/MAP MAE against the best pre-registered non-BiOpt baseline in all nine dataset-budget regimes; Holm-corrected one-sided paired tests across all 189 comparisons leave no statistically tied or significantly better challenger, and a bounded exact benchmark shows 27/27 exact hits on deterministic 16-node induced subnetworks under row-wise parameters. All claims are explicitly scoped to the tested baselines and regimes.
 
-Table~\ref{tab:trace-biopt-contribution-stack} compresses the contribution
-stack that this paper asks a TR-B reader to evaluate: the formulation is a
-bilevel recoverability-driven design problem, the algorithm is a
-single-objective deterministic solver, the theory package is scoped but
-nontrivial, and the empirical results are row-wise strongest-baseline,
-split-paired, and bounded-exact on deterministic subnetworks.
+The contribution stack that this paper asks a TR-B reader to evaluate is as follows: the formulation is a bilevel recoverability-driven design problem, the algorithm is a single-objective deterministic solver, the theory package is scoped but nontrivial, and the empirical results are row-wise strongest-baseline, split-paired, and bounded-exact on deterministic subnetworks.
 
-\input{tables/table_trace_biopt_contribution_stack}
+% Contribution stack table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
-Table~\ref{tab:trace-biopt-reader-guide} clarifies the same story from a
-reviewer's perspective. It answers the four questions that most directly
-separate a TR-B network-design contribution from a layout benchmark: is
-TRACE-BiOpt one method or a selector, does it beat the row-wise strongest
-pre-registered baseline, how far does the solver guarantee go, and what
-remains explicitly bounded.
+The same story can be stated from a reviewer's perspective by answering the four questions that most directly separate a TR-B network-design contribution from a layout benchmark: is TRACE-BiOpt one method or a selector, does it beat the row-wise strongest pre-registered baseline, how far does the solver guarantee go, and what remains explicitly bounded.
 
-\input{tables/table_trace_biopt_reader_guide}
+% Reader guide table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 \input{tables/table_trace_biopt_dominance}
 

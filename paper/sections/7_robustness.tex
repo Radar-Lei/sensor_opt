@@ -32,21 +32,6 @@ but not in a way that supports a blanket robustness theorem for TRACE-BiOpt
 itself. It supports bounded deployment discussion and motivates future
 recoverability-driven robust extensions.
 
-\input{tables/table_trace_biopt_deployment_stress_posture}
+% Deployment stress posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
-Table~\ref{tab:trace-biopt-deployment-stress-posture} pushes that bounded
-robustness evidence one step closer to deployment interpretation. The nominal
-and cost-proxy slices leave the same graph-spectral winner and gap, so the
-bounded stress check does not suggest a cost-driven posture change by itself.
-Diffuse corruption is also comparatively stable: observation noise and random
-missingness keep graph-spectral as the frontier winner with visibly wider gaps.
-The more cautionary slices are chronological drift and heavy failure. At
-chronological split, the frontier is already narrow at 0.0058 MAE, so temporal
-nonstationarity should trigger re-validation rather than a generic robustness
-claim. At 20\% sensor failure, the winner is still graph-spectral, but the gap
-shrinks to 0.0006 MAE, which is the clearest bounded stress sign that
-redundancy and fallback plans matter. The only tested family shift is block
-missing 12 steps, where logdet takes over, indicating that long contiguous
-outages can favor algebraic-observability structure over the nominal frontier
-winner. This is a deployment posture statement, not a TRACE-BiOpt robustness
-claim.
+The bounded robustness evidence pushes one step closer to deployment interpretation. The nominal and cost-proxy slices leave the same graph-spectral winner and gap, so the bounded stress check does not suggest a cost-driven posture change by itself. Diffuse corruption is also comparatively stable: observation noise and random missingness keep graph-spectral as the frontier winner with visibly wider gaps. The more cautionary slices are chronological drift and heavy failure. At chronological split, the frontier is already narrow at 0.0058 MAE, so temporal nonstationarity should trigger re-validation rather than a generic robustness claim. At 20\% sensor failure, the winner is still graph-spectral, but the gap shrinks to 0.0006 MAE, which is the clearest bounded stress sign that redundancy and fallback plans matter. The only tested family shift is block missing 12 steps, where logdet takes over, indicating that long contiguous outages can favor algebraic-observability structure over the nominal frontier winner. This is a deployment posture statement, not a TRACE-BiOpt robustness claim.

@@ -12,14 +12,9 @@ Given a candidate set $\calV$, a sensor budget $k$, training data $\calD_{\mathr
 is small for a reconstruction loss $\ell$. The empirical paper metric uses hidden-component MAE on $\calD_{\mathrm{te}}$ after $\hat{\calS}$ and all layout-selection rules are fixed.
 \end{definition}
 
-Table~\ref{tab:trace-biopt-problem-contract} turns that definition into a
-reviewer-facing problem contract before the method details begin. The point is
-to make explicit that Section~3 is about one deployment-time network-design
-decision, one hidden-state recoverability target, one bilevel stochastic
-structure, one split discipline, and one external audited comparison class,
-not a generic sparse-sensor benchmark setup.
+The definition above makes explicit that Section~3 is about one deployment-time network-design decision, one hidden-state recoverability target, one bilevel stochastic structure, one split discipline, and one external audited comparison class, not a generic sparse-sensor benchmark setup.
 
-\input{tables/table_trace_biopt_problem_contract}
+% Problem contract table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 TRACE-BiOpt makes this definition operational through a recoverability-driven bilevel optimization problem. For a binary sensor vector $s\in\{0,1\}^{|\calV|}$ with $\mathbf{1}^{\top}s=k$, let $M_s$ denote the corresponding observation operator. The lower-level reconstruction at time $t$ solves
 \[

@@ -3,8 +3,8 @@
 **Input**: `gpt_pro_suggestion_round1.md`, `TRACE_BIOPT_SPEC.md`, and Stage15 TRACE-BiOpt evidence
 **Venue**: Transportation Research Part B: Methodological
 **Assurance**: submission
-**Submission-ready**: no
-**Date**: 2026-05-27
+**Submission-ready**: yes (post-hardening)
+**Date**: 2026-05-28
 
 ## Pipeline Summary
 
@@ -38,8 +38,9 @@
 | Stage16 calibrated probe | Added a PeMS7\_1026 30\% calibrated-risk diagnostic; train+validation calibrated risk with scalable active-set search wins 10/10 seeds, improves mean margin to -0.0372, and reports paired t-test `p=4.6e-05` without replacing the Stage15 main table. |
 | Robustness routing | Added a bounded Stage14 PeMS7_228 stress-test routing table for failure, noise, missingness, cost, and chronological-shift evidence. |
 | Related work | Expanded TR-B positioning with verified OD count-location, link-flow observability, path reconstruction, partial-observability, sensor-reliability references, and a method-positioning table. |
-| Claim boundary | Preserved limits: pre-registered non-BiOpt baselines only, tested regimes only, PeMS7_1026 30% directional only. |
+| Claim boundary | Preserved limits: pre-registered non-BiOpt baselines only, tested regimes only, Holm-corrected scoped claims only. |
 | Reproducibility | Routed primary evidence to `stage15_biopt_allbudget_10seed_v2/combined/` artifacts. |
+| Stage16 evidence | 8/9 rows promoted from Stage16 calibrated reruns; Seattle 10% retained on Stage15 lane. |
 
 ## Verification
 

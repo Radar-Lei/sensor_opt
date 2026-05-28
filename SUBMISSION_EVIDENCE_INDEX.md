@@ -8,7 +8,7 @@ to the repository.
 
 Aggregate evidence status: **supported_submission_ready**
 Contract version: `trace_biopt_claim_contract_v1`
-Last refreshed: 2025-05-28
+Last refreshed: 2026-05-28
 
 ---
 
