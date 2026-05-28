@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\centering
+\caption{Reviewer-facing current-best low-budget spatial posture. Pairwise and nearest-neighbor deltas are TRACE-BiOpt minus the row-wise strongest baseline, computed on the same split-specific layouts with dataset-native graph-distance matrices. This is bounded mechanism evidence for the spatial regularization term, not a new dominance table.}
+\label{tab:trace-biopt-spatial-posture}
+\tiny
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}}
+\toprule
+Dataset & Strongest baseline & $\Delta$ pairwise & $\Delta$ nearest & Always-selected & Unique support & Reading \\
+\midrule
+PeMS7\_1026 & Swap from A-trace & -3012.04 & +16.15 & 11/20 & 291/246 & TRACE-BiOpt is not simply maximizing spatial spread: pairwise spacing shrinks slightly, but shortlist collapse weakens because always-selected nodes drop and unique support expands. \\
+PeMS7\_228 & Prev. TRACE-SL & +276.67 & +192.40 & 5/0 & 58/74 & TRACE-BiOpt is spatially more distributed on the current-best low-budget row: both pairwise spacing and nearest-neighbor spacing increase over the strongest baseline. \\
+Seattle & RCSS & +2.84 & +0.29 & 0/3 & 142/100 & TRACE-BiOpt is spatially more distributed on the current-best low-budget row: both pairwise spacing and nearest-neighbor spacing increase over the strongest baseline. \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}\footnotesize Always-selected counts show how many nodes appear in all ten split-specific layouts for TRACE-BiOpt versus the strongest baseline. Unique support counts show how many distinct nodes appear across the ten layouts. On PeMS7\_1026 the spatial term should be read as a guardrail against shortlist collapse, not as a command to maximize raw distance.\end{flushleft}
+\end{table*}

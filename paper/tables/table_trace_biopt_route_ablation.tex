@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\caption{Reviewer-facing TRACE-BiOpt route-ablation slices. Unlike the legacy TRACE-SL component table, these rows stay inside the current TRACE-BiOpt objective family and ask which route ingredient is being removed or weakened on the rows that mattered most to the final claim chain.}
+\label{tab:trace-biopt-route-ablation}
+\tiny
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\centering\arraybackslash}p{0.07\textwidth}>{\centering\arraybackslash}p{0.07\textwidth}>{\centering\arraybackslash}p{0.07\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}}
+\toprule
+Case & Intervention family & Current route & Ablated route & What changes & Current MAE & Ablated MAE & $\Delta$ MAE & Reading \\
+\midrule
+PeMS7\_228 10\% & Risk calibration + lighter certificate weights & Calibrated low-cert & Stage15 certified & train+val risk, (0.50,0.01,0.00), full-search 192 vs val risk, (2.00,0.05,0.01), Stage15 active-set & 3.248 & 3.377 & 0.129 & The mixed low-budget row is resolved inside the same TRACE-BiOpt family by calibrating upper-level risk, lowering cert weights, and completing full exchange. \\
+PeMS7\_228 10\% & Certificate family removal & Calibrated low-cert & Zero-weight probe & same split, but (0,0,0) under strong-search 96 & 3.248 & 3.417 & 0.169 & The promoted row is not explained by dropping certificates entirely; the zero-weight strong-search route is still worse. \\
+Seattle 20\% & Certificate family removal & Seattle diagnostic certified & Zero-weight probe & remove posterior/CVaR/spatial terms under strong-search 96 & 2.674 & 2.710 & 0.036 & Stable Seattle diagnostic slices still benefit from the certificate-weighted objective even when search is already strong. \\
+Seattle 30\% & Certificate family removal & Seattle diagnostic certified & Zero-weight probe & remove posterior/CVaR/spatial terms under strong-search 96 & 2.488 & 2.520 & 0.032 & The stable high-budget Seattle diagnostic slice keeps the same sign: strong search alone does not recover the certificate-weighted route. \\
+PeMS7\_1026 30\% & Risk calibration + stronger search tail & Calibrated rerun & Stage15 default & train+val risk, low-cert rerun, stronger active-set exchange vs original Stage15 route & 3.037 & 3.071 & 0.035 & The large-network weak row tightens inside the same objective family rather than by switching to another baseline family. \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}\footnotesize $\Delta$ MAE is the held-out penalty of the ablated route relative to the reference TRACE-BiOpt route listed in the table, so positive values favor that reference route. The Seattle rows are bounded same-split diagnostic slices built from the matched strong-search probes already used in the certificate-removal and weight-sensitivity tables; they do not replace the ten-seed current-best evidence chain. The PeMS7\_228 and PeMS7\_1026 rows use the completed calibrated reruns that now feed the current-best evidence chain. This is bounded route-ablation evidence, not a new dominance table.\end{flushleft}
+\end{table*}

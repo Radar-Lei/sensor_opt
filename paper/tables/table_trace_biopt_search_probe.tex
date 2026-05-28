@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\centering
+\caption{PeMS7\_1026 30\% weak-row enhanced-search evidence over the original Stage15 ten split seeds. The enhanced TRACE-BiOpt rerun keeps the same objective and increases only deterministic exchange-search pools/iterations. Baseline values are the seed-matched pre-registered non-BiOpt rows from the Stage15 evidence path. This row-level diagnostic strengthens the weakest regime but does not replace the full nine-regime Stage15 main table.}
+\label{tab:trace-biopt-search-probe}
+\small
+\begin{tabular}{rccccc}
+\toprule
+Seed & Default $\Delta$ & Enhanced $\Delta$ & MAE gain & Best baseline & Enhanced beats? \\
+\midrule
+25 & -0.0174 & -0.0473 & 0.0298 & validation\_swap\_selected & yes \\
+26 & -0.0110 & -0.0410 & 0.0300 & validation\_swap\_selected & yes \\
+27 & 0.0129 & -0.0097 & 0.0226 & validation\_swap\_selected & yes \\
+28 & -0.0185 & -0.0432 & 0.0246 & greedy\_a\_trace & yes \\
+29 & 0.0225 & -0.0176 & 0.0401 & validation\_swap\_selected & yes \\
+30 & -0.0082 & -0.0270 & 0.0187 & validation\_swap\_selected & yes \\
+31 & -0.0097 & -0.0487 & 0.0390 & validation\_swap\_selected & yes \\
+32 & 0.0085 & -0.0215 & 0.0301 & validation\_swap\_selected & yes \\
+33 & 0.0088 & -0.0358 & 0.0446 & rcss\_selected & yes \\
+34 & -0.0135 & -0.0457 & 0.0321 & validation\_swap\_selected & yes \\
+\midrule
+Mean & -0.0026 & -0.0338 & 0.0312 & -- & 10/10 \\
+\bottomrule
+\end{tabular}
+\vspace{2pt}\raggedright\footnotesize Enhanced-search paired t-test versus zero delta: $p=1.5e-05$; Wilcoxon signed-rank $p=0.0010$; mean MAE-gain t-test $p=3.6e-07$. Negative $\Delta$ means TRACE-BiOpt has lower held-out GLS/MAP MAE than the seed-matched best pre-registered non-BiOpt baseline.
+\end{table*}

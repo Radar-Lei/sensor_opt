@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{Current-best MAP stability posture against the row-wise strongest baseline.}
+\label{tab:trace-biopt-map-stability}
+\footnotesize
+\begin{tabularx}{\textwidth}{lccccc>{\raggedright\arraybackslash}X}
+\toprule
+Dataset & Budget & MAE gap & Cond. ratio & Lower-cond wins & Trace cond. max & Reading \\
+\midrule
+PeMS7\_1026 & 10\% & -0.130 & 0.78$\times$ & 10/10 & 7026 & Promoted rerun improves MAE while lowering the lower-level condition number on every split. \\
+PeMS7\_1026 & 20\% & -0.124 & 0.77$\times$ & 10/10 & 3827 & Promoted rerun improves MAE while lowering the lower-level condition number on every split. \\
+PeMS7\_1026 & 30\% & -0.038 & 0.86$\times$ & 10/10 & 2629 & Promoted rerun improves MAE while lowering the lower-level condition number on every split. \\
+PeMS7\_228 & 10\% & -0.142 & 0.84$\times$ & 10/10 & 1413 & Promoted rerun improves MAE while lowering the lower-level condition number on every split. \\
+PeMS7\_228 & 20\% & -0.276 & 0.69$\times$ & 10/10 & 780 & Promoted rerun improves MAE while lowering the lower-level condition number on every split. \\
+PeMS7\_228 & 30\% & -0.336 & 0.73$\times$ & 10/10 & 536 & Promoted rerun improves MAE while lowering the lower-level condition number on every split. \\
+Seattle & 10\% & -0.056 & 1.29$\times$ & 0/10 & 725 & MAE gains coexist with a modestly higher condition number, so the stability theorem should be read as finite/invertible rather than as a monotone conditioning guarantee. \\
+Seattle & 20\% & -0.083 & 1.22$\times$ & 1/10 & 541 & MAE gains coexist with a modestly higher condition number, so the stability theorem should be read as finite/invertible rather than as a monotone conditioning guarantee. \\
+Seattle & 30\% & -0.095 & 1.41$\times$ & 1/10 & 451 & MAE gains coexist with a modestly higher condition number, so the stability theorem should be read as finite/invertible rather than as a monotone conditioning guarantee. \\
+\bottomrule
+\end{tabularx}
+\begin{flushleft}\footnotesize MAE gap is TRACE-BiOpt minus the row-wise strongest baseline, so negative values favor TRACE-BiOpt. Cond. ratio is the mean TRACE-BiOpt lower-level GLS/MAP condition number divided by the strongest baseline's mean condition number over the ten split-specific runs. This table is a bounded theorem-to-evidence bridge for Theorem~\ref{thm:map-stability}: it shows whether current-best gains coincide with milder or harsher linear-system conditioning, not a new dominance claim.\end{flushleft}
+\end{table*}

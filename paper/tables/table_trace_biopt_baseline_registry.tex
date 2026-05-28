@@ -1,0 +1,34 @@
+\begin{table*}[t]
+\centering
+\caption{Pre-registered non-BiOpt baseline registry used by the Stage15 dominance gate.}
+\label{tab:trace-biopt-baseline-registry}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}>{\centering\arraybackslash}p{0.12\textwidth}>{\centering\arraybackslash}X}
+\toprule
+Baseline row & Category & Registry & Best rows \\
+\midrule
+best\_random\_by\_trace & Random / validation-selected & yes & 0 \\
+best\_random\_by\_validation & Random / validation-selected & yes & 0 \\
+coverage & Coverage / observability & yes & 0 \\
+degree & Graph heuristic & yes & 0 \\
+graph\_sampling\_laplacian & Graph signal processing & yes & 0 \\
+greedy\_a\_trace & Optimal-design surrogate & yes & 0 \\
+greedy\_d\_logdet & Optimal-design surrogate & yes & 0 \\
+multistart\_swap\_by\_validation & Prior TRACE-SL / RCSS & yes & 0 \\
+observability\_proxy & Coverage / observability & yes & 0 \\
+qr\_pod\_modes & Sparse modal placement & yes & 0 \\
+random & Random / validation-selected & yes & 0 \\
+rcss\_selected & Prior TRACE-SL / RCSS & yes & 1 \\
+robust\_coverage\_cvar & Robust coverage & yes & 0 \\
+scenario\_average\_a\_trace & Scenario-risk surrogate & yes & 0 \\
+scenario\_cvar\_a\_trace & Scenario-risk surrogate & yes & 0 \\
+swap\_from\_best\_random\_trace & Exchange-refined baseline & yes & 0 \\
+swap\_from\_greedy\_a\_trace & Exchange-refined baseline & yes & 1 \\
+swap\_from\_scenario\_average & Exchange-refined baseline & yes & 0 \\
+swap\_from\_scenario\_cvar & Exchange-refined baseline & yes & 0 \\
+top\_variance & Simple traffic heuristic & yes & 0 \\
+validation\_swap\_selected & Prior TRACE-SL / RCSS & yes & 7 \\
+\bottomrule
+\end{tabularx}
+\begin{flushleft}\footnotesize Registry contains 21 non-BiOpt baselines across categories: Coverage / observability: 2; Exchange-refined baseline: 4; Graph heuristic: 1; Graph signal processing: 1; Optimal-design surrogate: 2; Prior TRACE-SL / RCSS: 3; Random / validation-selected: 3; Robust coverage: 1; Scenario-risk surrogate: 2; Simple traffic heuristic: 1; Sparse modal placement: 1. Best rows count how many of the nine dataset-budget regimes use that baseline as the row-specific strongest comparator in Table~\ref{tab:trace-biopt-dominance}.\end{flushleft}
+\end{table*}

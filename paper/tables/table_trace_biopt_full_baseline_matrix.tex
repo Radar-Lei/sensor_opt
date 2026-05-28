@@ -1,0 +1,90 @@
+\begin{table*}[p]
+\centering
+\caption{Current-best full baseline matrix. Each panel lists TRACE-BiOpt and all 21 pre-registered non-BiOpt baselines for one dataset. Entries are mean held-out GLS/MAP MAE with within-row rank in brackets; lower is better. TRACE-BiOpt ranks first on every dataset-budget row, so the best-baseline dominance table is a compression of a full matrix rather than a selective comparison.}
+\label{tab:trace-biopt-full-baseline-matrix}
+\tiny
+\renewcommand{\arraystretch}{0.92}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.29\textwidth}>{\centering\arraybackslash}p{0.15\textwidth}>{\centering\arraybackslash}p{0.15\textwidth}>{\centering\arraybackslash}p{0.15\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}}
+\toprule
+Method & 10\% & 20\% & 30\% & Avg. rank \\
+\multicolumn{5}{l}{\textbf{PeMS7\_1026}} \\
+\midrule
+\textbf{trace\_biopt} & \textbf{3.6047 [1]} & \textbf{3.2231 [1]} & \textbf{3.0365 [1]} & 1.00 \\
+swap\_from\_greedy\_a\_trace & 3.7343 [2] & 3.3487 [4] & 3.0841 [3] & 3.00 \\
+validation\_swap\_selected & 3.7479 [5] & 3.3467 [2] & 3.0740 [2] & 3.00 \\
+rcss\_selected & 3.7394 [4] & 3.3476 [3] & 3.0856 [4] & 3.67 \\
+greedy\_a\_trace & 3.7390 [3] & 3.3510 [5] & 3.0955 [5] & 4.33 \\
+multistart\_swap\_by\_validation & 3.7686 [6] & 3.4632 [6] & 3.2450 [7] & 6.33 \\
+swap\_from\_best\_random\_trace & 3.8118 [8] & 3.5159 [8] & 3.2549 [8] & 8.00 \\
+swap\_from\_scenario\_cvar & 3.8090 [7] & 3.5031 [7] & 3.3074 [10] & 8.00 \\
+swap\_from\_scenario\_average & 3.8449 [9] & 3.5240 [9] & 3.2737 [9] & 9.00 \\
+best\_random\_by\_validation & 3.8992 [10] & 3.5880 [12] & 3.3558 [11] & 11.00 \\
+qr\_pod\_modes & 4.0854 [18] & 3.5449 [10] & 3.1683 [6] & 11.33 \\
+best\_random\_by\_trace & 3.9065 [11] & 3.6107 [13] & 3.3672 [12] & 12.00 \\
+robust\_coverage\_cvar & 3.9086 [12] & 3.5802 [11] & 3.3783 [13] & 12.00 \\
+random & 3.9400 [13] & 3.6310 [16] & 3.4224 [14] & 14.33 \\
+scenario\_cvar\_a\_trace & 3.9475 [14] & 3.6298 [15] & 3.4513 [18] & 15.67 \\
+coverage & 3.9617 [15] & 3.6198 [14] & 3.4665 [19] & 16.00 \\
+scenario\_average\_a\_trace & 4.0031 [16] & 3.6581 [17] & 3.4261 [15] & 16.00 \\
+top\_variance & 4.0257 [17] & 3.7242 [18] & 3.4299 [16] & 17.00 \\
+greedy\_d\_logdet & 4.4975 [21] & 3.8668 [19] & 3.4467 [17] & 19.00 \\
+observability\_proxy & 4.4837 [19] & 4.3478 [20] & 4.1827 [20] & 19.67 \\
+degree & 4.4932 [20] & 4.3639 [21] & 4.2120 [21] & 20.67 \\
+graph\_sampling\_laplacian & 4.8535 [22] & 4.5612 [22] & 4.4748 [22] & 22.00 \\
+\midrule
+\midrule
+\multicolumn{5}{l}{\textbf{PeMS7\_228}} \\
+\midrule
+\textbf{trace\_biopt} & \textbf{3.4533 [1]} & \textbf{3.0436 [1]} & \textbf{2.7414 [1]} & 1.00 \\
+validation\_swap\_selected & 3.5957 [2] & 3.3198 [2] & 3.0773 [2] & 2.00 \\
+rcss\_selected & 3.5959 [3] & 3.3923 [4] & 3.1573 [3] & 3.33 \\
+multistart\_swap\_by\_validation & 3.6068 [4] & 3.3887 [3] & 3.2372 [5] & 4.00 \\
+robust\_coverage\_cvar & 3.6739 [9] & 3.4398 [6] & 3.2934 [7] & 7.33 \\
+top\_variance & 3.7304 [14] & 3.4276 [5] & 3.2004 [4] & 7.67 \\
+swap\_from\_scenario\_average & 3.6081 [5] & 3.4517 [10] & 3.3265 [9] & 8.00 \\
+swap\_from\_scenario\_cvar & 3.6315 [8] & 3.4467 [7] & 3.3342 [10] & 8.33 \\
+swap\_from\_best\_random\_trace & 3.6211 [7] & 3.4496 [8] & 3.3381 [12] & 9.00 \\
+swap\_from\_greedy\_a\_trace & 3.6185 [6] & 3.4505 [9] & 3.3494 [13] & 9.33 \\
+best\_random\_by\_validation & 3.7233 [13] & 3.4555 [11] & 3.2446 [6] & 10.00 \\
+scenario\_cvar\_a\_trace & 3.6874 [11] & 3.4680 [13] & 3.3260 [8] & 10.67 \\
+greedy\_a\_trace & 3.6860 [10] & 3.4654 [12] & 3.3506 [14] & 12.00 \\
+scenario\_average\_a\_trace & 3.6889 [12] & 3.5030 [14] & 3.3349 [11] & 12.33 \\
+best\_random\_by\_trace & 3.8209 [15] & 3.5305 [15] & 3.3633 [15] & 15.00 \\
+random & 3.8320 [16] & 3.5625 [16] & 3.4029 [17] & 16.33 \\
+coverage & 3.9174 [17] & 3.6482 [17] & 3.3778 [16] & 16.67 \\
+qr\_pod\_modes & 3.9769 [18] & 3.7840 [18] & 3.4465 [18] & 18.00 \\
+graph\_sampling\_laplacian & 4.1329 [20] & 3.9917 [20] & 3.8048 [19] & 19.67 \\
+observability\_proxy & 4.0013 [19] & 3.9236 [19] & 3.8872 [21] & 19.67 \\
+degree & 4.1466 [21] & 4.1111 [21] & 3.9762 [22] & 21.33 \\
+greedy\_d\_logdet & 4.5554 [22] & 4.1782 [22] & 3.8793 [20] & 21.33 \\
+\midrule
+\midrule
+\multicolumn{5}{l}{\textbf{Seattle}} \\
+\midrule
+\textbf{trace\_biopt} & \textbf{3.0416 [1]} & \textbf{2.7330 [1]} & \textbf{2.5144 [1]} & 1.00 \\
+rcss\_selected & 3.0973 [2] & 2.8416 [3] & 2.6561 [3] & 2.67 \\
+validation\_swap\_selected & 3.1025 [4] & 2.8157 [2] & 2.6096 [2] & 2.67 \\
+multistart\_swap\_by\_validation & 3.0973 [3] & 2.8909 [4] & 2.7329 [5] & 4.00 \\
+swap\_from\_greedy\_a\_trace & 3.1125 [5] & 2.9052 [7] & 2.7574 [6] & 6.00 \\
+greedy\_a\_trace & 3.1231 [7] & 2.9040 [6] & 2.7754 [7] & 6.67 \\
+coverage & 3.2811 [13] & 2.8964 [5] & 2.6923 [4] & 7.33 \\
+swap\_from\_scenario\_average & 3.1161 [6] & 2.9433 [9] & 2.7763 [8] & 7.67 \\
+swap\_from\_scenario\_cvar & 3.1485 [9] & 2.9387 [8] & 2.7820 [9] & 8.67 \\
+swap\_from\_best\_random\_trace & 3.1256 [8] & 2.9455 [10] & 2.7905 [11] & 9.67 \\
+best\_random\_by\_validation & 3.2268 [10] & 2.9461 [11] & 2.7835 [10] & 10.33 \\
+best\_random\_by\_trace & 3.2843 [14] & 3.0037 [12] & 2.8533 [14] & 13.33 \\
+robust\_coverage\_cvar & 3.2627 [12] & 3.0085 [13] & 2.8535 [15] & 13.33 \\
+qr\_pod\_modes & 3.4651 [17] & 3.0664 [15] & 2.8067 [12] & 14.67 \\
+scenario\_average\_a\_trace & 3.2442 [11] & 3.0949 [16] & 2.9356 [17] & 14.67 \\
+random & 3.3390 [16] & 3.0263 [14] & 2.8632 [16] & 15.33 \\
+top\_variance & 3.5508 [18] & 3.1014 [17] & 2.8340 [13] & 16.00 \\
+scenario\_cvar\_a\_trace & 3.3003 [15] & 3.1038 [18] & 2.9521 [18] & 17.00 \\
+observability\_proxy & 3.5728 [19] & 3.4272 [19] & 3.4103 [20] & 19.33 \\
+greedy\_d\_logdet & 3.8660 [21] & 3.5143 [20] & 3.2047 [19] & 20.00 \\
+degree & 3.6206 [20] & 3.5418 [21] & 3.4175 [21] & 20.67 \\
+graph\_sampling\_laplacian & 3.9385 [22] & 3.7603 [22] & 3.5711 [22] & 22.00 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}\footnotesize The non-TRACE-BiOpt rows come from the audited Stage15 baseline summary. The TRACE-BiOpt row uses the current-best promoted mean where a complete replaceable Stage16 rerun exists and otherwise retains the Stage15 mean.\end{flushleft}
+\renewcommand{\arraystretch}{1.0}
+\end{table*}

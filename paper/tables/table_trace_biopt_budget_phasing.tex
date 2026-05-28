@@ -1,0 +1,16 @@
+\begin{table*}[t]
+\centering
+\caption{Current-best TRACE-BiOpt budget-phasing posture. Each row turns the 10\%, 20\%, and 30\% current-best curves into a staged deployment readout rather than another dominance table.}
+\label{tab:trace-biopt-budget-phasing}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Dataset & TRACE-BiOpt MAE path & TRACE-BiOpt marginal gain & Margin path vs strongest baseline & Deployment readout \\
+\midrule
+PeMS7\_1026 & 3.605 -> 3.223 -> 3.037 & 10->20: 0.382; 20->30: 0.187; first-step share: 67\% & 0.130 -> 0.124 -> 0.038 & The first 10-point increment captures 67\% of the total 10-30\% TRACE-BiOpt gain, but the strongest-baseline margin still contracts at 30\% (0.130 -> 0.124 -> 0.038), so extra budget still needs calibrated search scaling. \\
+PeMS7\_228 & 3.453 -> 3.044 -> 2.741 & 10->20: 0.410; 20->30: 0.302; first-step share: 58\% & 0.142 -> 0.276 -> 0.336 & The first increment captures 58\% of the total gain, and the strongest-baseline margin keeps widening (0.142 -> 0.276 -> 0.336), so added sensors keep paying in both absolute and relative recoverability. \\
+Seattle & 3.042 -> 2.733 -> 2.514 & 10->20: 0.309; 20->30: 0.219; first-step share: 59\% & 0.056 -> 0.083 -> 0.095 & The first increment captures 59\% of the total gain and the strongest-baseline margin widens monotonically (0.056 -> 0.083 -> 0.095), making staged rollout the cleanest on Seattle. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

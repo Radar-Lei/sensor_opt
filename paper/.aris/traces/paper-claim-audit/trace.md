@@ -1,3 +1,3 @@
 # paper-claim-audit trace
 
-Paper-visible tables and primary numeric claims are generated from paper-source CSV artifacts.
+Fresh machine paper-claim audit verified table, narrative, row-count, seed-count, best-baseline, and caveat claims against the current-best hybrid evidence chain.

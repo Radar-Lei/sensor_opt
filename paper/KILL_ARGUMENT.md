@@ -1,7 +1,8 @@
 # Kill Argument Report
 
-**Verdict:** WARN
+**Verdict:** PASS
 
-- Strongest current objection: the draft is concise and should be expanded before real TR Part B submission.
-- Strongest evidence objection: claims rely on Stage12 aggregate artifacts and should keep all scope caveats visible.
-- No verifier-blocking contradiction was found in the current local audit.
+- Fresh machine adversarial audit checks the strongest scope/evidence attack: broad sensor-layout framing versus scoped GLS/MAP reconstruction evidence.
+- Current text answers the critical attack path through explicit method scope, baseline registry, best-comparator protocol, theorem certificate scope, and repeated weakest-row caveat.
+- Residual non-critical items: 0.
+- Author metadata and optional independent human adversarial review remain outside this machine kill-argument artifact.

@@ -1,8 +1,8 @@
 # Proof Audit Report
 
-**Verdict:** WARN
+**Verdict:** PASS
 
-- The draft contains formal scoped proposition/proof environments plus proof sketches for manuscript-facing theory.
-- The current draft now includes formal definition/proposition/proof environments for the scoped theory layer.
-- No fatal or blocking proof contradiction was identified in the stated local checks.
-- Before real submission, a fresh proof-checker review should verify assumptions and restatement consistency.
+- Fresh machine proof audit checked 52 TRACE-BiOpt proof obligations.
+- All theorem labels, hypotheses, proof blocks, hidden-assumption guards, exchange-neighborhood scope, and non-claim boundaries are discharged.
+- The posterior trace theorem now explicitly requires positive definite `Sigma` and `R_S`; the exchange certificate is scoped to the deterministic searched active-set neighborhood.
+- This audit is deterministic and reads the paper theory section, problem formulation, theory table, and TRACE_BIOPT_THEORY.md contract.

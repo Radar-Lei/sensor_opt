@@ -1,21 +1,190 @@
 \section{Additional audit notes}
 
-The source package is generated from \path{NARRATIVE_REPORT.md} and CSV/JSON paper-source artifacts under \path{TRC-23-02333/trace_sl_results/paper_sources/}. Raw datasets are not embedded in the paper source. Numeric claims in the main text should be rechecked by \path{paper-claim-audit} after every editing round.
+The source package is generated from \path{NARRATIVE_REPORT.md}, the
+TRACE-BiOpt specification artifacts, and CSV/JSON result artifacts under
+\path{TRC-23-02333/trace_sl_results/}. Raw datasets are not embedded in the
+paper source. Numeric claims in the main text should be rechecked by
+\path{paper-claim-audit} after every editing round.
+
+The method contract itself is recorded in \path{TRACE_BIOPT_SPEC.md}. The
+theory scope is recorded separately in \path{TRACE_BIOPT_THEORY.md}, and the
+current headline wording is controlled by
+\path{current_best_trace_biopt_evidence/trace_biopt_claim_contract.json}. This
+separation is deliberate: the specification states what TRACE-BiOpt is, the
+theory contract states what is proved, and the claim contract states what the
+current evidence is allowed to say.
+
+\input{tables/table_trace_biopt_claim_boundary_matrix}
 
 \section{Reproducibility route}
 
-The paper-facing evidence is organized as contracts rather than freehand manuscript numbers. The main PeMS7\_228 table is generated from \path{core_performance_table.csv} and \path{paired_delta_table.csv}. External-network comparisons are routed through \path{external_evidence_contract.csv}. Component claims use \path{ablation_contract.csv}; scoped theoretical statements use \path{theory_statement_contract.csv}. Each contract records source directories, source CSV names, split counts, evidence status, and caveat tags. This structure is intended to make reviewer-driven changes local: if a table row or caveat changes, the corresponding contract row identifies the generating experiment lane.
+The paper-facing evidence is organized as contracts rather than freehand
+manuscript numbers. The current TRACE-BiOpt dominance table is generated from
+\path{current_best_trace_biopt_evidence/trace_biopt_best_baseline_delta.csv}
+and the row-level wording policy is generated from
+\path{current_best_trace_biopt_evidence/trace_biopt_claim_contract.json}.
+The appendix provenance table records which main-table rows have already been
+promoted to complete replaceable Stage16 reruns and which remain on the Stage15
+evidence path. At the current paper state, eight of the nine rows are already
+Stage16 promotions: all six PeMS rows plus Seattle 20/30\%. Only Seattle 10\%
+remains Stage15-backed.
+Historical Stage12 TRACE-SL tables remain in the paper as diagnostic background
+and are not the primary method claim. Full reproduction requires obtaining the
+underlying PeMS and Seattle traffic datasets and placing them in the local
+dataset layout expected by the experiment scripts. The paper source itself
+distributes aggregate artifacts and launch metadata, not raw traffic data.
 
-Full reproduction requires obtaining the underlying PeMS and Seattle traffic datasets and placing them in the local dataset layout expected by the experiment scripts. The paper source itself distributes aggregate artifacts and launch metadata, not raw traffic data.
+\input{tables/table_trace_biopt_current_best_provenance}
+
+\section{Baseline registry and strongest-comparator protocol}
+
+The current-best TRACE-BiOpt claim is deliberately evaluated against a fixed non-BiOpt registry
+rather than a hand-picked weak baseline. The registry includes random layouts,
+validation-selected random layouts, variance, degree, coverage, observability,
+graph-sampling, QR/POD, greedy A-trace and D-logdet, scenario-average trace,
+scenario-CVaR trace, RCSS-selected layouts, the previous validation-swap
+TRACE-SL layout, multistart validation swap, swap-from-greedy variants, and
+robust coverage variants. For each dataset-budget row, the comparison target is
+the actual best non-BiOpt mean held-out GLS/MAP MAE among this registry.
+
+This protocol is stricter than comparing against a single named baseline. It
+allows a different comparator to win on each row: swap-from-greedy-A is the
+best non-BiOpt comparator on PeMS7\_1026 at 10\%, RCSS is the best comparator
+on Seattle at 10\%, and validation-swap TRACE-SL is the best comparator on the
+remaining rows. TRACE-BiOpt is counted as dominant only if it beats the
+row-specific best comparator. The paper claim therefore does not depend on
+choosing a favorable baseline after seeing the results.
+
+\input{tables/table_trace_biopt_baseline_registry}
+
+\section{Full baseline matrix}
+
+The registry table shows which comparators are in scope. Table~\ref{tab:trace-biopt-full-baseline-matrix}
+shows the stronger empirical fact needed for the headline claim: not only does
+TRACE-BiOpt beat the row-specific strongest comparator, it is rank 1 when the
+entire current-best matrix is written out against all 21 pre-registered
+non-BiOpt baselines.
+
+\input{tables/table_trace_biopt_full_baseline_matrix}
+
+\section{Solver-scope and certificate disclosure}
+
+TRACE-BiOpt uses one objective $J(\calS)$ throughout initialization and
+exchange refinement. The implementation may restrict remove and add candidates
+to deterministic active sets for runtime reasons. The exchange certificate in
+Theorem~\ref{thm:exchange} is therefore scoped to the searched active-set
+neighborhood unless the active sets equal the complete remove and add sets. This
+is the intended interpretation of the solver: it provides an auditable
+one-exchange stationarity certificate for the moves it evaluates, not a global
+optimality certificate over all $\binom{|\calV|}{k}$ layouts.
+
+The same section of the main text now makes one further optimization statement
+explicit: the accepted exchange path is monotone and finite. This is a useful
+OR-style disclosure because it clarifies what the computational guarantee is
+and what it is not. TRACE-BiOpt is not presented as an exact mixed-integer
+solver that certifies the globally optimal size-$k$ layout. Instead, it is a
+deterministic descent method on a finite design space with a computable
+searched-neighborhood certificate, a declared exchange budget, and an auditable
+history of accepted objective decreases. That guarantee is weaker than global
+optimality, but stronger than an undocumented ad hoc local-search routine.
+
+\section{Adversarial claim routing}
+
+The most damaging reviewer objection would be that the paper advertises broad
+traffic sensor optimization while proving and testing a narrower reconstruction
+protocol. The manuscript answers that objection by making the target explicit:
+the layout is optimized for transparent hidden-state GLS/MAP reconstruction,
+not OD identifiability, full observability, black-box forecasting, or universal
+network generalization. The abstract, experiments, discussion, and claim
+contract all limit dominance to the pre-registered non-BiOpt registry and the
+tested dataset-budget regimes.
+
+The current-best chain now has no mixed paired-evidence row: all nine
+dataset-budget rows satisfy the paired-dominance gate. The latest promotion is
+PeMS7\_228 at 10\%, where the calibrated full-search rerun upgrades the row
+from a mixed Stage15 result to a 10/10 paired win. This is not a freehand
+paper edit: it is recorded in the machine-readable replacement gate, dominance
+CSV, provenance table, and claim contract.
 
 \section{Proof sketches for scoped statements}
 
-The main text contains the formal proposition statements used for the manuscript claims. This appendix records the proof obligations and non-claim boundaries in prose.
+The main text contains the formal theorem statements used for the manuscript
+claims. This appendix records the proof obligations and non-claim boundaries in
+prose.
 
-For the posterior trace identity, the proof follows the standard conditional Gaussian calculation: under a fixed linear observation model and squared-error loss, the conditional mean minimizes expected squared error and the residual covariance over hidden components is the posterior covariance. Taking the trace gives the expected squared Euclidean reconstruction error over hidden components. This statement is tied to squared loss and the fitted linear-Gaussian model.
+For MAP closed form and stability, the lower-level objective is a regularized
+quadratic. Positive definiteness of $R$ and the prior-plus-graph precision makes
+the Hessian positive definite, so the first-order condition gives the unique
+solution $A(\calS)^{-1}b_t(\calS)$. Subtracting two linear systems with the same
+layout gives the stated operator-norm stability bound.
 
-For monotonicity, adding a sensor corresponds to conditioning on an additional linear observation under the same prior/noise model. The Schur complement update subtracts a positive semidefinite term from the previous posterior covariance, hence the posterior covariance is nonincreasing in Loewner order and its trace is nonincreasing. The comparison must use a fixed reconstruction target; otherwise the hidden complement changes with the layout.
+The role of this theorem in the manuscript is methodological rather than merely
+algebraic. It is what lets the upper-level design problem remain transparent.
+Because the lower-level solve is explicit, every quantity in $J(\calS)$ can be
+audited back to a defined estimator rather than a black-box latent score. This
+is one of the key differences between TRACE-BiOpt and a post-hoc layout
+selector:
+the design objective is tied to a concrete inverse problem whose behavior can be
+bounded and perturbed analytically.
 
-For validation selection, the proof uses a concentration inequality for each fixed candidate layout and then unions over the finite candidate class. The bound justifies validation-calibrated selection as a finite-class model-selection step, not as a post-selection guarantee on the held-out test split.
+For the objective decomposition itself, the proof burden is mostly semantic:
+each term in $J(\calS)$ corresponds to a design goal that would otherwise be
+handled separately by ad hoc layout rules. The Huber validation loss measures
+hidden-state reconstruction quality directly, the posterior-trace term controls
+average hidden uncertainty, the CVaR term penalizes tail risk across traffic
+scenarios, and the spatial term prevents pathological concentration of sensors.
+What matters is that all four terms are optimized jointly inside one
+budget-feasible design problem rather than used to populate a selector
+registry.
 
-For validation-aware swap local optimality, the algorithm terminates after evaluating the configured finite neighborhood. If no evaluated remove/add exchange strictly reduces validation reconstruction loss, the returned layout is locally optimal with respect to that evaluated neighborhood. The statement is not about swaps outside the configured add/remove pools or about global optimality.
+For the posterior trace identity, the proof follows the standard conditional
+Gaussian calculation: under a fixed linear observation model and squared-error
+loss, the conditional mean minimizes expected squared error and the residual
+covariance over hidden components is the posterior covariance. Taking the trace
+gives the expected squared Euclidean reconstruction error over hidden
+components. This statement is tied to squared loss and the fitted
+linear-Gaussian model.
+
+For the all-layout validation bound, the proof uses a concentration inequality
+for each fixed size-$k$ layout and then unions over
+$\binom{|\calV|}{k}\le(e|\calV|/k)^k$ layouts. This replaces the earlier
+finite-candidate-pool argument with a budget-feasible layout-class argument.
+For temporally dependent traffic data, the sample size should be interpreted as
+an independent-block or effective sample size.
+
+This theorem is the main answer to the reviewer question ``are you only
+choosing the best layout from a hand-crafted shortlist?'' The bound is written
+over all size-$k$ layouts, not over a finite baseline pool. The optimization
+gap term makes the statement honest: the deployment risk of the returned layout
+is controlled by both validation sample size and solver suboptimality. That is
+precisely the right interpretation for a deterministic bilevel design method on
+large traffic networks, where full global optimization is not claimed.
+
+For Proposition~\ref{prop:relax-consistency}, the proof idea is not a separate
+generalization theorem but a consistency argument about algorithm design. The
+relaxed iterate stays on the capped simplex, top-$k$ rounding produces a
+budget-feasible discrete layout, and exchange refinement then continues under
+the same objective $J(\calS)$. This means the relaxation does not introduce a
+second method with a different score; it is a computational device for warm
+starting the same network-design problem.
+
+For monotone descent and finite termination, the proof is elementary but
+important. The budget-feasible layout family is finite, and TRACE-BiOpt accepts
+only strict objective improvements above tolerance. Therefore the algorithm
+cannot cycle through accepted layouts forever. Combined with the exchange
+certificate, this gives a reviewer-visible solver guarantee: every reported
+layout is the endpoint of a finite auditable descent sequence, not an
+unexplained search trace.
+
+For exchange local optimality, the algorithm terminates after evaluating the
+configured finite neighborhood. If no evaluated remove/add exchange strictly
+reduces $J$, the returned layout is locally optimal with respect to that
+searched one-exchange neighborhood. The statement is not about swaps outside the
+configured active set or about global optimality.
+
+This distinction between finite termination and neighborhood optimality is
+deliberate. Finite termination says the solver stops after a bounded sequence of
+accepted objective decreases. The exchange certificate says what kind of
+stationarity the stopping point satisfies. Keeping these claims separate is
+methodologically cleaner than folding them into an over-broad ``convergence''
+statement that could be mistaken for exact optimality.

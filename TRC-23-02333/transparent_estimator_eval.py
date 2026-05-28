@@ -390,6 +390,16 @@ def mae(pred, true):
     return float(np.mean(np.abs(pred - true)))
 
 
+def smooth_l1_mean(pred, true, delta):
+    delta = float(delta)
+    if delta <= 0.0:
+        raise ValueError(f"delta must be positive, got {delta}")
+    error = np.abs(np.asarray(pred, dtype=float) - np.asarray(true, dtype=float))
+    quadratic = np.minimum(error, delta)
+    linear = error - quadratic
+    return float(np.mean(0.5 * quadratic**2 / delta + linear))
+
+
 def historical_mean_predict(tod, test_steps):
     indices = np.arange(test_steps) % SLOTS_PER_DAY
     return tod[indices]
@@ -659,6 +669,30 @@ def hidden_mae_from_base_inverse(base_inverse, sensors, obs_weight, residual, pr
     return abs_error_sum / max(1, value_count)
 
 
+def hidden_huber_from_base_inverse(base_inverse, sensors, obs_weight, residual, prior_z, true_values, hidden, mean, std, delta, chunk_size):
+    sensors = np.asarray(sensors, dtype=int)
+    hidden = np.asarray(hidden, dtype=int)
+    if hidden.size == 0:
+        return 0.0
+    chunk_size = max(1, int(chunk_size))
+    if sensors.size == 0:
+        return smooth_l1_mean(mean[hidden] + std[hidden] * prior_z[:, hidden], true_values[:, hidden], delta)
+    solved_eye = solve_selected_sensor_system(base_inverse, sensors, obs_weight, np.eye(sensors.size))
+    loss_sum = 0.0
+    value_count = 0
+    for start in range(0, hidden.size, chunk_size):
+        chunk = hidden[start : start + chunk_size]
+        chunk_gain = base_inverse[np.ix_(chunk, sensors)] @ solved_eye
+        pred_chunk = mean[chunk] + std[chunk] * (prior_z[:, chunk] + residual @ chunk_gain.T)
+        true_chunk = true_values[:, chunk]
+        error = np.abs(pred_chunk - true_chunk)
+        quadratic = np.minimum(error, delta)
+        linear = error - quadratic
+        loss_sum += float((0.5 * quadratic**2 / delta + linear).sum())
+        value_count += int(true_chunk.size)
+    return loss_sum / max(1, value_count)
+
+
 def posterior_trace_from_base_inverse(base_inverse, sensors, obs_weight, base_trace):
     sensors = np.asarray(sensors, dtype=int)
     if sensors.size == 0:
@@ -800,10 +834,13 @@ def qr_pod_layout(train, sensor_count):
 
 
 def coverage_penalty(distance, sensors):
+    sensors = np.asarray(sensors, dtype=int)
+    if sensors.size == 0:
+        return 1.0
     positive = distance[distance > 0]
     fill_value = float(positive.max()) if positive.size else 1.0
     dist = np.where(distance > 0, distance, fill_value)
-    nearest = np.min(dist[np.asarray(sensors, dtype=int)], axis=0)
+    nearest = np.min(dist[sensors], axis=0)
     return float(np.mean(nearest) / max(fill_value, 1e-6))
 
 
@@ -936,6 +973,456 @@ def validation_mae(test, tod, distance, laplacian, precision, mean, std, sensors
     pred_z, _ = solve_quadratic(observed_z, prior_z, sensors, matrix, args.obs_weight)
     pred = mean + std * pred_z
     return metrics(pred[:, hidden], true_hidden)["mae"]
+
+
+def reconstruction_huber_loss(data, tod, gls_matrix, mean, std, sensors, args, trace_cache=None):
+    n_nodes = data.shape[1]
+    sensors = np.array(sorted(int(x) for x in sensors), dtype=int)
+    hidden = np.array([i for i in range(n_nodes) if i not in set(sensors)], dtype=int)
+    if hidden.size == 0:
+        return 0.0
+    tod_data = historical_mean_predict(tod, data.shape[0])
+    observed_z = (data - mean) / std
+    prior_z = (tod_data - mean) / std
+    if can_use_posterior_cache(args.obs_weight):
+        entry = posterior_base_cache_entry(gls_matrix, trace_cache)
+        if entry is not None:
+            residual = observed_z[:, sensors] - prior_z[:, sensors]
+            return hidden_huber_from_base_inverse(
+                entry["inverse"],
+                sensors,
+                args.obs_weight,
+                residual,
+                prior_z,
+                data,
+                hidden,
+                mean,
+                std,
+                args.trace_biopt_huber_delta,
+                getattr(args, "validation_mae_hidden_chunk_size", 128),
+            )
+    pred_z, _ = solve_quadratic(observed_z, prior_z, sensors, gls_matrix, args.obs_weight)
+    pred = mean + std * pred_z
+    return smooth_l1_mean(pred[:, hidden], data[:, hidden], args.trace_biopt_huber_delta)
+
+
+def trace_biopt_eval_frame(data, tod, args):
+    max_steps = int(getattr(args, "trace_biopt_objective_steps", 0))
+    if max_steps <= 0 or data.shape[0] <= max_steps:
+        return data
+    indices = np.linspace(0, data.shape[0] - 1, num=max_steps, dtype=int)
+    return data[np.unique(indices)]
+
+
+def trace_biopt_calibration_frame(train, val, args):
+    source = getattr(args, "trace_biopt_risk_source", "val")
+    if source == "val":
+        return val
+    if source == "train":
+        return train
+    if source == "train_val":
+        return np.concatenate([train, val], axis=0)
+    raise ValueError(f"Unsupported TRACE-BiOpt risk source: {source}")
+
+
+def trace_biopt_objective(val, tod, distance, mean, std, gls_matrix, scenario_matrices, sensors, args, trace_cache=None):
+    sensors = np.array(sorted(int(x) for x in sensors), dtype=int)
+    n_nodes = gls_matrix.shape[0]
+    eval_val = trace_biopt_eval_frame(val, tod, args)
+    reconstruction = reconstruction_huber_loss(eval_val, tod, gls_matrix, mean, std, sensors, args, trace_cache=trace_cache)
+    posterior_trace = posterior_trace_for_layout(gls_matrix, sensors, args.obs_weight, trace_cache=trace_cache) / max(1, n_nodes)
+    scenario_cvar = scenario_cvar_trace_for_layout(
+        scenario_matrices,
+        sensors,
+        args.obs_weight,
+        args.cvar_tail_fraction,
+        trace_cache=trace_cache,
+    ) / max(1, n_nodes)
+    spatial = coverage_penalty(distance, sensors)
+    objective = (
+        reconstruction
+        + float(args.trace_biopt_beta) * posterior_trace
+        + float(args.trace_biopt_gamma) * scenario_cvar
+        + float(args.trace_biopt_eta) * spatial
+    )
+    return {
+        "objective": float(objective),
+        "reconstruction_huber": float(reconstruction),
+        "posterior_trace_per_node": float(posterior_trace),
+        "scenario_cvar_trace_per_node": float(scenario_cvar),
+        "spatial_penalty": float(spatial),
+        "sensor_count": int(sensors.size),
+    }
+
+
+def project_capped_simplex(values, target_sum):
+    values = np.asarray(values, dtype=float)
+    target_sum = float(target_sum)
+    if target_sum <= 0.0:
+        return np.zeros_like(values)
+    if target_sum >= values.size:
+        return np.ones_like(values)
+
+    lo = float(values.min() - 1.0)
+    hi = float(values.max())
+    for _ in range(80):
+        theta = 0.5 * (lo + hi)
+        projected = np.clip(values - theta, 0.0, 1.0)
+        if projected.sum() > target_sum:
+            lo = theta
+        else:
+            hi = theta
+    projected = np.clip(values - hi, 0.0, 1.0)
+    correction = target_sum - float(projected.sum())
+    if abs(correction) > 1e-10:
+        free = np.where((projected > 1e-12) & (projected < 1.0 - 1e-12))[0]
+        if free.size:
+            projected[free[0]] += correction
+        else:
+            order = np.argsort(-values if correction > 0 else values)
+            for node in order:
+                room = (1.0 - projected[node]) if correction > 0 else projected[node]
+                delta = math.copysign(min(abs(correction), room), correction)
+                projected[node] += delta
+                correction -= delta
+                if abs(correction) <= 1e-10:
+                    break
+    return np.clip(projected, 0.0, 1.0)
+
+
+def trace_biopt_relaxed_objective(val, tod, distance, mean, std, gls_matrix, scenario_matrices, relaxed_s, args):
+    relaxed_s = project_capped_simplex(relaxed_s, np.sum(relaxed_s))
+    n_nodes = gls_matrix.shape[0]
+    eval_val = trace_biopt_eval_frame(val, tod, args)
+    tod_data = historical_mean_predict(tod, eval_val.shape[0])
+    observed_z = (eval_val - mean) / std
+    prior_z = (tod_data - mean) / std
+    all_nodes = np.arange(n_nodes, dtype=int)
+    obs_weights = float(args.obs_weight) * relaxed_s
+    pred_z, _ = solve_quadratic(observed_z, prior_z, all_nodes, gls_matrix, obs_weights)
+    pred = mean + std * pred_z
+
+    error = np.abs(pred - eval_val)
+    delta = float(args.trace_biopt_huber_delta)
+    quadratic = np.minimum(error, delta)
+    linear = error - quadratic
+    loss_by_node = np.mean(0.5 * quadratic**2 / delta + linear, axis=0)
+
+    hidden_weight = 1.0 - relaxed_s
+    hidden_mass = max(float(hidden_weight.sum()), 1e-12)
+    reconstruction = float(np.dot(hidden_weight, loss_by_node) / hidden_mass)
+
+    posterior_inv = linalg.inv(gls_matrix + np.diag(obs_weights))
+    posterior_trace = float(np.dot(hidden_weight, np.diag(posterior_inv)) / hidden_mass)
+    scenario_traces = []
+    for matrix in scenario_matrices:
+        scenario_inv = linalg.inv(matrix + np.diag(obs_weights))
+        scenario_traces.append(float(np.dot(hidden_weight, np.diag(scenario_inv)) / hidden_mass))
+    tail_count = max(1, int(math.ceil(len(scenario_traces) * args.cvar_tail_fraction)))
+    scenario_cvar = float(np.sort(np.asarray(scenario_traces, dtype=float))[-tail_count:].mean())
+    spatial = relaxed_spatial_penalty(distance, relaxed_s)
+
+    objective = (
+        reconstruction
+        + float(args.trace_biopt_beta) * posterior_trace
+        + float(args.trace_biopt_gamma) * scenario_cvar
+        + float(args.trace_biopt_eta) * spatial
+    )
+    return {
+        "relaxed_objective": float(objective),
+        "relaxed_reconstruction_huber": float(reconstruction),
+        "relaxed_posterior_trace_per_hidden_mass": float(posterior_trace),
+        "relaxed_scenario_cvar_trace_per_hidden_mass": float(scenario_cvar),
+        "relaxed_spatial_penalty": float(spatial),
+        "relaxed_sum": float(relaxed_s.sum()),
+    }
+
+
+def relaxed_spatial_penalty(distance, relaxed_s):
+    relaxed_s = np.asarray(relaxed_s, dtype=float)
+    mass = float(relaxed_s.sum())
+    if mass <= 1e-12:
+        return 1.0
+    similarity = make_similarity(distance)
+    np.fill_diagonal(similarity, 0.0)
+    redundancy = float(relaxed_s @ similarity @ relaxed_s) / max(mass * mass, 1e-12)
+    return redundancy
+
+
+def trace_biopt_relaxed_rounding_layout(val, tod, distance, mean, std, gls_matrix, scenario_matrices, sensor_count, args, trace_cache=None, budget=None):
+    n_nodes = gls_matrix.shape[0]
+    if sensor_count == 0:
+        return np.array([], dtype=int), []
+    relaxed = np.full(n_nodes, float(sensor_count) / max(1, n_nodes), dtype=float)
+    max_iter = int(getattr(args, "trace_biopt_relax_iter", 6))
+    step_size = float(getattr(args, "trace_biopt_relax_step", 0.2))
+    fd_eps = float(getattr(args, "trace_biopt_relax_fd_eps", 1e-3))
+    pool_size = int(getattr(args, "trace_biopt_relax_pool", 40))
+    history = []
+
+    def top_relaxed_nodes(scores, limit):
+        nodes = list(range(n_nodes))
+        if limit <= 0 or limit >= n_nodes:
+            return nodes
+        return sorted(nodes, key=lambda node: (-scores[node], node))[:limit]
+
+    for iteration in range(max_iter):
+        terms = trace_biopt_relaxed_objective(val, tod, distance, mean, std, gls_matrix, scenario_matrices, relaxed, args)
+        priorities = trace_biopt_node_priorities(distance, gls_matrix, scenario_matrices, [], args, trace_cache=trace_cache)
+        active_scores = 0.65 * normalize_minmax(relaxed) + 0.35 * normalize_minmax(priorities)
+        active = top_relaxed_nodes(active_scores, pool_size)
+        gradient = np.zeros(n_nodes, dtype=float)
+        base_objective = terms["relaxed_objective"]
+        for node in active:
+            trial = relaxed.copy()
+            trial[node] += fd_eps
+            trial = project_capped_simplex(trial, sensor_count)
+            trial_terms = trace_biopt_relaxed_objective(val, tod, distance, mean, std, gls_matrix, scenario_matrices, trial, args)
+            gradient[node] = (trial_terms["relaxed_objective"] - base_objective) / fd_eps
+        relaxed = project_capped_simplex(relaxed - step_size * gradient / math.sqrt(iteration + 1.0), sensor_count)
+        next_terms = trace_biopt_relaxed_objective(val, tod, distance, mean, std, gls_matrix, scenario_matrices, relaxed, args)
+        history.append(
+            {
+                "stage": "relax",
+                "iteration": iteration + 1,
+                **next_terms,
+                "top_relaxed_nodes": top_relaxed_nodes(relaxed, min(sensor_count, 20)),
+            }
+        )
+        write_progress(
+            args,
+            "trace_biopt_relax_step",
+            budget=budget,
+            iteration=iteration + 1,
+            sensor_count=sensor_count,
+            selected_sensor_count=int(np.count_nonzero(relaxed > 1e-8)),
+            objective=float(next_terms["relaxed_objective"]),
+            initializer="relaxed_rounding",
+        )
+
+    rounded = np.array(top_relaxed_nodes(relaxed, sensor_count), dtype=int)
+    history.append(
+        {
+            "stage": "relaxed_rounding",
+            "iteration": max_iter,
+            "relaxed_sum": float(relaxed.sum()),
+            "sensors": sorted(int(x) for x in rounded),
+        }
+    )
+    return np.array(sorted(int(x) for x in rounded), dtype=int), history
+
+
+def trace_biopt_node_priorities(distance, gls_matrix, scenario_matrices, selected, args, trace_cache=None):
+    n_nodes = gls_matrix.shape[0]
+    entry = posterior_base_cache_entry(gls_matrix, trace_cache)
+    if entry is not None:
+        posterior_diag = np.diag(entry["inverse"])
+    else:
+        posterior_diag = np.diag(linalg.inv(gls_matrix))
+    scenario_diag = np.mean([np.diag(posterior_inverse_for_layout(matrix, [], args.obs_weight, trace_cache=trace_cache)) for matrix in scenario_matrices], axis=0)
+    selected = np.asarray(sorted(int(x) for x in selected), dtype=int)
+    if selected.size == 0:
+        coverage = np.zeros(n_nodes, dtype=float)
+    else:
+        positive = distance[np.isfinite(distance) & (distance > 0)]
+        fill_value = float(positive.max()) if positive.size else 1.0
+        dist = np.where(distance > 0, distance, fill_value)
+        coverage = np.min(dist[selected], axis=0) / max(fill_value, 1e-6)
+    return 0.45 * normalize_minmax(posterior_diag) + 0.35 * normalize_minmax(scenario_diag) + 0.20 * normalize_minmax(coverage)
+
+
+def trace_biopt_layout(val, tod, distance, mean, std, gls_matrix, scenario_matrices, sensor_count, args, trace_cache=None, budget=None):
+    n_nodes = gls_matrix.shape[0]
+    if sensor_count < 0 or sensor_count > n_nodes:
+        raise ValueError(f"sensor_count must be in [0, {n_nodes}], got {sensor_count}")
+    selected = set()
+    history = []
+
+    def score(layout):
+        return trace_biopt_objective(
+            val,
+            tod,
+            distance,
+            mean,
+            std,
+            gls_matrix,
+            scenario_matrices,
+            np.array(sorted(layout), dtype=int),
+            args,
+            trace_cache=trace_cache,
+        )
+
+    def active_nodes(nodes, pool_size):
+        nodes = sorted(int(x) for x in nodes)
+        pool_size = int(pool_size)
+        if pool_size <= 0 or len(nodes) <= pool_size:
+            return nodes
+        priorities = trace_biopt_node_priorities(distance, gls_matrix, scenario_matrices, selected, args, trace_cache=trace_cache)
+        return [node for node in sorted(nodes, key=lambda item: (-priorities[item], item))[:pool_size]]
+
+    initializer = getattr(args, "trace_biopt_initializer", "objective_forward")
+    if initializer == "auto":
+        threshold = int(getattr(args, "trace_biopt_auto_warm_start_threshold", 500))
+        initializer = "objective_forward" if n_nodes <= threshold else "posterior_greedy"
+    if initializer == "relaxed_rounding":
+        rounded, relaxed_history = trace_biopt_relaxed_rounding_layout(
+            val,
+            tod,
+            distance,
+            mean,
+            std,
+            gls_matrix,
+            scenario_matrices,
+            sensor_count,
+            args,
+            trace_cache=trace_cache,
+            budget=budget,
+        )
+        selected = set(int(x) for x in rounded)
+        best_terms = score(selected)
+        history.extend(relaxed_history)
+        history.append(
+            {
+                "stage": "relaxed_warm_start",
+                "iteration": 0,
+                **best_terms,
+                "sensors": sorted(int(x) for x in selected),
+            }
+        )
+        write_progress(
+            args,
+            "trace_biopt_warm_start",
+            budget=budget,
+            iteration=0,
+            sensor_count=sensor_count,
+            selected_sensor_count=len(selected),
+            objective=float(best_terms["objective"]),
+            reconstruction_huber=float(best_terms["reconstruction_huber"]),
+            initializer=initializer,
+        )
+    elif initializer == "posterior_greedy":
+        selected = set(int(x) for x in greedy_posterior_layout(gls_matrix, sensor_count, args.obs_weight, "a_trace"))
+        best_terms = score(selected)
+        history.append(
+            {
+                "stage": "posterior_greedy_warm_start",
+                "iteration": 0,
+                **best_terms,
+                "sensors": sorted(int(x) for x in selected),
+            }
+        )
+        write_progress(
+            args,
+            "trace_biopt_warm_start",
+            budget=budget,
+            iteration=0,
+            sensor_count=sensor_count,
+            selected_sensor_count=len(selected),
+            objective=float(best_terms["objective"]),
+            reconstruction_huber=float(best_terms["reconstruction_huber"]),
+            initializer=initializer,
+        )
+    elif initializer == "objective_forward":
+        for step in range(sensor_count):
+            candidates = []
+            remaining = [node for node in range(n_nodes) if node not in selected]
+            for node in active_nodes(remaining, getattr(args, "trace_biopt_forward_pool", 0)):
+                trial = selected | {node}
+                terms = score(trial)
+                candidates.append((terms["objective"], node, terms))
+            _, best_node, best_terms = min(candidates, key=lambda item: (item[0], item[1]))
+            selected.add(best_node)
+            history.append(
+                {
+                    "stage": "forward",
+                    "iteration": step + 1,
+                    "add": int(best_node),
+                    **best_terms,
+                    "sensors": sorted(int(x) for x in selected),
+                }
+            )
+            write_progress(
+                args,
+                "trace_biopt_forward_step",
+                budget=budget,
+                iteration=step + 1,
+                sensor_count=sensor_count,
+                selected_sensor_count=len(selected),
+                objective=float(best_terms["objective"]),
+                reconstruction_huber=float(best_terms["reconstruction_huber"]),
+                initializer=initializer,
+            )
+    else:
+        raise ValueError(f"Unsupported TRACE-BiOpt initializer: {initializer}")
+
+    best_terms = score(selected)
+    max_iter = int(getattr(args, "trace_biopt_exchange_iter", 20))
+    min_improve = float(getattr(args, "trace_biopt_min_improve", 1e-9))
+    for iteration in range(max_iter):
+        best_swap = None
+        outside = active_nodes(set(range(n_nodes)) - selected, getattr(args, "trace_biopt_exchange_add_pool", 0))
+        remove_priorities = trace_biopt_node_priorities(distance, gls_matrix, scenario_matrices, selected, args, trace_cache=trace_cache)
+        remove_pool = sorted(selected, key=lambda item: (remove_priorities[item], item))
+        remove_pool_size = int(getattr(args, "trace_biopt_exchange_remove_pool", 0))
+        if remove_pool_size > 0:
+            remove_pool = remove_pool[:remove_pool_size]
+        for remove_node in remove_pool:
+            for add_node in outside:
+                trial = set(selected)
+                trial.remove(remove_node)
+                trial.add(add_node)
+                terms = score(trial)
+                candidate = (terms["objective"], remove_node, add_node, terms, trial)
+                if best_swap is None or candidate[:3] < best_swap[:3]:
+                    best_swap = candidate
+        if best_swap is None or best_swap[0] >= best_terms["objective"] - min_improve:
+            history.append(
+                {
+                    "stage": "exchange_stop",
+                    "iteration": iteration + 1,
+                    "stop_reason": "no_improving_one_exchange",
+                    **best_terms,
+                    "sensors": sorted(int(x) for x in selected),
+                }
+            )
+            write_progress(
+                args,
+                "trace_biopt_exchange_stop",
+                budget=budget,
+                iteration=iteration + 1,
+                sensor_count=sensor_count,
+                selected_sensor_count=len(selected),
+                objective=float(best_terms["objective"]),
+                stop_reason="no_improving_one_exchange",
+            )
+            break
+        _, remove_node, add_node, best_terms, selected = best_swap
+        history.append(
+            {
+                "stage": "exchange",
+                "iteration": iteration + 1,
+                "remove": int(remove_node),
+                "add": int(add_node),
+                **best_terms,
+                "sensors": sorted(int(x) for x in selected),
+            }
+        )
+        write_progress(
+            args,
+            "trace_biopt_exchange_step",
+            budget=budget,
+            iteration=iteration + 1,
+            sensor_count=sensor_count,
+            selected_sensor_count=len(selected),
+            remove_node=int(remove_node),
+            add_node=int(add_node),
+            objective=float(best_terms["objective"]),
+            reconstruction_huber=float(best_terms["reconstruction_huber"]),
+        )
+
+    sensors = np.array(sorted(int(x) for x in selected), dtype=int)
+    final_terms = score(selected)
+    return sensors, final_terms, history
 
 
 def split_validation_for_tuning(val):
@@ -1390,6 +1877,7 @@ def write_summary(output_dir, args, rows, correlations, test_days):
         "- metrics.json",
         "- layouts.json",
         "- swap_history.json",
+        "- trace_biopt_history.json",
         "- rcss_candidates.csv",
         "- certificate_correlations.csv",
     ]
@@ -1408,6 +1896,7 @@ def main():
     parser.add_argument("--include-simple-baselines", action="store_true")
     parser.add_argument("--include-scenario-greedy", action="store_true")
     parser.add_argument("--include-rcss", action="store_true")
+    parser.add_argument("--include-biopt", action="store_true", help="Add TRACE-BiOpt single-objective bilevel reconstruction-aware layout row")
     parser.add_argument("--include-baseline-portfolio", action="store_true", help="Enable Phase 3 reviewer-facing baseline portfolio rows")
     parser.add_argument("--include-observability-proxy", action="store_true", help="Add observability/TSLP-style proxy layout row evaluated by reconstruction metrics")
     parser.add_argument("--include-graph-sampling-baseline", action="store_true", help="Add Laplacian graph-sampling layout row")
@@ -1439,6 +1928,35 @@ def main():
     parser.add_argument("--rcss-coverage-weight", type=float, default=0.10)
     parser.add_argument("--rcss-coverage-trace-weight", type=float, default=0.70)
     parser.add_argument("--rcss-coverage-mix-weight", type=float, default=0.30)
+    parser.add_argument("--trace-biopt-beta", type=float, default=0.05, help="TRACE-BiOpt posterior trace weight")
+    parser.add_argument("--trace-biopt-gamma", type=float, default=0.05, help="TRACE-BiOpt scenario CVaR trace weight")
+    parser.add_argument("--trace-biopt-eta", type=float, default=0.01, help="TRACE-BiOpt spatial redundancy/coverage penalty weight")
+    parser.add_argument("--trace-biopt-huber-delta", type=float, default=5.0, help="TRACE-BiOpt hidden reconstruction Huber loss delta in traffic units")
+    parser.add_argument("--trace-biopt-exchange-iter", type=int, default=20, help="TRACE-BiOpt one-exchange refinement iteration cap")
+    parser.add_argument("--trace-biopt-min-improve", type=float, default=1e-9, help="TRACE-BiOpt minimum objective improvement for an exchange")
+    parser.add_argument("--trace-biopt-forward-pool", type=int, default=80, help="TRACE-BiOpt deterministic active nodes considered at each forward step; 0 means all nodes")
+    parser.add_argument("--trace-biopt-exchange-add-pool", type=int, default=80, help="TRACE-BiOpt deterministic active add nodes per exchange iteration; 0 means all outside nodes")
+    parser.add_argument("--trace-biopt-exchange-remove-pool", type=int, default=20, help="TRACE-BiOpt deterministic active remove nodes per exchange iteration; 0 means all selected nodes")
+    parser.add_argument("--trace-biopt-objective-steps", type=int, default=0, help="Deterministic validation time steps used inside TRACE-BiOpt objective search; 0 uses all validation steps")
+    parser.add_argument(
+        "--trace-biopt-risk-source",
+        type=str,
+        default="val",
+        choices=["val", "train", "train_val"],
+        help="Data split used for TRACE-BiOpt upper-level reconstruction risk; default preserves Stage15 evidence",
+    )
+    parser.add_argument("--trace-biopt-relax-iter", type=int, default=6, help="TRACE-BiOpt projected continuous relaxation iterations for initializer=relaxed_rounding")
+    parser.add_argument("--trace-biopt-relax-step", type=float, default=0.2, help="TRACE-BiOpt projected continuous relaxation step size")
+    parser.add_argument("--trace-biopt-relax-fd-eps", type=float, default=1e-3, help="TRACE-BiOpt finite-difference epsilon for relaxed initializer")
+    parser.add_argument("--trace-biopt-relax-pool", type=int, default=40, help="TRACE-BiOpt deterministic active coordinates per relaxed step; 0 means all nodes")
+    parser.add_argument(
+        "--trace-biopt-initializer",
+        type=str,
+        default="objective_forward",
+        choices=["auto", "objective_forward", "posterior_greedy", "relaxed_rounding"],
+        help="TRACE-BiOpt deterministic solver initialization before exchange refinement",
+    )
+    parser.add_argument("--trace-biopt-auto-warm-start-threshold", type=int, default=500, help="For TRACE-BiOpt initializer=auto, use objective-forward up to this many nodes and posterior warm start above it")
     parser.add_argument("--selection-method", type=str, default="gls_map", choices=["gls_map", "gsp", "historical_tod_mean", "neighbor_average"])
     parser.add_argument("--split-seed", type=int, default=20)
     parser.add_argument("--split-mode", type=str, default="random", choices=["random", "chronological"])
@@ -1474,6 +1992,16 @@ def main():
         args.include_observability_proxy = True
         args.include_graph_sampling_baseline = True
         args.include_qr_pod_baseline = True
+    if args.trace_biopt_huber_delta <= 0.0:
+        raise ValueError("--trace-biopt-huber-delta must be positive")
+    if args.trace_biopt_relax_iter < 0:
+        raise ValueError("--trace-biopt-relax-iter must be nonnegative")
+    if args.trace_biopt_relax_step <= 0.0:
+        raise ValueError("--trace-biopt-relax-step must be positive")
+    if args.trace_biopt_relax_fd_eps <= 0.0:
+        raise ValueError("--trace-biopt-relax-fd-eps must be positive")
+    if args.trace_biopt_relax_pool < 0:
+        raise ValueError("--trace-biopt-relax-pool must be nonnegative")
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1500,6 +2028,7 @@ def main():
     layout_records = []
     swap_records = []
     rcss_records = []
+    trace_biopt_records = []
     rng = np.random.default_rng(args.layout_seed)
     gls_matrix = args.gls_prior_weight * precision
     trace_cache = {}
@@ -1545,6 +2074,40 @@ def main():
         if args.include_greedy:
             layouts.append(("greedy_a_trace", 0, greedy_a, np.nan))
             layouts.append(("greedy_d_logdet", 0, greedy_posterior_layout(gls_matrix, sensor_count, args.obs_weight, "d_logdet"), np.nan))
+        if args.include_biopt:
+            biopt_risk_data = trace_biopt_calibration_frame(train, val, args)
+            biopt_sensors, biopt_terms, biopt_history = trace_biopt_layout(
+                biopt_risk_data,
+                tod,
+                distance,
+                mean,
+                std,
+                gls_matrix,
+                scenario_matrices,
+                sensor_count,
+                args,
+                trace_cache=trace_cache,
+                budget=budget,
+            )
+            biopt_validation_mae = validation_mae(val, tod, distance, laplacian, precision, mean, std, biopt_sensors, args, trace_cache=trace_cache)
+            layouts.append(("trace_biopt", 0, biopt_sensors, biopt_validation_mae))
+            trace_biopt_records.append(
+                {
+                    "dataset": Path(args.data_root).name,
+                    "budget": budget,
+                    "sensor_count": sensor_count,
+                    "sensors": sorted(int(x) for x in biopt_sensors),
+                    "validation_mae": float(biopt_validation_mae),
+                    "final_terms": biopt_terms,
+                    "history": biopt_history,
+                    "weights": {
+                        "beta": float(args.trace_biopt_beta),
+                        "gamma": float(args.trace_biopt_gamma),
+                        "eta": float(args.trace_biopt_eta),
+                        "huber_delta": float(args.trace_biopt_huber_delta),
+                    },
+                }
+            )
         if args.include_observability_proxy:
             layouts.append(("observability_proxy", 0, observability_proxy_layout(distance, sensor_count), np.nan))
         if args.include_graph_sampling_baseline:
@@ -1736,6 +2299,19 @@ def main():
                 "validation_selected_mae": float(validation_selected_mae) if np.isfinite(validation_selected_mae) else None,
                 "sensors": sorted(int(x) for x in sensors),
             }
+            if layout_type == "trace_biopt":
+                biopt_record = next(
+                    (
+                        record
+                        for record in trace_biopt_records
+                        if float(record["budget"]) == float(budget)
+                        and int(record["sensor_count"]) == int(sensor_count)
+                        and record["sensors"] == sorted(int(x) for x in sensors)
+                    ),
+                    None,
+                )
+                if biopt_record is not None:
+                    layout_record.update({f"trace_biopt_{key}": value for key, value in biopt_record["final_terms"].items()})
             layout_record.update(robustness_row_metadata(args, layout_metadata, {"selected_sensor_count": sensor_count, "active_sensor_count": sensor_count, "dropped_sensor_count": 0}))
             layout_records.append(layout_record)
             layout_rows, hidden, eval_context = evaluate_layout(test, tod, distance, laplacian, precision, mean, std, sensors, args, apply_robustness=True)
@@ -1764,6 +2340,7 @@ def main():
             layout_count=len(layouts),
             metric_row_count=len(rows),
             rcss_record_count=len(rcss_records),
+            trace_biopt_record_count=len(trace_biopt_records),
         )
         gc.collect()
 
@@ -1773,6 +2350,7 @@ def main():
     (output_dir / "metrics.json").write_text(json.dumps(rows, indent=2), encoding="utf-8")
     (output_dir / "layouts.json").write_text(json.dumps(layout_records, indent=2), encoding="utf-8")
     (output_dir / "swap_history.json").write_text(json.dumps(swap_records, indent=2), encoding="utf-8")
+    (output_dir / "trace_biopt_history.json").write_text(json.dumps(trace_biopt_records, indent=2), encoding="utf-8")
     (output_dir / "rcss_candidates.json").write_text(json.dumps(rcss_records, indent=2), encoding="utf-8")
     pd.DataFrame(rcss_records).to_csv(output_dir / "rcss_candidates.csv", index=False)
     pd.DataFrame(correlations).to_csv(output_dir / "certificate_correlations.csv", index=False)
@@ -1793,6 +2371,7 @@ def main():
         metric_row_count=len(rows),
         layout_record_count=len(layout_records),
         rcss_record_count=len(rcss_records),
+        trace_biopt_record_count=len(trace_biopt_records),
     )
     print(frame.groupby(["budget", "layout_type", "method"])[["mae", "rmse"]].mean().round(4))
     print(f"Wrote outputs to {output_dir}")

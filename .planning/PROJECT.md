@@ -57,17 +57,23 @@ Make strong, publishable claims about transparent reconstruction-aware traffic s
 
 ### Active
 
-- [ ] Define TRACE-BiOpt as one robust bilevel reconstruction-risk optimization method with a deterministic solver.
-- [ ] Implement TRACE-BiOpt and Stage15-compatible launch/evaluation scripts.
-- [ ] Pre-register baselines and keep them outside the method itself.
-- [ ] Run weak-regime probes before committing full Stage15 compute.
-- [ ] Run full Stage15 experiments when probes justify scaling.
-- [ ] Generate dominance, best-baseline, theory, and claim artifacts for a revised TR Part B paper.
-- [ ] Rewrite the paper narrative around TRACE-BiOpt only after method and evidence gates pass.
+- [x] Define TRACE-BiOpt as one robust bilevel reconstruction-risk optimization method with a deterministic solver.
+- [x] Implement TRACE-BiOpt and Stage15-compatible launch/evaluation scripts.
+- [x] Pre-register baselines and keep them outside the method itself.
+- [x] Run weak-regime probes before committing full Stage15 compute.
+- [x] Run full Stage15 experiments when probes justify scaling.
+- [x] Generate dominance, best-baseline, theory, and claim artifacts for a revised TR Part B paper.
+- [x] Rewrite the paper narrative around TRACE-BiOpt now that the Stage15 ten-seed evidence gate has passed.
+- [x] Run the local submission verifier on the rewritten TRACE-BiOpt manuscript and regenerate current audit artifacts.
+- [x] Run fresh web citation audit and fix bibliography metadata issues.
+- [x] Run fresh deterministic machine paper-claim audit against Stage15 evidence.
+- [x] Run fresh deterministic machine proof audit and tighten theorem scope.
+- [x] Address the machine adversarial kill-argument gate.
+- [ ] Fill author metadata and submission package before declaring actual TR-B submission readiness.
 
 ### Out of Scope
 
-- Claiming TRACE-SL is best at every budget and against every strong baseline — current 10% PeMS7_228 evidence does not support that wording.
+- Claiming TRACE-BiOpt beats every possible baseline — current evidence supports dominance only against the pre-registered non-BiOpt baseline set in the tested Stage15 dataset-budget regimes.
 - Calling the method formally “certified” without a theorem or bound — current evidence supports certificate-guided or posterior-certificate-aware wording.
 - Claiming optimal sensor placement, guaranteed MAE improvement, global robustness, or generalization across networks without the required evidence and theory.
 - Treating validation MAE as final test evidence — final claims must use held-out test evaluation and paired comparisons.
@@ -91,7 +97,9 @@ Known evidence caveats for v2.0:
 - PeMS7_228 supports strong improvements against reviewer-facing baselines, while low-budget claims must preserve the multistart validation refinement caveat.
 - PeMS7_1026 and Seattle have complete Stage12 10-split evidence and may support multi-network empirical discussion.
 - The existing pool-centered TRACE-SL story risks reading as a portfolio or AutoML-style selector rather than a unified traffic network design method.
-- The weakest current regimes are PeMS7_1026 10% and Seattle 10%, so v2.0 should probe those before scaling full Stage15.
+- The weakest current Stage15 ten-seed regime remains PeMS7_1026 at 30% budget in the main table (`3.07109 < 3.07404`, directional mean dominance). A separate same-objective enhanced-search diagnostic over the original seeds 25-34 improves TRACE-BiOpt MAE by 0.0312 on average and wins 10/10 seed-matched comparisons, but does not replace the full nine-regime Stage15 main table.
+- PeMS7_228 at 10% budget was diagnosed as a calibration-risk issue rather than only a search-budget issue. A same-objective enhanced-search diagnostic improved the mean margin but won only 7/10 seeds; the later train+validation calibrated-risk full-exchange diagnostic wins 10/10 seeds and improves the mean margin to -0.1022. Treat this as row-level diagnostic evidence until the same configuration is rerun across all nine Stage15 regimes.
+- PeMS7_1026 at 30% budget also improves under the train+validation calibrated-risk direction. With scalable active-set exchange search, the Stage16 diagnostic wins 10/10 seeds and improves the mean margin from -0.0026 to -0.0372. This supports a unified calibrated-risk Stage16 direction, but the manuscript main table should not be replaced until all nine regimes are rerun with that same configuration.
 - Multi-network evidence must not be phrased as universal cross-network generalization.
 - Robustness is bounded to the tested perturbations and reduced PeMS7_228 settings.
 - Raw datasets remain local/ignored and must not be committed.
@@ -113,14 +121,26 @@ Known evidence caveats for v2.0:
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Pivot v2.0 to TRACE-BiOpt as the main method | A pool/selector story risks weakening originality and theory; a single robust bilevel reconstruction-risk objective better fits TR Part B network design expectations | — Pending |
-| Keep baselines outside the method | Baselines should be pre-registered comparators, not candidates selected by the main algorithm | — Pending |
-| Gate full Stage15 on weak-regime probes | PeMS7_1026 10% and Seattle 10% are the critical credibility tests for the stronger claim | — Pending |
+| Pivot v2.0 to TRACE-BiOpt as the main method | A pool/selector story risks weakening originality and theory; a single robust bilevel reconstruction-risk objective better fits TR Part B network design expectations | ✓ Done |
+| Keep baselines outside the method | Baselines should be pre-registered comparators, not candidates selected by the main algorithm | ✓ Done |
+| Gate full Stage15 on weak-regime probes | PeMS7_1026 10% and Seattle 10% were the critical credibility tests for the stronger claim before scaling | ✓ Done |
 | Treat v1.2 manuscript polishing as superseded until the method pivot is evaluated | Final paper writing should not polish a method story the project may replace | — Pending |
-| Retarget v1.2 manuscript to Transportation Research Part B | User corrected the submission target before manuscript drafting; the existing theory and evidence foundation should now be written for TR Part B expectations | — Pending |
+| Retarget v1.2 manuscript to Transportation Research Part B | User corrected the submission target before manuscript drafting; the existing theory and evidence foundation should now be written for TR Part B expectations | ✓ Done |
 | Use `els-cas-templates` for manuscript source | TR Part B is an Elsevier journal and the user provided the local template directory | — Pending |
-| Run `$paper-writing` with submission assurance | The requested deliverable is a submission-gated paper package, not only a draft PDF | — Pending |
-| Target Transportation Science first | This was the previous v1.0/v1.1 planning assumption and is now superseded for v1.2 writing | ⚠ Revisit |
+| Run `$paper-writing` with submission assurance | The requested deliverable is a submission-gated paper package, not only a draft PDF | Partial: local submission verifier OK; proof, claim, citation, and kill-argument audits PASS; author/submission metadata remains |
+| Generate TRACE-BiOpt claim contract from Stage15 dominance evidence | Row-level TR-B wording now has an auditable artifact tied to dominance, paired tests, and layout summaries | ✓ Done |
+| Use Stage15 ten-seed evidence as the current TRACE-BiOpt claim basis | `stage15_biopt_allbudget_10seed_v2` beats the best pre-registered non-BiOpt baseline on all nine dataset-budget rows; weak mixed rows remain directional | ✓ Done |
+| Add mechanism diagnostics to the TR-B manuscript | The manuscript needs to show why TRACE-BiOpt wins against strong reconstruction-aware comparators, not only report the dominance table | ✓ Done |
+| Add full Stage15 baseline registry to the appendix | The all-baselines claim should enumerate every fixed non-BiOpt comparator and tie the registry to source artifacts | ✓ Done |
+| Add TRACE-BiOpt optimization diagnostics | The method story needs solver-history evidence showing a single objective is improved before held-out evaluation | ✓ Done |
+| Add bounded robustness routing | Robustness, cost, missingness, and temporal-shift evidence should be visible but explicitly prevented from becoming unsupported TRACE-BiOpt robustness claims | ✓ Done |
+| Expand TR-B related work with audited citations | The TR-B manuscript needs stronger positioning against traffic count-location, observability, path reconstruction, and sensor-reliability literature | ✓ Done |
+| Add method-positioning table | The innovation claim should make clear that TRACE-BiOpt is not OD count-location, full observability, OED-only placement, graph sampling, or estimator benchmarking | ✓ Done |
+| Probe PeMS7_1026 30% weak-row search budget | The weakest Stage15 row may be limited by deterministic exchange-search budget rather than by the TRACE-BiOpt objective; diagnose before changing main claims | ✓ Done: over seeds 25-34, enhanced same-objective exchange search improves MAE by 0.0312 on average, changes the mean margin from -0.0026 to -0.0338, and wins 10/10 seed-matched comparisons |
+| Probe PeMS7_228 10% low-budget search budget | The second mixed paired-evidence row might also be search-budget limited; diagnose before strengthening main claims | Fail-closed: enhanced search improves mean margin but wins only 7/10 seeds (`p=0.0671`), and full one-exchange checks on failed seeds still lose |
+| Add train+validation calibration-risk diagnostic | PeMS7_228 10% showed validation/test mismatch under the two-day validation objective; test whether a larger calibration-risk sample fixes the low-budget row while preserving one TRACE-BiOpt objective | ✓ Done: `--trace-biopt-risk-source train_val` plus low certificate weights and complete one-exchange search wins 10/10 seeds, margin -0.1022, paired t-test `p=6.4e-05` |
+| Probe Stage16 calibrated risk on PeMS7_1026 30% | The weakest Stage15 main-table row should also improve under a unified calibrated-risk direction before scaling to all regimes | ✓ Done: train+validation calibrated risk plus scalable active-set search wins 10/10 seeds, margin -0.0372, paired t-test `p=4.6e-05` |
+| Target Transportation Science first | This was the previous v1.0/v1.1 planning assumption and is now superseded by the Transportation Research Part B target | Superseded |
 | Keep strong claims, but require evidence-backed wording | The research has real promise; the right response is to add evidence and sharpen claims, not dilute the contribution | ✓ Good |
 | Frame v1.1 as paper foundation, not manuscript drafting | The claim, external evidence, ablation logic, and theory layer needed to be frozen before writing begins | ✓ Good |
 | Require PeMS7_1026 Stage12 10-split evidence before stronger external PeMS claims | The earlier PeMS7_1026 evidence was promising but lower-power | ✓ Done |
@@ -160,4 +180,4 @@ Archived files:
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026/05/26 after starting v2.0 TRACE-BiOpt robust bilevel method development*
+*Last updated: 2026/05/27 after adding the PeMS7_1026 30% Stage16 calibrated-risk diagnostic*

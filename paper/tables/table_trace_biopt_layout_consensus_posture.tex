@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\centering
+\caption{Reviewer-facing current-best low-budget layout-consensus posture. Mean pairwise Jaccard is computed across all 45 split-seed layout pairs within the same method family on the current-best 10\% rows. This is bounded mechanism evidence about layout-family coherence, not a new dominance table.}
+\label{tab:trace-biopt-layout-consensus-posture}
+\tiny
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}}
+\toprule
+Dataset & Strongest baseline & Trace Jaccard & Base Jaccard & $\Delta$ Jaccard & Trace std. & Always-selected & Reading \\
+\midrule
+PeMS7\_1026 & Swap from A-trace & 0.346 & 0.429 & -0.083 & 0.041 & 11/20 & TRACE-BiOpt keeps a broader low-budget support family than the strongest baseline, but the cross-split overlap dispersion is still lower, which indicates diffuse yet coherent selection. \\
+PeMS7\_228 & Prev. TRACE-SL & 0.367 & 0.350 & +0.017 & 0.098 & 5/0 & TRACE-BiOpt is both slightly more consensus-stable and materially less dispersed across splits, so the low-budget gain is not coming from erratic swap noise. \\
+Seattle & RCSS & 0.154 & 0.330 & -0.176 & 0.052 & 0/3 & TRACE-BiOpt keeps a broader low-budget support family than the strongest baseline, but the cross-split overlap dispersion is still lower, which indicates diffuse yet coherent selection. \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}\footnotesize Trace std. is the standard deviation of the 45 split-pair Jaccard overlaps within the TRACE-BiOpt family. Always-selected counts show how many nodes appear in all ten split-specific layouts for TRACE-BiOpt versus the strongest baseline. The broad-support rows should be read together with the spatial-posture and fingerprint tables: lower overlap can still mean a coherent low-budget family if dispersion falls while shortlist collapse weakens.\end{flushleft}
+\end{table*}

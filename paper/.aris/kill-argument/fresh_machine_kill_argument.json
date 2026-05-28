@@ -1,0 +1,62 @@
+{
+  "attack_memo": "A hostile reviewer would argue that TRACE-BiOpt risks over-selling a broad traffic sensor placement method while proving and testing a narrower transparent GLS/MAP reconstruction protocol. The current text answers the attack by scoping the method, theorem certificates, baseline registry, and evidence claims to that protocol.",
+  "audit_type": "fresh_machine_kill_argument",
+  "checks": [
+    {
+      "check": "proof_claim_citation_assurance_pass",
+      "evidence": "PROOF_AUDIT, PAPER_CLAIM_AUDIT, and CITATION_AUDIT must all be PASS.",
+      "severity_if_unresolved": "critical",
+      "status": "answered_by_current_text"
+    },
+    {
+      "check": "single_method_not_candidate_pool",
+      "evidence": "Method section and abstract/highlights distinguish TRACE-BiOpt from a baseline pool selector.",
+      "severity_if_unresolved": "critical",
+      "status": "answered_by_current_text"
+    },
+    {
+      "check": "best_baseline_registry_disclosed",
+      "evidence": "Appendix discloses the fixed registry and strongest-comparator protocol.",
+      "severity_if_unresolved": "major",
+      "status": "answered_by_current_text"
+    },
+    {
+      "check": "directional_row_caveat_repeated",
+      "evidence": "Any row with mixed paired evidence must be caveated in abstract/results/table/appendix wording.",
+      "severity_if_unresolved": "critical",
+      "status": "answered_by_current_text"
+    },
+    {
+      "check": "exchange_scope_not_overclaimed",
+      "evidence": "Exchange theorem and appendix scope the certificate to searched active-set moves.",
+      "severity_if_unresolved": "critical",
+      "status": "answered_by_current_text"
+    },
+    {
+      "check": "no_forbidden_scope_overclaim",
+      "evidence": "Forbidden overclaim patterns: []",
+      "severity_if_unresolved": "critical",
+      "status": "answered_by_current_text"
+    },
+    {
+      "check": "reviewer_attack_route_answered",
+      "evidence": "Appendix explicitly addresses the strongest scope-mismatch rejection path.",
+      "severity_if_unresolved": "major",
+      "status": "answered_by_current_text"
+    },
+    {
+      "check": "manuscript_no_longer_minimal_draft",
+      "evidence": "Core paper text has 7205 words across main theory/results/discussion/appendix.",
+      "severity_if_unresolved": "minor",
+      "status": "answered_by_current_text"
+    }
+  ],
+  "counts": {
+    "answered_by_current_text": 8
+  },
+  "critical_unresolved": [],
+  "generated_at": "2026-05-27T22:30:50Z",
+  "net_assessment": "The worst scope/evidence attack is answered by current text for submission-gate purposes; remaining risks are author metadata and optional external human review.",
+  "unresolved": [],
+  "verdict": "PASS"
+}

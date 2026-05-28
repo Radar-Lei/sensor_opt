@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\caption{Regime-specific TRACE-BiOpt objective-weight sensitivity slices. Lower MAE is better. These rows are mechanism evidence only: the Seattle rows are bounded same-split diagnostic slices around the stable certificate-weighted Seattle route, while the PeMS7\_228 10\% weak row uses the promoted calibrated current-best route.}
+\label{tab:trace-biopt-weight-sensitivity}
+\tiny
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.07\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\centering\arraybackslash}p{0.07\textwidth}>{\centering\arraybackslash}p{0.07\textwidth}>{\centering\arraybackslash}p{0.09\textwidth}}
+\toprule
+Case & Route & $(\beta,\gamma,\eta)$ & Risk & Search & Val. & Test & $\Delta$ vs best \\
+\midrule
+Seattle 20\% & Seattle diagnostic certified & (2.00,0.05,0.01) & val & Stage15 active-set & 2.957 & 2.674 & +0.000 \\
+Seattle 20\% & Zero-weight probe & (0.00,0.00,0.00) & val & Strong-search 96 & 2.970 & 2.710 & +0.036 \\
+Seattle 30\% & Seattle diagnostic certified & (2.00,0.05,0.01) & val & Stage15 active-set & 2.711 & 2.488 & +0.000 \\
+Seattle 30\% & Zero-weight probe & (0.00,0.00,0.00) & val & Strong-search 96 & 2.732 & 2.520 & +0.032 \\
+PeMS7\_228 10\% & Stage15 certified & (2.00,0.05,0.01) & val & Stage15 active-set & 3.573 & 3.377 & +0.129 \\
+PeMS7\_228 10\% & Zero-weight probe & (0.00,0.00,0.00) & val & Strong-search 96 & 3.445 & 3.417 & +0.169 \\
+PeMS7\_228 10\% & Calibrated low-cert & (0.50,0.01,0.00) & train+val & Train+val full-search 192 & 3.493 & 3.248 & +0.000 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}\footnotesize The Seattle rows are bounded same-split diagnostic slices: they compare the stable Stage15 certificate-weighted Seattle route with a matched zero-weight strong-search diagnostic on the same split seed and do not replace the ten-seed current-best evidence chain. The PeMS7\_228 10\% rows compare the original heavy-cert Stage15 route, a zero-weight strong-search diagnostic, and the promoted current-best calibrated low-cert full-search route on the same split seed.\end{flushleft}
+\end{table*}

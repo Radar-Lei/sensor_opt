@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{Audited comparison ladder for TRACE-BiOpt. The table shows how the manuscript's empirical claim moves from a broad comparison registry to row-wise strongest-challenger wins, then to an all-baseline corrected screen, family-level near-miss audit, and explicit non-claims.}
+\label{tab:trace-biopt-comparison-ladder}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Ladder step & Paper-visible statement & Why it matters for TR-B \\
+\midrule
+Registry scope & One external audited comparison class contains 21 pre-registered non-BiOpt baselines spanning 11 audited method families. & The paper is not winning against one hand-picked comparator; it is tested against a deliberately broad comparison class. \\
+Row-wise strongest challenger & TRACE-BiOpt is submission-ready paired-dominant on 9/9 current-best rows against the row-wise strongest audited challenger, with 8/9 rows already promoted from calibrated reruns. & The first compression of the claim is the hard reviewer-facing one: beat the strongest named challenger on every tested row. \\
+All-baseline corrected screen & Holm-corrected one-sided paired tests still give 189/189 significant wins, 0 ties, and 0 better challengers across the full current-best row-baseline matrix. & The strongest-row claim survives multiplicity correction against the full registry, not only against a single best-baseline table. \\
+Family-level near misses & The prior TRACE-SL / RCSS family supplies 8/9 strongest-mean challengers and 7/9 hardest corrected challengers, yet its closest gap is -0.0375 MAE and it leaves zero corrected survivors. & The closest comparison class is the one a TR-B reviewer would most trust, and it still fails to survive the corrected screen. \\
+Challenger diversity & Across 6/9 rows, the strongest mean challenger and the hardest corrected challenger come from different baseline families. & TRACE-BiOpt is not only ahead of one convenient family; distinct challenger families remain closest under mean ranking and corrected paired inference. \\
+Explicit non-claim & The ladder stops at the audited registry: it does not claim dominance over untested baselines, untested budgets, or all future traffic networks. & The paper keeps the comparison class strong without silently upgrading bounded evidence into universal superiority. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

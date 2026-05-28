@@ -1,0 +1,26 @@
+\begin{table*}[t]
+\centering
+\caption{Family-level screen of the pre-registered non-BiOpt comparison class. The table compresses the 21 audited baselines into method families and reports how often each family supplies the strongest mean challenger or the hardest challenger after Holm correction. Every family still leaves zero surviving tied-or-better challenger after corrected paired tests.}
+\label{tab:trace-biopt-baseline-family-screen}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.29\textwidth}cccccc}
+\toprule
+Family & Baselines & Tests & \makecell[c]{Strongest\\mean rows} & \makecell[c]{Hardest\\corrected rows} & \makecell[c]{Closest $\Delta$\\MAE} & \makecell[c]{Largest\\Holm $p$} \\
+\midrule
+Coverage / observability & 2 & 18 & 0 & 0 & -0.1634 & 7.0e-06 \\
+Exchange-refined baseline & 4 & 36 & 1 & 0 & -0.0476 & 0.0026 \\
+Graph heuristic & 1 & 9 & 0 & 0 & -0.5790 & 3.3e-06 \\
+Graph signal processing & 1 & 9 & 0 & 0 & -0.6796 & 3.1e-04 \\
+Optimal-design surrogate & 2 & 18 & 0 & 0 & -0.0590 & 2.1e-04 \\
+Prior TRACE-SL / RCSS & 3 & 27 & 8 & 7 & -0.0375 & 0.0026 \\
+Random / validation-selected & 3 & 27 & 0 & 0 & -0.1852 & 3.2e-04 \\
+Robust coverage & 1 & 9 & 0 & 0 & -0.2206 & 5.5e-05 \\
+Scenario-risk surrogate & 2 & 18 & 0 & 1 & -0.2026 & 6.9e-04 \\
+Simple traffic heuristic & 1 & 9 & 0 & 1 & -0.2771 & 1.7e-05 \\
+Sparse modal placement & 1 & 9 & 0 & 0 & -0.1318 & 7.4e-05 \\
+\bottomrule
+\end{tabular}
+\vspace{0.35em}
+\parbox{0.96\textwidth}{\small The strongest family-level near misses come from the prior TRACE-SL / RCSS family, which provides 8/9 strongest-mean challengers and 7/9 hardest corrected challengers, yet its closest current-best gap remains $-0.0375$ MAE and it leaves zero corrected survivors. The exchange-refined family contributes the remaining strongest-mean row, while the scenario-risk and simple-heuristic families each appear once as the hardest corrected family.}
+\end{table*}

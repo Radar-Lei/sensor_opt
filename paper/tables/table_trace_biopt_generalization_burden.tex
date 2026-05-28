@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{Theorem~\ref{thm:uniform-layout} burden factors under the common two-day validation window used by the current-best evidence chain.}
+\label{tab:trace-biopt-generalization-burden}
+\scriptsize
+\begin{tabularx}{\textwidth}{lccccc>{\raggedright\arraybackslash}X}
+\toprule
+Dataset & Budget & $k$ & $\log_{10}|\mathfrak{S}_k|$ & $k\log(e|\calV|/k)$ & $B^{-1}\Delta_{\mathrm{unif}}$ & Reading \\
+\midrule
+PeMS7\_1026 & 10\% & 103 & 143.9 & 339.8 & 0.546 & high combinatorial burden; stronger calibration/search support is most valuable here \\
+PeMS7\_1026 & 20\% & 205 & 221.3 & 535.1 & 0.684 & high combinatorial burden; stronger calibration/search support is most valuable here \\
+PeMS7\_1026 & 30\% & 308 & 270.7 & 678.6 & 0.770 & largest all-layout validation burden under the same two-day window \\
+PeMS7\_228 & 10\% & 23 & 31.3 & 75.8 & 0.263 & smallest all-layout validation burden among the nine main rows \\
+PeMS7\_228 & 20\% & 46 & 48.6 & 119.6 & 0.327 & moderate burden within the common two-day validation window \\
+PeMS7\_228 & 30\% & 68 & 59.1 & 150.3 & 0.366 & moderate burden within the common two-day validation window \\
+Seattle & 10\% & 32 & 44.2 & 106.0 & 0.309 & mid-scale validation burden between the two PeMS extremes \\
+Seattle & 20\% & 65 & 69.2 & 169.2 & 0.387 & mid-scale validation burden between the two PeMS extremes \\
+Seattle & 30\% & 97 & 84.4 & 213.7 & 0.434 & mid-scale validation burden between the two PeMS extremes \\
+\bottomrule
+\end{tabularx}
+\begin{flushleft}\footnotesize Here $n_v=2\times 288=576$ validation slots and $\delta=0.05$ for every row. $\Delta_{\mathrm{unif}}=B\sqrt{(k\log(e|\calV|/k)+\log(2/\delta))/(2n_v)}$ is the theorem's uniform validation-to-deployment deviation term. The selected-layout excess-risk term is $2\Delta_{\mathrm{unif}}+\epsilon_{\mathrm{opt}}$, so the table is a validation-burden diagnostic rather than an empirical dominance claim by itself.\end{flushleft}
+\end{table*}

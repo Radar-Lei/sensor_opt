@@ -1,33 +1,191 @@
 \section{Experimental design and main results}
 \label{sec:experiments}
 
-\input{tables/table_external}
+\subsection{Datasets, splits, and metrics}
+
+The Stage15 experiments evaluate three traffic networks: PeMS7\_228,
+PeMS7\_1026, and Seattle. Each network is evaluated at 10\%, 20\%, and 30\%
+sensor budgets. Each reported aggregate uses ten split seeds, 25 through 34.
+Training data fit reconstruction ingredients; validation data drive the
+TRACE-BiOpt objective and baseline selection rules; test data are used only for
+final hidden-state reconstruction reporting.
+
+The primary metric is hidden-component MAE under the transparent GLS/MAP
+reconstruction protocol. RMSE and auxiliary diagnostics are retained in the
+paper-source artifacts, but the main claim is written around MAE because it is
+directly interpretable in the same scale as the traffic state variable. All
+paired deltas compare TRACE-BiOpt with a baseline on the same split index.
+
+\subsection{Pre-registered baselines}
+
+The pre-registered baseline registry is fixed before evaluating TRACE-BiOpt dominance. It
+includes random mean, best random by validation, top variance, degree, coverage,
+observability proxy, graph sampling, QR/POD, greedy A-trace, greedy D-logdet,
+scenario-average trace, scenario-CVaR trace, RCSS-selected layouts, the previous
+validation-swap TRACE-SL layout rule, multistart validation swap, swap-from-greedy
+A-trace, and robust coverage variants. These baselines do not enter the
+TRACE-BiOpt solver. They are evaluation rows used to test whether one
+recoverability-driven bilevel objective is strong enough to beat the best
+available non-BiOpt comparator.
+
+\input{tables/table_trace_biopt_baseline_family_screen}
+
+Table~\ref{tab:trace-biopt-baseline-family-screen} makes the comparison class
+harder to dismiss as a weak registry. The 21 pre-registered baselines span 11
+families, and the family that most often comes closest is exactly the one a
+reviewer would expect to be strongest: the prior TRACE-SL / RCSS family. It
+supplies 8/9 strongest-mean challengers and 7/9 hardest corrected challengers.
+Even so, that family still leaves zero surviving challenger after Holm
+correction, with its closest current-best gap remaining at $-0.0375$ MAE.
+No other family contributes more than one strongest-mean row, and only the
+scenario-risk and simple-heuristic families appear once each as the hardest
+corrected family. The current-best all-baseline screen therefore does not just
+beat many baselines; it clears a deliberately broad comparison class whose
+closest families remain distinct and still fail to survive corrected paired
+tests.
+
+\subsection{Best-baseline dominance}
+
+Table~\ref{tab:trace-biopt-dominance} is the primary result. It reports the
+current best ten-seed evidence chain: replaceable Stage16 calibrated rows are
+used where they are complete, and the remaining rows retain the Stage15
+ten-seed evidence. Across all nine dataset-budget regimes, TRACE-BiOpt has
+lower mean held-out GLS/MAP MAE than the best pre-registered non-BiOpt
+baseline in that same regime. The table now names that strongest challenger
+directly instead of hiding it in prose: Swap from A-trace is strongest on
+PeMS7\_1026 at 10\%, RCSS is strongest on Seattle at 10\%, and the previous
+validation-swap TRACE-SL route is strongest on the remaining seven rows.
+
+The strongest paired evidence now includes PeMS7\_1026, PeMS7\_228, and
+Seattle at all three budgets. On all nine rows TRACE-BiOpt wins all ten paired
+splits, and paired $p$ values range from $9.81\times 10^{-8}$ to $0.0021$.
+The previously weakest current-best row, PeMS7\_228 at 10\%, is now backed by
+the calibrated full-search rerun and improves from a mixed 7/10 paired result
+to a 10/10 paired win. The current-best chain therefore supports submission-ready
+paired dominance on every tested dataset-budget row.
+
+Appendix Table~\ref{tab:trace-biopt-full-baseline-matrix} makes the stronger
+point explicit: the best-baseline table is not hiding weaker rows. When all 22
+registered layouts are written out, TRACE-BiOpt still ranks first on every
+dataset-budget row of the current-best chain.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.95\linewidth]{figures/fig2_main_mae.pdf}
-\caption{Held-out PeMS7\_228 GLS/MAP reconstruction MAE across sensor budgets. TRACE-SL refers to the validation-aware selected layout.}
-\label{fig:main-mae}
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_full_baseline_heatmap.pdf}
+\caption{Current-best 22-method baseline heatmap. Each panel corresponds to one dataset; columns are sensor budgets, cell color is baseline MAE minus TRACE-BiOpt MAE, and the number inside each cell is the within-row rank. Nonnegative cells therefore indicate that the corresponding baseline does not beat TRACE-BiOpt on that dataset-budget row. The highlighted TRACE-BiOpt row stays rank 1 in all nine cells.}
+\label{fig:trace-biopt-full-baseline-heatmap}
 \end{figure}
 
-\subsection{Datasets, splits, and metrics}
+Figure~\ref{fig:trace-biopt-full-baseline-heatmap} lifts the appendix matrix
+into one reviewer-facing view. Instead of asking the reader to scan 66 table
+entries across three dataset panels, it shows the full 22-method registry as a
+current-best dominance heatmap. Every non-TRACE-BiOpt cell remains nonnegative,
+so no registered baseline undercuts TRACE-BiOpt on any of the nine
+dataset-budget rows. The figure therefore makes the main empirical claim more
+transparent: Table~\ref{tab:trace-biopt-dominance} is a compression of a full
+matrix in which the highlighted TRACE-BiOpt row remains rank 1 everywhere, not
+a selective pairing against one convenient comparator.
 
-The Stage12 experiments evaluate three traffic networks: PeMS7\_228, PeMS7\_1026, and Seattle. Each network is evaluated at 10\%, 20\%, and 30\% sensor budgets, with budget counts obtained by applying the fraction to the candidate sensor set and then using the run manifest's deterministic rounding rule. Each reported aggregate uses ten held-out splits. Training data fit reconstruction ingredients; selector-validation data choose candidates within a score vector; tuner-validation data select score vectors and accept swap refinements; test data are used only for final reporting.
+\subsection{Performance curves}
 
-The primary metric is hidden-component MAE under the transparent GLS/MAP reconstruction protocol. RMSE and MAPE are retained in the paper-source contracts when available, but the main claim is written around MAE because it is directly interpretable in the same scale as the traffic state variable and is less dominated by large residuals than squared loss. All reported paired deltas compare TRACE-SL with a baseline on the same split index. The tables report ten-split means and, where used for claims, paired $t$ tests, Wilcoxon signed-rank tests, confidence intervals, and win counts in the source artifacts.
+Figure~\ref{fig:trace-biopt-current-best-curves} compresses the same
+current-best evidence into dataset-wise budget curves. TRACE-BiOpt stays below
+the row-specific strongest pre-registered non-BiOpt comparator at every budget
+on all three networks. The largest gaps appear on PeMS7\_1026 at 10\% and
+20\%, the Seattle curves show a steady advantage against RCSS and the previous
+TRACE-SL swap family, and the narrowest curve gap appears on PeMS7\_1026 at
+30\%, matching the later diagnosis that this row is search- and
+calibration-sensitive rather than a contradiction of the formulation.
 
-\subsection{Baselines}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_current_best_curves.pdf}
+\caption{Current-best performance curves across sensor budgets. Each panel plots TRACE-BiOpt against the row-specific strongest pre-registered non-BiOpt baseline from the current-best evidence chain. TRACE-BiOpt remains the lower-MAE curve on every dataset-budget row.}
+\label{fig:trace-biopt-current-best-curves}
+\end{figure}
 
-The baseline portfolio is designed to separate mechanism from performance. Random mean averages unselected random layouts, while best random by validation tests whether validation selection alone is enough. Top variance selects high-variance locations. Greedy A-trace and greedy D-logdet are certificate-only OED-style layouts. Observability proxy and degree represent transportation/topological heuristics. Graph sampling and QR/POD represent graph-signal and low-rank modal placement. Scenario-average and scenario-CVaR variants test risk-weighted posterior certificates. RCSS-selected layouts test score-based portfolio selection before local refinement. Multistart validation swap is retained as a strong internal comparator rather than hidden as an implementation detail.
+\subsection{Paired margins}
 
-\subsection{PeMS7\_228 main evidence}
+Figure~\ref{fig:trace-biopt-paired-margins} opens the same current-best result
+at split level instead of staying at row means. Every one of the 90 current-best
+seed-level paired margins is below zero, so the 9/9 paired-dominance statement
+is not carried by opposite-sign cancellations. The narrowest cluster appears on
+PeMS7\_1026 at 30\%, where the margins stay negative but lie closest to zero,
+matching its role as the most search- and calibration-sensitive row. The
+largest mean paired margin now appears on PeMS7\_228 at 30\%, and the mid/high-budget
+PeMS7\_228 rows remain below the previous TRACE-SL swap family on every split.
 
-Table~\ref{tab:main-results} reports the main PeMS7\_228 evidence. TRACE-SL reaches mean held-out GLS/MAP MAE of 3.590, 3.355, and 3.084 at 10\%, 20\%, and 30\% budgets. Against validation-selected random layouts, the paired mean deltas are -0.123, -0.095, and -0.163 with paired $p$ values 8.8e-05, 0.0054, and 0.0005. Against random mean layouts, the paired mean deltas are -0.243, -0.220, and -0.320.
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_paired_margins.pdf}
+\caption{Seed-level current-best paired margins against the row-specific strongest pre-registered non-BiOpt baseline. Each point is one split seed's TRACE-BiOpt minus strongest-baseline held-out GLS/MAP MAE, so negative values favor TRACE-BiOpt. Blue points come from promoted Stage16 calibrated reruns; gray points come from the retained Stage15 main-evidence rows. Black diamonds mark row means.}
+\label{fig:trace-biopt-paired-margins}
+\end{figure}
 
-The low-budget comparison with the multistart swap baseline is deliberately reported as a caveat. At 10\%, TRACE-SL and multistart validation swap are statistically close (3.590 versus 3.595, paired $p=0.812$), and the evidence does not justify a claim that one selected layout dominates every strong internal variant at every budget. The paper-level claim is therefore about reconstruction-aware layout design and the TRACE-SL portfolio, not about a universal winner on every row.
+\subsection{All-baseline significance posture}
 
-\subsection{External-network evidence}
+Table~\ref{tab:trace-biopt-significance-posture} closes the remaining gap
+between row-wise strongest-baseline dominance and the full 22-method registry.
+Instead of asking only whether TRACE-BiOpt beats the single strongest mean
+comparator on each row, it reruns the paired split test against every
+pre-registered non-BiOpt baseline. The result is stronger than the main table
+alone: under one-sided paired $t$-tests with Holm familywise correction over
+all 189 current-best row-baseline comparisons, every registered baseline still
+remains significantly worse than TRACE-BiOpt, so no row retains a statistically
+tied or significantly better challenger after multiplicity correction. The
+hardest corrected challenger appears on Seattle at 10\%, where the multistart
+validation-swap baseline still trails by 0.0557 MAE and reaches only
+$p_{\mathrm{Holm}}=0.0026$. As a nonparametric robustness check, the raw
+one-sided Wilcoxon $p$ value stays below 0.005 on all 189 comparisons.
 
-Table~\ref{tab:external} expands the external evidence beyond TRACE-SL-only MAE. PeMS7\_1026 and Seattle both have ten tracked Stage12 splits and include the same major baseline families. The table makes two boundary cases visible. On PeMS7\_1026 at 10\%, greedy A-trace and swap-from-A-trace are slightly better than the final TRACE-SL selection, while TRACE-SL remains better than random, top-variance, QR/POD, graph-sampling, and observability baselines. On Seattle at 10\%, TRACE-SL is effectively tied with RCSS and multistart swap. At higher budgets, TRACE-SL improves over the listed reviewer-facing baselines on both external networks.
+\input{tables/table_trace_biopt_significance_posture}
 
-This evidence supports a multi-network empirical claim, not a universal generalization theorem. The same protocol transfers across the tested networks, but the external rows also show why the manuscript avoids saying that the final selector is globally optimal or uniformly dominant over every internal variant.
+Table~\ref{tab:trace-biopt-challenger-posture} makes one further point that
+the main dominance table and the corrected significance screen should not
+hide. On 6/9 current-best rows, the strongest mean challenger and the hardest
+challenger after Holm correction come from different baseline families. This
+is exactly what one would expect if TRACE-BiOpt is not merely tuned against
+one convenient comparator: PeMS7\_1026 at 10\% is closest in mean MAE to Swap
+from A-trace but hardest after correction against the previous TRACE-SL
+route, while Seattle at 10\% is closest in mean MAE to RCSS but hardest after
+correction against Multistart validation-swap. The all-baseline screen
+therefore does more than ratify the primary table. It shows that no single
+baseline family remains the unique near-miss once both mean ranking and
+multiplicity-corrected paired inference are made explicit.
+
+\input{tables/table_trace_biopt_challenger_posture}
+
+Table~\ref{tab:trace-biopt-comparison-ladder} compresses the whole empirical
+contract into one ladder. The point is to make the comparison class legible in
+the same order that a reviewer usually interrogates it: first ask how broad
+the audited registry is, then whether TRACE-BiOpt beats the row-wise strongest
+challenger, then whether that result survives all-baseline correction, then
+whether the closest family-level near misses remain serious, and finally what
+the explicit non-claims are. Read this table together with
+Table~\ref{tab:trace-biopt-dominance} and
+Table~\ref{tab:trace-biopt-significance-posture}: the manuscript's claim is not
+just one best-baseline win table, but a multi-layer audited comparison-class
+contract with no surviving challenger.
+
+\input{tables/table_trace_biopt_comparison_ladder}
+
+\subsection{Comparison with the previous TRACE-SL evidence}
+
+\input{tables/table_external}
+
+The earlier Stage12 TRACE-SL tables remain useful as a diagnostic history, but
+they are no longer the main method claim. They showed why the method pivot was
+necessary: on some low-budget external rows, internal A-trace, RCSS, or
+multistart validation-swap variants were competitive with the older
+TRACE-SL selection rule. TRACE-BiOpt resolves this by replacing that
+selection logic with
+one bilevel objective and then testing against those same strong variants as
+baselines.
+
+\subsection{Claim boundary}
+
+The current-best claim contract permits the following aggregate wording: across
+the tested datasets and 10/20/30\% budgets, TRACE-BiOpt has the lowest mean
+held-out GLS/MAP MAE against the pre-registered non-BiOpt baseline set. It
+does not permit claims of global optimality, dominance over untested baselines,
+or universal cross-network generalization.

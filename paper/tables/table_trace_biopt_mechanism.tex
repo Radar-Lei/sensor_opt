@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Mechanism diagnostics for TRACE-BiOpt from the current best evidence chain.}
+\label{tab:trace-biopt-mechanism}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.39\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Diagnostic & Evidence & Interpretation \\
+\midrule
+Strongest-comparator gate & TRACE-BiOpt beats the row-specific best non-BiOpt baseline in 9/9 rows; 21 baseline rows per regime. & The main table is not a comparison against a fixed weak baseline. \\
+Paired-test strength & 9/9 rows have paired t-test p<0.05; 9/9 rows win all ten paired splits. & Most regimes show split-paired evidence beyond mean dominance. \\
+Weak-row resolution path & PeMS7\_1026 30\%: delta -0.0375 MAE, 10/10 paired wins, paired t p=0.0000; 8/9 current-best rows are already promoted from calibrated reruns. & Weak rows are resolved inside the same TRACE-BiOpt objective family and then promoted into the audited main evidence chain. \\
+Comparator hardness & rcss\_selected in 1/9 rows, swap\_from\_greedy\_a\_trace in 1/9 rows, validation\_swap\_selected in 7/9 rows. & The strongest comparator often comes from the prior TRACE-SL or RCSS family, not only simple heuristics. \\
+Certificate alignment & posterior trace Spearman rho=0.849; condition number rho=0.865; information logdet rho=-0.778; n=30. & Posterior/certificate quantities track held-out MAE under the GLS/MAP protocol. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

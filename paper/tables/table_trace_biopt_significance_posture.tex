@@ -1,0 +1,26 @@
+\begin{table*}[t]
+\centering
+\caption{Current-best all-baseline significance posture. Each row compares TRACE-BiOpt with all 21 pre-registered non-BiOpt baselines on the same ten split seeds. Counts use one-sided paired $t$-tests with Holm familywise correction over all 189 current-best row-baseline comparisons. The last column reports the hardest challenger after correction; the detail CSV also records unadjusted one-sided Wilcoxon checks.}
+\label{tab:trace-biopt-significance-posture}
+\tiny
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.95}
+\begin{tabularx}{\textwidth}{llrrr>{\raggedright\arraybackslash}Xrrr}
+\toprule
+Dataset & Budget & Worse / total & Non-worse & Better & Hardest challenger & Mean $\Delta$ & Max Holm $p$ & Max Wilcoxon $p$ \\
+\midrule
+PeMS7\_1026 & 10\% & 21/21 & 0 & 0 & Prev. TRACE-SL & -0.1432 & 0.0001 & 0.0010 \\
+PeMS7\_1026 & 20\% & 21/21 & 0 & 0 & RCSS & -0.1245 & 0.0000 & 0.0010 \\
+PeMS7\_1026 & 30\% & 21/21 & 0 & 0 & Prev. TRACE-SL & -0.0375 & 0.0005 & 0.0010 \\
+PeMS7\_228 & 10\% & 21/21 & 0 & 0 & scenario cvar a trace & -0.2341 & 0.0007 & 0.0010 \\
+PeMS7\_228 & 20\% & 21/21 & 0 & 0 & top variance & -0.3840 & 0.0000 & 0.0010 \\
+PeMS7\_228 & 30\% & 21/21 & 0 & 0 & RCSS & -0.4159 & 0.0000 & 0.0010 \\
+Seattle & 10\% & 21/21 & 0 & 0 & Multistart validation-swap & -0.0557 & 0.0026 & 0.0049 \\
+Seattle & 20\% & 21/21 & 0 & 0 & Prev. TRACE-SL & -0.0827 & 0.0003 & 0.0010 \\
+Seattle & 30\% & 21/21 & 0 & 0 & Prev. TRACE-SL & -0.0952 & 0.0003 & 0.0010 \\
+All rows & -- & 189/189 & 0 & 0 & Multistart validation-swap & -0.0557 & 0.0026 & 0.0049 \\
+\bottomrule
+\end{tabularx}
+\begin{flushleft}\footnotesize `Worse / total` counts baselines for which TRACE-BiOpt remains significantly better after global Holm correction; `Non-worse` counts baselines not separated by that corrected test; `Better` counts baselines significantly better than TRACE-BiOpt. Negative mean $\Delta$ favors TRACE-BiOpt.\end{flushleft}
+\renewcommand{\arraystretch}{1.0}
+\end{table*}

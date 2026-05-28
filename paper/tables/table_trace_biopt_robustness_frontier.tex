@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\caption{Stage14 PeMS7\_228 stress frontier over perturbation, cost, and temporal-shift slices. Lower MAE is better.}
+\label{tab:trace-biopt-robustness-frontier}
+\tiny
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\centering\arraybackslash}p{0.09\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\centering\arraybackslash}p{0.08\textwidth}}
+\toprule
+Condition & Winner & Family & Best & Runner-up & Gap \\
+\midrule
+baseline & graph\_sampling & graph-spectral & 1.2194 & qr\_pod & 0.0297 \\
+block missing 12 steps & greedy\_d\_logdet & logdet & 1.1114 & observability\_proxy & 0.0301 \\
+cost proxy budget 45 & graph\_sampling & graph-spectral & 1.2194 & qr\_pod & 0.0297 \\
+observation noise 5\% & graph\_sampling & graph-spectral & 1.2459 & qr\_pod & 0.0484 \\
+random missing 10\% & graph\_sampling & graph-spectral & 1.2143 & multistart\_swap & 0.0406 \\
+sensor failure 5\% & graph\_sampling & graph-spectral & 1.2234 & qr\_pod & 0.0081 \\
+sensor failure 10\% & graph\_sampling & graph-spectral & 1.2308 & qr\_pod & 0.0284 \\
+sensor failure 20\% & graph\_sampling & graph-spectral & 1.2230 & multistart\_swap & 0.0006 \\
+chronological split & graph\_sampling & graph-spectral & 1.1921 & multistart\_swap & 0.0058 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}\footnotesize These rows remain bounded Stage14 stress-test evidence only. They do not assert TRACE-BiOpt robustness under the same perturbations because the Stage14 artifact evaluates pre-TRACE-BiOpt reviewer-facing baselines on two split seeds; the table is used to summarize how the stress frontier moves across perturbation types.\end{flushleft}
+\end{table*}

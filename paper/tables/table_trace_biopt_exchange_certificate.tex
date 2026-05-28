@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{Current-best TRACE-BiOpt exchange-gap certificate posture by dataset-budget row.}
+\label{tab:trace-biopt-exchange-certificate}
+\footnotesize
+\begin{tabular}{lcccl}
+\toprule
+Dataset & Budget & Search cov. & Stop cert. & Certificate scope \\
+\midrule
+PeMS7\_1026 & 10\% & 1.3\% & 4/6 & mixed searched certificate \\
+PeMS7\_1026 & 20\% & 0.8\% & 0/10 & budget-limited certificate \\
+PeMS7\_1026 & 30\% & 0.6\% & 0/10 & budget-limited certificate \\
+PeMS7\_228 & 10\% & 100.0\% & 10/0 & complete one-exchange certificate \\
+PeMS7\_228 & 20\% & 100.0\% & 4/6 & mixed searched certificate \\
+PeMS7\_228 & 30\% & 100.0\% & 1/9 & mixed searched certificate \\
+Seattle & 10\% & 13.7\% & 9/1 & mixed searched certificate \\
+Seattle & 20\% & 7.6\% & 10/0 & searched active-set certificate \\
+Seattle & 30\% & 5.8\% & 10/0 & searched active-set certificate \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}\footnotesize Search cov. is the mean searched one-exchange neighborhood as a percentage of the full $k(n-k)$ swap set. Stop cert. reports runs ending by no improving searched exchange versus runs exhausting the declared exchange-iteration budget. A complete one-exchange certificate means $G_1(\hat{\calS})=0$ up to tolerance because the full neighborhood was searched; a searched active-set or mixed certificate means only $G^{\mathrm{search}}_1(\hat{\calS})=0$ on the evaluated active set; a budget-limited row does not carry a zero-gap certificate.\end{flushleft}
+\end{table*}

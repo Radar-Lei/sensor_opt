@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{TRACE-BiOpt problem contract. The table compresses the Section~3 problem definition into the deployment-time decision, hidden-state target, bilevel structure, split discipline, external comparison class, and explicit scope that a reviewer should carry into the method and experiments.}
+\label{tab:trace-biopt-problem-contract}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.41\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Contract axis & Paper-visible statement & Reviewer-facing reading \\
+\midrule
+Decision timing & Freeze one sparse siting plan before most future traffic states are observed, then judge it on downstream hidden-state recoverability. & The decision is a long-lived fixed-infrastructure transportation network-design choice, not a layout tuned after the graph is already observed. \\
+Target quantity & Optimize hidden-state recoverability rather than coverage, visibility, OD identifiability, or a pure graph score. & The problem is about the recoverability of the hidden network state, not only the visibility of the observed subset. \\
+Bilevel structure & The lower level is one transparent GLS/MAP inverse problem and the upper level is one recoverability-driven bilevel stochastic design objective. & TRACE-BiOpt solves one transparent inverse problem inside one bilevel stochastic transportation network-design formulation rather than composing unrelated heuristics. \\
+Deployment-time split discipline & Training estimates reconstruction ingredients, validation drives the design objective and deterministic exchange search, and test data stay held out until the siting rule is frozen. & The problem definition is deployment-facing: validation calibrates the design, while test data remain final evidence rather than another tuning loop. \\
+External comparison class & The 21 pre-registered baselines across 11 audited families stay outside the problem as an external audited comparison class, and the current-best chain leaves no surviving challenger after 189/189 Holm-corrected paired wins. & Baselines test the solved design after the rule is frozen; they are not internal candidates in the optimization problem. \\
+Explicit problem scope & The empirical claim is row-wise hidden-state reconstruction dominance on 9/9 submission-ready rows, not universal observability, universal exactness, or dominance over untested baselines. & The problem contract is strong but bounded: it is a recoverability-driven siting problem under explicit evidence and theory limits. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

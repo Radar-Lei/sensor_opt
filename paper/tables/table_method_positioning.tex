@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{Methodological positioning of TRACE-BiOpt relative to adjacent sensor-location and traffic-estimation literatures. The table states the design object, the inferred quantity, and the boundary that prevents TRACE-BiOpt from being read as a renamed version of an existing formulation. The common thread is that TRACE-BiOpt treats sparse sensing as fixed-infrastructure network design evaluated by downstream hidden-state recoverability.}
+\label{tab:method-positioning}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}}
+\toprule
+Literature stream & Typical design object & Inferred quantity & TRACE-BiOpt distinction \\
+\midrule
+OD count location and plate scanning \citep{yang1998optimal,ehlert2006optimisation,castillo2008trip,minguez2010plate,simonelli2012od} & count or scanning links chosen for OD/path information & OD matrix, route demand, or path flow & optimizes hidden network-state reconstruction error directly, not OD identifiability or route-flow reconstruction \\
+Link-flow observability and path reconstruction \citep{hu2009identification,he2013graphical,ng2012synergistic,viti2014partial,rinaldi2017route,zhuo2024revisiting} & minimum or informative sensor sets satisfying observability relationships & unobserved link, path, or route flows under algebraic/topological conditions & accepts partial observation as budget-constrained design and evaluates held-out GLS/MAP hidden-state error rather than full observability alone \\
+Reliable and robust traffic sensor deployment \citep{li2011reliable,li2012opre,xu2016robust,salari2019failure,yu2023robustness} & redundant or failure-aware surveillance layouts & surveillance effectiveness or retained link-flow observability under failures & includes CVaR and stress-test routing but does not claim universal failure robustness beyond tested regimes \\
+OED and submodular sensor selection \citep{joshi2009sensor,krause2008near,krause2008robust} & subsets maximizing information or minimizing covariance criteria & parameters or latent fields under statistical design models & uses posterior trace as one certificate inside a reconstruction-risk objective, not as the sole placement criterion \\
+Graph sampling and sparse reconstruction \citep{chen2015sampling,anis2016sampling,manohar2018sparse} & vertices selected for signal recoverability under graph/modal structure & graph signals or modal coefficients & treats graph/POD layouts as pre-registered comparators and optimizes traffic-specific hidden-state reconstruction loss \\
+Traffic forecasting and imputation \citep{seo2017survey,coric2012traffic,li2018dcrnn,yu2018stgcn} & estimator architecture or inference procedure, often on a fixed sensor graph & future or missing traffic states & fixes a transparent estimator and moves the main decision upstream to the sparse infrastructure layout \\
+\bottomrule
+\end{tabular}
+\end{table*}

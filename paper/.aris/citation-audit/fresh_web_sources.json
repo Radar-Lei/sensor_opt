@@ -1,0 +1,54 @@
+{
+  "audit_type": "fresh_web_current_agent",
+  "generated_at": "2026-05-27T04:10:00+08:00",
+  "metadata_fixes_applied": [
+    {
+      "key": "he2013graphical",
+      "field": "author",
+      "old": "He, Shou-Xiang",
+      "new": "He, Sheng-xue",
+      "source": "https://api.crossref.org/works/10.1016%2Fj.trb.2013.02.006"
+    },
+    {
+      "key": "fu2016heterogeneous",
+      "field": "author",
+      "old": "Fu, Chenyi and Zhu, Ning and Ling, Shoufeng and Ma, Shoufeng and Huang, Yinhai",
+      "new": "Fu, Chenyi and Zhu, Ning and Ling, Shuai and Ma, Shoufeng and Huang, Yongxi",
+      "source": "https://ideas.repec.org/a/eee/transb/v91y2016icp77-97.html"
+    }
+  ],
+  "per_entry": [
+    {"key": "yang1998optimal", "verdict": "KEEP", "source": "https://doi.org/10.1016/S0191-2615(97)00016-7", "context": "SUPPORTS"},
+    {"key": "ehlert2006optimisation", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2005.06.001", "context": "SUPPORTS"},
+    {"key": "castillo2008trip", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2007.09.004", "context": "SUPPORTS"},
+    {"key": "minguez2010plate", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2009.07.008", "context": "SUPPORTS"},
+    {"key": "li2011reliable", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2010.04.005", "context": "SUPPORTS"},
+    {"key": "ng2012synergistic", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2012.02.001", "context": "SUPPORTS"},
+    {"key": "simonelli2012od", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2012.08.007", "context": "SUPPORTS"},
+    {"key": "viti2014partial", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2014.08.002", "context": "SUPPORTS"},
+    {"key": "rinaldi2017route", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2017.08.007", "context": "SUPPORTS"},
+    {"key": "xu2016robust", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2016.03.006", "context": "SUPPORTS"},
+    {"key": "salari2019failure", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2019.01.004", "context": "SUPPORTS"},
+    {"key": "yu2023robustness", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2023.102849", "context": "SUPPORTS"},
+    {"key": "rodriguez2019turning", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2018.12.005", "context": "SUPPORTS"},
+    {"key": "zhu2022nslp", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.ejor.2021.10.038", "context": "SUPPORTS"},
+    {"key": "zhuo2024revisiting", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2024.103099", "context": "SUPPORTS"},
+    {"key": "zhu2014estimation", "verdict": "KEEP", "source": "https://doi.org/10.3141/2443-04", "context": "SUPPORTS"},
+    {"key": "li2012opre", "verdict": "KEEP", "source": "https://doi.org/10.1287/opre.1120.1082", "context": "SUPPORTS"},
+    {"key": "gentili2011survey", "verdict": "KEEP", "source": "https://doi.org/10.3141/2243-13", "context": "SUPPORTS"},
+    {"key": "hu2009identification", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2009.02.008", "context": "SUPPORTS"},
+    {"key": "he2013graphical", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2013.02.006", "context": "SUPPORTS"},
+    {"key": "fu2016heterogeneous", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2016.04.013", "context": "SUPPORTS"},
+    {"key": "fu2017stochastic", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.trb.2017.05.013", "context": "SUPPORTS"},
+    {"key": "coric2012traffic", "verdict": "KEEP", "source": "https://doi.org/10.3141/2315-13", "context": "SUPPORTS"},
+    {"key": "seo2017survey", "verdict": "KEEP", "source": "https://doi.org/10.1016/j.arcontrol.2017.03.005", "context": "SUPPORTS"},
+    {"key": "joshi2009sensor", "verdict": "KEEP", "source": "https://doi.org/10.1109/TSP.2008.2007095", "context": "SUPPORTS"},
+    {"key": "krause2008near", "verdict": "KEEP", "source": "https://jmlr.org/papers/v9/krause08a.html", "context": "SUPPORTS"},
+    {"key": "krause2008robust", "verdict": "KEEP", "source": "https://jmlr.org/papers/v9/krause08b.html", "context": "SUPPORTS"},
+    {"key": "chen2015sampling", "verdict": "KEEP", "source": "https://doi.org/10.1109/TSP.2015.2469645", "context": "SUPPORTS"},
+    {"key": "anis2016sampling", "verdict": "KEEP", "source": "https://doi.org/10.1109/TSP.2016.2546233", "context": "SUPPORTS"},
+    {"key": "manohar2018sparse", "verdict": "KEEP", "source": "https://doi.org/10.1109/MCS.2018.2810460", "context": "SUPPORTS"},
+    {"key": "li2018dcrnn", "verdict": "KEEP", "source": "https://openreview.net/forum?id=SJiHXGWAZ", "context": "SUPPORTS"},
+    {"key": "yu2018stgcn", "verdict": "KEEP", "source": "https://doi.org/10.24963/ijcai.2018/505", "context": "SUPPORTS"}
+  ]
+}

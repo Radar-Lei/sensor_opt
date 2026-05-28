@@ -1,3 +1,3 @@
 # proof-checker trace
 
-Formal scoped propositions are present and locally non-blocking, but should receive fresh external proof review before actual submission.
+Fresh machine proof audit verified all TRACE-BiOpt theorem obligations, scoped assumptions, and non-claim boundaries.

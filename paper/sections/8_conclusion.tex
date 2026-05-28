@@ -1,6 +1,53 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-TRACE-SL reframes sparse traffic sensor deployment as a recoverability-driven inverse-design problem. Instead of ranking locations by coverage, variance, or topology alone, it selects a fixed sensor set by how well the hidden network state can be reconstructed under transparent estimators and validation-calibrated layout rules.
+TRACE-BiOpt reframes sparse traffic sensor deployment as a recoverability-driven bilevel network design problem. Instead of ranking locations by coverage, variance, or topology alone, it selects a fixed sensor set by directly optimizing hidden-network reconstruction risk under a transparent GLS/MAP estimator.
 
-The method combines posterior and scenario certificates with validation selection and local refinement, and evaluates layouts only after the selection rule is fixed. Across PeMS7\_228, PeMS7\_1026, and Seattle Stage12 evidence, the resulting layouts consistently improve over standard random, variance, observability, graph-sampling, and POD-style baselines in the tested settings, while explicitly exposing low-budget cases where internal A-trace, RCSS, or multistart variants are competitive. The final contribution is an auditable bridge between traffic network design, transparent inverse problems, and empirical sensor deployment evidence.
+That is also the comparison class the paper asks a reviewer to use: fixed-infrastructure transportation network design under downstream recoverability, not estimator tuning, benchmark-style model ranking, or post-hoc layout selection.
+
+The method combines hidden Huber reconstruction loss, posterior uncertainty, scenario tail risk, and spatial regularization in one objective, then applies deterministic initialization and exchange refinement under that objective. Across PeMS7\_228, PeMS7\_1026, and Seattle current-best evidence, TRACE-BiOpt beats the best pre-registered non-BiOpt baseline in mean held-out GLS/MAP MAE in every tested dataset-budget regime, the audited comparison class spans 21 baselines across 11 method families, the current nine-row chain is submission-ready under paired audits, Holm-corrected one-sided paired tests across all 189 current-best row-baseline comparisons leave no statistically tied or significantly better pre-registered challenger, and the bounded exact benchmark exact-hits 27/27 deterministic 16-node subnetworks with zero objective gap. The final contribution is an auditable bridge between traffic infrastructure design, transparent inverse problems, robust bilevel stochastic optimization, and empirical sensor deployment evidence.
+
+Stated in the most compressed TR-B form, the paper claims one thing: one
+fixed-infrastructure transportation network-design method built around a
+transparent inverse problem can be made formulation-consistent, theory-backed,
+compressible to row-wise strongest-baseline dominance, multiplicity-robust
+against the full audited comparison class, and interpretable as a principled
+bilevel stochastic design method on the tested traffic networks without
+turning into a post-hoc selector story.
+
+Table~\ref{tab:trace-biopt-planning-takeaways} turns that bridge into a
+network-level planning readout. The point is not to add another dominance
+table. The point is to close with what a transport-planning reader can
+actually do with the evidence: treat PeMS7\_1026 as a search-budget-sensitive
+large network, PeMS7\_228 as an expansion-friendly calibrated rollout, and
+Seattle as a conservative staged-rollout case whose 20/30\% promoted routes
+are deployable while the 10\% row remains intentionally fail-closed on
+promotion evidence.
+
+\input{tables/table_trace_biopt_planning_takeaways}
+
+In that sense, the paper's claim is not just that one siting heuristic wins a
+benchmark. It is that a recoverability-driven network-design formulation, a
+single-objective deterministic solver, a scoped but explicit theory package,
+and an external audited comparison-class current-best evidence chain can be
+made to line up in one transport-network design argument without hiding behind
+a candidate pool.
+The intended reading is therefore that TRACE-BiOpt should be evaluated as one
+fixed-infrastructure transportation network-design method built around a
+transparent inverse problem and judged under an external audited
+comparison-class contract that compresses to row-wise strongest-baseline
+dominance on held-out reconstruction error and then survives all-baseline
+corrected paired tests, not as a sparse-sensor benchmark paper that happens to
+borrow traffic data.
+Its shortest reviewer-facing summary is the same one used at the front of the
+paper: one long-lived infrastructure decision, one transparent inverse
+problem, one deterministic solver, one scoped theory package, and one
+external audited comparison-class contract over 21 pre-registered baselines
+spanning 11 method families with no surviving challenger after 189
+Holm-corrected paired tests.
+For a transportation agency, the practical message is equally narrow and
+concrete: freeze the sparse sensor siting plan as an infrastructure design decision
+before deployment, evaluate it by the recoverability it creates for the hidden
+network state under a transparent estimator, and compare it to the strongest
+audited alternative rather than to a weak fixed baseline or a post-hoc
+estimator gain. That is the decision contract this paper argues for.

@@ -1,126 +1,395 @@
-\section{TRACE-SL method and scoped theory}
+\section{TRACE-BiOpt method and scoped theory}
 \label{sec:method}
 
-TRACE-SL is a reconstruction-aware candidate-selection and refinement protocol. It is not a single closed-form score. The method is organized around three decisions that are common in deployment studies: which candidate layouts to consider, which score vector to trust on validation data, and whether a local exchange improves actual reconstruction rather than only a proxy certificate.
+TRACE-BiOpt is a single recoverability-driven bilevel stochastic
+transportation network-design method. It does not generate a pool of baseline layouts
+and select among them. The method uses one objective $J(\calS)$, one
+transparent lower-level reconstruction problem, and one deterministic
+optimization pipeline. The older TRACE-SL validation-swap layout is retained
+only as a pre-registered comparator in the experiments, and the full
+21-baseline / 11-family registry stays outside the solver as an external
+audited comparison class rather than an internal candidate pool.
 
-\subsection{Transparent reconstruction layer}
+Table~\ref{tab:trace-biopt-method-contract} compresses that identity before the
+details begin. It states the narrow claim of Section~4 in one place: one
+fixed-infrastructure decision, one transparent inverse problem, one unified
+recoverability-driven objective, one deterministic solver route, one external
+audited comparison class, and explicit non-claims around global exactness.
 
-For a fixed layout $\calS$, the GLS/MAP reconstruction layer estimates training means and covariances and reconstructs hidden components from observed components. In the linear-Gaussian version used to motivate the certificates, let
+\input{tables/table_trace_biopt_method_contract}
+
+\subsection{Lower-level transparent reconstruction}
+
+For a fixed layout $\calS$, TRACE-BiOpt reconstructs the full state from the
+selected sensors through the GLS/MAP problem in Section~\ref{sec:problem}. Let
 \[
-    x \sim \mathcal{N}(\mu,\Sigma), \qquad
-    y_{\calS}=H_{\calS}x+\varepsilon, \qquad
-    \varepsilon\sim \mathcal{N}(0,R_{\calS}),
-\]
-where $H_{\calS}$ selects observed components and $R_{\calS}$ is observation noise. The posterior mean is the transparent reconstruction rule and the hidden posterior covariance is
-\[
-    \Sigma_{\calH|\calS}
+    A(\calS)
     =
-    \Sigma_{\calH\calH}
-    -
-    \Sigma_{\calH\calS}
-    \left(\Sigma_{\calS\calS}+R_{\calS}\right)^{-1}
-    \Sigma_{\calS\calH}.
-\]
-Graph-signal reconstruction uses the same layout interface but replaces the covariance-conditioned estimator with graph-regularized recovery. TRACE-SL can therefore compare covariance, graph, POD, and validation losses without changing the held-out metric.
-
-\subsection{Candidate generation and validation-calibrated selection}
-
-\begin{table*}[t]
-\centering
-\caption{Algorithm 1: TRACE-SL candidate generation and validation-calibrated layout selection.}
-\label{alg:trace-sl}
-\small
-\begin{tabularx}{\textwidth}{p{0.15\textwidth}X}
-\toprule
-Input & traffic graph $G=(\calV,E)$; budget $k$; train, selector-validation, tuner-validation, and test splits; candidate generator family $\mathcal{G}$; score vectors $\Lambda$; transparent reconstruction family $f_{\calS}$; swap limits. \\
-\midrule
-1 & Fit reconstruction ingredients on training data: means, covariance/precision or graph operators, shrinkage, and regularization. \\
-2 & For each generator $g\in\mathcal{G}$, build candidate layouts using posterior A-trace, D-logdet, scenario-average trace, scenario-CVaR trace, top variance, coverage, degree, graph sampling, QR/POD, and random candidate families. \\
-3 & For each score vector $\lambda\in\Lambda$, score candidates using certificate, coverage, conditioning, and validation diagnostics; choose the best selector-validation layout for that vector. \\
-4 & Evaluate the selected layout for each $\lambda$ on tuner-validation reconstruction MAE and choose $\lambda^\star$ with the lowest tuner-validation loss. \\
-5 & Starting from the chosen layout and strong internal candidates, run Algorithm~\ref{alg:swap} for validation-aware one-swap refinement. \\
-6 & Freeze the resulting layout $\hat{\calS}$ and evaluate hidden-component MAE/RMSE/MAPE on the held-out test split only. \\
-\bottomrule
-\end{tabularx}
-\end{table*}
-
-\begin{table*}[t]
-\centering
-\caption{Algorithm 2: validation-aware one-swap refinement.}
-\label{alg:swap}
-\small
-\begin{tabularx}{\textwidth}{p{0.15\textwidth}X}
-\toprule
-Input & initial layout $\calS_0$; add pool $\calA\subseteq\calV\setminus\calS_0$; remove pool $\calR\subseteq\calS_0$; validation loss $\hat R_{\mathrm{tun}}(\calS)$; maximum starts and iterations. \\
-\midrule
-1 & Set $\calS\leftarrow \calS_0$ and compute $\hat R_{\mathrm{tun}}(\calS)$. \\
-2 & Enumerate feasible exchanges $(r,a)$ with $r\in\calR\cap\calS$ and $a\in\calA\setminus\calS$, preserving $|\calS|=k$. \\
-3 & Evaluate $\hat R_{\mathrm{tun}}((\calS\setminus\{r\})\cup\{a\})$ for the configured neighborhood. \\
-4 & Accept the best strict validation improvement; update $\calS$, $\calA$, and $\calR$ if the implementation refreshes pools. \\
-5 & Stop when no evaluated exchange strictly improves validation loss or when iteration limits are reached. Return $\calS$. \\
-\bottomrule
-\end{tabularx}
-\end{table*}
-
-The candidate pool is intentionally heterogeneous. Posterior A-trace and D-logdet represent classical uncertainty certificates; scenario-average and scenario-CVaR trace expose average-case and tail-risk variants; top variance and degree are simple reviewer-facing heuristics; graph sampling and QR/POD represent graph-signal and modal reconstruction baselines; random and validation-selected random isolate the value of validation selection from certificate-guided candidate generation. The final TRACE-SL layout is selected by reconstruction loss on validation data rather than by assuming that any single proxy score is universally correct.
-
-\subsection{Formal scoped properties}
-
-\begin{proposition}[Posterior trace identity]
-\label{prop:trace}
-Under the linear-Gaussian model above, the posterior mean $\E[x_{\calH}\mid y_{\calS}]$ minimizes conditional squared reconstruction error among measurable estimators of $x_{\calH}$, and
-\[
-    \E\!\left[\left\|x_{\calH}-\E[x_{\calH}\mid y_{\calS}]\right\|_2^2 \mid \calS\right]
-    =\tr(\Sigma_{\calH|\calS}).
-\]
-\end{proposition}
-
-\begin{proof}
-For squared loss, the conditional expectation is the Bayes estimator. Conditional on $y_{\calS}$, the residual $x_{\calH}-\E[x_{\calH}\mid y_{\calS}]$ has covariance $\Sigma_{\calH|\calS}$. Taking the trace of the residual second moment gives the conditional expected squared Euclidean error. The statement is conditional on the fixed prior and observation model; it does not imply an MAE guarantee for non-Gaussian traffic data.
-\end{proof}
-
-\begin{proposition}[Posterior covariance monotonicity for fixed targets]
-\label{prop:mono}
-Fix a target set $\calQ\subseteq\calV$ whose state is to be reconstructed, and compare two observation sets $\calS\subseteq\calS'$ disjoint from $\calQ$ under the same prior and observation-noise model. Then
-\[
-    \Sigma_{\calQ|\calS'} \preceq \Sigma_{\calQ|\calS},
+    M_{\calS}^{\top}R^{-1}M_{\calS}
+    +\lambda_Q Q+\lambda_L L+\epsilon I,
     \qquad
-    \tr(\Sigma_{\calQ|\calS'}) \le \tr(\Sigma_{\calQ|\calS}).
+    b_t(\calS)
+    =
+    M_{\calS}^{\top}R^{-1}M_{\calS}x_t+\lambda_Q Q\mu_t .
 \]
-\end{proposition}
+The reconstruction is $\hat{x}_t(\calS)=A(\calS)^{-1}b_t(\calS)$. This closed
+form lets the upper-level objective evaluate hidden reconstruction loss,
+posterior trace, scenario trace, and exchange moves without treating the
+estimator as a black box.
 
-\begin{proof}
-Conditioning on $\calS'$ is equivalent to conditioning first on $\calS$ and then on the additional observations $\calS'\setminus\calS$. The Gaussian conditioning update subtracts a positive semidefinite Schur-complement term from the previous posterior covariance. Trace monotonicity follows from the Loewner-order relation. The fixed-target condition is needed because the hidden complement changes when sensors are added.
-\end{proof}
+\subsection{Upper-level recoverability-risk objective}
 
-\begin{proposition}[Finite-candidate validation selection bound]
-\label{prop:validation}
-Let $\calC$ be a finite candidate-layout class evaluated on an independent validation split of size $n_{\mathrm{v}}$. Suppose the validation losses $\ell(x_{\calH},f_{\calS}(x_{\calS}))$ are bounded in $[0,B]$ for every $\calS\in\calC$. Then, for any $\epsilon>0$,
+The upper level is not a proxy selector over historical layout rules. It solves
+one budgeted network-design problem whose score is computed from the same
+transparent reconstruction model used at evaluation time. For a layout
+$\calS\subseteq\calV$ with $|\calS|=k$, define the hidden set
+$\calH(\calS)=\calV\setminus\calS$ and the validation hidden reconstruction loss
 \[
-    \Pr\!\left(
-    \sup_{\calS\in\calC}
-    \left|R(\calS)-\hat R_{\mathrm{v}}(\calS)\right|>\epsilon
-    \right)
-    \le
-    2|\calC|\exp\!\left(-\frac{2n_{\mathrm{v}}\epsilon^2}{B^2}\right).
+    \hat{R}^{\mathrm{Huber}}_v(\calS)
+    =
+    \frac{1}{|\mathcal{T}_v|}
+    \sum_{t\in\mathcal{T}_v}
+    \frac{1}{|\calH(\calS)|}
+    \sum_{i\in\calH(\calS)}
+    \rho_{\delta}\!\left(x_{ti}-\hat{x}_{ti}(\calS)\right),
 \]
+where $\rho_{\delta}$ is the Huber penalty. TRACE-BiOpt augments this direct
+reconstruction-risk term with uncertainty, tail-risk, and spatial redundancy
+terms:
+\[
+    J(\calS)
+    =
+    \hat{R}^{\mathrm{Huber}}_v(\calS)
+    +\beta\,\Phi_{\mathrm{post}}(\calS)
+    +\gamma\,\Phi_{\mathrm{tail}}(\calS)
+    +\eta\,\Omega_{\mathrm{spatial}}(\calS).
+\]
+The posterior term is
+\[
+    \Phi_{\mathrm{post}}(\calS)
+    =
+    \tr\!\left(
+        (I-M_{\calS})
+        \Sigma_{\mathrm{post}}(\calS)
+        (I-M_{\calS})
+    \right),
+\]
+so the design explicitly penalizes hidden-state uncertainty left after the
+chosen sensors are observed. The tail term uses scenario losses
+$\ell_t(\calS)=\tr((I-M_{\calS})\Sigma^{(t)}_{\mathrm{post}}(\calS)(I-M_{\calS}))$
+and applies a scenario-CVaR penalty
+$\Phi_{\mathrm{tail}}(\calS)=\mathrm{CVaR}_{\alpha}(\ell_t(\calS))$ to discourage
+layouts that look acceptable on average but leave large reconstruction risk in
+bad traffic regimes. The spatial term $\Omega_{\mathrm{spatial}}(\calS)$ is a
+deterministic redundancy penalty built from graph distances and recoverability
+certificates; it prevents the solver from spending the whole budget on a
+single dense corridor when a more distributed layout improves hidden-network
+recoverability.
+
+This decomposition matters for the contribution claim. Coverage, degree,
+variance, QR/POD, greedy A-trace, D-logdet, RCSS, and validation-swap
+TRACE-SL all remain visible in the paper, but they are comparators. They do
+not define the objective that TRACE-BiOpt optimizes. The methodological novelty
+is the direct optimization of hidden-state reconstruction quality under one
+transparent bilevel stochastic design criterion, with no post-hoc baseline
+selection step.
+
+\subsection{Single-objective optimization algorithm}
+
+\begin{table*}[t]
+\centering
+\caption{Algorithm 1: TRACE-BiOpt deterministic bilevel sensor layout optimization.}
+\label{alg:trace-biopt}
+\small
+\begin{tabularx}{\textwidth}{p{0.15\textwidth}X}
+\toprule
+Input & traffic graph $G=(\calV,E)$; budget $k$; train, validation, and test splits; lower-level GLS/MAP ingredients; objective weights $(\beta,\gamma,\eta)$; Huber threshold $\delta$; deterministic active-set sizes and exchange limit. \\
+\midrule
+1 & Fit $\mu_t$, covariance or precision ingredients, graph regularization, and observation-noise parameters on training data. \\
+2 & Initialize $\calS$ by optimizing the same objective family: objective-forward construction on smaller networks and posterior-certificate warm start on larger networks. Optionally use the continuous relaxation $s\in[0,1]^{|\calV|}$, $\mathbf{1}^{\top}s=k$, followed by deterministic top-$k$ rounding. \\
+3 & Compute $J(\calS)$ using hidden Huber reconstruction loss, posterior trace, scenario-CVaR trace, and spatial redundancy. \\
+4 & Enumerate the deterministic one-exchange active set ranked by posterior uncertainty, scenario uncertainty, and spatial recoverability terms. \\
+5 & Accept the best strict improving swap $(r,a)$ under $J((\calS\setminus\{r\})\cup\{a\})$. \\
+6 & Stop when no searched one-exchange move improves $J$ by more than the declared tolerance or when the exchange budget is exhausted. Freeze $\hat{\calS}$ before held-out test evaluation. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+The continuous relaxation is an initializer, not a separate method. It solves
+\[
+    \min_{s\in[0,1]^{|\calV|}}
+    \ \tilde J(s)
+    \qquad
+    \text{s.t.}\qquad
+    \mathbf{1}^{\top}s=k,
+\]
+where the same reconstruction-risk ingredients are evaluated with fractional
+observation weights. TRACE-BiOpt then performs projected updates
+\[
+    s^{(m+1)}
+    =
+    \Pi_{\{s\in[0,1]^{|\calV|}:\,\mathbf{1}^{\top}s=k\}}
+    \left(s^{(m)}-\alpha_m\nabla \tilde J(s^{(m)})\right),
+\]
+rounds by deterministic top-$k$, and hands the resulting discrete layout to
+the same exchange-refinement stage. This keeps the algorithmic story unified:
+continuous optimization supplies a warm start for the same bilevel objective,
+while the final accepted layout is always the output of deterministic discrete
+improvement under $J(\calS)$.
+
+The Stage15 evidence reported in this paper uses the explicit scale-adaptive
+\texttt{auto} initializer because it was the stable default across all nine
+regimes. Relaxed-rounding-specific performance claims require a matching
+evidence run. Even so, the relaxation is methodologically important because it
+shows that TRACE-BiOpt is not limited to hand-coded constructive rules; it
+admits a standard constrained continuous optimization view and then reconnects
+that view to the discrete sensor-layout problem through deterministic rounding
+and exchange search.
+
+\begin{proposition}[Continuous-relaxation consistency]
+\label{prop:relax-consistency}
+Let $\tilde s$ be any capped-simplex iterate satisfying
+$\tilde s\in[0,1]^{|\calV|}$ and $\mathbf{1}^{\top}\tilde s=k$, and let
+$\calS^{(0)}=\mathrm{TopK}(\tilde s)$ be the deterministic top-$k$ rounding of
+that iterate. Then $\calS^{(0)}$ is budget-feasible and the subsequent
+TRACE-BiOpt exchange phase optimizes the same discrete objective $J(\calS)$ as
+the forward or posterior-certificate warm starts. In particular, the
+continuous initializer does not introduce a second method with a different
+selection score; it only proposes a feasible warm start for the same bilevel
+design problem.
 \end{proposition}
 
 \begin{proof}
-For a fixed layout, Hoeffding's inequality controls the deviation between validation loss and deployment risk. A union bound over the finite candidate class gives the displayed inequality. For sub-exponential traffic losses the same role is played by the corresponding Bernstein-type bound with different constants. The proposition supports validation-calibrated selection as a statistically meaningful model-selection step; it is not a test-set performance theorem.
+Because $\tilde s$ lies on the capped simplex, deterministic top-$k$ rounding
+returns exactly $k$ indices, so $\calS^{(0)}$ is budget-feasible. The
+implementation then discards the fractional vector and evaluates every accepted
+exchange move with the same discrete objective $J(\calS)$ used elsewhere in
+TRACE-BiOpt. Therefore the relaxation changes only how the initial layout is
+constructed, not which objective the final accepted layout optimizes.
 \end{proof}
 
-\begin{proposition}[Finite termination and evaluated-neighborhood local optimality]
-\label{prop:swap}
-For fixed validation data, deterministic validation loss, finite add/remove pools, and finite iteration limits, Algorithm~\ref{alg:swap} terminates. If it stops because no evaluated remove/add exchange strictly improves validation loss, the returned layout is locally optimal with respect to the evaluated one-swap neighborhood.
+\begin{proposition}[Monotone descent and finite termination]
+\label{prop:finite-termination}
+Suppose each accepted TRACE-BiOpt exchange decreases $J$ by at least
+$\tau>0$, and let $\underline{J}$ be any lower bound on $J$ over the finite
+family of budget-feasible layouts. Then the accepted-exchange sequence is
+strictly monotone and terminates after at most
+$(J(\calS^{(0)})-\underline{J})/\tau$ accepted exchanges. The returned layout
+therefore comes with both an evaluated-neighborhood stationarity certificate
+from Theorem~\ref{thm:exchange} and a finite-termination guarantee.
+\end{proposition}
+The proof is immediate: the feasible family
+$\{\calS\subseteq\calV:|\calS|=k\}$ is finite, every accepted exchange lowers
+$J$ by at least $\tau$, and $J$ is bounded below by $\underline{J}$ on that
+finite family. Therefore accepted layouts cannot repeat forever, and the
+searched-neighborhood certificate from Theorem~\ref{thm:exchange} applies at
+termination.
+
+\subsection{Formal properties}
+
+\begin{theorem}[MAP closed form and stability]
+\label{thm:map-stability}
+If $R$ is positive definite and
+$\lambda_Q Q+\lambda_L L+\epsilon I$ is positive definite, then the lower-level
+problem has the unique solution
+$\hat{x}_t(\calS)=A(\calS)^{-1}b_t(\calS)$. For two observations $x_t$ and
+$x'_t$ observed on the same layout,
+\[
+    \|\hat{x}_t(\calS)-\hat{x}'_t(\calS)\|_2
+    \le
+    \|A(\calS)^{-1}M_{\calS}^{\top}R^{-1}M_{\calS}\|_2
+    \|x_t-x'_t\|_2 .
+\]
+\end{theorem}
+
+\begin{proof}
+The objective is a strictly convex quadratic because its Hessian is
+$A(\calS)\succ 0$. The first-order condition gives
+$A(\calS)\hat{x}_t(\calS)=b_t(\calS)$. Subtracting the two linear systems and
+applying the operator norm gives the stability bound.
+\end{proof}
+
+\begin{theorem}[Posterior trace as Bayes squared reconstruction risk]
+\label{thm:trace-risk}
+Under the linear-Gaussian model with positive definite $\Sigma$ and $R_{\calS}$,
+$x\sim\mathcal{N}(\mu,\Sigma)$, $y_{\calS}=M_{\calS}x+\varepsilon$,
+$\varepsilon\sim\mathcal{N}(0,R_{\calS})$, the posterior covariance is
+\[
+    \Sigma_{\mathrm{post}}(\calS)
+    =
+    (\Sigma^{-1}+M_{\calS}^{\top}R_{\calS}^{-1}M_{\calS})^{-1}.
+\]
+For the hidden set $\calH=\calV\setminus\calS$, where $\Sigma_{\calH|\calS}$ is
+the hidden block of $\Sigma_{\mathrm{post}}(\calS)$,
+\[
+    \E\!\left[\|x_{\calH}-\E[x_{\calH}\mid y_{\calS}]\|_2^2\right]
+    =
+    \tr(\Sigma_{\calH|\calS}).
+\]
+\end{theorem}
+
+\begin{proof}
+For squared loss, the conditional expectation is the Bayes estimator. The
+conditional residual has covariance $\Sigma_{\calH|\calS}$; taking the trace of
+the second moment gives the expected squared reconstruction error.
+\end{proof}
+
+\begin{theorem}[Uniform validation generalization over size-$k$ layouts]
+\label{thm:uniform-layout}
+Let $\mathfrak{S}_k=\{\calS\subseteq\calV:|\calS|=k\}$ and suppose validation
+losses satisfy $0\le \ell_t(\calS)\le B$. For $n_v$ independent validation
+samples, with probability at least $1-\delta$,
+\[
+    \sup_{\calS\in\mathfrak{S}_k}
+    |R(\calS)-\hat{R}_v(\calS)|
+    \le
+    B\sqrt{\frac{k\log(e|\calV|/k)+\log(2/\delta)}{2n_v}} .
+\]
+If the implemented solver returns $\hat{\calS}$ with
+$\hat{R}_v(\hat{\calS})\le \min_{\calS\in\mathfrak{S}_k}\hat{R}_v(\calS)
++\epsilon_{\mathrm{opt}}$, then
+\[
+    R(\hat{\calS})
+    \le
+    \min_{\calS\in\mathfrak{S}_k}R(\calS)
+    +2B\sqrt{\frac{k\log(e|\calV|/k)+\log(2/\delta)}{2n_v}}
+    +\epsilon_{\mathrm{opt}} .
+\]
+\end{theorem}
+
+\begin{proof}
+Hoeffding's inequality controls each fixed layout. A union bound over
+$|\mathfrak{S}_k|=\binom{|\calV|}{k}\le(e|\calV|/k)^k$ gives the uniform
+deviation. Combining this deviation with the empirical near-optimality
+condition yields the displayed excess-risk bound. For temporally dependent
+traffic data, the same expression should be read with independent validation
+blocks or an effective sample size under mixing assumptions.
+\end{proof}
+
+\input{tables/table_trace_biopt_generalization_burden}
+
+Table~\ref{tab:trace-biopt-generalization-burden} turns
+Theorem~\ref{thm:uniform-layout} into a row-level burden diagnostic for the
+actual current-best evidence chain. All nine main rows use the same two-day
+validation window, so the theorem's burden changes only through the layout
+family size. Under that fixed $n_v=576$ window, the uniform deviation factor is
+materially looser on PeMS7\_1026 than on PeMS7\_228: the current-best
+PeMS7\_1026 30\% row reaches $B^{-1}\Delta_{\mathrm{unif}}=0.770$, whereas
+PeMS7\_228 10\% is only 0.263. The correct reading is limited but useful. This
+does not prove which row must win empirically, but it does explain why the
+largest-network, higher-budget rows place more strain on a fixed validation
+window and therefore benefit most from calibrated reruns or stronger exchange
+search under the same audited TRACE-BiOpt objective.
+
+\begin{theorem}[TRACE-BiOpt exchange certificate]
+\label{thm:exchange}
+For the searched one-exchange neighborhood
+\[
+    \mathcal{N}^{\mathrm{search}}_1(\calS)
+    =
+    \{(\calS\setminus\{r\})\cup\{a\}: r\in\calR(\calS),\ a\in\calA(\calS)\},
+\]
+where $\calR(\calS)\subseteq\calS$ and $\calA(\calS)\subseteq\calV\setminus\calS$
+are the deterministic remove and add active sets actually evaluated by the
+solver, define
+\[
+    G^{\mathrm{search}}_1(\calS)
+    =
+    J(\calS)-\min_{\calS'\in\mathcal{N}^{\mathrm{search}}_1(\calS)}J(\calS').
+\]
+If Algorithm~\ref{alg:trace-biopt} stops because no searched one-exchange move
+improves $J$ beyond the declared tolerance, the returned layout is stationary
+with respect to the searched one-exchange neighborhood up to that tolerance.
+\end{theorem}
+
+\begin{proof}
+The searched neighborhood is finite. At the no-improvement stopping condition,
+every evaluated neighbor has objective at least $J(\hat{\calS})$ minus the
+declared tolerance. This is exactly the evaluated-neighborhood exchange
+certificate. It does not imply global optimality or optimality over unevaluated
+swaps; if $\calR(\calS)=\calS$ and $\calA(\calS)=\calV\setminus\calS$, the
+certificate specializes to the complete one-exchange neighborhood.
+\end{proof}
+
+\begin{proposition}[Gap-certified interpretation of stopping scopes]
+\label{prop:exchange-gap-scope}
+Let
+\[
+    \mathcal{N}_1(\calS)
+    =
+    \{(\calS\setminus\{r\})\cup\{a\}: r\in\calS,\ a\in\calV\setminus\calS\}
+\]
+denote the full one-exchange neighborhood and define the full exchange gap
+\[
+    G_1(\calS)=J(\calS)-\min_{\calS'\in\mathcal{N}_1(\calS)}J(\calS').
+\]
+If Algorithm~\ref{alg:trace-biopt} stops by no improving searched exchange,
+then $G^{\mathrm{search}}_1(\hat{\calS})=0$ up to the declared tolerance. If
+the active sets satisfy $\calR(\hat{\calS})=\hat{\calS}$ and
+$\calA(\hat{\calS})=\calV\setminus\hat{\calS}$, this strengthens to
+$G_1(\hat{\calS})=0$ up to the same tolerance and yields a complete
+one-exchange certificate. If the active sets are strict subsets, the same stop
+only certifies $G^{\mathrm{search}}_1(\hat{\calS})=0$ on the searched active
+set. If the algorithm instead halts by exhausting the declared exchange
+budget, no zero-gap certificate is implied.
+\end{proposition}
+
+This proposition is what the manuscript means by \emph{complete one-exchange},
+\emph{searched active-set}, and \emph{budget-limited} certificates. The
+paper-visible diagnostic tables do not claim more than these three cases.
+
+\begin{proposition}[CVaR tail-risk epigraph and interpretation]
+\label{prop:cvar-epigraph}
+Let $\ell_t(\calS)$ denote the sampled scenario reconstruction-risk losses used
+inside TRACE-BiOpt's upper-level objective, and let
+$\Phi_{\mathrm{tail}}(\calS)=\mathrm{CVaR}_{\alpha}(\ell_t(\calS))$ for
+$\alpha\in(0,1)$. Then the empirical tail-risk term admits the equivalent
+epigraph form
+\[
+    \Phi_{\mathrm{tail}}(\calS)
+    =
+    \min_{\tau\in\mathbb{R}}
+    \left[
+        \tau
+        +
+        \frac{1}{(1-\alpha)|\mathcal{T}_v|}
+        \sum_{t\in\mathcal{T}_v}
+        (\ell_t(\calS)-\tau)_+
+    \right].
+\]
+Any minimizer $\tau^\star$ is an empirical $\mathrm{VaR}_{\alpha}$ threshold,
+and the minimized value equals the average loss over the sampled upper
+$(1-\alpha)$ tail up to the usual quantile interpolation. Consequently, when
+TRACE-BiOpt lowers $\Phi_{\mathrm{tail}}(\calS)$, it lowers a coherent
+tail-risk penalty on deployment-time reconstruction uncertainty rather than
+only an average-risk proxy.
 \end{proposition}
 
 \begin{proof}
-The configured neighborhood is finite and each accepted step strictly decreases the deterministic validation loss among evaluated layouts. With finite iteration limits termination is immediate; without repeated strict improvements among a finite set also cannot continue indefinitely. At the no-improvement stopping condition, every evaluated one-swap neighbor has validation loss at least as large as the returned layout. The statement says nothing about unevaluated swaps, larger neighborhoods, or global optimality.
+The representation is the standard Rockafellar--Uryasev variational form of
+empirical CVaR. For any fixed layout $\calS$, minimizing the displayed convex
+objective over $\tau$ returns an empirical upper-tail quantile
+$\tau^\star\in\mathrm{VaR}_{\alpha}(\ell_t(\calS))$. Substituting that
+optimizer yields the average of the exceedance tail losses, which is exactly
+the empirical $\mathrm{CVaR}_{\alpha}$ of the sampled scenario losses. The
+final interpretation follows directly: layouts with smaller
+$\Phi_{\mathrm{tail}}(\calS)$ have smaller sampled upper-tail reconstruction
+risk under the same scenario family.
 \end{proof}
 
-\begin{remark}[Complexity and non-claims]
-The workload decomposes into candidate generation, candidate scoring, reconstruction evaluation, and swap evaluation. If $M$ candidates are evaluated, $|\Lambda|$ score vectors are tuned, $n_{\mathrm{v}}$ validation time points are used, and each reconstruction evaluation costs $C_{\mathrm{rec}}(k,|\calV|)$, the validation-scoring component scales as $O(M|\Lambda|n_{\mathrm{v}}C_{\mathrm{rec}})$. Swap refinement adds the number of evaluated remove/add exchanges times the same reconstruction cost. TRACE-SL therefore reports launcher and manifest artifacts rather than claiming polynomial-time optimal placement certification, submodularity, approximation ratios, or universally monotone empirical MAE.
+\begin{remark}[Non-claims]
+The theory above supports a transparent, principled bilevel transportation
+network-design method with a coherent tail-risk term. It does not prove exact global optimality, dominance over untested baselines, or universal cross-network generalization.
 \end{remark}
 
 \input{tables/table_theory}
+
+Table~\ref{tab:trace-biopt-theory-bridge} turns the theorem list into a
+reviewer-facing bridge. The point is not to claim that a diagnostic table
+proves a theorem. The point is to make the manuscript auditable end to end:
+each formal statement is paired with a visible current-best evidence lane and
+a bounded interpretation. In other words, the paper does not ask a reviewer to
+trust that theorems and experiments happen to point in the same direction; it
+shows where that contact actually occurs in the current-best chain.
+
+\input{tables/table_trace_biopt_theory_bridge}

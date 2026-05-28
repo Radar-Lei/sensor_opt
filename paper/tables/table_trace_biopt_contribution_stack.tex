@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Reviewer-facing contribution stack of TRACE-BiOpt. The table compresses the formulation, algorithm, theory, evidence, and claim-discipline layers that make the paper more than a baseline selector.}
+\label{tab:trace-biopt-contribution-stack}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.48\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Layer & Paper-visible statement & Why it matters for TR-B \\
+\midrule
+Formulation & Sparse traffic sensing is posed as a size-$k$ robust bilevel stochastic network-design problem that directly minimizes hidden-state reconstruction risk, rather than as OD coverage, observability only, or candidate-pool selection. & The infrastructure decision is tied to downstream recoverability under one transparent inverse problem instead of being deferred to a post-hoc benchmark table. \\
+Algorithm & TRACE-BiOpt uses one objective with hidden Huber loss, posterior uncertainty, scenario-CVaR tail risk, and spatial redundancy, then solves it with scale-adaptive initialization and deterministic one-exchange refinement. & The method is a single-objective deterministic solver, not a portfolio or AutoML-style selector over baselines. \\
+Theory & The scoped theory package covers MAP closed form and stability, Bayes-risk meaning of posterior trace, a formal CVaR tail-risk epigraph, uniform validation generalization over all size-$k$ layouts, finite descent, and a searched-neighborhood exchange certificate. & The method contributes analyzable optimization structure and a coherent tail-risk term for a principled bilevel stochastic design method rather than only empirical search heuristics. \\
+Evidence & The current-best evidence lane is an external audited comparison-class contract over 21 pre-registered non-BiOpt baselines spanning 11 audited method families across 3 networks and 3 budgets; 8/9 main rows are already promoted from calibrated reruns, 9/9 rows satisfy the submission-ready paired-dominance gate, Holm-corrected paired tests still show TRACE-BiOpt significantly better on 189/189 row-baseline comparisons with no surviving tied or better challenger, and the bounded exact-subnetwork benchmark exact-hits 27/27 audited cases with zero objective gap. & The empirical claim is that TRACE-BiOpt beats the strongest audited comparator in every tested regime, survives multiplicity correction against the full pre-registered baseline registry, and carries an explicit external audited comparison-class contract instead of a selective benchmark screen. \\
+Claim discipline & The manuscript explicitly excludes global optimality, dominance over untested baselines, and universal cross-network generalization. & Innovation is stated together with boundaries that a TR-B reviewer can audit rather than infer. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

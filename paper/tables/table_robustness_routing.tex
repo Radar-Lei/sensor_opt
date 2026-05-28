@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{Robustness evidence routing from Stage14 PeMS7\_228 stress tests.}
+\label{tab:robustness-routing}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\centering\arraybackslash}p{0.12\textwidth}>{\centering\arraybackslash}p{0.12\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Condition & Best layout & Best MAE & Layout rows & Splits & Claim route \\
+\midrule
+baseline & graph\_sampling\_laplacian & 1.2194 & 8 & 2 & stress-test only \\
+block missing 12 steps & greedy\_d\_logdet & 1.1114 & 8 & 2 & stress-test only \\
+cost proxy budget 45 & graph\_sampling\_laplacian & 1.2194 & 8 & 2 & stress-test only \\
+observation noise 5\% & graph\_sampling\_laplacian & 1.2459 & 8 & 2 & stress-test only \\
+random missing 10\% & graph\_sampling\_laplacian & 1.2143 & 8 & 2 & stress-test only \\
+sensor failure 5\% & graph\_sampling\_laplacian & 1.2234 & 8 & 2 & stress-test only \\
+sensor failure 10\% & graph\_sampling\_laplacian & 1.2308 & 8 & 2 & stress-test only \\
+sensor failure 20\% & graph\_sampling\_laplacian & 1.2230 & 8 & 2 & stress-test only \\
+chronological split & graph\_sampling\_laplacian & 1.1921 & 8 & 2 & stress-test only \\
+\bottomrule
+\end{tabularx}
+\begin{flushleft}\footnotesize These rows are diagnostic Stage14 stress tests on PeMS7\_228. They route perturbation, cost, and temporal-shift evidence to bounded robustness discussion only; they do not replace the Stage15 TRACE-BiOpt dominance evidence.\end{flushleft}
+\end{table*}

@@ -1,0 +1,10 @@
+source_stage,condition,robustness_family,best_layout,best_mae,layout_rows,split_count_range,claim_route
+stage14_robustness,baseline,baseline,graph_sampling_laplacian,1.2194,8,2,stress-test only
+stage14_robustness,block missing 12 steps,block_missing,greedy_d_logdet,1.1114,8,2,stress-test only
+stage14_robustness,cost proxy budget 45,cost_proxy,graph_sampling_laplacian,1.2194,8,2,stress-test only
+stage14_robustness,observation noise 5%,observation_noise,graph_sampling_laplacian,1.2459,8,2,stress-test only
+stage14_robustness,random missing 10%,random_missing,graph_sampling_laplacian,1.2143,8,2,stress-test only
+stage14_robustness,sensor failure 5%,sensor_failure,graph_sampling_laplacian,1.2234,8,2,stress-test only
+stage14_robustness,sensor failure 10%,sensor_failure,graph_sampling_laplacian,1.2308,8,2,stress-test only
+stage14_robustness,sensor failure 20%,sensor_failure,graph_sampling_laplacian,1.2230,8,2,stress-test only
+stage14_robustness,chronological split,temporal_shift,graph_sampling_laplacian,1.1921,8,2,stress-test only

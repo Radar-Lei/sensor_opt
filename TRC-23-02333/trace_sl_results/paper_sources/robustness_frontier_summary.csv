@@ -1,0 +1,10 @@
+condition,winner_layout,winner_family,winner_mae,runner_up_layout,runner_up_mae,gap_to_runner_up,claim_route
+baseline,graph_sampling,graph-spectral,1.2194,qr_pod,1.2491,0.0297,stress-test only
+block missing 12 steps,greedy_d_logdet,logdet,1.1114,observability_proxy,1.1415,0.0301,stress-test only
+cost proxy budget 45,graph_sampling,graph-spectral,1.2194,qr_pod,1.2491,0.0297,stress-test only
+observation noise 5%,graph_sampling,graph-spectral,1.2459,qr_pod,1.2943,0.0484,stress-test only
+random missing 10%,graph_sampling,graph-spectral,1.2143,multistart_swap,1.2549,0.0406,stress-test only
+sensor failure 5%,graph_sampling,graph-spectral,1.2234,qr_pod,1.2314,0.0081,stress-test only
+sensor failure 10%,graph_sampling,graph-spectral,1.2308,qr_pod,1.2591,0.0284,stress-test only
+sensor failure 20%,graph_sampling,graph-spectral,1.2230,multistart_swap,1.2236,0.0006,stress-test only
+chronological split,graph_sampling,graph-spectral,1.1921,multistart_swap,1.1979,0.0058,stress-test only

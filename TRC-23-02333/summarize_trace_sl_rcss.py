@@ -59,7 +59,8 @@ def normalize_group_key(group_key):
 
 
 def condition_group_columns(frame):
-    return ["budget", *[name for name in CONDITION_COLUMNS if name in frame.columns]]
+    dataset = ["dataset"] if "dataset" in frame.columns else []
+    return [*dataset, "budget", *[name for name in CONDITION_COLUMNS if name in frame.columns]]
 
 
 def sort_frame(frame, sort_cols):
@@ -388,20 +389,8 @@ def main():
     layout_summary.to_csv(output_dir / "gls_map_layout_summary.csv", index=False)
 
     pivot = gls.pivot_table(index=["split_seed", *evidence_group_cols], columns="layout_type", values="mae", aggfunc="mean")
-    comparison_layouts = ["validation_swap_selected", "rcss_selected", "robust_coverage_cvar"]
-    baseline_layouts = [
-        "random",
-        "best_random_by_validation",
-        "top_variance",
-        "observability_proxy",
-        "greedy_a_trace",
-        "greedy_d_logdet",
-        "graph_sampling_laplacian",
-        "qr_pod_modes",
-        "scenario_cvar_a_trace",
-        "multistart_swap_by_validation",
-        "swap_from_scenario_cvar",
-    ]
+    comparison_layouts = ["trace_biopt", "validation_swap_selected", "rcss_selected", "robust_coverage_cvar"]
+    baseline_layouts = sorted(str(name) for name in pivot.columns if str(name) != "trace_biopt")
     delta_summary, paired_tests = build_paired_comparisons(pivot, comparison_layouts, baseline_layouts)
     delta_summary.to_csv(output_dir / "gls_map_delta_summary.csv", index=False)
     paired_tests.to_csv(output_dir / "gls_map_paired_delta_tests.csv", index=False)
@@ -418,6 +407,7 @@ def main():
         "multistart_swap_by_validation",
         "rcss_selected",
         "validation_swap_selected",
+        "trace_biopt",
     ]
     ablation_summary = layout_summary[layout_summary["layout_type"].isin(ablation_layouts)].copy()
     ablation_summary.to_csv(output_dir / "gls_map_ablation_summary.csv", index=False)

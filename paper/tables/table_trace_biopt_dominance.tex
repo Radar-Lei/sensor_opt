@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\caption{Current best ten-seed strongest-challenger dominance table. Lower MAE is better. Replaceable Stage16 calibrated rows are promoted into the main evidence path; rows without complete Stage16 reruns retain the Stage15 ten-seed evidence. The strongest challenger is the best mean-MAE baseline selected from the pre-registered non-BiOpt baseline set within each dataset-budget row. Paired tests compare TRACE-BiOpt with that row's strongest challenger on the same ten split seeds.}
+\label{tab:trace-biopt-dominance}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llp{0.19\textwidth}rrrrr}
+\toprule
+Dataset & Budget & Strongest challenger & TRACE-BiOpt & Challenger MAE & Delta & Wins & Paired $p$ \\
+\midrule
+PeMS7\_1026 & 10\% & Swap from A-trace & 3.6047 & 3.7343 & -0.1296 & 10/10 & 1.9e-06 \\
+PeMS7\_1026 & 20\% & Prev. TRACE-SL & 3.2231 & 3.3467 & -0.1236 & 10/10 & 9.8e-08 \\
+PeMS7\_1026 & 30\% & Prev. TRACE-SL & 3.0365 & 3.0740 & -0.0375 & 10/10 & 4.7e-05 \\
+PeMS7\_228 & 10\% & Prev. TRACE-SL & 3.4533 & 3.5957 & -0.1424 & 10/10 & 2.8e-05 \\
+PeMS7\_228 & 20\% & Prev. TRACE-SL & 3.0436 & 3.3198 & -0.2762 & 10/10 & 3.7e-09 \\
+PeMS7\_228 & 30\% & Prev. TRACE-SL & 2.7414 & 3.0773 & -0.3359 & 10/10 & 1.7e-09 \\
+Seattle & 10\% & RCSS & 3.0416 & 3.0973 & -0.0557 & 10/10 & 0.0021 \\
+Seattle & 20\% & Prev. TRACE-SL & 2.7330 & 2.8157 & -0.0827 & 10/10 & 2.1e-05 \\
+Seattle & 30\% & Prev. TRACE-SL & 2.5144 & 2.6096 & -0.0952 & 10/10 & 2.6e-05 \\
+\bottomrule
+\end{tabular}
+\vspace{0.35em}
+\parbox{0.96\textwidth}{\small The strongest challengers are Swap from A-trace on PeMS7\_1026 10\%, RCSS on Seattle 10\%, and the previous TRACE-SL validation-swap route on the remaining rows. The PeMS7\_1026 10\%, PeMS7\_1026 20\%, PeMS7\_1026 30\%, PeMS7\_228 10\%, PeMS7\_228 20\%, PeMS7\_228 30\%, Seattle 20\%, and Seattle 30\% rows are promoted from complete replaceable Stage16 calibrated reruns.}
+\end{table*}

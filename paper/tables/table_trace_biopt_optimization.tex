@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\caption{TRACE-BiOpt optimization diagnostics from Stage15 histories, including searched one-exchange coverage and stop certificates.}
+\label{tab:trace-biopt-optimization}
+\tiny
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc}
+\toprule
+Dataset & Budget & Exchanges & Search cov. & Stop cert. & Full drop & Exchange drop & Mono. \\
+\midrule
+PeMS7\_1026 & 10\% & 3.0 [3,3] & 0.2\% & 0/10 & 0.9\% & 0.89\% & 10/10 \\
+PeMS7\_1026 & 20\% & 3.0 [3,3] & 0.1\% & 0/10 & 0.8\% & 0.81\% & 10/10 \\
+PeMS7\_1026 & 30\% & 3.0 [3,3] & 0.1\% & 0/10 & 0.8\% & 0.82\% & 10/10 \\
+PeMS7\_228 & 10\% & 1.7 [0,3] & 4.1\% & 6/4 & 57.7\% & 0.33\% & 10/10 \\
+PeMS7\_228 & 20\% & 1.3 [0,3] & 2.3\% & 7/3 & 64.8\% & 0.33\% & 10/10 \\
+PeMS7\_228 & 30\% & 1.0 [0,3] & 1.8\% & 9/1 & 68.7\% & 0.06\% & 10/10 \\
+Seattle & 10\% & 5.4 [0,8] & 13.7\% & 9/1 & 60.0\% & 0.10\% & 10/10 \\
+Seattle & 20\% & 5.1 [2,8] & 7.6\% & 7/3 & 67.7\% & 0.39\% & 10/10 \\
+Seattle & 30\% & 4.1 [0,7] & 5.8\% & 10/0 & 72.1\% & 0.00\% & 10/10 \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}\footnotesize Each row aggregates ten Stage15 split-seed runs. Search cov. is the mean searched one-exchange neighborhood size as a percentage of the full $k(n-k)$ swap set under the declared deterministic add/remove pools. Stop cert. reports runs ending by no improving searched one-exchange move versus runs exhausting the declared exchange-iteration budget. Full drop is the mean percent reduction from the first recorded construction or warm-start objective to the final TRACE-BiOpt objective. Exchange drop is the mean percent reduction from the completed construction/warm-start layout to the final exchanged layout. Monotone counts runs whose accepted construction/exchange history is non-increasing in the single TRACE-BiOpt objective.\end{flushleft}
+\end{table*}

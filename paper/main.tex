@@ -8,6 +8,7 @@
 \input{math_commands}
 
 \newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
 \newtheorem{remark}{Remark}
 
@@ -16,10 +17,10 @@
 \def\floatpagepagefraction{1}
 \def\textpagefraction{.001}
 
-\shorttitle{TRACE-SL}
+\shorttitle{TRACE-BiOpt Transportation Network Design}
 \shortauthors{Anonymous Authors}
 
-\title[mode=title]{TRACE-SL: Designing Traffic Sensors for Recoverability}
+\title[mode=title]{TRACE-BiOpt: Recoverability-Driven Bilevel Transportation Network Design for Sparse Traffic Sensor Siting}
 
 \author[1]{Anonymous Author}
 \affiliation[1]{organization={Anonymous Institution},
@@ -27,21 +28,35 @@
             country={Anonymous Country}}
 
 \begin{abstract}
-Sparse traffic sensor deployments are long-lived infrastructure decisions: once a subset of links or stations is instrumented, the remaining network state must be inferred from partial observations. We reformulate sparse traffic sensor placement as an inverse-design problem: the goal is not to maximize coverage, variance, or topological visibility at observed locations alone, but to choose sensors that make the unobserved network state recoverable under a transparent reconstruction model. We propose TRACE-SL, a reconstruction-aware layout framework that couples GLS/MAP and graph-signal reconstruction with posterior uncertainty certificates, validation-calibrated score selection, and validation-aware local swap refinement. The design protocol keeps model fitting, layout selection, and held-out evaluation separate. On PeMS7\_228 Stage12 evidence, TRACE-SL reduces held-out GLS/MAP MAE relative to validation-selected random layouts by 0.123, 0.095, and 0.163 at 10\%, 20\%, and 30\% sensor budgets, respectively. PeMS7\_1026 and Seattle provide additional ten-split baseline comparisons, including low-budget cases where internal A-trace or multistart variants are competitive. The contribution is not a claim of globally optimal or universally robust placement; it is a transparent network-design workflow whose claims are tied to formal scoped properties, held-out evidence, and auditable result artifacts.
+Traffic agencies must freeze sparse sensor siting plans as long-lived fixed-infrastructure transportation network-design decisions before most future traffic states are observed, then reconstruct the hidden network state from partial measurements. We formulate that deployment-time question as a recoverability-driven bilevel stochastic network design problem rather than as coverage maximization or candidate-pool selection. The proposed method, TRACE-BiOpt, is a single recoverability-driven bilevel stochastic transportation network-design method centered on a transparent inverse problem: it chooses a fixed sensor set by minimizing one recoverability-driven objective whose lower level is a transparent GLS/MAP reconstruction problem and whose upper level combines hidden-state Huber reconstruction loss, posterior uncertainty, tail-risk, and spatial redundancy regularization. A deterministic solver uses scale-adaptive initialization and one-exchange refinement under the same objective; pre-registered baselines are never used as method candidates. Across PeMS7\_228, PeMS7\_1026, and Seattle, at 10\%, 20\%, and 30\% budgets over ten split seeds, TRACE-BiOpt obtains the lowest mean held-out GLS/MAP MAE against all 21 pre-registered non-BiOpt baselines spanning 11 method families in every tested dataset-budget regime. All nine rows now show submission-ready paired dominance, Holm-corrected one-sided paired tests across all 189 current-best row-baseline comparisons leave no statistically tied or significantly better challenger, and a bounded exact benchmark exact-hits 27/27 deterministic 16-node subnetworks under the same objective. The paper therefore claims one unified, analyzable, theory-backed bilevel stochastic transportation network-design method whose evidence contract is an external audited comparison-class contract that compresses to row-wise strongest-baseline dominance on the tested datasets and then survives all-baseline corrected paired tests, with global optimality and untested-baseline dominance explicitly excluded. The intended first reading is simple: one long-lived infrastructure decision, one transparent inverse problem, one deterministic solver, one scoped theory package, and one external audited comparison-class contract over 21 pre-registered baselines spanning 11 method families with no surviving challenger after 189 Holm-corrected paired tests.
 \end{abstract}
 
 \begin{highlights}
-\item We formulate sparse traffic sensing as reconstruction-aware hidden-network design.
-\item TRACE-SL combines posterior certificates, validation selection, and local swap refinement.
-\item Held-out Stage12 evidence spans PeMS7\_228, PeMS7\_1026, and Seattle.
-\item Submission-facing claims are explicitly bounded by evidence and scoped theory.
+\item We cast sparse traffic sensing as fixed-infrastructure transportation network design for hidden-state recoverability.
+\item TRACE-BiOpt commits one fixed layout under one recoverability-driven bilevel stochastic objective with a transparent inverse problem.
+\item Current-best paired audits show strongest-baseline dominance on all nine tested dataset-budget rows, and Holm-corrected paired tests leave no statistically tied or better challenger across 21 pre-registered baselines spanning 11 method families.
+\item The theory package covers MAP stability, posterior risk identity, CVaR tail-risk interpretation, layout-class generalization, and exchange-stationarity certificates.
+\item A bounded exact benchmark exact-hits 27/27 deterministic 16-node subnetworks under the same objective.
 \end{highlights}
 
 \begin{keywords}
-traffic sensor placement \sep network design \sep traffic state reconstruction \sep optimal experimental design \sep graph signal sampling
+transportation network design \sep traffic sensor siting \sep traffic state reconstruction \sep bilevel stochastic optimization \sep transparent inverse problem
 \end{keywords}
 
+% The CAS front matter emits template-level overfull/empty-anchor noise from
+% its zero-width keyword/sidebar machinery; suppress only the maketitle call.
+\newdimen\savedhfuzz
+\savedhfuzz=\hfuzz
+\hfuzz=120pt
+\makeatletter
+\let\savedHyWarning\Hy@Warning
+\def\Hy@Warning#1{}
+\makeatother
 \maketitle
+\makeatletter
+\let\Hy@Warning\savedHyWarning
+\makeatother
+\hfuzz=\savedhfuzz
 
 \input{sections/1_introduction}
 \input{sections/2_related_work}
@@ -49,6 +64,7 @@ traffic sensor placement \sep network design \sep traffic state reconstruction \
 \input{sections/4_method_theory}
 \input{sections/5_experiments}
 \input{sections/6_ablation_robustness}
+\input{sections/7_robustness}
 \input{sections/7_discussion}
 \input{sections/8_conclusion}
 
@@ -59,7 +75,7 @@ Anonymous for review.
 The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
 
 \section*{Data and code availability}
-The manuscript reports curated aggregate artifacts and generation scripts under \path{TRC-23-02333/trace_sl_results/paper_sources/}. Raw traffic datasets are local inputs and are not distributed with the paper source; the source package records the expected local file layout, launch scripts, aggregate CSV/JSON contracts, and audit artifacts used to regenerate paper-visible tables. The reported numbers should therefore be read as reproducible from the curated artifacts, while full raw-data reproduction requires obtaining the underlying traffic datasets separately.
+The manuscript reports curated aggregate artifacts and generation scripts under \path{TRC-23-02333/trace_sl_results/}. The primary TRACE-BiOpt result is generated from \path{current_best_trace_biopt_evidence/}, which now promotes all six PeMS dataset-budget rows and Seattle 20/30\% through complete replaceable Stage16 calibrated reruns, while Seattle 10\% intentionally remains on the Stage15 main evidence path. Raw traffic datasets are local inputs and are not distributed with the paper source; the source package records the expected local file layout, launch scripts, aggregate CSV/JSON contracts, and audit artifacts used to regenerate paper-visible tables. The reported numbers should therefore be read as reproducible from the curated artifacts, while full raw-data reproduction requires obtaining the underlying traffic datasets separately.
 
 \bibliographystyle{cas-model2-names}
 \bibliography{references}

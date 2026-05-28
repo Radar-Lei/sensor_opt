@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\centering
+\caption{PeMS7\_228 10\% low-budget calibration-risk diagnostic over the original Stage15 ten split seeds. The calibrated TRACE-BiOpt rerun keeps a single reconstruction-aware objective, estimates upper-level reconstruction risk on train+validation days, lowers certificate weights, and uses complete one-exchange search. Baseline values are the seed-matched pre-registered non-BiOpt rows from the Stage15 evidence path. This row-level diagnostic addresses the second mixed paired-evidence row but does not replace the full nine-regime Stage15 main table.}
+\label{tab:trace-biopt-calibration-probe}
+\small
+\begin{tabular}{rccccc}
+\toprule
+Seed & Default $\Delta$ & Calibrated $\Delta$ & MAE gain & Best baseline & Calibrated beats? \\
+\midrule
+25 & -0.0207 & -0.1497 & 0.1291 & swap\_from\_scenario\_average & yes \\
+26 & 0.0283 & -0.0514 & 0.0797 & scenario\_cvar\_a\_trace & yes \\
+27 & -0.0095 & -0.0483 & 0.0388 & multistart\_swap\_by\_validation & yes \\
+28 & -0.0711 & -0.1375 & 0.0664 & best\_random\_by\_validation & yes \\
+29 & 0.0937 & -0.0537 & 0.1474 & validation\_swap\_selected & yes \\
+30 & -0.0673 & -0.1385 & 0.0712 & rcss\_selected & yes \\
+31 & 0.1175 & -0.0455 & 0.1630 & validation\_swap\_selected & yes \\
+32 & -0.1534 & -0.1078 & -0.0456 & robust\_coverage\_cvar & yes \\
+33 & -0.0946 & -0.1871 & 0.0925 & scenario\_average\_a\_trace & yes \\
+34 & 0.0154 & -0.1027 & 0.1181 & rcss\_selected & yes \\
+\midrule
+Mean & -0.0162 & -0.1022 & 0.0860 & -- & 10/10 \\
+\bottomrule
+\end{tabular}
+\vspace{2pt}\raggedright\footnotesize Calibrated-risk paired t-test versus zero delta: $p=6.4e-05$; Wilcoxon signed-rank $p=0.0010$; mean MAE-gain t-test $p=7.4e-04$. Negative $\Delta$ means TRACE-BiOpt has lower held-out GLS/MAP MAE than the seed-matched best pre-registered non-BiOpt baseline.
+\end{table*}

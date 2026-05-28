@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\caption{Strongest-mean versus hardest-corrected challenger posture. The main dominance table names the best mean-MAE challenger in each row, while the corrected all-baseline screen identifies the challenger with the largest surviving Holm-adjusted paired $p$ value. When the two differ, TRACE-BiOpt is not only ahead of one convenient baseline family; distinct challenger families are closest under mean ranking and corrected paired inference.}
+\label{tab:trace-biopt-challenger-posture}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ll>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}cr}
+\toprule
+Dataset & Budget & \makecell[l]{Strongest mean\\challenger} & \makecell[l]{Hardest corrected\\challenger} & Same family? & Max Holm $p$ \\
+\midrule
+PeMS7\_1026 & 10\% & Swap from A-trace & Prev. TRACE-SL & No & 1.2e-04 \\
+PeMS7\_1026 & 20\% & Prev. TRACE-SL & RCSS & No & 8.3e-06 \\
+PeMS7\_1026 & 30\% & Prev. TRACE-SL & Prev. TRACE-SL & Yes & 4.7e-04 \\
+PeMS7\_228 & 10\% & Prev. TRACE-SL & scenario cvar a trace & No & 6.9e-04 \\
+PeMS7\_228 & 20\% & Prev. TRACE-SL & top variance & No & 1.2e-05 \\
+PeMS7\_228 & 30\% & Prev. TRACE-SL & RCSS & No & 4.3e-06 \\
+Seattle & 10\% & RCSS & Multistart validation-swap & No & 0.0026 \\
+Seattle & 20\% & Prev. TRACE-SL & Prev. TRACE-SL & Yes & 3.1e-04 \\
+Seattle & 30\% & Prev. TRACE-SL & Prev. TRACE-SL & Yes & 3.2e-04 \\
+\bottomrule
+\end{tabular}
+\vspace{0.35em}
+\parbox{0.96\textwidth}{\small Across 6/9 current-best rows, the strongest mean challenger and the hardest corrected challenger come from different baseline families. The clearest front-screen mismatches are PeMS7\_1026 10\% (Swap from A-trace versus Prev. TRACE-SL) and Seattle 10\% (RCSS versus Multistart validation-swap).}
+\end{table*}

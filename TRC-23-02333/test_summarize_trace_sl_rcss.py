@@ -54,6 +54,26 @@ class PairedComparisonStatsTest(unittest.TestCase):
         self.assertTrue(pd.isna(insufficient["ci95_low"]))
         self.assertTrue(pd.isna(insufficient["cohens_dz"]))
 
+    def test_dynamic_non_trace_baselines_include_validation_and_rcss_rows(self):
+        pivot = pd.DataFrame(
+            {
+                "split_seed": [1, 2],
+                "budget": [0.1, 0.1],
+                "trace_biopt": [1.0, 1.1],
+                "validation_swap_selected": [1.2, 1.3],
+                "rcss_selected": [1.4, 1.5],
+            }
+        ).set_index(["split_seed", "budget"])
+        baseline_layouts = sorted(str(name) for name in pivot.columns if str(name) != "trace_biopt")
+
+        _, paired = summarizer.build_paired_comparisons(
+            pivot,
+            comparison_layouts=["trace_biopt"],
+            baseline_layouts=baseline_layouts,
+        )
+
+        self.assertEqual(set(paired["baseline"]), {"validation_swap_selected", "rcss_selected"})
+
 
 
 class CertificateSummaryTest(unittest.TestCase):
@@ -83,6 +103,7 @@ class ConditionGroupingTest(unittest.TestCase):
     def test_condition_group_columns_preserve_stable_optional_order(self):
         frame = pd.DataFrame(
             {
+                "dataset": ["PeMS7_228"],
                 "budget": [0.1],
                 "split_mode": ["chronological"],
                 "candidate_count": [50],
@@ -93,8 +114,24 @@ class ConditionGroupingTest(unittest.TestCase):
 
         self.assertEqual(
             summarizer.condition_group_columns(frame),
-            ["budget", "candidate_count", "robustness_condition", "noise_scale", "split_mode"],
+            ["dataset", "budget", "candidate_count", "robustness_condition", "noise_scale", "split_mode"],
         )
+
+    def test_layout_summary_keeps_datasets_separate_when_combined(self):
+        gls = pd.DataFrame(
+            {
+                "dataset": ["PeMS7_228", "Seattle"],
+                "method": ["gls_map", "gls_map"],
+                "layout_type": ["trace_biopt", "trace_biopt"],
+                "budget": [0.1, 0.1],
+                "mae": [2.0, 5.0],
+            }
+        )
+
+        summary = summarizer.build_layout_summary(gls)
+
+        self.assertEqual(set(summary["dataset"]), {"PeMS7_228", "Seattle"})
+        self.assertEqual(summary.shape[0], 2)
 
     def test_condition_aware_layout_summary_keeps_robustness_conditions_separate(self):
         gls = pd.DataFrame(

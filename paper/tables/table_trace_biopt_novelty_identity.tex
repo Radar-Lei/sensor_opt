@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Reviewer-facing identity test for TRACE-BiOpt. Each row states a plausible misreading of the paper and the paper-visible feature that prevents that misreading from being the right interpretation.}
+\label{tab:trace-biopt-novelty-identity}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Possible misread & If that were true, what would be missing? & TRACE-BiOpt identity instead & Paper-visible anchor \\
+\midrule
+Portfolio or AutoML selector & The paper would mainly choose among RCSS, A-trace, graph-sampling, TRACE-SL, or random candidates rather than define one transport design objective. & TRACE-BiOpt instead solves one recoverability-driven bilevel objective; the 21 non-BiOpt layouts stay outside the solver as an external audited comparison class rather than method candidates. & Single-objective solver + external audited comparison-class disclosure. \\
+Surrogate OED or graph-sampling criterion & Posterior trace or graph recoverability alone would stand in for the deployment objective, with no direct hidden-state reconstruction-risk target. & TRACE-BiOpt uses posterior trace as one certificate inside hidden Huber loss, a formal CVaR tail-risk epigraph, and spatial redundancy under the same bilevel layout problem. & Objective decomposition + formal CVaR proposition + route-ablation and weight-sensitivity lanes. \\
+Estimator benchmark on a fixed graph & The main contribution would be a better predictor or imputer once the sensor graph is given, not a pre-deployment infrastructure choice. & The transparent GLS/MAP estimator is intentionally fixed while the sparse layout is optimized upstream as the transport-network design variable. & Problem statement + related-work distinction from forecasting/imputation. \\
+Weak-baseline empirical win & The claim would rest on one named weak comparator instead of the strongest audited alternative on each row. & The current-best chain closes 9/9 rows under paired strongest-baseline comparison, 8/9 rows are already strengthened by calibrated Stage16 reruns, and Holm-corrected paired tests still give 189/189 significant wins with no surviving tied or better challenger. & Dominance table + full baseline matrix + significance posture + reader guide. \\
+Exact global optimization paper & A full-network MIP or exhaustive solver would certify the global optimum on every tested network and budget. & The paper stays scoped: it exact-hits 27/27 audited 16-node subnetwork cases with zero objective gap, while full-network global optimality remains explicitly excluded. & Bounded exact benchmark + discussion boundary matrix. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

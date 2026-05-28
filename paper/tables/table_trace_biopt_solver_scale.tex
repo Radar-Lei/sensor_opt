@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\caption{Current-best TRACE-BiOpt solver scale by dataset-budget row.}
+\label{tab:trace-biopt-solver-scale}
+\tiny
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc}
+\toprule
+Dataset & Budget & Source & Init. & Exchanges & Search cov. & Peak RSS & Stop cert. \\
+\midrule
+PeMS7\_1026 & 10\% & Stage16 calibrated rerun & posterior\_greedy\_warm\_start & 18.9 [16,20] & 1.3\% & 1.39 [1.29,1.43] GB & 4/6 \\
+PeMS7\_1026 & 20\% & Stage16 calibrated rerun & posterior\_greedy\_warm\_start & 20.0 [20,20] & 0.8\% & 2.87 [2.78,2.92] GB & 0/10 \\
+PeMS7\_1026 & 30\% & Stage16 calibrated rerun & posterior\_greedy\_warm\_start & 8.0 [8,8] & 0.6\% & 1.50 [1.49,1.51] GB & 0/10 \\
+PeMS7\_228 & 10\% & Stage16 calibrated rerun & objective\_forward & 7.1 [4,10] & 100.0\% & 0.40 [0.33,0.52] GB & 10/0 \\
+PeMS7\_228 & 20\% & Stage16 calibrated rerun & objective\_forward & 11.3 [9,12] & 100.0\% & 0.72 [0.66,0.73] GB & 4/6 \\
+PeMS7\_228 & 30\% & Stage16 calibrated rerun & objective\_forward & 11.9 [11,12] & 100.0\% & 1.56 [1.49,1.57] GB & 1/9 \\
+Seattle & 10\% & Stage15 main evidence & objective\_forward & 5.4 [0,8] & 13.7\% & 0.27 [0.23,0.29] GB & 9/1 \\
+Seattle & 20\% & Stage16 calibrated rerun & objective\_forward & 3.7 [0,7] & 7.6\% & 0.37 [0.30,0.52] GB & 10/0 \\
+Seattle & 30\% & Stage16 calibrated rerun & objective\_forward & 3.0 [0,7] & 5.8\% & 0.45 [0.37,0.52] GB & 10/0 \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}\footnotesize Source identifies whether the current-best row is still backed by Stage15 main evidence or by a promoted Stage16 calibrated rerun. Init. is the dominant deterministic initializer recorded across the ten split-specific runs. Search cov. is the mean searched one-exchange neighborhood size as a percentage of the full $k(n-k)$ swap set under the declared add/remove pools, with zero-valued pools interpreted as complete enumeration. Peak RSS is the mean, minimum, and maximum peak resident memory observed during TRACE-BiOpt search events for that row. Stop cert. reports runs ending by no improving searched exchange versus runs exhausting the declared exchange-iteration budget.\end{flushleft}
+\end{table*}

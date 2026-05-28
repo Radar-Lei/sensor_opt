@@ -129,6 +129,24 @@ def make_eval_args(**overrides):
         "missing_rate": 0.0,
         "missing_block_steps": 0,
         "robustness_seed": 505,
+        "cvar_tail_fraction": 0.5,
+        "trace_biopt_beta": 0.05,
+        "trace_biopt_gamma": 0.05,
+        "trace_biopt_eta": 0.01,
+        "trace_biopt_huber_delta": 1.0,
+        "trace_biopt_exchange_iter": 5,
+        "trace_biopt_min_improve": 1e-9,
+        "trace_biopt_objective_steps": 0,
+        "trace_biopt_relax_iter": 3,
+        "trace_biopt_relax_step": 0.1,
+        "trace_biopt_relax_fd_eps": 1e-4,
+        "trace_biopt_relax_pool": 0,
+        "trace_biopt_initializer": "objective_forward",
+        "trace_biopt_auto_warm_start_threshold": 500,
+        "data_root": "dataset/Unit",
+        "output_dir": "unit_out",
+        "split_seed": 1,
+        "layout_seed": 2,
     }
     data.update(overrides)
     return SimpleNamespace(**data)
@@ -261,6 +279,245 @@ def test_robustness_metadata_defaults_and_cost_layout_record():
     assert_equal(row_metadata["cost_proxy"], "graph_traffic")
     assert row_metadata["layout_sensor_cost"] > 0.0
     assert isinstance(row_metadata["cost_feasible"], bool)
+
+
+def test_smooth_l1_mean_matches_huber_semantics():
+    pred = np.array([0.0, 2.0, 4.0])
+    true = np.array([0.0, 0.0, 0.0])
+
+    value = tev.smooth_l1_mean(pred, true, delta=1.0)
+
+    assert abs(value - ((0.0 + 1.5 + 3.5) / 3.0)) < 1e-9
+
+
+def test_trace_biopt_objective_exposes_single_method_terms():
+    test, tod, distance, laplacian, precision, mean, std = make_eval_inputs()
+    args = make_eval_args()
+    gls_matrix = args.gls_prior_weight * precision
+    scenario_matrices = [gls_matrix, 2.0 * gls_matrix]
+
+    terms = tev.trace_biopt_objective(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        np.array([0], dtype=int),
+        args,
+        trace_cache={},
+    )
+
+    assert set(terms) == {
+        "objective",
+        "reconstruction_huber",
+        "posterior_trace_per_node",
+        "scenario_cvar_trace_per_node",
+        "spatial_penalty",
+        "sensor_count",
+    }
+    assert terms["sensor_count"] == 1
+    assert terms["objective"] >= terms["reconstruction_huber"]
+
+
+def test_trace_biopt_eval_frame_uses_deterministic_time_subset():
+    test, tod, *_ = make_eval_inputs()
+    args = make_eval_args(trace_biopt_objective_steps=2)
+
+    subset = tev.trace_biopt_eval_frame(test, tod, args)
+    repeat = tev.trace_biopt_eval_frame(test, tod, args)
+
+    np.testing.assert_array_equal(subset, repeat)
+    assert_equal(subset.shape, (2, test.shape[1]))
+    np.testing.assert_array_equal(subset[0], test[0])
+    np.testing.assert_array_equal(subset[-1], test[-1])
+
+
+def test_project_capped_simplex_preserves_budget_and_bounds():
+    projected = tev.project_capped_simplex(np.array([2.0, 0.5, -1.0, 0.25]), target_sum=2)
+
+    assert abs(float(projected.sum()) - 2.0) < 1e-9
+    assert np.all(projected >= -1e-12)
+    assert np.all(projected <= 1.0 + 1e-12)
+
+
+def test_trace_biopt_relaxed_objective_exposes_continuous_terms():
+    test, tod, distance, laplacian, precision, mean, std = make_eval_inputs()
+    args = make_eval_args(trace_biopt_beta=0.1, trace_biopt_gamma=0.1, trace_biopt_eta=0.1)
+    gls_matrix = args.gls_prior_weight * precision
+    scenario_matrices = [gls_matrix, 2.0 * gls_matrix]
+    relaxed = np.array([0.7, 0.2, 0.1], dtype=float)
+
+    terms = tev.trace_biopt_relaxed_objective(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        relaxed,
+        args,
+    )
+
+    assert set(terms) == {
+        "relaxed_objective",
+        "relaxed_reconstruction_huber",
+        "relaxed_posterior_trace_per_hidden_mass",
+        "relaxed_scenario_cvar_trace_per_hidden_mass",
+        "relaxed_spatial_penalty",
+        "relaxed_sum",
+    }
+    assert abs(terms["relaxed_sum"] - 1.0) < 1e-9
+    assert terms["relaxed_objective"] >= terms["relaxed_reconstruction_huber"]
+
+
+def test_trace_biopt_layout_is_deterministic_and_not_pool_selected():
+    test, tod, distance, laplacian, precision, mean, std = make_eval_inputs()
+    args = make_eval_args(trace_biopt_beta=0.0, trace_biopt_gamma=0.0, trace_biopt_eta=0.0)
+    gls_matrix = args.gls_prior_weight * precision
+    scenario_matrices = [gls_matrix]
+
+    first_sensors, first_terms, first_history = tev.trace_biopt_layout(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        sensor_count=1,
+        args=args,
+        trace_cache={},
+    )
+    second_sensors, second_terms, second_history = tev.trace_biopt_layout(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        sensor_count=1,
+        args=args,
+        trace_cache={},
+    )
+
+    np.testing.assert_array_equal(first_sensors, second_sensors)
+    assert first_terms == second_terms
+    assert first_history == second_history
+    assert first_sensors.shape == (1,)
+    assert {row["stage"] for row in first_history}.issubset({"forward", "exchange", "exchange_stop"})
+
+
+def test_trace_biopt_relaxed_rounding_initializer_is_deterministic():
+    test, tod, distance, laplacian, precision, mean, std = make_eval_inputs()
+    args = make_eval_args(
+        trace_biopt_initializer="relaxed_rounding",
+        trace_biopt_relax_iter=2,
+        trace_biopt_relax_step=0.05,
+        trace_biopt_relax_pool=0,
+        trace_biopt_exchange_iter=1,
+    )
+    gls_matrix = args.gls_prior_weight * precision
+    scenario_matrices = [gls_matrix]
+
+    first_sensors, first_terms, first_history = tev.trace_biopt_layout(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        sensor_count=2,
+        args=args,
+        trace_cache={},
+    )
+    second_sensors, second_terms, second_history = tev.trace_biopt_layout(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        sensor_count=2,
+        args=args,
+        trace_cache={},
+    )
+
+    np.testing.assert_array_equal(first_sensors, second_sensors)
+    assert first_terms == second_terms
+    assert first_history == second_history
+    assert first_sensors.shape == (2,)
+    assert first_history[0]["stage"] == "relax"
+    assert any(row["stage"] == "relaxed_rounding" for row in first_history)
+    assert any(row["stage"] == "relaxed_warm_start" for row in first_history)
+
+
+def test_trace_biopt_posterior_greedy_warm_start_is_deterministic():
+    test, tod, distance, laplacian, precision, mean, std = make_eval_inputs()
+    args = make_eval_args(trace_biopt_initializer="posterior_greedy")
+    gls_matrix = args.gls_prior_weight * precision
+    scenario_matrices = [gls_matrix]
+
+    sensors, terms, history = tev.trace_biopt_layout(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        sensor_count=2,
+        args=args,
+        trace_cache={},
+    )
+
+    expected = tev.greedy_posterior_layout(gls_matrix, 2, args.obs_weight, "a_trace")
+    assert history[0]["stage"] == "posterior_greedy_warm_start"
+    assert history[0]["sensors"] == sorted(int(x) for x in expected)
+    assert sensors.shape == (2,)
+    assert terms["sensor_count"] == 2
+
+
+def test_trace_biopt_auto_initializer_uses_network_size_threshold():
+    test, tod, distance, laplacian, precision, mean, std = make_eval_inputs()
+    gls_matrix = args_matrix = 0.2 * precision
+    scenario_matrices = [args_matrix]
+
+    small_args = make_eval_args(trace_biopt_initializer="auto", trace_biopt_auto_warm_start_threshold=3)
+    _, _, small_history = tev.trace_biopt_layout(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        sensor_count=1,
+        args=small_args,
+        trace_cache={},
+    )
+
+    large_args = make_eval_args(trace_biopt_initializer="auto", trace_biopt_auto_warm_start_threshold=2)
+    _, _, large_history = tev.trace_biopt_layout(
+        test,
+        tod,
+        distance,
+        mean,
+        std,
+        gls_matrix,
+        scenario_matrices,
+        sensor_count=1,
+        args=large_args,
+        trace_cache={},
+    )
+
+    assert small_history[0]["stage"] == "forward"
+    assert large_history[0]["stage"] == "posterior_greedy_warm_start"
 
 
 def test_candidate_robustness_metadata_records_failure_counts():

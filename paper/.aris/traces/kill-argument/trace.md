@@ -1,3 +1,3 @@
 # kill-argument trace
 
-Local adversarial review found important polish risks but no blocking contradiction.
+Fresh machine adversarial gate found no critical unresolved rejection argument against the TRACE-BiOpt headline claims.

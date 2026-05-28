@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Reviewer-facing TRACE-BiOpt design and deployment protocol. The table compresses the current-best evidence chain into claim-facing operating rules for calibration, search scaling, certificate weighting, and bounded stress interpretation.}
+\label{tab:trace-biopt-design-protocol}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Decision context & Evidence trigger & Recommended protocol move & Paper-visible support \\
+\midrule
+Claim-facing benchmark comparison & All 9/9 current-best rows are submission-ready paired wins against the row-wise strongest audited comparator drawn from 21 non-BiOpt baselines, and Holm-corrected paired tests still return 189/189 significant wins with no surviving tied or better challenger. & Judge every regime against its strongest audited comparator and keep a multiplicity-corrected all-baseline screen visible, rather than summarizing against one fixed weak baseline. & The current-best chain already closes 9/9 rows at 10/10 paired wins and leaves zero pre-registered challenger alive after Holm correction. \\
+Thin-validation low-budget regime & PeMS7\_228 10\% is a searched-neighborhood-stable row but was promoted only after a Stage16 train+validation calibrated rerun. & When validation support is thin, recalibrate upper-level reconstruction risk on train+validation, lighten certificate weights, and allow deeper full-search before freezing the deployment layout. & The promoted low-cert route lowers held-out MAE to 3.248 versus 3.377 for the default certified route and 3.417 for the zero-weight probe. \\
+Large-network binding-search regime & All 3/3 PeMS7\_1026 rows are labeled search-budget sensitive, and 8/9 current-best rows have already been promoted via calibrated Stage16 reruns. & Keep the same TRACE-BiOpt objective family, but scale warm starts and one-exchange search budgets with network size before treating a weak row as method failure. & The PeMS7\_1026 10/20/30\% rows were all resolved inside the same objective family rather than by switching to another baseline family. \\
+Stable certified mid/high-budget regimes & 6/9 current-best rows are searched-neighborhood stable, and the Seattle 20/30\% strong-search probes worsen by 0.036 and 0.032 MAE when certificate weights are removed. & Do not drop posterior/CVaR/spatial certificate terms on stable rows simply because search is already strong; retain the certified objective when it remains paper-visible and auditable. & Stable Seattle diagnostic slices show that stronger search alone does not recover the certificate-weighted route quality without the posterior/CVaR/spatial terms. \\
+Deployment stress screening & The bounded Stage14 frontier shows graph-spectral wins on 8/9 stress slices, but block missing 12 steps shifts the winner to logdet and sensor failure 20\% leaves only a 0.0006 MAE gap. & Use the stress frontier as a deployment screen and contingency checklist, not as TRACE-BiOpt main-evidence dominance; narrow-frontier conditions should trigger extra operational review. & The manuscript keeps these slices explicitly outside the TRACE-BiOpt main claim and uses them only to scope bounded robustness discussion. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

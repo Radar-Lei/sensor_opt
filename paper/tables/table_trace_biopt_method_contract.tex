@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{TRACE-BiOpt method contract. The table compresses the Section~4 identity of the method into the decisions, solver route, comparison class, and explicit boundaries that a reviewer can audit before reading the full theory package.}
+\label{tab:trace-biopt-method-contract}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.41\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Contract axis & Paper-visible statement & Reviewer-facing reading \\
+\midrule
+Decision object & One fixed sparse sensor siting plan is frozen before deployment and judged by hidden-state recoverability, not by post-hoc table selection. & This is fixed-infrastructure transportation network design rather than a benchmark pipeline over interchangeable layouts. \\
+Transparent inverse problem & The lower level is one GLS/MAP reconstruction problem with explicit closed form, posterior covariance, and stability statements. & The estimator is an auditable inverse problem, not a black-box predictor used only to score candidate layouts. \\
+Unified objective & The upper level minimizes one recoverability-driven objective combining hidden Huber loss, posterior uncertainty, scenario-CVaR tail risk, and spatial redundancy. & TRACE-BiOpt is not a pool of heuristics; every accepted layout is scored by the same bilevel stochastic design criterion. \\
+Deterministic solver route & One deterministic solver uses scale-adaptive initialization, optional relaxation warm starts, and one-exchange refinement under the same objective. & Optimization is a single route with explicit stopping scopes rather than a selector over incompatible candidate generators. \\
+External audited comparison class & The 21 pre-registered non-BiOpt baselines across 3 networks and 3 budgets stay outside the solver as an external audited comparison class; Holm-corrected paired tests still give 189/189 significant wins with no surviving challenger. & Baselines define the evidence contract after TRACE-BiOpt is solved; they are not internal method candidates or a hidden portfolio. \\
+Explicit boundaries & The paper keeps global optimality and untested-baseline dominance out of scope while exact-hitting 27/27 audited 16-node subnetworks with zero objective gap. & The method is principled and partly exact on audited subnetworks, but it does not overclaim full-network exactness. \\
+\bottomrule
+\end{tabularx}
+\end{table*}

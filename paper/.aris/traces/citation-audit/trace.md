@@ -1,3 +1,3 @@
 # citation-audit trace
 
-Bibliography metadata and citation contexts are locally checked, with a warning that fresh web audit was not spawned.
+Fresh web citation audit found and fixed metadata issues; all cited entries now pass metadata and context checks.

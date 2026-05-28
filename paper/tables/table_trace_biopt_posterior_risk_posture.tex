@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Posterior-risk posture in matched TRACE-BiOpt route probes.}
+\label{tab:trace-biopt-posterior-risk}
+\footnotesize
+\begin{tabularx}{\textwidth}{llcccc>{\raggedright\arraybackslash}X}
+\toprule
+Case & Comparator & $\Delta$ trace & $\Delta$ MAE & Best-route posterior share & Best route & Reading \\
+\midrule
+Seattle 20\% & Zero-weight probe & 20.4 & 0.036 & 63.1\% & Seattle diag. certified & Lower trace aligns with lower held-out MAE in this matched probe. \\
+Seattle 30\% & Zero-weight probe & 9.4 & 0.032 & 63.8\% & Seattle diag. certified & Lower trace aligns with lower held-out MAE in this matched probe. \\
+PeMS7\_228 10\% & Stage15 certified & 35.6 & 0.129 & 18.8\% & Calibrated low-cert & Lower trace aligns with lower held-out MAE in this matched probe. \\
+PeMS7\_228 10\% & Zero-weight probe & 28.1 & 0.169 & 18.8\% & Calibrated low-cert & Lower trace aligns with lower held-out MAE in this matched probe. \\
+\bottomrule
+\end{tabularx}
+\begin{flushleft}\footnotesize $\Delta$ trace and $\Delta$ MAE are comparator minus the reference TRACE-BiOpt route in the same case, so positive values mean the reference route has both lower posterior trace and lower held-out MAE. The Seattle rows are bounded same-split diagnostic slices, while the PeMS7\_228 row uses the promoted calibrated current-best route. This is a bounded theorem-to-evidence bridge for Theorem~\ref{thm:trace-risk}: it uses only matched route probes inside the same dataset-budget slice and does not claim that posterior trace must rank every audited baseline by MAE under non-Gaussian traffic data.\end{flushleft}
+\end{table*}

@@ -1,0 +1,82 @@
+{
+  "audit_type": "fresh_machine_proof_audit",
+  "counts": {
+    "discharged": 52
+  },
+  "evidence_files": [
+    "/home/samuel/projects/sensor_opt/paper/sections/4_method_theory.tex",
+    "/home/samuel/projects/sensor_opt/paper/sections/3_problem.tex",
+    "/home/samuel/projects/sensor_opt/paper/tables/table_theory.tex",
+    "/home/samuel/projects/sensor_opt/TRACE_BIOPT_THEORY.md"
+  ],
+  "formal_environments": {
+    "proofs": 6,
+    "remarks": 1,
+    "theorems": 4
+  },
+  "generated_at": "2026-05-27T22:30:49Z",
+  "obligations_checked": 52,
+  "open_issues": [],
+  "skeleton_path": "PROOF_SKELETON.md",
+  "theorems": [
+    {
+      "counterexample_guard": "ridge_or_precision_positive_definite",
+      "id": "T1",
+      "label": "thm:map-stability",
+      "required": [
+        "$R$ is positive definite",
+        "\\lambda_Q Q+\\lambda_L L+\\epsilon I",
+        "positive definite",
+        "unique solution",
+        "A(\\calS)^{-1}b_t(\\calS)",
+        "operator norm"
+      ],
+      "title": "MAP closed form and stability"
+    },
+    {
+      "counterexample_guard": "singular_covariance_excluded",
+      "id": "T2",
+      "label": "thm:trace-risk",
+      "required": [
+        "positive definite $\\Sigma$ and $R_{\\calS}$",
+        "\\Sigma^{-1}+M_{\\calS}^{\\top}R_{\\calS}^{-1}M_{\\calS}",
+        "\\Sigma_{\\calH|\\calS}",
+        "hidden block",
+        "Bayes estimator",
+        "squared reconstruction error"
+      ],
+      "title": "Posterior trace as Bayes squared reconstruction risk"
+    },
+    {
+      "counterexample_guard": "temporal_dependence_qualified",
+      "id": "T3",
+      "label": "thm:uniform-layout",
+      "required": [
+        "0\\le \\ell_t(\\calS)\\le B",
+        "independent validation",
+        "Hoeffding",
+        "union bound",
+        "\\binom{|\\calV|}{k}",
+        "\\epsilon_{\\mathrm{opt}}",
+        "effective sample size"
+      ],
+      "title": "Uniform validation generalization over size-$k$ layouts"
+    },
+    {
+      "counterexample_guard": "restricted_active_set_not_overclaimed",
+      "id": "T4",
+      "label": "thm:exchange",
+      "required": [
+        "\\mathcal{N}^{\\mathrm{search}}_1",
+        "\\calR(\\calS)\\subseteq\\calS",
+        "\\calA(\\calS)\\subseteq\\calV\\setminus\\calS",
+        "G^{\\mathrm{search}}_1",
+        "finite",
+        "unevaluated",
+        "complete one-exchange neighborhood"
+      ],
+      "title": "TRACE-BiOpt exchange certificate"
+    }
+  ],
+  "verdict": "PASS"
+}
