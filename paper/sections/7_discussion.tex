@@ -3,75 +3,76 @@
 
 TRACE-BiOpt is useful because it aligns a costly infrastructure decision with the downstream inverse problem. A high-flow or high-variance sensor can be attractive, but a recoverability-driven layout may instead choose sensors that reduce hidden-state uncertainty and improve recoverability. The method is intentionally transparent: the lower-level MAP solve, objective terms, exchange history, selected layouts, and held-out outcomes can be inspected.
 
-The mechanism evidence also points to a more practical transport interpretation.
+The mechanism evidence also points to a practical transport interpretation.
 The method is not saying that every good traffic sensor is a high-centrality or
 high-variance node. It is saying that a useful layout is one that stabilizes
 network recoverability under the actual reconstruction model, and that two
 implementation choices matter materially for doing that well: the calibration
 window used to estimate upper-level reconstruction risk and the size-aware
 solver budget used to search the one-exchange neighborhood. In that sense,
-TRACE-BiOpt contributes not only a strong-performing auditable stochastic
+TRACE-BiOpt contributes not only a strong-performing reproducible stochastic
 network-design method but also a
 reviewable design protocol for how recoverability-driven sensor siting should be
-audited on large networks.
+evaluated on large networks.
 
-That protocol can be compressed into a claim-facing deployment checklist with five explicit rules: judge each regime against the row-wise strongest audited comparator, calibrate upper-level reconstruction risk when validation support is thin, scale the deterministic search budget with network size when the exchange cap binds, keep certificate-weighted objectives on stable rows where zero-weight strong-search still loses, and treat Stage14 perturbation winners as bounded deployment screens rather than as TRACE-BiOpt dominance evidence.
+That protocol can be compressed into a deployment checklist with five rules: judge each regime against the row-wise strongest pre-registered comparator, calibrate upper-level reconstruction risk when validation support is thin, scale the deterministic search budget with network size when the exchange cap binds, keep certificate-weighted objectives on stable rows where zero-weight strong-search still loses, and treat perturbation results as bounded deployment screens rather than as TRACE-BiOpt dominance evidence.
 
 % Design protocol table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-budget-phasing} turns the current-best budget curves
-into a staged deployment readout. Across all three networks, the first
+into a staged readout for the tested regimes. Across the three tested networks, the first
 10-point budget increase already captures 57--67\% of TRACE-BiOpt's total
 10--30\% MAE reduction. That does not make the final 10 points redundant.
 PeMS7\_1026 remains the cautionary case: the 10--20\% step gives the largest
 absolute gain, but the strongest-baseline margin still contracts from 0.124 at
 20\% to 0.038 at 30\%, so extra hardware budget still needs calibrated search
 scaling rather than just more sensors. PeMS7\_228 now looks like a stronger
-deployment-expansion case: once the calibrated full-search rerun closes, the
+expansion case: once the calibrated full-search rerun closes, the
 strongest-baseline margin widens from 0.142 to 0.276 to 0.336 as the budget
 rises, so added sensors keep paying in both absolute and relative
-recoverability. Seattle is still the cleanest low-variance rollout case, with
+recoverability. Seattle is the cleanest low-variance case, with
 the strongest-baseline margin widening from 0.056 to 0.094 as the budget
 increases.
 
 \input{tables/table_trace_biopt_budget_phasing}
 
-The companion boundary story makes the scope legible at the same level of visibility as the win. The paper still claims an external audited comparison-class contract that compresses to row-wise strongest-baseline dominance on the tested rows and then survives the Holm-corrected all-baseline screen over 21 pre-registered baselines spanning 11 method families, calibrated promotion on completed reruns, a scoped bilevel theory package, mechanism evidence inside one objective family, and bounded deployment stress evidence. It also says just as plainly what does not follow: universal baseline dominance, exact global optimality, universal MAE theorems, or robustness claims outside the tested perturbation slices.
+The scope of the empirical claim is stated alongside the result. The paper reports row-wise lowest held-out GLS/MAP MAE against the row-wise strongest pre-registered non-BiOpt challenger on the tested dataset-budget rows, and shows that Holm-corrected one-sided paired tests over the 189 row-baseline comparisons leave no statistically tied or significantly better pre-registered challenger. The dominance statement is therefore limited to the 21 pre-registered non-BiOpt baselines in the tested regimes; it does not imply dominance over untested layout families or universal cross-network generalization.
 
 % Discussion boundary table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 Table~\ref{tab:trace-biopt-exact-subnetwork} adds one more bounded solver-scope
-lane rather than a new dominance claim. For each dataset, the manuscript now
+result rather than a new dominance claim. For each dataset, the manuscript now
 extracts three deterministic anchor-centered 16-node induced subnetworks from
 the released graph, reuses the row-wise 10\%, 20\%, and 30\% TRACE-BiOpt route
 parameters, and exhaustively enumerates every feasible $k$-subset: 120 layouts
 at 10\%, 560 at 20\%, and 4,368 at 30\% per anchor. Across the resulting
-27 audited subnetwork cases, TRACE-BiOpt hits the exact optimum every time
+27 subnetwork cases, TRACE-BiOpt matches the exact optimum every time
 with zero objective gap. This narrows the solver limitation in a useful way:
 on small connected subnetworks, the implemented forward-plus-exchange route is
 already exact under the paper's own objective. It does not remove the
 full-network caveat, and it does not upgrade Seattle 10\% from fail-closed
-dominance evidence to a promoted Stage16 row.
+evidence to a promoted row.
 
 \input{tables/table_trace_biopt_exact_subnetwork}
 
-Several limitations define the claim boundary. First, posterior trace is a squared-error uncertainty certificate under scoped GLS/MAP assumptions; it is not a theorem that MAE must improve on non-Gaussian traffic data. Second, the implemented exchange solver is local to the searched deterministic one-swap neighborhood and does not certify global optimality over all $\binom{|\calV|}{k}$ layouts. Third, the dominance claim is limited to the pre-registered non-BiOpt baselines and the tested dataset-budget regimes represented in the current-best evidence chain. Fourth, PeMS7\_1026 and Seattle support multi-network empirical evidence, not universal cross-network generalization. Fifth, robustness results are stress tests rather than formal certification against all perturbations.
+Several limitations define the claim boundary. First, the empirical evidence covers only the three tested traffic networks, three budget levels, ten split seeds, and the declared GLS/MAP reconstruction protocol. Second, the comparison is limited to the 21 pre-registered non-BiOpt baselines in the current-best evidence chain; TRACE-BiOpt is not tested against layout families outside this registry. Third, the implemented exchange solver is local to the searched deterministic one-swap neighborhood and does not certify global optimality over all $\binom{|\calV|}{k}$ layouts. Fourth, posterior trace is a Gaussian squared-error uncertainty certificate under scoped GLS/MAP assumptions; it is not a theorem that MAE must improve on non-Gaussian traffic data. Fifth, because traffic observations are temporally dependent, the validation generalization bound should be interpreted with independent blocks or an effective sample size rather than with the raw daily count. Sixth, the robustness results are bounded stress screens against a fixed set of perturbation types and magnitudes, not a certification of robustness under all possible disturbances. Seventh, raw PeMS and Seattle traffic datasets are not redistributed with the repository; reproducibility requires local placement of the datasets as documented in the README. Eighth, the computational burden of posterior and exchange operations grows with network size and sensor budget, which limits straightforward scaling to very large networks without further algorithmic work.
+
+The empirical claim is intentionally scoped. It concerns three traffic networks, three budget levels, ten split seeds, the declared GLS/MAP reconstruction protocol, and the 21 pre-registered non-BiOpt baselines in the current-best evidence chain. It does not imply dominance over untested layout families or universal cross-network generalization.
 
 These limitations are methodological guardrails rather than defects. They make
 the manuscript falsifiable: a reviewer can trace each claim to a table,
-theorem statement, or explicit caveat. The current-best evidence chain now
-supplies an external audited comparison-class contract with submission-ready
-paired dominance on every tested row, no surviving challenger after 189
-Holm-corrected paired comparisons, and still-explicit boundaries around
-untested baselines, exact global optimality, and unproved robustness outside
-the audited stress slices. Future work should study stronger exchange
+theorem statement, or explicit caveat. The current-best evidence chain
+provides paired dominance on every tested row, no surviving pre-registered challenger after 189
+Holm-corrected paired comparisons, and explicit boundaries around
+untested baselines, searched-neighborhood stationarity rather than global optimality, and unproved robustness outside
+the tested perturbation slices. Future work should study stronger exchange
 neighborhoods, approximation properties under traffic-specific covariance
 structure, larger exact mixed-integer or exhaustive benchmarks beyond the
-audited 16-node subnetworks, and deployment studies with real maintenance,
+16-node subnetworks, and deployment studies with real maintenance,
 communication, and sensor-failure costs.
 
-This is also the reason the paper keeps the external audited comparison-class
-contract visible instead of collapsing everything into one headline mean. A
+This is also the reason the paper keeps the full comparison details visible
+instead of collapsing everything into one headline mean. A
 TR-B reader should be able to see which competitor was strongest on each row,
 which reruns were needed to resolve weak evidence, which challenger families
 still came closest after family-level screening, and which parts of the method
@@ -79,8 +80,8 @@ are theoretical scope statements rather than universal guarantees. The
 manuscript therefore aims for a high-confidence transport-network design
 claim: calibrate the reconstruction-risk estimate when validation support is
 thin, scale the search budget with network size, and judge layouts against the
-strongest audited competitor inside a broader 21-baseline / 11-family
+strongest pre-registered competitor inside the 21-baseline / 11-family
 comparison class rather than against a fixed weak baseline. That is more
 useful to a TR-B reader than a maximalist ``wins everywhere forever'' slogan.
 
-The submission package therefore treats auditability as part of the method. Paper-visible numbers are generated from machine-readable Stage15 artifacts, the main caveats are repeated where they affect interpretation, and the source separates manuscript prose from raw traffic datasets. This structure is intended to make later revisions local: if a reviewer questions a number, baseline, or scope statement, the corresponding row in the claim, dominance, ablation, or external-evidence contract identifies the evidence lane to inspect.
+The submission package therefore treats reproducibility as part of the method. Paper-visible numbers are generated from machine-readable artifacts, the main caveats are repeated where they affect interpretation, and the source separates manuscript prose from raw traffic datasets. This structure is intended to make later revisions local: if a reviewer questions a number, baseline, or scope statement, the corresponding row in the evidence index identifies the source artifact to inspect.

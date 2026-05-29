@@ -1,0 +1,3 @@
+Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
+
+During the preparation of this work, the authors used ChatGPT and related AI-assisted tools to support manuscript organization, language editing, code-review planning, and consistency checks. After using these tools, the authors reviewed, verified, edited, and adapted the content as needed and take full responsibility for the content of the submitted manuscript.

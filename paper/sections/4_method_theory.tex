@@ -92,24 +92,24 @@ selection step.
 
 \subsection{Single-objective optimization algorithm}
 
-\begin{table*}[t]
-\centering
-\caption{Algorithm 1: TRACE-BiOpt deterministic bilevel sensor layout optimization.}
+\begin{algorithm}[t]
+\caption{TRACE-BiOpt deterministic layout solver}
 \label{alg:trace-biopt}
-\small
-\begin{tabularx}{\textwidth}{p{0.15\textwidth}X}
-\toprule
-Input & traffic graph $G=(\calV,E)$; budget $k$; train, validation, and test splits; lower-level GLS/MAP ingredients; objective weights $(\beta,\gamma,\eta)$; Huber threshold $\delta$; deterministic active-set sizes and exchange limit. \\
-\midrule
-1 & Fit $\mu_t$, covariance or precision ingredients, graph regularization, and observation-noise parameters on training data. \\
-2 & Initialize $\calS$ by optimizing the same objective family: objective-forward construction on smaller networks and posterior-certificate warm start on larger networks. Optionally use the continuous relaxation $s\in[0,1]^{|\calV|}$, $\mathbf{1}^{\top}s=k$, followed by deterministic top-$k$ rounding. \\
-3 & Compute $J(\calS)$ using hidden Huber reconstruction loss, posterior trace, scenario-CVaR trace, and spatial redundancy. \\
-4 & Enumerate the deterministic one-exchange active set ranked by posterior uncertainty, scenario uncertainty, and spatial recoverability terms. \\
-5 & Accept the best strict improving swap $(r,a)$ under $J((\calS\setminus\{r\})\cup\{a\})$. \\
-6 & Stop when no searched one-exchange move improves $J$ by more than the declared tolerance or when the exchange budget is exhausted. Freeze $\hat{\calS}$ before held-out test evaluation. \\
-\bottomrule
-\end{tabularx}
-\end{table*}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} network graph $G=(\calV,E)$, budget $k$, validation states, objective weights $(\beta,\gamma,\eta)$
+\STATE Build GLS/MAP lower-level matrices and traffic priors from training data
+\STATE Initialize $S_0$ by scale-adaptive objective-forward construction or posterior warm start
+\FOR{exchange iteration $m=0,1,\ldots$}
+  \STATE Evaluate searched one-exchange moves $S_m\setminus\{i\}\cup\{j\}$ under the same objective $J$
+  \IF{best strict improvement exceeds tolerance}
+    \STATE Accept the best improving move
+  \ELSE
+    \STATE Stop with searched-neighborhood certificate
+  \ENDIF
+\ENDFOR
+\STATE \textbf{Return:} final fixed layout $\hat{S}$
+\end{algorithmic}
+\end{algorithm}
 
 The continuous relaxation is an initializer, not a separate method. It solves
 \[
@@ -378,13 +378,16 @@ The theory above supports a transparent, principled bilevel transportation
 network-design method with a coherent tail-risk term. It does not prove exact global optimality, dominance over untested baselines, or universal cross-network generalization.
 \end{remark}
 
+\paragraph{Scope of the theoretical statements.}
+The preceding statements support TRACE-BiOpt as a transparent and analyzable network-design procedure, but they do not by themselves prove empirical dominance on arbitrary traffic networks. The posterior-trace identity is a Gaussian squared-error Bayes-risk statement; the paper's main empirical metric is held-out hidden-state MAE under real traffic data. The all-layout generalization bound quantifies the statistical burden of validating size-$k$ layouts and should be read with independent validation blocks or an effective sample size for temporally dependent traffic. The exchange result certifies stationarity only over the searched one-exchange neighborhood, and becomes a full one-exchange certificate only when the full neighborhood is enumerated and the exchange gap is zero. These boundaries are why the empirical claim is stated only for the tested networks, budgets, seeds, estimator, and pre-registered comparison family.
+
 \input{tables/table_theory}
 
 Table~\ref{tab:trace-biopt-theory-bridge} turns the theorem list into a
-reviewer-facing bridge. The point is not to claim that a diagnostic table
-proves a theorem. The point is to make the manuscript auditable end to end:
+theory-to-evidence bridge. The point is not to claim that a diagnostic table
+proves a theorem. The point is to make the manuscript transparent end to end:
 each formal statement is paired with a visible current-best evidence lane and
-a bounded interpretation. In other words, the paper does not ask a reviewer to
+a bounded interpretation. In other words, the paper does not ask a reader to
 trust that theorems and experiments happen to point in the same direction; it
 shows where that contact actually occurs in the current-best chain.
 

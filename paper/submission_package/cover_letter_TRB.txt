@@ -1,0 +1,16 @@
+Dear Editors,
+
+We are pleased to submit our manuscript, "TRACE-BiOpt: Recoverability-Driven Bilevel Transportation Network Design for Sparse Traffic Sensor Siting," for consideration in Transportation Research Part B: Methodological.
+
+The paper studies sparse traffic sensor siting as a fixed-infrastructure transportation network design problem. Given a sensor budget, the goal is to choose a long-lived sensor layout that improves reconstruction of the hidden traffic network state under a transparent GLS/MAP estimator. We propose TRACE-BiOpt, a bilevel stochastic optimization method whose lower level is a transparent inverse problem and whose upper level combines hidden-state reconstruction loss, posterior uncertainty, CVaR tail risk, and spatial redundancy regularization. The solver uses deterministic initialization and one-exchange refinement under the same objective; pre-registered baselines are not used as method candidates.
+
+The manuscript contributes a methodological formulation, a deterministic solver, and a scoped theory package covering MAP stability, posterior-risk interpretation, all-layout validation generalization, CVaR interpretation, and exchange-stationarity certification. Empirically, we evaluate TRACE-BiOpt on PeMS7_228, PeMS7_1026, and Seattle networks at 10%, 20%, and 30% sensor budgets over ten split seeds. Under the stated GLS/MAP protocol, TRACE-BiOpt achieves the lowest mean held-out hidden-state MAE against 21 pre-registered non-BiOpt baselines in all nine dataset-budget regimes, and Holm-corrected paired tests over the 189 row-baseline comparisons leave no statistically tied or significantly better pre-registered challenger.
+
+We believe the paper fits Transportation Research Part B because it develops a mathematical and algorithmic method for transportation network design under partial observation, with transparent reconstruction, risk-aware optimization, and reproducible statistical evaluation.
+
+All authors have approved the manuscript and agree with its submission. The manuscript is not under consideration elsewhere.
+
+Sincerely,
+[Corresponding Author Name]
+[Affiliation]
+[Email]

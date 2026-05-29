@@ -2,74 +2,114 @@
 \label{sec:related}
 
 This section positions TRACE-BiOpt within the broader traffic sensing and
-estimation literature. TRACE-BiOpt is a fixed-infrastructure transportation
+estimation literature.  TRACE-BiOpt is a fixed-infrastructure transportation
 network-design method that optimizes a single recoverability-driven objective;
 its contribution is therefore closest to the network-design tradition rather
 than to estimator benchmarking, post-hoc layout selection, or sparse-sensor
 leaderboard studies.
 
-The comparison class used throughout the paper consists of 21 pre-registered baselines spanning 11 method families, evaluated by row-wise strongest-baseline dominance on held-out reconstruction error with Holm-corrected paired tests.
+\paragraph{Traffic count location and OD estimation.}
+Transportation sensor location has usually been studied as an infrastructure
+design problem for OD estimation, link-flow inference, path reconstruction, or
+travel-time monitoring.  Early count-location work derived OD covering,
+flow-fraction, flow-interception, and link-independence rules for OD matrix
+estimation \citep{yang1998optimal}; later formulations optimized informative
+count locations, accounted for existing detectors or prior OD information, and
+used posterior OD uncertainty or plate-scanning information as design criteria
+\citep{ehlert2006optimisation,castillo2008trip,minguez2010plate,simonelli2012od}.
+Reviews and traffic-flow-estimation variants of this stream emphasize that
+sensor location can be cast as either flow-estimation, observability, or
+prediction support, depending on the quantity being inferred
+\citep{gentili2011survey,zhu2014estimation}.  TRACE-BiOpt follows the same
+fixed-infrastructure planning premise---the layout must be chosen before
+measurements are collected---but recasts the design target as hidden-network
+recoverability under a transparent inverse problem rather than OD or
+route-demand estimation.
 
-% Comparison class contract table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-
-\paragraph{Traffic count location and OD-oriented sensing.}
-Transportation sensor location has usually been studied as an infrastructure design problem for OD estimation, link-flow inference, path reconstruction, or travel-time monitoring. Early count-location work derived OD covering, flow-fraction, flow-interception, and link-independence rules for OD matrix estimation \citep{yang1998optimal}; later formulations optimized informative count locations, accounted for existing detectors or prior OD information, and used posterior OD uncertainty or plate-scanning information as design criteria \citep{ehlert2006optimisation,castillo2008trip,minguez2010plate,simonelli2012od}. Reviews and traffic-flow-estimation variants of this stream emphasize that sensor location can be cast as either flow-estimation, observability, or prediction support, depending on the quantity being inferred \citep{gentili2011survey,zhu2014estimation}. TRACE-BiOpt follows the same fixed-infrastructure planning premise---the layout must be chosen before measurements are collected---but recasts the design target as hidden-network recoverability under a transparent inverse problem rather than OD or route-demand estimation.
-
-\paragraph{Link-flow observability, path reconstruction, and sensor reliability.}
-A second line asks how few counting, scanning, turning-ratio, or heterogeneous sensors are needed to infer unobserved link, route, or path flows. Basis-link and graph-theoretic formulations identify count locations for link-flow inference \citep{hu2009identification,he2013graphical,ng2012synergistic}; partial-observability and route-set methods show that full observability is often nonunique and that different route or link sets can carry different information value \citep{viti2014partial,rinaldi2017route,zhuo2024revisiting}. Robust and reliability-aware variants explicitly model measurement error, probabilistic disruption, and sensor failure in surveillance or complete link-flow observability \citep{li2011reliable,li2012opre,xu2016robust,salari2019failure,yu2023robustness}, while recent extensions combine observability and estimation objectives or use turning-ratio and flow sensors for large-network reconstruction \citep{zhu2022nslp,rodriguez2019turning}. Heterogeneous active/passive sensor and stochastic path-reconstruction models provide the closest route-reconstruction design analogues \citep{fu2016heterogeneous,fu2017stochastic}. TRACE-BiOpt differs in the target quantity and evaluation criterion: it does
-not claim OD identifiability, complete link-flow observability, or path
-reconstruction; it asks which fixed sparse sensor set minimizes held-out
-reconstruction error under a transparent GLS/MAP estimator.
+\paragraph{Link-flow observability and sensor reliability.}
+A second line asks how few counting, scanning, turning-ratio, or heterogeneous
+sensors are needed to infer unobserved link, route, or path flows.  Basis-link
+and graph-theoretic formulations identify count locations for link-flow
+inference \citep{hu2009identification,he2013graphical,ng2012synergistic};
+partial-observability and route-set methods show that full observability is
+often nonunique and that different route or link sets can carry different
+information value
+\citep{viti2014partial,rinaldi2017route,zhuo2024revisiting}.  Robust and
+reliability-aware variants explicitly model measurement error, probabilistic
+disruption, and sensor failure in surveillance or complete link-flow
+observability
+\citep{li2011reliable,li2012opre,xu2016robust,salari2019failure,yu2023robustness},
+while recent extensions combine observability and estimation objectives or use
+turning-ratio and flow sensors for large-network reconstruction
+\citep{zhu2022nslp,rodriguez2019turning}.  Heterogeneous active/passive sensor
+and stochastic path-reconstruction models provide the closest
+route-reconstruction design analogues
+\citep{fu2016heterogeneous,fu2017stochastic}.  TRACE-BiOpt differs in the
+target quantity and evaluation criterion: it does not claim OD identifiability,
+complete link-flow observability, or path reconstruction; it asks which fixed
+sparse sensor set minimizes held-out reconstruction error under a transparent
+GLS/MAP estimator.
 
 \input{tables/table_method_positioning}
 
-\paragraph{Traffic state estimation from sparse observations.}
-Traffic state estimation treats the network state itself as the object of inference. Classical approaches include filtering, model-based data assimilation, and reconstruction from partial or aggregated measurements; surveys emphasize that traffic variables are often noisy and only partially observed \citep{seo2017survey}. Signal reconstruction methods have also been used to recover traffic states from aggregated or limited measurements \citep{coric2012traffic}. This literature motivates hidden-network reconstruction as an operational objective, but it often assumes the sensing pattern is given. TRACE-BiOpt moves one layer upstream: the estimator remains transparent and intentionally simple, while the layout is optimized for the downstream reconstruction task. That upstream move is what makes the paper a transportation network-design contribution rather than an estimator benchmark.
+\paragraph{Traffic state estimation under partial observation.}
+Traffic state estimation treats the network state itself as the object of
+inference.  Classical approaches include filtering, model-based data
+assimilation, and reconstruction from partial or aggregated measurements;
+surveys emphasize that traffic variables are often noisy and only partially
+observed \citep{seo2017survey}.  Signal reconstruction methods have also been
+used to recover traffic states from aggregated or limited measurements
+\citep{coric2012traffic}.  This literature motivates hidden-network
+reconstruction as an operational objective, but it often assumes the sensing
+pattern is given.  TRACE-BiOpt moves one layer upstream: the estimator remains
+transparent and intentionally simple, while the layout is optimized for the
+downstream reconstruction task.  That upstream move is what makes the paper a
+transportation network-design contribution rather than an estimator benchmark.
 
-\paragraph{Sensor selection and optimal experimental design.}
-The broader optimization and statistical learning literature studies subset selection for estimation. Convex and greedy sensor-selection methods optimize A-, D-, or E-type design criteria under linear models \citep{joshi2009sensor}. Gaussian-process placement maximizes information gain and obtains approximation guarantees from submodularity \citep{krause2008near,krause2008robust}. TRACE-BiOpt borrows the idea that posterior uncertainty can guide placement, but it does not reduce placement to a certificate-only OED score. The posterior trace enters one robust reconstruction-risk objective together with hidden-state Huber loss, scenario tail risk, and spatial redundancy regularization.
+\paragraph{Sensor selection, OED, graph sampling, and POD/QR.}
+The broader optimization and statistical learning literature studies subset
+selection for estimation.  Convex and greedy sensor-selection methods optimize
+A-, D-, or E-type design criteria under linear models \citep{joshi2009sensor}.
+Gaussian-process placement maximizes information gain and obtains approximation
+guarantees from submodularity \citep{krause2008near,krause2008robust}.
+Graph signal processing studies when graph-supported signals can be
+reconstructed from selected vertices, with sampling-set criteria tied to
+spectral structure \citep{chen2015sampling,anis2016sampling}.  Data-driven
+sparse sensor placement similarly exploits low-dimensional modal structure to
+reconstruct high-dimensional states from few measurements
+\citep{manohar2018sparse}.  TRACE-BiOpt borrows the idea that posterior
+uncertainty can guide placement, but it does not reduce placement to a single
+OED score: the posterior trace enters one robust reconstruction-risk objective
+together with hidden-state Huber loss, scenario tail risk, and spatial
+redundancy regularization.  Graph-sampling and QR/POD-style layouts are
+included as natural baselines for recoverability-oriented sensing, but the
+methodological contribution is a bilevel traffic network design formulation
+optimized against hidden-network reconstruction risk rather than a new graph
+sampling theorem.
 
-\paragraph{Graph sampling, POD, and sparse reconstruction.}
-Graph signal processing studies when graph-supported signals can be reconstructed from selected vertices, with sampling-set criteria tied to spectral structure \citep{chen2015sampling,anis2016sampling}. Data-driven sparse sensor placement similarly exploits low-dimensional modal structure to reconstruct high-dimensional states from few measurements \citep{manohar2018sparse}. TRACE-BiOpt includes graph-sampling and QR/POD-style layouts as pre-registered baselines because they are natural competitors for recoverability-oriented sensing. Its methodological contribution is not a new graph sampling theorem; it is a bilevel traffic network design formulation optimized against hidden-network reconstruction risk.
+\paragraph{Bilevel, stochastic, and robust network design.}
+Transportation network design has a long tradition of optimizing infrastructure
+investments under equilibrium or system-optimal traffic assignment
+\citep{yang1998optimal,meng2008bilevel}.  Stochastic and robust variants
+account for demand uncertainty, scenario variability, and worst-case or
+risk-averse objectives in the upper-level decision.  TRACE-BiOpt inherits this
+bilevel structure---an upper-level sensor siting decision coupled to a
+lower-level reconstruction model---and brings the lower level into the
+formulation explicitly as a transparent GLS/MAP inverse problem with
+scenario-driven risk objectives.  Deep spatiotemporal forecasting models
+\citep{li2018dcrnn,yu2018stgcn} are complementary: they answer how to forecast
+or impute once a sensor graph exists; TRACE-BiOpt answers which sparse graph
+should be observed if the downstream goal is transparent hidden-state
+reconstruction.
 
-\paragraph{Learning-based traffic forecasting.}
-Deep spatiotemporal traffic models, including diffusion recurrent and graph convolutional forecasting models, have improved prediction accuracy on fixed sensor graphs \citep{li2018dcrnn,yu2018stgcn}. Such estimators are complementary to TRACE-BiOpt. They answer how to forecast or impute once a sensor graph exists; TRACE-BiOpt answers which sparse graph should be observed if the downstream goal is transparent hidden-state reconstruction. This separation keeps the sensor siting claim from being conflated with a black-box estimator benchmark.
-
-\paragraph{Positioning as transportation network design.}
-Taken together, these literatures show that traffic sensing can be framed as
-count-location planning, observability analysis, robust surveillance, or
-estimator benchmarking. TRACE-BiOpt is closest in spirit to the network-design
-tradition because the main decision is a fixed infrastructure layout chosen
-before deployment and judged by the information value it creates afterward. The
-paper's contribution claim is therefore not that it invents a new OD model, a
-new graph-sampling theorem, or a stronger traffic predictor. The claim is that
-it formulates sparse traffic sensing as a robust bilevel stochastic
-network-design problem whose objective is downstream hidden-state
-recoverability under a transparent estimator, then verifies that design
-against the strongest pre-registered baselines on held-out reconstruction
-error.
-
-That distinction also fixes the paper's comparison class. The decision
-variable here is not an estimator hyperparameter, a model ensemble, or a
-post-hoc selector over candidate layouts. It is a long-lived infrastructure
-layout that must be frozen before deployment and then justified by the
-recoverability it creates for the hidden network state. In that sense,
-TRACE-BiOpt is meant to be read against transportation network design papers
-that optimize scarce physical resources under downstream system performance,
-not against leaderboard-style forecasting studies that assume the sensing graph
-is already given or sparse-sensor benchmark papers that only ask which
-registered layout scores best on one table.
-
-\paragraph{Why the distinction matters for TR-B.}
-This positioning is important for how the method should be read. If the paper
-were only selecting among QR/POD, A-trace, RCSS, validation-swap, or random
-layouts, the contribution would be closer to a post-hoc selector story. If it only
-optimized posterior trace or graph recoverability, it would be closer to a
-surrogate OED or graph-sampling criterion. TRACE-BiOpt instead couples a
-transport-network design decision to an auditable inverse problem and keeps the
-evaluation external to the solver: the strongest baseline is chosen
-after all layouts are generated, and the final claim is made only on held-out
-GLS/MAP reconstruction error. That is the methodological boundary this paper
-tries to make explicit.
+\paragraph{Positioning.}
+TRACE-BiOpt differs from these lines of work in the object it optimizes.
+The design variable is a fixed sparse sensor layout, but the performance
+criterion is hidden-network recoverability under an explicit transparent
+reconstruction model.  This couples sensor siting and downstream state
+reconstruction in a bilevel design problem.  The comparison baselines are
+therefore used externally, to test whether the bilevel design improves
+held-out reconstruction error relative to standard coverage, variance,
+observability, graph-sampling, and predecessor TRACE-SL/RCSS layouts.
 
 % Novelty identity table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)

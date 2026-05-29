@@ -1,0 +1,7 @@
+Highlights
+
+• Sparse traffic sensing is cast as bilevel network design.
+• TRACE-BiOpt optimizes one reconstruction-aware layout objective.
+• GLS/MAP reconstruction gives a transparent lower-level inverse problem.
+• Ten-seed tests beat 21 pre-registered baselines on nine regimes.
+• Theory gives stability, risk, generalization, and exchange certificates.

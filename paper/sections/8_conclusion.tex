@@ -5,26 +5,16 @@ TRACE-BiOpt reframes sparse traffic sensor deployment as a recoverability-driven
 
 That is also the comparison class the paper asks a reviewer to use: fixed-infrastructure transportation network design under downstream recoverability, not estimator tuning, benchmark-style model ranking, or post-hoc layout selection.
 
-The method combines hidden Huber reconstruction loss, posterior uncertainty, scenario tail risk, and spatial regularization in one objective, then applies deterministic initialization and exchange refinement under that objective. Across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets, TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against the best pre-registered non-BiOpt baseline in every dataset-budget regime. Holm-corrected one-sided paired tests across all 189 comparisons leave no statistically tied or significantly better challenger, and a bounded exact benchmark confirms 27/27 exact hits on deterministic 16-node subnetworks with zero objective gap.
+The method combines hidden Huber reconstruction loss, posterior uncertainty, scenario tail risk, and spatial regularization in one objective, then applies deterministic initialization and exchange refinement under that objective. Across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets, TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against all 21 pre-registered non-BiOpt baselines in the tested regimes. Holm-corrected one-sided paired tests across all 189 comparisons leave no pre-registered challenger tied or better after Holm correction, and a bounded exact benchmark confirms 27/27 exact hits on deterministic 16-node subnetworks with zero objective gap, providing a searched-neighborhood stationarity certificate.
 
 Stated compactly, the paper shows that one fixed-infrastructure
 transportation network-design method built around a transparent inverse
 problem can achieve formulation consistency, theory-backed guarantees,
-row-wise strongest-baseline dominance, and multiplicity-robust statistical
+bounded deployment-stress behavior, and multiplicity-robust statistical
 evidence on the tested traffic networks.
 
-These results translate into network-level planning guidance: treat PeMS7\_1026 as a search-budget-sensitive large network, PeMS7\_228 as an expansion-friendly calibrated rollout, and Seattle as a conservative staged-rollout case whose 20/30\% promoted routes are deployable while the 10\% row remains intentionally fail-closed on promotion evidence.
+These results translate into network-level planning guidance: treat PeMS7\_1026 as a search-budget-sensitive large network, PeMS7\_228 as an expansion-friendly calibrated rollout, and Seattle as a conservative staged-rollout case: promoted current-best evidence supports the 20/30\% rows, while the 10\% row remains on the audited Stage15 lane after the Stage16 promotion gate failed closed.
 
 % Planning takeaways table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
-In that sense, the paper's claim is not just that one siting heuristic wins a
-benchmark. It is that a recoverability-driven network-design formulation, a
-single-objective deterministic solver, a scoped theory package, and rigorous
-statistical testing against pre-registered baselines can be brought together
-into one coherent transport-network design argument.
-For a transportation agency, the practical message is equally concrete:
-freeze the sparse sensor siting plan as an infrastructure design decision
-before deployment, evaluate it by the recoverability it creates for the hidden
-network state under a transparent estimator, and compare it to the strongest
-pre-registered alternative rather than to a weak fixed baseline or a post-hoc
-estimator gain.
+For transportation agencies, the practical implication is that sparse sensor siting should be treated as an infrastructure design problem tied to downstream recoverability. A layout is valuable not only because it observes high-flow or high-variance locations, but because it improves reconstruction of the hidden network under a declared estimator. TRACE-BiOpt provides one way to make that design logic explicit, reproducible, and statistically testable against strong pre-registered alternatives.

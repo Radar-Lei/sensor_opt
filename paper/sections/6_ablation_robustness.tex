@@ -1,7 +1,7 @@
 \section{Mechanism analysis and calibration diagnostics}
 \label{sec:mechanism}
 
-The ablation contract now has a different role than in the previous TRACE-SL
+The ablation analysis has a different role than in the previous TRACE-SL
 draft. The main method is TRACE-BiOpt, so random candidate pools, validation
 selection, RCSS selection, and validation-aware TRACE-SL refinement are not
 method components to be defended as a selector stack. They are comparator
@@ -15,10 +15,9 @@ main method-facing ablation result.
 
 The Stage15 evidence uses these mechanisms more stringently: the strongest
 non-BiOpt row in each dataset-budget group becomes the best-baseline comparator
-in Table~\ref{tab:trace-biopt-dominance}. This makes the ablation logic
-claim-facing. If validation-swap TRACE-SL, RCSS, or swap-from-greedy-A is the
-strongest baseline on a row, TRACE-BiOpt must beat that row rather than a weak
-straw-man baseline.
+in Table~\ref{tab:trace-biopt-dominance}. If validation-swap TRACE-SL, RCSS,
+or swap-from-greedy-A is the strongest baseline on a row, TRACE-BiOpt must
+beat that row rather than a weak straw-man baseline.
 
 Table~\ref{tab:trace-biopt-route-ablation} upgrades the ablation layer to the
 current-best route itself. The low-budget PeMS7\_228 mixed row is no longer
@@ -35,7 +34,7 @@ promoted PeMS7\_1026 30\% row shows that the weakest
 large-network row also tightened inside the same objective family: the
 calibrated rerun lowers mean held-out MAE from 3.071 to 3.037 instead of
 switching to a different baseline family. This is the right current TR-B
-ablation scope: route perturbations inside one audited objective family, not a
+ablation scope: route perturbations inside one objective family, not a
 return to the old selector-centered narrative.
 
 \subsection{Mechanism diagnostics}
@@ -55,19 +54,17 @@ usually a strong TRACE-SL-family or RCSS-family layout. The fifth
 links the posterior/certificate quantities back to held-out MAE under the same
 GLS/MAP reconstruction protocol used for the main result.
 
-% MAP stability posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-
-Table~\ref{tab:trace-biopt-map-stability} gives the lower-level stability bridge
-for Theorem~\ref{thm:map-stability}. The promoted Stage16 rows do not improve
-MAE by pushing the inverse problem toward numerical singularity. All six
-promoted rows now lower the strongest-baseline condition number on all ten
-splits, with condition ratios between 0.69 and 0.86. The remaining Seattle
-rows are more mixed: they accept condition-number ratios around 1.19--1.36,
-but even there the current-best max condition number stays below about
-$7.1\times 10^3$, far from a ``nearly singular solver'' story. The bounded
-reading is the right one: TRACE-BiOpt's lower-level systems remain finite and
-auditable everywhere, and the promoted reruns strengthen rather than weaken
-that stability posture.
+The supplementary stability summary (SUBMISSION\_EVIDENCE\_INDEX.md) gives
+the lower-level stability bridge for Theorem~\ref{thm:map-stability}. The
+promoted Stage16 rows do not improve MAE by pushing the inverse problem toward
+numerical singularity. All six promoted rows now lower the strongest-baseline
+condition number on all ten splits, with condition ratios between 0.69 and
+0.86. The remaining Seattle rows are more mixed: they accept condition-number
+ratios around 1.19--1.36, but even there the current-best max condition number
+stays below about $7.1\times 10^3$, far from a ``nearly singular solver''
+reading. The takeaway is that TRACE-BiOpt's lower-level systems remain
+well-conditioned everywhere, and the promoted reruns strengthen rather than
+weaken that stability.
 
 Taken together, these diagnostics give two transport-design principles that are
 more specific than ``beat the baselines.'' First, scarce validation support can
@@ -104,7 +101,7 @@ MAE on these selected rows (Spearman $\rho=0.319$), while
 Table~\ref{tab:trace-biopt-mechanism} reports a much stronger mean seed-wise
 full-layout correlation ($\rho=0.849$). The right reading is therefore not
 that certificate terms replace direct reconstruction loss, but that they remain
-informative and should be combined with it inside one audited objective.
+informative and should be combined with it inside one unified objective.
 
 \begin{figure*}[t]
 \centering
@@ -121,39 +118,37 @@ promoted TRACE-BiOpt layouts visibly distribute low-budget sensors across
 recoverability-critical corridors rather than intensifying one local detector
 stack. On PeMS7\_1026, the same pattern appears in the distance-derived
 embedding used because public station coordinates are unavailable in the
-benchmark release. The figure therefore does not replace the audited overlap
-statistics in Figure~\ref{fig:trace-biopt-layout-fingerprints}; it complements
+benchmark release. The figure therefore does not replace the
+overlap statistics in Figure~\ref{fig:trace-biopt-layout-fingerprints}; it complements
 them by showing that the low-budget gains remain legible as a network design
 pattern rather than only as a graph-space fingerprint.
 
-% Spatial posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
+The supplementary spatial posture table (SUBMISSION\_EVIDENCE\_INDEX.md)
+makes the same spatial argument quantitative. On PeMS7\_228 10\% and Seattle
+10\%, the current-best TRACE-BiOpt layouts are more distributed than the
+row-wise strongest baselines: both mean pairwise graph distance and mean
+nearest-neighbor spacing increase. PeMS7\_1026 10\% is different and therefore
+more informative. There, TRACE-BiOpt does not simply maximize spread: mean
+pairwise distance is slightly smaller than in the strongest baseline, but the
+fixed shortlist collapses less often because always-selected nodes drop from 20
+to 11 while unique ten-seed support expands from 246 to 291 nodes. The spatial
+term acts as a guardrail against local over-concentration, not as a standalone
+``spread everything out'' heuristic.
 
-Table~\ref{tab:trace-biopt-spatial-posture} makes the same spatial argument
-quantitative. On PeMS7\_228 10\% and Seattle 10\%, the current-best TRACE-BiOpt
-layouts are more distributed than the row-wise strongest baselines: both mean
-pairwise graph distance and mean nearest-neighbor spacing increase. PeMS7\_1026
-10\% is different and therefore more informative. There, TRACE-BiOpt does not
-simply maximize spread: mean pairwise distance is slightly smaller than in the
-strongest baseline, but the fixed shortlist collapses less often because
-always-selected nodes drop from 20 to 11 while unique ten-seed support expands
-from 246 to 291 nodes. The right reading is that the spatial term acts as a
-guardrail against local over-concentration, not as a standalone ``spread
-everything out'' heuristic.
+The supplementary layout consensus posture table
+(SUBMISSION\_EVIDENCE\_INDEX.md) adds the split-level consensus reading.
+PeMS7\_228 10\% is the cleanest case: TRACE-BiOpt is slightly more
+consensus-stable than the previous TRACE-SL baseline in mean pairwise Jaccard
+overlap and markedly less dispersed across split pairs, so the low-budget win
+is not coming from erratic swap noise. PeMS7\_1026 10\% and Seattle 10\% are
+more subtle: their TRACE-BiOpt layout families have lower mean within-family
+overlap than the strongest baseline, but also lower overlap dispersion,
+consistent with a broader yet still coherent support family rather than
+unstable layout selection.
 
-% Layout consensus posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-
-Table~\ref{tab:trace-biopt-layout-consensus-posture} adds the split-level
-consensus reading. PeMS7\_228 10\% is the cleanest case: TRACE-BiOpt is
-slightly more consensus-stable than the previous TRACE-SL baseline in mean
-pairwise Jaccard overlap and markedly less dispersed across split pairs, so the
-low-budget win is not coming from erratic swap noise. PeMS7\_1026 10\% and
-Seattle 10\% are more subtle. Their TRACE-BiOpt layout families have lower mean
-within-family overlap than the strongest baseline, but also lower overlap
-dispersion, which is consistent with a broader yet still coherent support
-family rather than with unstable layout selection. This is the right bounded
-interpretation: TRACE-BiOpt can either tighten or widen the low-budget support
-set depending on regime, but it does so in a controlled family rather than in a
-split-fragile way.
+Taken together, the spatial and consensus findings show that TRACE-BiOpt can
+either tighten or widen the low-budget support set depending on regime, but it
+does so in a controlled family rather than in a split-fragile way.
 
 \begin{figure*}[t]
 \centering
@@ -195,8 +190,8 @@ nodes instead of being carried by one or two extreme error spikes.
 
 \input{tables/table_trace_biopt_optimization}
 \input{tables/table_trace_biopt_solver_scale}
-% Initializer posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-% Compute posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
+% Initializer table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
+% Compute table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 \input{tables/table_trace_biopt_exchange_certificate}
 
 Table~\ref{tab:trace-biopt-optimization} reports the optimization history
@@ -228,35 +223,25 @@ reruns are treated in the paper as part of the solver specification rather than
 as free post-hoc tweaks: they move both statistical evidence and computational
 burden.
 
-Table~\ref{tab:trace-biopt-initializer-posture} compresses the same evidence
-into the three solver regimes that matter most for reading TRACE-BiOpt as a
-method rather than as a collection of traces. PeMS7\_1026 is the
-large-network warm-start regime: all three promoted rows use a posterior
-greedy warm start and then spend essentially the entire accepted path in
-exchange-only cleanup under less than 1.5\% searched coverage. PeMS7\_228 is
-the mid-scale full-search regime: the promoted rows stay with
-objective-forward construction and then enumerate the complete one-exchange
+The supplementary initializer posture table (SUBMISSION\_EVIDENCE\_INDEX.md)
+compresses the same evidence into three solver regimes. PeMS7\_1026 is the
+large-network warm-start regime: all three promoted rows use a posterior greedy
+warm start and then spend essentially the entire accepted path in exchange-only
+cleanup under less than 1.5\% searched coverage. PeMS7\_228 is the mid-scale
+full-search regime: the promoted rows enumerate the complete one-exchange
 neighborhood, so calibration changes the route without changing the solver
-family. Seattle remains the light direct-construction regime: objective-forward
-still dominates and exchange tails remain short, but the current-best chain is
-now mixed rather than purely retained: Seattle 10\% stays on the short Stage15
-main path while Seattle 20/30\% have already been promoted through calibrated
-reruns. This is the algorithmic reading of the current-best evidence:
-TRACE-BiOpt is one deterministic solver family with size-adaptive initializer
-posture, not a different method on each network.
+family. Seattle remains the light direct-construction regime. TRACE-BiOpt is
+one deterministic solver family with size-adaptive initialization, not a
+different method on each network.
 
-Table~\ref{tab:trace-biopt-compute-posture} then makes the wall-clock side of
-that burden explicit at the source-route level. Once the full ten-split
-current-best rerun chain is counted, the promoted PeMS routes are hour-scale
-rather than minute-scale: the paired PeMS7\_1026 10/20\% calibrated rerun now
-averages 136.4 minutes and the single-budget 30\% rerun averages 127.1
-minutes, while the PeMS7\_228 calibrated 10\% and 20/30\% routes average
-119.2 and 99.0 minutes. Seattle remains the light route family: the retained
-10\% Stage15 main-evidence route averages 2.2 minutes, and the promoted
-Seattle 20/30\% calibrated rerun averages 6.5 minutes with a 0.47\,GB mean
-peak. This is the practical compute reading of the current-best chain: the
-expensive reruns are concentrated exactly on the regimes that needed
-calibration and deeper exchange search, not on every row in the paper.
+The supplementary compute posture table (SUBMISSION\_EVIDENCE\_INDEX.md)
+reports the wall-clock burden at the source-route level. The promoted PeMS
+routes are hour-scale: PeMS7\_1026 calibrated reruns average 127--136 minutes
+and PeMS7\_228 calibrated routes average 99--119 minutes. Seattle remains
+light: the retained Stage15 route averages 2.2 minutes and the promoted
+20/30\% rerun averages 6.5 minutes. The expensive reruns are concentrated
+exactly on the regimes that needed calibration and deeper exchange search, not
+on every row in the paper.
 
 Table~\ref{tab:trace-biopt-exchange-certificate} turns Theorem~\ref{thm:exchange}
 and Proposition~\ref{prop:exchange-gap-scope} into a row-level evidence
@@ -299,7 +284,7 @@ exchange tail under the same TRACE-BiOpt objective.
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_exchange_gap_curves.pdf}
-\caption{Current-best TRACE-BiOpt residual exchange-gap posture. The top row shows the mean fraction of eventual exchange-phase improvement still remaining after the accepted exchange phase begins; the bottom row reports the mean number of accepted exchange steps, with `0-ex' annotations giving how many of the ten split-specific runs accepted no exchange at all beyond the forward or warm-start layout.}
+\caption{Current-best TRACE-BiOpt residual exchange-gap profiles. The top row shows the mean fraction of eventual exchange-phase improvement still remaining after the accepted exchange phase begins; the bottom row reports the mean number of accepted exchange steps, with `0-ex' annotations giving how many of the ten split-specific runs accepted no exchange at all beyond the forward or warm-start layout.}
 \label{fig:trace-biopt-exchange-gap-curves}
 \end{figure*}
 
@@ -314,26 +299,25 @@ residual exchange gap is down to 0.261 with 7.1 accepted swaps. The promoted
 PeMS7\_228 20/30\% reruns now define the intermediate regime: their midpoint
 residual gaps are about 0.220 and 0.232 with 11.3 and 11.9 accepted swaps on
 average. Only Seattle 10/30\% still show zero-exchange runs after the forward
-path. This is the reviewer-facing bridge between the exchange-certificate table
+path. This is the empirical bridge between the exchange-certificate table
 and the solver-budget discussion: some rows are search-tail heavy, while
 others are already close enough to local stationarity that the exchange phase
 often becomes optional rather than binding.
 
-% Certificate removal probe table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-
-Table~\ref{tab:trace-biopt-certificate-removal-probe} asks a narrower but
-important mechanism question on the stable Seattle rows: if the search budget
-is already strong, do the posterior-trace, scenario-CVaR, and spatial terms
-still matter? The answer is yes. In the completed seed-25 strong-search
-diagnostic, setting $(\beta,\gamma,\eta)=(0,0,0)$ worsens both validation and
-held-out GLS/MAP MAE on Seattle 20\% and 30\%. The held-out penalty is
-0.032--0.036 MAE, and the validation penalty is 0.013--0.022 MAE. This does
-not prove that every row is monotone in every weight, but it does show that
-the stable Seattle certificate-weighted route is not explained by search depth
-alone; the certificate-weighted objective contributes materially to the final
-layout quality. These Seattle single-seed probes are bounded same-split
-diagnostic slices rather than replacement-evidence rows, so they explain a
-mechanism without pretending to be extra dominance rows.
+The supplementary certificate-removal probe table
+(SUBMISSION\_EVIDENCE\_INDEX.md) asks a narrower but important mechanism
+question on the stable Seattle rows: if the search budget is already strong,
+do the posterior-trace, scenario-CVaR, and spatial terms still matter? The
+answer is yes. In the completed seed-25 strong-search diagnostic, setting
+$(\beta,\gamma,\eta)=(0,0,0)$ worsens both validation and held-out GLS/MAP
+MAE on Seattle 20\% and 30\%. The held-out penalty is 0.032--0.036 MAE, and
+the validation penalty is 0.013--0.022 MAE. This does not prove that every row
+is monotone in every weight, but it does show that the stable Seattle
+certificate-weighted route is not explained by search depth alone; the
+certificate-weighted objective contributes materially to the final layout
+quality. These Seattle single-seed probes are bounded same-split diagnostic
+slices rather than replacement-evidence rows, so they explain a mechanism
+without pretending to be extra dominance rows.
 
 \begin{figure*}[t]
 \centering
@@ -355,51 +339,46 @@ probe easier to interpret: when the stable rows are actually posterior-driven,
 removing the certificate terms changes the design problem materially rather
 than merely simplifying notation.
 
-% Posterior risk posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
+The supplementary posterior risk table (SUBMISSION\_EVIDENCE\_INDEX.md) is the
+bounded theorem-to-evidence bridge for Theorem~\ref{thm:trace-risk}. It does
+not ask posterior trace to rank every baseline by MAE. Instead it uses only
+matched route probes inside the same dataset-budget slice. On Seattle 20\% and
+30\%, the Seattle diagnostic certified route beats the zero-weight probe by
+lowering posterior trace by about 20.4 and 9.4 while also lowering held-out
+MAE by 0.036 and 0.032. On PeMS7\_228 10\%, the promoted calibrated low-cert
+route beats both the Stage15 certified route and the zero-weight probe while
+lowering posterior trace by 35.6 and 28.1 and lowering held-out MAE by 0.129
+and 0.169. This is the right scope for the theorem: posterior trace behaves as
+a meaningful squared-risk certificate within controlled TRACE-BiOpt route
+comparisons, without being overstated as a universal MAE ranking theorem under
+non-Gaussian traffic data.
 
-Table~\ref{tab:trace-biopt-posterior-risk} is the bounded theorem-to-evidence
-bridge for Theorem~\ref{thm:trace-risk}. It does not ask posterior trace to
-rank every audited baseline by MAE. Instead it uses only matched route probes
-inside the same dataset-budget slice. On Seattle 20\% and 30\%, the Seattle
-diagnostic certified route beats the zero-weight probe by lowering posterior trace by
-about 20.4 and 9.4 while also lowering held-out MAE by 0.036 and 0.032. On
-PeMS7\_228 10\%, the promoted calibrated low-cert route beats both the Stage15
-certified route and the zero-weight probe while lowering posterior trace by
-35.6 and 28.1 and lowering held-out MAE by 0.129 and 0.169. This is the right
-scope for the theorem: posterior trace behaves as a meaningful squared-risk
-certificate within controlled TRACE-BiOpt route comparisons, without being
-overstated as a universal MAE ranking theorem under non-Gaussian traffic data.
+The supplementary weight sensitivity table (SUBMISSION\_EVIDENCE\_INDEX.md)
+makes the weight story explicit on three representative single-seed slices. On
+the stable Seattle 20\% and 30\% diagnostic slices, the certificate-weighted
+Seattle route beats the matched zero-weight strong-search probe by 0.036 and
+0.032 MAE, respectively. The low-budget PeMS7\_228 10\% row behaves
+differently. There, neither the original heavy-cert Stage15 route nor the
+zero-weight strong-search route is best; the promoted current-best route is the
+calibrated low-cert full-search rerun, which lowers held-out MAE to 3.248 from
+3.377 for the default heavy-cert route and 3.417 for the zero-weight route on
+the same split. The correct reading is therefore regime sensitivity, not a
+universal monotonic statement about certificate weights: stable rows can
+benefit from heavier posterior/CVaR terms, while thin-validation low-budget
+rows may need lighter weights plus calibrated risk estimation and deeper search.
 
-% Weight sensitivity table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-
-Table~\ref{tab:trace-biopt-weight-sensitivity} makes the weight story explicit
-on three representative single-seed slices. On the stable Seattle 20\% and
-30\% diagnostic slices, the certificate-weighted Seattle route beats the
-matched zero-weight strong-search probe by 0.036 and 0.032 MAE, respectively.
-The low-budget
-PeMS7\_228 10\% row behaves differently. There, neither the original heavy-cert
-Stage15 route nor the zero-weight strong-search route is best; the promoted
-current-best route is the calibrated low-cert full-search rerun, which lowers
-held-out MAE to 3.248 from 3.377 for the default heavy-cert route and 3.417
-for the zero-weight route on the same split. The correct reading is therefore
-regime sensitivity, not a universal monotonic statement about
-certificate weights: stable rows can benefit from heavier posterior/CVaR terms,
-while thin-validation low-budget rows may need lighter weights plus calibrated
-risk estimation and deeper search.
-
-% Tail risk posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-
-Table~\ref{tab:trace-biopt-tail-risk-posture} closes the reviewer-facing CVaR
-interpretation gap. The current-best routes do not win because the tail-risk
-term dominates the objective: its mean share is only 1.37--1.40\% on the
-stable Seattle rows and 0.26\% on the promoted PeMS7\_228 10\% row. But the
-matched probes show that this small term still matters. On Seattle 20\% and
-30\%, removing the certificate family entirely with a zero-weight strong-search
-probe still worsens held-out MAE by 0.036 and 0.032. On PeMS7\_228 10\%, the
-promoted calibrated low-cert route beats both the zero-weight probe and the
-heavier Stage15 certificate-weighted route. The correct reading is therefore
-not ``larger CVaR is always better,'' but ``tail-risk weighting should remain
-bounded and regime-calibrated inside one audited TRACE-BiOpt objective.''
+The supplementary tail risk posture table (SUBMISSION\_EVIDENCE\_INDEX.md)
+closes the CVaR interpretation gap. The current-best routes do
+not win because the tail-risk term dominates the objective: its mean share is
+only 1.37--1.40\% on the stable Seattle rows and 0.26\% on the promoted
+PeMS7\_228 10\% row. But the matched probes show that this small term still
+matters. On Seattle 20\% and 30\%, removing the certificate family entirely
+with a zero-weight strong-search probe still worsens held-out MAE by 0.036 and
+0.032. On PeMS7\_228 10\%, the promoted calibrated low-cert route beats both
+the zero-weight probe and the heavier Stage15 certificate-weighted route. The
+correct reading is therefore not ``larger CVaR is always better,'' but
+``tail-risk weighting should remain bounded and regime-calibrated inside one
+TRACE-BiOpt objective.''
 
 \input{tables/table_trace_biopt_search_probe}
 
@@ -448,12 +427,12 @@ upper-level risk estimation is not a one-row patch: it resolves the original
 PeMS7\_228 10\% mixed row and also strengthens the weakest remaining margin
 row on PeMS7\_1026 30\%. The current-best evidence chain already promotes both
 completed reruns. The current-best evidence chain now promotes all
-Stage16 calibrated rows; Seattle 10\% remains on the audited Stage15 lane.
+Stage16 calibrated rows; Seattle 10\% remains on the Stage15 lane.
 
 \input{tables/table_trace_biopt_regime_lessons}
 
 Table~\ref{tab:trace-biopt-regime-lessons} compresses these row-level
-diagnostics into a reviewer-facing regime taxonomy. It shows which rows are
+diagnostics into a regime taxonomy. It shows which rows are
 currently best interpreted as calibration-sensitive, which are search-budget
 sensitive, and which already show stable dominance over the prior TRACE-SL or
 RCSS families under the same evaluation protocol. This is the practical

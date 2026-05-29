@@ -4,6 +4,8 @@
 \usepackage{amsmath,amssymb,amsthm,booktabs,array,tabularx}
 \usepackage{graphicx}
 \usepackage{xurl}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 
 \input{math_commands}
 
@@ -28,7 +30,7 @@
             country={Anonymous Country}}
 
 \begin{abstract}
-We study sparse traffic sensor siting as a recoverability-driven network design problem. Given a fixed sensor budget, the goal is to choose a long-lived layout that minimizes hidden-state reconstruction error under a transparent generalized-least-squares (GLS) maximum-a-posteriori (MAP) estimator. We formulate the problem as TRACE-BiOpt, a bilevel stochastic design method whose lower level is a transparent GLS/MAP reconstruction problem and whose upper level combines hidden-state Huber reconstruction loss, posterior uncertainty, tail-risk measured by conditional value-at-risk, and spatial redundancy regularization. A deterministic solver uses scale-adaptive greedy initialization and one-exchange refinement under the same unified objective; pre-registered baselines are never used as method candidates. We prove lower-level MAP stability, a posterior-risk identity, an all-layout validation generalization bound, and an exchange-stationarity certificate. Across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets over ten split seeds, TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against all 21 pre-registered non-BiOpt baselines on all nine dataset-budget rows. Holm-corrected one-sided paired tests leave no statistically tied or better pre-registered challenger. All claims are scoped to the tested regimes and do not assert global layout optimality or dominance over untested methods.
+We study sparse traffic sensor siting as a recoverability-driven network design problem. Given a fixed sensor budget, the goal is to choose a long-lived layout that minimizes hidden-state reconstruction error under a transparent generalized-least-squares/maximum-a-posteriori estimator. We formulate TRACE-BiOpt, a bilevel stochastic design method whose lower level reconstructs the full traffic state and whose upper level combines hidden-state Huber reconstruction loss, posterior uncertainty, conditional-value-at-risk tail risk, and spatial redundancy regularization. A deterministic solver uses scale-adaptive initialization and one-exchange refinement under the same objective; pre-registered baselines are not used as method candidates. We prove lower-level stability, a posterior-risk identity, an all-layout validation generalization bound, and an exchange-stationarity certificate. Across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets over ten split seeds, TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered non-BiOpt baselines on all nine dataset-budget rows. Holm-corrected paired tests leave no statistically tied or better pre-registered challenger. The claims are scoped to the tested regimes and do not assert global layout optimality, universal robustness, or dominance over untested methods.
 \end{abstract}
 
 \begin{highlights}
@@ -40,7 +42,7 @@ We study sparse traffic sensor siting as a recoverability-driven network design 
 \end{highlights}
 
 \begin{keywords}
-transportation network design \sep traffic sensor siting \sep traffic state reconstruction \sep bilevel stochastic optimization \sep transparent inverse problem
+Traffic sensor siting \sep Network design \sep Bilevel optimization \sep Traffic state reconstruction \sep Sensor placement \sep GLS/MAP estimation \sep Transportation networks
 \end{keywords}
 
 % The CAS front matter emits template-level overfull/empty-anchor noise from
@@ -76,6 +78,9 @@ The authors declare that they have no known competing financial interests or per
 
 \section*{Data and code availability}
 The manuscript reports curated aggregate artifacts and generation scripts under \path{TRC-23-02333/trace_sl_results/}. The primary TRACE-BiOpt result is generated from \path{current_best_trace_biopt_evidence/}, which now promotes all six PeMS dataset-budget rows and Seattle 20/30\% through complete replaceable Stage16 calibrated reruns, while Seattle 10\% intentionally remains on the Stage15 main evidence path. Raw traffic datasets are local inputs and are not distributed with the paper source; the source package records the expected local file layout, launch scripts, aggregate CSV/JSON contracts, and audit artifacts used to regenerate paper-visible tables. The reported numbers should therefore be read as reproducible from the curated artifacts, while full raw-data reproduction requires obtaining the underlying traffic datasets separately.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During the preparation of this work, the authors used ChatGPT and related AI-assisted tools to support manuscript organization, language editing, code-review planning, and consistency checks. After using these tools, the authors reviewed, verified, edited, and adapted the content as needed and take full responsibility for the content of the submitted manuscript.
 
 \bibliographystyle{cas-model2-names}
 \bibliography{references}

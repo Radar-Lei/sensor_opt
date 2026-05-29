@@ -1,37 +1,62 @@
 \section{Robustness and deployment stress posture}
 \label{sec:robustness}
 
-Robustness evidence is routed as stress-test evidence. The project includes
-perturbation artifacts for sensor failure, observation noise, missingness,
-heterogeneous costs, temporal shift, and candidate-count sensitivity. These
-tests support bounded robustness discussion in the tested settings. They do not
-support the phrase globally robust, and they do not replace held-out Stage15
-evidence for main performance claims.
+The robustness analysis is a bounded deployment-stress screen, not a
+replacement for the main current-best dominance evidence. It tests how selected
+layouts behave under sensor failure, observation noise, missingness, cost
+proxies, and temporal shift. The results identify practical deployment
+vulnerabilities and motivate robust extensions; they do not establish universal
+robustness dominance for TRACE-BiOpt. The project includes perturbation
+artifacts for sensor failure, observation noise, missingness, heterogeneous
+costs, temporal shift, and candidate-count sensitivity. These tests support
+bounded stress evidence and deployment-screening evidence in the tested
+settings only. They do not support the phrase globally robust, and they do not
+replace held-out Stage15 evidence for main performance claims.
 
 \input{tables/table_robustness_routing}
 
-Table~\ref{tab:robustness-routing} makes this routing explicit. The rows are
-not TRACE-BiOpt dominance rows; they are PeMS7\_228 Stage14 stress tests that
-keep failure, noise, missingness, cost, and chronological-shift evidence visible
-while preventing it from being promoted into a universal robustness claim. The
-main TRACE-BiOpt result remains Table~\ref{tab:trace-biopt-dominance}.
+Table~\ref{tab:robustness-routing} makes the stress-test routing explicit. The
+rows are not TRACE-BiOpt dominance rows; they are PeMS7\_228 Stage14 stress
+tests that keep failure, noise, missingness, cost, and chronological-shift
+evidence visible while preventing it from being promoted into a universal
+robustness claim. The main TRACE-BiOpt result remains
+Table~\ref{tab:trace-biopt-dominance}.
 
 \input{tables/table_trace_biopt_robustness_frontier}
 
-Table~\ref{tab:trace-biopt-robustness-frontier} adds the part that the routing
-table alone hides: which baseline family actually sits on the Stage14 stress
-frontier, and by how much. The graph-spectral surrogate
+Table~\ref{tab:trace-biopt-robustness-frontier} adds the deployment-screening
+evidence that the routing table alone hides: which baseline family actually sits
+on the Stage14 stress frontier, and by how much. The graph-spectral surrogate
 `graph\_sampling\_laplacian` wins 8 of the 9 perturbation slices, including all
 sensor-failure, observation-noise, random-missing, and cost-proxy cases. The
 only clear frontier shift is block missing 12 steps, where `greedy\_d\_logdet`
 takes over. The narrowest gaps are chronological split (0.0058 MAE) and sensor
 failure 20\% (0.0006 MAE), while observation noise 5\% and random missing 10\%
-separate more clearly at 0.0484 and 0.0406 MAE. This is the right robustness
-reading for the paper: the stress frontier does move across perturbation types,
-but not in a way that supports a blanket robustness theorem for TRACE-BiOpt
-itself. It supports bounded deployment discussion and motivates future
-recoverability-driven robust extensions.
+separate more clearly at 0.0484 and 0.0406 MAE. This is the correct bounded
+stress reading for the paper: the stress frontier does move across perturbation
+types, but not in a way that supports a blanket robustness theorem for
+TRACE-BiOpt itself. It supports deployment-screening discussion and motivates
+future nominal recoverability-driven robust extensions.
 
 % Deployment stress posture table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
-The bounded robustness evidence pushes one step closer to deployment interpretation. The nominal and cost-proxy slices leave the same graph-spectral winner and gap, so the bounded stress check does not suggest a cost-driven posture change by itself. Diffuse corruption is also comparatively stable: observation noise and random missingness keep graph-spectral as the frontier winner with visibly wider gaps. The more cautionary slices are chronological drift and heavy failure. At chronological split, the frontier is already narrow at 0.0058 MAE, so temporal nonstationarity should trigger re-validation rather than a generic robustness claim. At 20\% sensor failure, the winner is still graph-spectral, but the gap shrinks to 0.0006 MAE, which is the clearest bounded stress sign that redundancy and fallback plans matter. The only tested family shift is block missing 12 steps, where logdet takes over, indicating that long contiguous outages can favor algebraic-observability structure over the nominal frontier winner. This is a deployment posture statement, not a TRACE-BiOpt robustness claim.
+The bounded deployment-stress evidence pushes one step closer to deployment
+interpretation. The nominal and cost-proxy slices leave the same graph-spectral
+winner and gap, so the bounded stress check does not suggest a cost-driven
+posture change by itself. Diffuse corruption is also comparatively stable:
+observation noise and random missingness keep graph-spectral as the frontier
+winner with visibly wider gaps. The more cautionary slices are chronological
+drift and heavy failure. At chronological split, the frontier is already narrow
+at 0.0058 MAE, so temporal nonstationarity should trigger re-validation rather
+than a generic robustness claim. At 20\% sensor failure, the winner is still
+graph-spectral, but the gap shrinks to 0.0006 MAE, which is the clearest
+bounded stress sign that redundancy and fallback plans matter. The only tested
+family shift is block missing 12 steps, where logdet takes over, indicating
+that long contiguous outages can favor algebraic-observability structure over
+the nominal frontier winner. This is a deployment posture statement, not a
+TRACE-BiOpt robustness claim.
+
+These stress tests should be read as deployment screens rather than as an
+extension of the main dominance claim. They identify where a nominal
+recoverability-driven layout remains stable and where additional reliability or
+cost constraints should be built into future design objectives.

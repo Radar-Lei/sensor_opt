@@ -17,9 +17,9 @@ The current manuscript title is *TRACE-BiOpt: Recoverability-Driven Bilevel Tran
 
 ### TRACE-BiOpt headline evidence
 
-Across 9 tested dataset-budget regimes (PeMS7_228, PeMS7_1026, Seattle at 10/20/30%), TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered baselines spanning 11 method families. After Holm correction across all 189 paired comparisons, no challenger remains statistically tied or significantly better. 8/9 rows are promoted from Stage 16 calibrated reruns; Seattle 10% is retained on the audited Stage 15 lane.
+Across 9 tested dataset-budget regimes (PeMS7_228, PeMS7_1026, Seattle at 10/20/30%), TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered baselines spanning 11 method families. After Holm correction across all 189 paired comparisons, no challenger remains statistically tied or significantly better. 8/9 rows are promoted from Stage 16 calibrated reruns; Seattle 10% is retained from the verified Stage 15 lane.
 
-Auxiliary evidence: 27/27 deterministic 16-node audited subnetwork cases are exact hits with zero objective gap.
+Auxiliary evidence: 27/27 deterministic 16-node verified subnetwork cases are exact hits with zero objective gap.
 
 ## Journey Summary
 
@@ -44,7 +44,7 @@ Auxiliary evidence: 27/27 deterministic 16-node audited subnetwork cases are exa
 
 ### TRACE-BiOpt implementation
 
-- `TRC-23-02333/trace_biopt.py`: TRACE-BiOpt solver implementation with bilevel objective, deterministic initialization (relaxed rounding or objective-forward construction), and greedy one-swap exchange refinement.
+- `TRC-23-02333/trace_biopt.py`: TRACE-BiOpt CLI wrapper that calls transparent_estimator_eval.py with --include-biopt. The current solver routines for the bilevel objective, deterministic initialization, and exchange refinement are implemented in transparent_estimator_eval.py.
 - `TRC-23-02333/transparent_estimator_eval.py`: extended with `--include-biopt` flag for TRACE-BiOpt evaluation; retains all TRACE-SL/RCSS functionality as baselines.
 
 ### Legacy TRACE-SL/RCSS implementation
