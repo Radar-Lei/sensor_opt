@@ -184,7 +184,8 @@ def main() -> int:
         writer.writeheader()
         writer.writerows(summary_out)
 
-    fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.0), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.6))
+    fig.subplots_adjust(top=0.82, bottom=0.14, left=0.08, right=0.97, wspace=0.28)
     panels = [
         ("validation_selected_mae", "Validation-selected MAE", axes[0], validation_spearman.statistic),
         ("posterior_trace", "Posterior trace", axes[1], posterior_spearman.statistic),
@@ -205,10 +206,19 @@ def main() -> int:
             )
         ax.set_xlabel(xlabel)
         ax.grid(True, alpha=0.22)
-        ax.set_title(f"Spearman rho={rho:.3f}", fontsize=10)
+        ax.text(
+            0.03,
+            0.95,
+            r"Spearman $\rho=$" + f"{rho:.3f}",
+            transform=ax.transAxes,
+            va="top",
+            ha="left",
+            fontsize=8,
+            bbox=dict(facecolor="white", edgecolor="none", alpha=0.8),
+        )
     axes[0].set_ylabel("Held-out GLS/MAP MAE")
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.06))
+    fig.legend(handles, labels, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 0.98))
     fig.savefig(OUT_FIG, bbox_inches="tight")
     plt.close(fig)
     print(f"Wrote {OUT_FIG}, {OUT_POINTS}, and {OUT_SUMMARY}")

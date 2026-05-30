@@ -204,3 +204,69 @@ accepted objective decreases. The exchange certificate says what kind of
 stationarity the stopping point satisfies. Keeping these claims separate is
 methodologically cleaner than folding them into an over-broad ``convergence''
 statement that could be mistaken for exact optimality.
+
+\section{Challenger envelope curves}
+\label{sec:appendix-challenger-envelope}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_current_best_curves.pdf}
+\caption{Strongest-challenger envelope across sensor budgets. Each panel plots TRACE-BiOpt against the row-specific strongest pre-registered non-BiOpt baseline from the current-best evidence chain. The strongest challenger may differ across budgets. TRACE-BiOpt remains the lower-MAE curve on every dataset-budget row.}
+\label{fig:trace-biopt-current-best-curves}
+\end{figure*}
+
+Figure~\ref{fig:trace-biopt-current-best-curves} compresses the same
+current-best evidence into a strongest-challenger envelope: for each sensor budget, the envelope traces the strongest pre-registered non-BiOpt comparator, which may differ across budgets. TRACE-BiOpt stays below
+the row-specific strongest pre-registered non-BiOpt comparator at every budget
+on all three networks.
+
+\section{Mechanism diagnostic figures}
+\label{sec:appendix-mechanism-diagnostics}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_calibration_alignment.pdf}
+\caption{Mechanism-alignment diagnostics on the 450 GLS/MAP selected-layout rows formed by three networks, three budgets, ten seeds, and five layout families. Left: validation-selected MAE versus held-out MAE. Right: posterior trace versus held-out MAE on the same selected layouts.}
+\label{fig:trace-biopt-calibration-alignment}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_hidden_error_heatmaps.pdf}
+\caption{Representative low-budget common-hidden error heatmaps on the seed-25 current-best rows. Within each dataset, columns are the nodes that remain hidden under both layouts, ordered from higher to lower strongest-baseline hidden-node MAE. The top heatmap compares node-wise hidden MAE for the strongest baseline and TRACE-BiOpt; the bottom strip shows baseline minus TRACE-BiOpt, so positive values favor TRACE-BiOpt.}
+\label{fig:trace-biopt-hidden-error-heatmaps}
+\end{figure*}
+
+\section{Layout visualization}
+\label{sec:appendix-layout-visualization}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_sensor_maps.pdf}
+\caption{Current-best low-budget sensor maps. PeMS7\_228 and Seattle use released geographic sensor coordinates; PeMS7\_1026 uses a distance-derived network embedding because benchmark station coordinates are not released with the public artifact. Darker and larger markers indicate nodes selected in more of the ten split-specific layouts.}
+\label{fig:trace-biopt-sensor-maps}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/fig_trace_biopt_layout_fingerprints.pdf}
+\caption{Current-best low-budget layout fingerprints in graph space. Each row shows the 10\% budget regime for one dataset; node positions come from a deterministic spectral embedding of the network similarity graph, and darker/larger markers indicate sensors selected in more of the ten split-specific layouts.}
+\label{fig:trace-biopt-layout-fingerprints}
+\end{figure*}
+
+\section{Solver diagnostics}
+\label{sec:appendix-solver-diagnostics}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_exchange_gap_curves.pdf}
+\caption{Current-best TRACE-BiOpt residual exchange-gap profiles. The top row shows the mean fraction of eventual exchange-phase improvement still remaining after the accepted exchange phase begins; the bottom row reports the mean number of accepted exchange steps, with `0-ex' annotations giving how many of the ten split-specific runs accepted no exchange at all beyond the forward or warm-start layout.}
+\label{fig:trace-biopt-exchange-gap-curves}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_objective_mix.pdf}
+\caption{Current-best TRACE-BiOpt final-objective composition. Each bar shows the mean weighted share of the accepted final objective coming from hidden Huber reconstruction loss, posterior trace, scenario-CVaR trace, and spatial regularization over the ten split-specific runs of that row.}
+\label{fig:trace-biopt-objective-mix}
+\end{figure*}

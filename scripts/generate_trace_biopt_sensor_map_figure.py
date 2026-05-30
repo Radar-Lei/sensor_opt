@@ -218,10 +218,10 @@ def main() -> int:
             evidence_source="stage15_baseline",
         )
 
-        for cidx, (freq, title, cmap_name, subtitle) in enumerate(
+        for cidx, (freq, title, cmap_name) in enumerate(
             [
-                (trace_freq, "TRACE-BiOpt", "Blues", trace_source_name.replace("_", " ")),
-                (base_freq, baseline_label, "Reds", "stage15 strongest baseline"),
+                (trace_freq, "TRACE-BiOpt", "Blues"),
+                (base_freq, baseline_label, "Reds"),
             ]
         ):
             ax = axes[ridx, cidx]
@@ -249,38 +249,6 @@ def main() -> int:
                 ax.set_title(title, fontsize=10)
             if cidx == 0:
                 ax.set_ylabel(TITLE_MAP[dataset], fontsize=10)
-            ax.text(
-                0.02,
-                0.98,
-                subtitle,
-                transform=ax.transAxes,
-                fontsize=7.5,
-                color="#555555",
-                ha="left",
-                va="top",
-            )
-            if cidx == 1:
-                ax.text(
-                    0.98,
-                    0.04,
-                    f"J={len(overlap) / len(union):.2f}",
-                    transform=ax.transAxes,
-                    fontsize=8,
-                    color="#444444",
-                    ha="right",
-                    va="bottom",
-                )
-            if cidx == 0:
-                ax.text(
-                    0.02,
-                    0.04,
-                    coordinate_mode.replace("_", " "),
-                    transform=ax.transAxes,
-                    fontsize=7.5,
-                    color="#555555",
-                    ha="left",
-                    va="bottom",
-                )
 
     fig.suptitle("Current-best low-budget sensor maps", fontsize=12, y=1.02)
     fig.savefig(OUT_FIG, bbox_inches="tight")

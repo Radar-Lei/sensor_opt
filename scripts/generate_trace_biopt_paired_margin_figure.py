@@ -9,6 +9,12 @@ from statistics import mean
 
 import matplotlib.pyplot as plt
 
+# Apply unified paper plotting style
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "figures"))
+import paper_plot_style  # noqa: F401  — applies rcParams on import
+
 
 ROOT = Path(__file__).resolve().parents[1]
 TRACE_RESULTS = ROOT / "TRC-23-02333" / "trace_sl_results"
@@ -135,7 +141,22 @@ def build_rows() -> tuple[list[dict[str, object]], list[dict[str, object]]]:
 
 
 def render_figure(point_rows: list[dict[str, object]], summary_rows: list[dict[str, object]]) -> None:
-    fig, axes = plt.subplots(1, 3, figsize=(11.2, 3.6), sharey=True, constrained_layout=True)
+    """Render paired-margin forest plot using GridSpec to avoid label/title overlap.
+
+    Layout: top row has 3 data panels (one per dataset); legend sits in a
+    dedicated bottom row so it never overlaps panel titles.
+    """
+    import matplotlib.gridspec as gridspec
+
+    fig = plt.figure(figsize=(7.0, 3.4))
+    gs = gridspec.GridSpec(
+        2, 3,
+        height_ratios=[6, 1],
+        hspace=0.22,
+        wspace=0.28,
+        left=0.11, right=0.97, top=0.90, bottom=0.10,
+    )
+
     source_color = {
         "Stage15 main evidence": "#6b7280",
         "Stage16 calibrated rerun": "#1f77b4",
@@ -149,7 +170,10 @@ def render_figure(point_rows: list[dict[str, object]], summary_rows: list[dict[s
     for row in summary_rows:
         grouped_summary[row["dataset"]].append(row)
 
-    for ax, dataset in zip(axes, DATASETS):
+    axes = []
+    for col, dataset in enumerate(DATASETS):
+        ax = fig.add_subplot(gs[0, col])
+        axes.append(ax)
         ax.axhline(0.0, color="#b91c1c", linewidth=1.0, linestyle="--", alpha=0.7)
         dataset_points = sorted(grouped_points[dataset], key=lambda row: (float(row["budget"]), int(row["split_seed"])))
         dataset_summary = sorted(grouped_summary[dataset], key=lambda row: float(row["budget"]))
@@ -172,19 +196,32 @@ def render_figure(point_rows: list[dict[str, object]], summary_rows: list[dict[s
                 zorder=4,
             )
 
-        ax.set_title(dataset, fontsize=10)
+        ax.set_title(dataset, fontsize=9, pad=6)
         ax.set_xticks([1, 2, 3], ["10", "20", "30"])
         ax.set_xlabel("Budget (%)")
         ax.grid(True, axis="y", alpha=0.25)
-        ax.set_ylim(-0.34, 0.03)
+        ax.set_ylim(-0.34, 0.06)
 
-    axes[0].set_ylabel("TRACE-BiOpt - strongest baseline MAE")
+    axes[0].set_ylabel("Paired MAE margin\n(TRACE-BiOpt $-$ challenger)")
+
+    # Legend in the dedicated bottom row, spanning all columns
+    ax_legend = fig.add_subplot(gs[1, :])
+    ax_legend.axis("off")
     handles = [
-        plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=source_color["Stage15 main evidence"], markersize=6, label="Stage15 main evidence"),
-        plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=source_color["Stage16 calibrated rerun"], markersize=6, label="Stage16 calibrated rerun"),
+        plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=source_color["Stage15 main evidence"], markersize=6, label="Stage15 evidence"),
+        plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=source_color["Stage16 calibrated rerun"], markersize=6, label="Stage16 calibrated"),
         plt.Line2D([0], [0], marker="D", color="w", markerfacecolor="black", markersize=7, label="Row mean"),
     ]
-    fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.06))
+    ax_legend.legend(
+        handles=handles,
+        loc="upper center",
+        ncol=3,
+        frameon=False,
+        fontsize=8,
+        handletextpad=0.4,
+        columnspacing=1.2,
+    )
+
     fig.savefig(OUT_FIG, bbox_inches="tight")
     plt.close(fig)
 

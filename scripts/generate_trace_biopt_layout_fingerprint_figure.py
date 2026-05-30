@@ -174,27 +174,6 @@ def main() -> int:
                 ax.set_title(title, fontsize=10)
             if cidx == 0:
                 ax.set_ylabel(TITLE_MAP[dataset], fontsize=10)
-            ax.text(
-                0.02,
-                0.04,
-                f"uniq={len(freq)}",
-                transform=ax.transAxes,
-                fontsize=8,
-                color=color,
-                ha="left",
-                va="bottom",
-            )
-            if cidx == 1:
-                ax.text(
-                    0.98,
-                    0.04,
-                    f"J={len(overlap) / len(union):.2f}",
-                    transform=ax.transAxes,
-                    fontsize=8,
-                    color="#444444",
-                    ha="right",
-                    va="bottom",
-                )
 
     fig.suptitle("Current-best low-budget layout fingerprints in graph space", fontsize=12, y=1.02)
     fig.savefig(OUT_FIG, bbox_inches="tight")

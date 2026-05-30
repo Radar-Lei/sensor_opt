@@ -241,24 +241,14 @@ def main() -> int:
         bottom_ax.grid(True, axis="y", alpha=0.22)
         if col == 0:
             bottom_ax.set_ylabel("Mean accepted exchanges")
-        for idx, bar in enumerate(bars):
-            bottom_ax.text(
-                bar.get_x() + bar.get_width() / 2.0,
-                bar.get_height() + 0.35,
-                f"0-ex {zero_runs[idx]}",
-                ha="center",
-                va="bottom",
-                fontsize=6.5,
-            )
-
     line_handles, line_labels = axes[0, 0].get_legend_handles_labels()
     fig.legend(
         line_handles,
         line_labels,
-        loc="upper center",
+        loc="lower center",
         ncol=3,
         frameon=False,
-        bbox_to_anchor=(0.5, 1.03),
+        bbox_to_anchor=(0.5, -0.02),
     )
 
     fig.savefig(OUT_FIG, bbox_inches="tight")

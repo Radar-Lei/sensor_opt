@@ -1,72 +1,209 @@
-我看了 9923023 这一版的 LaTeX、表格、作图脚本、current-best evidence CSV，以及几个图文件的元信息。**结论是：论文主线和结果现在基本没有大问题，可以冲 Transportation Research Part B；但我不建议现在立刻投，因为图里面确实还有几个“真实问题”，不是纯审美问题。** 这也和前一轮判断一致：现在重点已经不是继续发明方法，而是投稿硬化、修图、删噪和统一 claim。
+我看了渲染后的 PDF，包括正文和后面附录里的图。结论很直接：**论文主线没问题，但图和浮动体版面现在还不能原样投 TR-B。** 问题主要不是结果，而是"可读性"和"投稿版式可信度"：有些图题、图例、旁注、panel title 互相压住；有些图还带着实验脚本里的 raw route label；还有一些 Section 6 的图被 LaTeX 浮动到 Appendix 后面，容易让 reviewer 以为正文图和附录图混在一起。你这篇稿件的核心 claim 很强，更要避免被这些图面问题拖累。
 
-## 1. 论文版本总体判断
+Elsevier/TR-B 的作者指南也明确要求图作为单独 artwork 提交、尽量减少图内文字、符号和缩写要解释清楚，矢量图应存为 EPS/PDF；表格也建议 sparingly 使用，避免和正文重复，Appendix 里的图表最好用 Fig. A.1、Table A.1 这样的编号。([科学直达][1]) 你现在最该做的是一次集中"figure hardening"。
 
-**方法叙事现在是对的。** 最新稿件已经把问题写成 recoverability-driven bilevel transportation network design，而不是旧的 candidate-pool selector。摘要也已经明确说 TRACE-BiOpt 是一个 bilevel stochastic design method，lower level 是 GLS/MAP reconstruction，upper level 组合 Huber reconstruction loss、posterior uncertainty、CVaR tail risk 和 spatial redundancy；同时明确 baseline 不进入方法候选池。 这和 TR-B 的 methodological scope 是匹配的；TR-B 官方 scope 本身强调 mathematical analysis、optimization、network design/analysis 和交通系统方法论。([科学直达][1])
+## 必须先修的 P0 问题
 
-**实验 claim 现在也基本站得住。** 主表显示 9 个 dataset-budget rows 上 TRACE-BiOpt 都低于 row-wise strongest challenger，且都是 10/10 paired wins。 current-best evidence CSV 也显示所有 `trace_minus_best_baseline` 都是负数，即 TRACE-BiOpt MAE 更低。 另外，evidence index 已经把 claim、source CSV、生成脚本、Stage15/Stage16 来源和 Seattle 10% fail-closed 解释串起来了，这是加分项。
+**1. Section 6 的图被浮动到 Appendix 后面，顺序感不对。**
+PDF 里 Figure 6–12 都出现在后面附录区域附近，而正文 Section 6 早就引用了这些图。这个会给 reviewer 一种感觉：正文图、附录图、审计图混在一起了。建议二选一：
 
-**投稿材料还差最后封口。** `PAPER_WRITING_PIPELINE_REPORT.md` 现在写的是 submission-ready yes，并且 LaTeX、pytest、claim audit、citation audit 都通过；但它仍然列出 author metadata、affiliations、declarations、portal-specific files 需要补齐，且 manuscript 只有 18 页。 这些不是科学问题，但投稿前必须处理。
+第一种，真正属于正文的图用 `\FloatBarrier` 强制留在正文相应 section 里：
 
-## 2. 图里面最需要马上修的 3 个问题
+```latex
+\usepackage{placeins}
 
-**第一，margin forest 图的正负号说明错了。**
-现在论文 caption 写的是 “Positive values indicate that TRACE-BiOpt has lower error”。 但脚本实际画的是 `paired_delta_mean = TRACE-BiOpt MAE - strongest baseline MAE`，而且脚本自己的 note 写的是 “Negative values favor TRACE-BiOpt”。 CSV 也证明所有优势都是负数。
+... Section 6 text ...
 
-这个必须修。最简单做法是把 caption 改成：
+\begin{figure}[t]
+...
+\end{figure}
 
-> Negative values indicate lower held-out GLS/MAP MAE for TRACE-BiOpt.
+\FloatBarrier
+```
 
-更好的做法是改脚本，把横轴改成：
+并在 `\appendix` 前加一次：
 
-[
-\text{Strongest challenger MAE} - \text{TRACE-BiOpt MAE}
-]
+```latex
+\clearpage
+\appendix
+```
 
-这样正数就表示 TRACE-BiOpt 更好，和读者直觉一致。
+第二种，更推荐：把 Figure 6、7、8、12 这类机制/指纹/完整热图全部明确移入 Appendix，并重命名为 Fig. A.1、Fig. A.2。正文只保留 3–4 张最强、最干净的图。
 
-**第二，layout fingerprint 图不是 current-best。**
-`generate_trace_biopt_layout_fingerprint_figure.py` 的 `collect_frequency()` 直接从 Stage15 目录读 layouts，没有解析 Stage16 promoted rows。 但正文却把这个图说成 “Current-best low-budget layout fingerprints”。 这会被审稿人抓住：PeMS7_1026 10% 和 PeMS7_228 10% 当前是 Stage16 current-best，但图可能画的是 Stage15 旧布局。
+**2. PDF 页脚现在出现 "Page 25 of 24 / Page 42 of 24" 这类错误。**
+这是投稿前必须修的。要么不要显示总页数，只显示 `Page \thepage`；要么用 `lastpage` 正确统计全稿页数：
 
-这个图要么重写脚本，复用 sensor map 脚本里的 `resolve_trace_layout_path()` 逻辑；要么把图改名为 historical Stage15 fingerprint，并移到附录。前者更好。
+```latex
+\usepackage{lastpage}
+Page \thepage\ of \pageref{LastPage}
+```
 
-**第三，框架图是 raster PDF，不是干净的 vector 图。**
-`fig1_trace_biopt_framework_v2.pdf` 的文件头显示它是 Pillow 生成的 PDF，里面嵌了 JPEG image XObject，而不是矢量图。 作为主文 Figure 1，这不理想。TR-B/Elsevier 对 artwork 有明确要求，线图最好用 EPS/PDF 等矢量格式，并注意字体、分辨率和可读性。([科学直达][1])
+如果用 Elsevier `cas-sc.cls`，更稳的是不要自定义 "of total pages"，交给 class 处理。
 
-建议重新做 Figure 1：用 TikZ、draw.io、PowerPoint 矢量导出、Illustrator/Inkscape 或 Matplotlib vector PDF，不要用 Pillow/JPEG 嵌图。尤其你之前也担心“AI 图标感”，那主框架图更应该走干净的学术流程图风格。
+**3. Appendix 图表编号要改。**
+现在 Appendix 后面还是 Table 1、Table 2……这种编号，会和主文表格混淆。建议：
 
-## 3. 其他图的处理建议
+```latex
+\appendix
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thefigure}{A.\arabic{figure}}
+\renewcommand{\thetable}{A.\arabic{table}}
+```
 
-**full baseline heatmap 不建议放主文。** 它确实能证明 22-method matrix 中 TRACE-BiOpt rank 1，但主文里 22 行 × 3 dataset panels 太密。脚本本身也已经提供 compact heatmap，并说明 full matrix 应该放 appendix 或 repository。 Elsevier 也提醒 tables/figures 要 sparingly 使用，不要过度堆叠。([科学直达][1]) 我的建议是：主文保留 margin forest；full heatmap 放附录。
+如果多个 appendix，就用：
 
-**performance curve 要改名。** 现在它画的是“row-specific strongest baseline”，不同 budget 的 challenger 可能不是同一个方法；脚本也在每个点旁标注不同 baseline。 所以不要叫普通 “best baseline curve”，应叫 **strongest-challenger envelope**，否则看起来像同一个 baseline 方法随 budget 变化。
+```latex
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+```
 
-**network/budget panels 要防误导。** 脚本用 kNN visual edges，只是为了防止图像像孤立点云，不是实际道路拓扑。 如果这些图进论文，caption 必须写清楚 “edges are visual aids only”。另外脚本默认在找不到 TRACE layout 时会 fallback 到 deterministic random mask，除非加 `--strict`。 投稿图必须用 `--strict` 生成，避免误把 random fallback 当成 TRACE-BiOpt layout。
+## 图像逐项处理建议
 
-**sensor maps 可以保留，但 caption 要解释 J。** 图里右下角有 `J=...`，脚本中这是 overlap/union 的 unique-node Jaccard overlap。 但 caption 没解释 J。 要么 caption 加一句 “J denotes unique-node Jaccard overlap between TRACE-BiOpt and the strongest baseline layouts”，要么删掉图中的 J。
+| 图           | 当前问题                                                                                         | 建议处理                                                                                                                                   |
+| ----------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Figure 1    | 没有明显重叠，但像 raster/slide 图，不够 TR-B 正式                                                          | 重画成真正矢量图。用 TikZ、draw.io、Illustrator/Inkscape、PowerPoint 矢量 PDF 都行，不要用 Pillow/JPEG 嵌图。图内文字减少，标题交给 caption。                              |
+| Figure 2    | 网络点和边太淡，视觉上偏虚                                                                                | 保留可以，但提高节点/边对比度；caption 明确 PeMS7_1026 是 distance-matrix embedding，visual kNN edges 只是可视化辅助，不是道路拓扑。                                     |
+| Figure 3    | PeMS7_1026、PeMS7_228 panel 顶部曲线和红色标签接近裁切；label 贴边                                            | 主文可删或移附录，因为 Figure 4 已经更强。若保留，加 y-axis headroom，例如 `ax.set_ylim(ymin, ymax + 0.08*range)`，不要把 baseline 名直接贴在曲线端点。                      |
+| Figure 4    | 这是最适合主文的结果图，但右侧 "Strongest challenger" header 和 title 重叠，底部 legend 也挤                        | 必须修。用 GridSpec 分成左侧 forest plot + 右侧 challenger-name text panel；不要把右侧标签画在同一 axes 里。legend 放到图下方或删掉，用 caption 解释 Stage15/Stage16。       |
+| Figure 5    | 顶部 legend、Spearman rho、panel title 相互挤压                                                      | Spearman rho 放到每个 panel 内部左上/右上角，带白底；legend 移到图外上方，增加 top margin。或者直接移附录。                                                              |
+| Figure 6    | 图里有 raw route label，如 `pems7_1026 10 20 posterior iter20`、`train val lowcert...`；`J=...` 没解释 | 如果保留，必须把 raw label 改成人话：`TRACE-BiOpt`、`Strongest challenger`、`Stage16 calibrated`。`J` 要么删掉，要么 caption 解释为 unique-node Jaccard overlap。 |
+| Figure 7    | 指纹图视觉还可以，但 `uniq=...` 和 `J=...` 仍像 debug annotation；还要核对是否确实读的是 current-best layout          | 建议放 Appendix。若保留，caption 明确 `uniq` 和 `J`，并确认图源脚本按 current-best provenance 解析 Stage16 promoted rows。                                    |
+| Figure 8    | 作为机制切片可以，但 panel 小、色条多、只代表 seed-25 10%                                                       | 放 Appendix，正文只保留一句总结。caption 已经说 representative slice，这点是对的。                                                                           |
+| Figure 9/10 | 图例和 panel title 明显重叠；上下两张图堆在一页里太挤                                                            | 拆成两张 Appendix 图，或正文只留 Figure 9。legend 放图外；去掉 bar 上方那些很小的 `exchange-only / 0-ex` 文本，改到 caption 或表里。                                     |
+| Figure 11   | 图本身基本可用                                                                                      | 可以保留 Appendix 或 mechanism section；如果进正文，x-label 建议简化成 `PeMS1026 10%` 等，legend 放图外。                                                     |
+| Figure 12   | 22-method heatmap 太密，适合 Appendix，不适合主文                                                       | 主文如果需要 heatmap，做 compact version：TRACE-BiOpt + top 6–8 challengers；full 22-method 放 Appendix 或 supplement。                             |
 
-**hidden error heatmap 只能放附录。** 它是 representative seed-25、10% budget、common-hidden nodes 的机制切片，不是全量 dominance evidence。脚本明确固定 `REPRESENTATIVE_BUDGET=0.1`、`REPRESENTATIVE_SEED=25`。 正文现在已经说它是 bounded mechanism slice，不是 dominance row，这个表述是对的。
+## 还有两个表格/版面问题要一起修
 
-## 4. 文字上还有几个小修
+**Table 17 和 Table 18 旁边有孤立的 "Calibrated-risk paired"。**
+这在 PDF 第 36–37 页非常突兀，像是一个跑出表格边界的残留 label。建议把它移到 table note 里：
 
-`table_external` 是旧 Stage12 TRACE-SL 表，现在放在主文会让 reviewer 分心。它显示的是旧 TRACE-SL，而不是 current TRACE-BiOpt。 我建议移到附录，主文只保留一句 “older Stage12 results motivated the pivot”。
+```latex
+\begin{threeparttable}
+\caption{...}
+\begin{tabularx}{\linewidth}{...}
+...
+\end{tabularx}
+\begin{tablenotes}
+\footnotesize
+\item Calibrated-risk paired tests compare the rerun with the seed-matched best baseline.
+\end{tablenotes}
+\end{threeparttable}
+```
 
-Conclusion 里有一句把 “27/27 exact hits” 和 “searched-neighborhood stationarity certificate” 放在一起，容易让人误解为 exact subnetwork benchmark 提供了 full-network stationarity certificate。 建议拆开：exact hits 是 bounded small-subnetwork evidence；exchange certificate 是 solver diagnostic/theory 的证据。
+不要让任何说明文字漂在表格右侧。
 
-另外 `PAPER_WRITING_PIPELINE_REPORT.md` 仍有一些旧 Stage15 语言，例如输入写 Stage15 evidence、若干 probe “without replacing Stage15 main table”，但现在 8/9 rows 已经 Stage16 promoted。 这个报告最好刷新一下，避免 co-author 或 reviewer 看仓库时觉得版本没同步。
+**Table 21 太小。**
+如果 stress frontier 只是 bounded stress evidence，不要挤在正文。放 Appendix 或 supplement。正文用一段话总结即可。
 
-## 5. 最终判断
+## 我建议的最终主文图结构
 
-**可以投 TR-B，但要先修图。** 现在不是“论文方法有大问题”，而是“图和 caption 还有几个会损害可信度的问题”。我认为最小修复清单是：
+主文不要放太多图。保守、干净、最像 TR-B 的组合是：
 
-1. 修 margin forest 正负号；
-2. 修 layout fingerprint 的 current-best 数据源；
-3. 重做 Figure 1 为真正矢量图；
-4. full heatmap 移到附录，主文用 margin forest；
-5. performance curve 改成 strongest-challenger envelope；
-6. network/budget panels 加 visual-edge 和 `--strict` 说明；
-7. 刷新 pipeline report 和 conclusion 那句 exact/certificate 表述。
+1. **Figure 1：TRACE-BiOpt workflow**
+   重画矢量版，保留方法直觉。
 
-修完这些后，我会认为这个版本已经可以作为 TR-B 投稿稿进入最后格式检查。
+2. **Figure 2：network cases**
+   可以保留，但增强对比度，少放文字。
+
+3. **Figure 3：paired margin forest plot**
+   也就是现在 Figure 4，修掉右侧标签重叠后作为主结果图。它比 MAE 曲线更有说服力，因为直接显示 row-wise strongest challenger margin。
+
+4. **Figure 4：one solver/mechanism diagnostic**
+   可以选 objective descent 或 objective composition，二选一即可。不要把 Figure 9 和 10 都堆在正文。
+
+其余的 sensor maps、layout fingerprints、hidden-error heatmaps、full baseline heatmap、full solver diagnostics，全部放 Appendix，并按 Fig. A.1、Fig. A.2 编号。
+
+## 作图脚本层面的统一修法
+
+建议新建一个统一的 plotting style 文件，比如 `paper_plot_style.py`，所有图都走同一套尺寸、字体和导出规则：
+
+```python
+import matplotlib.pyplot as plt
+
+def set_paper_style():
+    plt.rcParams.update({
+        "font.size": 8,
+        "axes.titlesize": 9,
+        "axes.labelsize": 8,
+        "xtick.labelsize": 7,
+        "ytick.labelsize": 7,
+        "legend.fontsize": 7,
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+        "svg.fonttype": "none",
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+    })
+
+def savefig(fig, path):
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.03)
+```
+
+但注意：`bbox_inches="tight"` 只能防止裁切，**不能自动解决文字互相重叠**。Figure 4、5、9、10 这种图，必须调整 layout 结构。
+
+Figure 4 的右侧 challenger labels 最好不要画在主 axes 里，改成双列 GridSpec：
+
+```python
+fig = plt.figure(figsize=(7.2, 4.8), constrained_layout=True)
+gs = fig.add_gridspec(1, 2, width_ratios=[4.2, 1.2])
+
+ax = fig.add_subplot(gs[0, 0])
+ax_lab = fig.add_subplot(gs[0, 1], sharey=ax)
+ax_lab.axis("off")
+
+# left: forest plot
+ax.errorbar(margins, ypos, xerr=ci, fmt="o")
+
+# right: challenger names
+for y, name in zip(ypos, challengers):
+    ax_lab.text(0.0, y, name, va="center", ha="left")
+
+ax_lab.set_title("Strongest\nchallenger", fontsize=8)
+```
+
+Figure 5 的 Spearman rho 不要放在图外顶部，放进 axes：
+
+```python
+ax.text(
+    0.03, 0.95,
+    r"Spearman $\rho=0.540$",
+    transform=ax.transAxes,
+    va="top",
+    ha="left",
+    fontsize=7,
+    bbox=dict(facecolor="white", edgecolor="none", alpha=0.8),
+)
+```
+
+Figure 9/10 建议拆开。如果非要合并，一定要把 legend 放在全图下方：
+
+```python
+fig.legend(
+    handles, labels,
+    loc="lower center",
+    ncol=3,
+    frameon=False,
+    bbox_to_anchor=(0.5, -0.02),
+)
+```
+
+## 最小投前修复清单
+
+按优先级来，不要再扩实验：
+
+1. 修 Figure 4 的 title/right labels/legend 重叠。
+2. 修 Figure 5 顶部 legend 和 Spearman annotation 重叠。
+3. 修 Figure 9/10 的 legend-panel title 重叠，最好拆图。
+4. 修 Table 17/18 右侧孤立文字。
+5. Figure 1 重画为 vector PDF。
+6. Figure 6/7 去掉 raw debug labels，解释或删除 `J`、`uniq`。
+7. Figure 3 增加 y-margin 或移入 Appendix。
+8. Figure 12 移 Appendix，主文不要放 full 22-method heatmap。
+9. `\clearpage` 后再 `\appendix`，避免正文图漂到 Appendix 后面。
+10. Appendix 图表编号改成 Fig. A.x / Table A.x，页脚总页数修正。
+
+修完这十项后，图面风险会降很多。现在最不划算的是继续加新图；最划算的是把现有图"少而干净"，让 reviewer 第一眼看到的是一个严肃的 TR-B 方法论文，而不是一个实验审计包。
 
 [1]: https://www.sciencedirect.com/journal/transportation-research-part-b-methodological/publish/guide-for-authors "Guide for authors - Transportation Research Part B: Methodological - ISSN 0191-2615 | ScienceDirect.com by Elsevier"

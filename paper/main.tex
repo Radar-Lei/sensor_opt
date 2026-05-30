@@ -3,6 +3,7 @@
 \usepackage[authoryear,longnamesfirst]{natbib}
 \usepackage{amsmath,amssymb,amsthm,booktabs,array,tabularx}
 \usepackage{graphicx}
+\usepackage{placeins}
 \usepackage{xurl}
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -85,7 +86,12 @@ During the preparation of this work, the authors used ChatGPT and related AI-ass
 \bibliographystyle{cas-model2-names}
 \bibliography{references}
 
+\clearpage
 \appendix
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thefigure}{A.\arabic{figure}}
+\renewcommand{\thetable}{A.\arabic{table}}
 \input{sections/A_appendix}
 
 \end{document}

@@ -124,7 +124,7 @@ def main() -> int:
     ax.set_ylabel("Share of final objective (%)")
     ax.set_xticks(x, labels)
     ax.grid(True, axis="y", alpha=0.22)
-    ax.legend(loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.12))
+    ax.legend(loc="lower center", ncol=4, frameon=False, bbox_to_anchor=(0.5, -0.18))
     fig.savefig(OUT_FIG, bbox_inches="tight")
     plt.close(fig)
     print(f"Wrote {OUT_FIG} and {OUT_CSV}")

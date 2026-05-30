@@ -80,13 +80,6 @@ validation window, the all-layout validation burden is loosest on
 PeMS7\_228 10\% and tightest on PeMS7\_1026 30\%, so calibration and search
 support are most valuable exactly where the combinatorial burden is largest.
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_calibration_alignment.pdf}
-\caption{Mechanism-alignment diagnostics on the 450 GLS/MAP selected-layout rows formed by three networks, three budgets, ten seeds, and five layout families. Left: validation-selected MAE versus held-out MAE. Right: posterior trace versus held-out MAE on the same selected layouts.}
-\label{fig:trace-biopt-calibration-alignment}
-\end{figure*}
-
 Figure~\ref{fig:trace-biopt-calibration-alignment} makes the calibration story
 visible instead of leaving it as a table-only argument. Across the 450 GLS/MAP
 selected-layout rows (TRACE-BiOpt, previous TRACE-SL validation swap,
@@ -102,13 +95,6 @@ Table~\ref{tab:trace-biopt-mechanism} reports a much stronger mean seed-wise
 full-layout correlation ($\rho=0.849$). The right reading is therefore not
 that certificate terms replace direct reconstruction loss, but that they remain
 informative and should be combined with it inside one unified objective.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_sensor_maps.pdf}
-\caption{Current-best low-budget sensor maps. PeMS7\_228 and Seattle use released geographic sensor coordinates; PeMS7\_1026 uses a distance-derived network embedding because benchmark station coordinates are not released with the public artifact. Darker and larger markers indicate nodes selected in more of the ten split-specific layouts.}
-\label{fig:trace-biopt-sensor-maps}
-\end{figure*}
 
 Figure~\ref{fig:trace-biopt-sensor-maps} puts the same low-budget evidence back
 onto network coordinates rather than leaving it in an abstract layout table.
@@ -150,13 +136,6 @@ Taken together, the spatial and consensus findings show that TRACE-BiOpt can
 either tighten or widen the low-budget support set depending on regime, but it
 does so in a controlled family rather than in a split-fragile way.
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.92\linewidth]{figures/fig_trace_biopt_layout_fingerprints.pdf}
-\caption{Current-best low-budget layout fingerprints in graph space. Each row shows the 10\% budget regime for one dataset; node positions come from a deterministic spectral embedding of the network similarity graph, and darker/larger markers indicate sensors selected in more of the ten split-specific layouts.}
-\label{fig:trace-biopt-layout-fingerprints}
-\end{figure*}
-
 Figure~\ref{fig:trace-biopt-layout-fingerprints} answers a different reviewer
 question: are the low-budget wins just relabelings of the strongest baseline's
 sensor shortlist? The answer is no. On PeMS7\_228 at 10\%, the current-best
@@ -167,13 +146,6 @@ PeMS7\_1026 10\% row, where TRACE-BiOpt and swap-from-A-trace share a visible
 backbone, the overlap is still only 0.68 rather than identity. The low-budget
 gains therefore come from different layout logic, not from renaming the same
 sensor set after evaluation.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_hidden_error_heatmaps.pdf}
-\caption{Representative low-budget common-hidden error heatmaps on the seed-25 current-best rows. Within each dataset, columns are the nodes that remain hidden under both layouts, ordered from higher to lower strongest-baseline hidden-node MAE. The top heatmap compares node-wise hidden MAE for the strongest baseline and TRACE-BiOpt; the bottom strip shows baseline minus TRACE-BiOpt, so positive values favor TRACE-BiOpt.}
-\label{fig:trace-biopt-hidden-error-heatmaps}
-\end{figure*}
 
 Figure~\ref{fig:trace-biopt-hidden-error-heatmaps} addresses the more local
 reviewer question that tables cannot answer: on representative low-budget rows,
@@ -281,13 +253,6 @@ and~\ref{tab:trace-biopt-solver-scale}: large-network rows do not need a new
 method family, but they do need a stronger warm start plus a visibly longer
 exchange tail under the same TRACE-BiOpt objective.
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_exchange_gap_curves.pdf}
-\caption{Current-best TRACE-BiOpt residual exchange-gap profiles. The top row shows the mean fraction of eventual exchange-phase improvement still remaining after the accepted exchange phase begins; the bottom row reports the mean number of accepted exchange steps, with `0-ex' annotations giving how many of the ten split-specific runs accepted no exchange at all beyond the forward or warm-start layout.}
-\label{fig:trace-biopt-exchange-gap-curves}
-\end{figure*}
-
 Figure~\ref{fig:trace-biopt-exchange-gap-curves} isolates the accepted
 exchange phase itself. The promoted PeMS7\_1026 rows remain the clearest
 binding-search regime: at the halfway point of accepted exchange progress,
@@ -318,13 +283,6 @@ certificate-weighted objective contributes materially to the final layout
 quality. These Seattle single-seed probes are bounded same-split diagnostic
 slices rather than replacement-evidence rows, so they explain a mechanism
 without pretending to be extra dominance rows.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_objective_mix.pdf}
-\caption{Current-best TRACE-BiOpt final-objective composition. Each bar shows the mean weighted share of the accepted final objective coming from hidden Huber reconstruction loss, posterior trace, scenario-CVaR trace, and spatial regularization over the ten split-specific runs of that row.}
-\label{fig:trace-biopt-objective-mix}
-\end{figure*}
 
 Figure~\ref{fig:trace-biopt-objective-mix} shows why the mechanism differs by
 regime. The promoted Stage16 rows, which all use the lighter
