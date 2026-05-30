@@ -16,6 +16,7 @@ current evidence is allowed to say.
 
 \input{tables/table_trace_biopt_claim_boundary_matrix}
 
+\FloatBarrier
 \section{Reproducibility route}
 
 The paper-facing evidence is organized as contracts rather than freehand
@@ -36,6 +37,7 @@ distributes aggregate artifacts and launch metadata, not raw traffic data.
 
 \input{tables/table_trace_biopt_current_best_provenance}
 
+\FloatBarrier
 \section{Baseline registry and strongest-comparator protocol}
 
 The current-best TRACE-BiOpt claim is deliberately evaluated against a fixed non-BiOpt registry
@@ -57,6 +59,7 @@ choosing a favorable baseline after seeing the results.
 
 \input{tables/table_trace_biopt_baseline_registry}
 
+\FloatBarrier
 \section{Full baseline matrix}
 \label{sec:appendix-full-baseline}
 
@@ -83,6 +86,7 @@ transparent: the main-text dominance table is a compression of a full
 matrix in which the highlighted TRACE-BiOpt row remains rank 1 in all nine
 tested dataset-budget cells.
 
+\FloatBarrier
 \section{Solver-scope and certificate disclosure}
 
 TRACE-BiOpt uses one objective $J(\calS)$ throughout initialization and
@@ -104,6 +108,7 @@ searched-neighborhood certificate, a declared exchange budget, and an auditable
 history of accepted objective decreases. That guarantee is weaker than global
 optimality, but stronger than an undocumented ad hoc local-search routine.
 
+\FloatBarrier
 \section{Adversarial claim routing}
 
 The most damaging reviewer objection would be that the paper advertises broad
@@ -122,6 +127,7 @@ from a mixed Stage15 result to a 10/10 paired win. This is not a freehand
 paper edit: it is recorded in the machine-readable replacement gate, dominance
 CSV, provenance table, and claim contract.
 
+\FloatBarrier
 \section{Proof sketches for scoped statements}
 
 The main text contains the formal theorem statements used for the manuscript
@@ -205,6 +211,7 @@ stationarity the stopping point satisfies. Keeping these claims separate is
 methodologically cleaner than folding them into an over-broad ``convergence''
 statement that could be mistaken for exact optimality.
 
+\FloatBarrier
 \section{Challenger envelope curves}
 \label{sec:appendix-challenger-envelope}
 
@@ -220,6 +227,7 @@ current-best evidence into a strongest-challenger envelope: for each sensor budg
 the row-specific strongest pre-registered non-BiOpt comparator at every budget
 on all three networks.
 
+\FloatBarrier
 \section{Mechanism diagnostic figures}
 \label{sec:appendix-mechanism-diagnostics}
 
@@ -237,13 +245,14 @@ on all three networks.
 \label{fig:trace-biopt-hidden-error-heatmaps}
 \end{figure*}
 
+\FloatBarrier
 \section{Layout visualization}
 \label{sec:appendix-layout-visualization}
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_sensor_maps.pdf}
-\caption{Current-best low-budget sensor maps. PeMS7\_228 and Seattle use released geographic sensor coordinates; PeMS7\_1026 uses a distance-derived network embedding because benchmark station coordinates are not released with the public artifact. Darker and larger markers indicate nodes selected in more of the ten split-specific layouts.}
+\caption{Current-best low-budget sensor maps. PeMS7\_228 and Seattle use released geographic sensor coordinates; PeMS7\_1026 uses a distance-derived network embedding because benchmark station coordinates are not released with the public artifact. Darker and larger markers indicate nodes selected in more of the ten split-specific layouts. Dotted edges in each panel are visual aids for spatial readability and are not intended to represent the complete road-topology.}
 \label{fig:trace-biopt-sensor-maps}
 \end{figure*}
 
@@ -254,6 +263,7 @@ on all three networks.
 \label{fig:trace-biopt-layout-fingerprints}
 \end{figure*}
 
+\FloatBarrier
 \section{Solver diagnostics}
 \label{sec:appendix-solver-diagnostics}
 

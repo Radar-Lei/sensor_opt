@@ -81,11 +81,11 @@ def main() -> int:
     for row in filtered:
         grouped[row["dataset"]].append(row)
 
-    fig, axes = plt.subplots(1, 3, figsize=(11.2, 3.5), sharey=True, constrained_layout=True)
+    fig, axes = plt.subplots(1, 3, figsize=(11.2, 3.5), sharey=False, constrained_layout=True)
     trace_color = "#1f77b4"
     baseline_color = "#d62728"
 
-    for ax, dataset in zip(axes, DATASETS):
+    for col, (ax, dataset) in enumerate(zip(axes, DATASETS)):
         dataset_rows = grouped[dataset]
         xs = [int(round(float(row["budget"]) * 100)) for row in dataset_rows]
         trace = [float(row["trace_biopt_mean"]) for row in dataset_rows]
@@ -99,6 +99,8 @@ def main() -> int:
         ax.set_xlabel("Budget (%)")
         ax.set_xticks([10, 20, 30])
         ax.grid(True, axis="y", alpha=0.25)
+        if col > 0:
+            ax.tick_params(labelleft=False)
         ymin = min(trace + best)
         ymax = max(trace + best)
         pad = max(0.04, (ymax - ymin) * 0.18)

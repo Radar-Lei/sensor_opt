@@ -181,6 +181,8 @@ def save_figure(fig: mpl.figure.Figure, out_base: Path) -> None:
 
 def plot_margin_forest(delta: pd.DataFrame, out_dir: Path) -> None:
     """One clean figure for the headline claim: 9 paired margins and CIs."""
+    import matplotlib.gridspec as gridspec
+
     df = delta.copy()
     df["label"] = [regime_label(d, b) for d, b in zip(df["dataset"], df["budget"])]
     df["best_label"] = df["best_baseline_layout"].map(nice_layout_name)
@@ -193,7 +195,20 @@ def plot_margin_forest(delta: pd.DataFrame, out_dir: Path) -> None:
     xerr_low = df["paired_ci95_high"].to_numpy() - df["paired_delta_mean"].to_numpy()
     xerr_high = df["paired_delta_mean"].to_numpy() - df["paired_ci95_low"].to_numpy()
 
-    fig, ax = plt.subplots(figsize=(6.9, 4.6))
+    fig = plt.figure(figsize=(7.5, 4.6))
+    gs = gridspec.GridSpec(
+        2, 2,
+        width_ratios=[3.2, 1],
+        height_ratios=[10, 1],
+        wspace=0.02,
+        hspace=0.18,
+        left=0.12, right=0.96, top=0.91, bottom=0.10,
+    )
+    ax = fig.add_subplot(gs[0, 0])
+    ax_labels = fig.add_subplot(gs[0, 1])
+    ax_legend = fig.add_subplot(gs[1, :])
+
+    # --- Main data panel ---
     for source, marker, color in [("Stage16", "o", STAGE16_COLOR), ("Stage15", "s", STAGE15_COLOR)]:
         mask = df["source_kind"].eq(source).to_numpy()
         ax.errorbar(
@@ -214,20 +229,26 @@ def plot_margin_forest(delta: pd.DataFrame, out_dir: Path) -> None:
     ax.set_yticks(y)
     ax.set_yticklabels(df["label"])
     ax.set_xlabel("Strongest non-BiOpt baseline MAE $-$ TRACE-BiOpt MAE")
-    ax.set_title("Paired current-best dominance margins across tested regimes")
+    ax.set_title("Paired current-best dominance margins across tested regimes", fontsize=10)
     ax.grid(axis="x", color=GRID_COLOR, linewidth=0.8, zorder=0)
-    ax.legend(title="Evidence lane", frameon=False, loc="lower right")
 
-    # Right-side labels disclose the strongest challenger, avoiding a separate table.
-    xmin, xmax = ax.get_xlim()
-    label_x = xmax + 0.03 * (xmax - xmin)
+    # --- Right-side label panel (no ticks/spines) ---
+    ax_labels.set_ylim(ax.get_ylim())
+    ax_labels.axis("off")
     for yi, challenger in zip(y, df["best_label"]):
-        ax.text(label_x, yi, challenger, va="center", ha="left", fontsize=7.2)
-    ax.text(label_x, y.max() + 0.65, "Strongest challenger", va="bottom", ha="left", fontsize=7.5, fontweight="bold")
-    ax.set_xlim(xmin, label_x + 0.30 * (xmax - xmin))
+        ax_labels.text(0.05, yi, challenger, va="center", ha="left", fontsize=7.2, transform=ax_labels.transData)
+    ax_labels.text(0.05, y.max() + 0.65, "Strongest challenger", va="bottom", ha="left", fontsize=7.5, fontweight="bold", transform=ax_labels.transData)
+
+    # --- Legend in bottom row ---
+    ax_legend.axis("off")
+    handles = [
+        plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=STAGE16_COLOR, markersize=6, label="Stage16"),
+        plt.Line2D([0], [0], marker="s", color="w", markerfacecolor=STAGE15_COLOR, markersize=6, label="Stage15"),
+    ]
+    ax_legend.legend(handles=handles, loc="upper center", ncol=2, frameon=False, fontsize=8, handletextpad=0.4, columnspacing=1.2)
 
     caption_note = "Positive values indicate lower held-out GLS/MAP MAE for TRACE-BiOpt; whiskers are paired 95% CIs."
-    ax.text(0.0, -0.15, caption_note, transform=ax.transAxes, ha="left", va="top", fontsize=7.5)
+    fig.text(0.12, 0.02, caption_note, ha="left", va="bottom", fontsize=7.5)
     save_figure(fig, out_dir / "fig_trace_biopt_margin_forest_v2")
 
 

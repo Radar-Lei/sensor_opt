@@ -199,9 +199,12 @@ def main() -> int:
     fig, axes = plt.subplots(
         2,
         3,
-        figsize=(11.2, 5.8),
+        figsize=(11.2, 6.2),
         gridspec_kw={"height_ratios": [2.2, 1.2]},
-        constrained_layout=True,
+        constrained_layout=False,
+    )
+    fig.subplots_adjust(
+        left=0.08, right=0.96, top=0.92, bottom=0.15, hspace=0.38, wspace=0.28,
     )
 
     for col, dataset in enumerate(DATASETS):
@@ -252,7 +255,7 @@ def main() -> int:
             mode = summary_lookup[(dataset, budget)]["dominant_stage_mode"]
             bottom_ax.text(
                 idx,
-                forwards[idx] + exchanges[idx] + 1.0,
+                forwards[idx] + exchanges[idx] + 1.5,
                 "exchange-only" if mode == "exchange_only_warm_start" else "forward+exchange",
                 ha="center",
                 va="bottom",
@@ -266,13 +269,13 @@ def main() -> int:
     fig.legend(
         line_handles + bar_handles,
         line_labels + bar_labels,
-        loc="upper center",
+        loc="lower center",
         ncol=5,
         frameon=False,
-        bbox_to_anchor=(0.5, 1.03),
+        bbox_to_anchor=(0.5, 0.01),
     )
 
-    fig.savefig(OUT_FIG, bbox_inches="tight")
+    fig.savefig(OUT_FIG)
     plt.close(fig)
     print(f"Wrote {OUT_FIG}, {OUT_SUMMARY}, and {OUT_CURVES}")
     return 0
