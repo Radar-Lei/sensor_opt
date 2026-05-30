@@ -187,9 +187,11 @@ def plot_margin_forest(delta: pd.DataFrame, out_dir: Path) -> None:
     df["source_kind"] = np.where(df["evidence_source"].astype(str).str.startswith("stage15"), "Stage15", "Stage16")
 
     y = np.arange(len(df))[::-1]
-    x = df["paired_delta_mean"].to_numpy()
-    xerr_low = x - df["paired_ci95_low"].to_numpy()
-    xerr_high = df["paired_ci95_high"].to_numpy() - x
+    # Flip sign so positive = baseline MAE - TRACE MAE = TRACE advantage.
+    x = -df["paired_delta_mean"].to_numpy()
+    # When x is negated, the CI arms swap: original high arm becomes low arm.
+    xerr_low = df["paired_ci95_high"].to_numpy() - df["paired_delta_mean"].to_numpy()
+    xerr_high = df["paired_delta_mean"].to_numpy() - df["paired_ci95_low"].to_numpy()
 
     fig, ax = plt.subplots(figsize=(6.9, 4.6))
     for source, marker, color in [("Stage16", "o", STAGE16_COLOR), ("Stage15", "s", STAGE15_COLOR)]:
@@ -211,7 +213,7 @@ def plot_margin_forest(delta: pd.DataFrame, out_dir: Path) -> None:
     ax.axvline(0.0, color=ZERO_COLOR, lw=1.0, linestyle="--", zorder=1)
     ax.set_yticks(y)
     ax.set_yticklabels(df["label"])
-    ax.set_xlabel("TRACE-BiOpt MAE minus strongest non-BiOpt baseline MAE")
+    ax.set_xlabel("Strongest non-BiOpt baseline MAE $-$ TRACE-BiOpt MAE")
     ax.set_title("Paired current-best dominance margins across tested regimes")
     ax.grid(axis="x", color=GRID_COLOR, linewidth=0.8, zorder=0)
     ax.legend(title="Evidence lane", frameon=False, loc="lower right")
@@ -224,7 +226,7 @@ def plot_margin_forest(delta: pd.DataFrame, out_dir: Path) -> None:
     ax.text(label_x, y.max() + 0.65, "Strongest challenger", va="bottom", ha="left", fontsize=7.5, fontweight="bold")
     ax.set_xlim(xmin, label_x + 0.30 * (xmax - xmin))
 
-    caption_note = "Negative values favor TRACE-BiOpt; whiskers are paired 95% CIs."
+    caption_note = "Positive values indicate lower held-out GLS/MAP MAE for TRACE-BiOpt; whiskers are paired 95% CIs."
     ax.text(0.0, -0.15, caption_note, transform=ax.transAxes, ha="left", va="top", fontsize=7.5)
     save_figure(fig, out_dir / "fig_trace_biopt_margin_forest_v2")
 
@@ -244,11 +246,11 @@ def plot_seed_margins(seed: pd.DataFrame, out_dir: Path) -> None:
     rng = np.random.default_rng(20260529)
     jitter = rng.uniform(-0.14, 0.14, size=len(df))
     colors = np.where(df["evidence_source"].astype(str).str.startswith("stage15"), STAGE15_COLOR, STAGE16_COLOR)
-    ax.scatter(df["x"] + jitter, df["paired_margin"], s=18, c=colors, alpha=0.72, edgecolors="none")
+    ax.scatter(df["x"] + jitter, -df["paired_margin"], s=18, c=colors, alpha=0.72, edgecolors="none")
 
     # Mean and 95% interval per regime, computed from the plotted seed-level points.
     for idx, row in regimes.iterrows():
-        vals = df.loc[(df["dataset"] == row["dataset"]) & (df["budget"] == row["budget"]), "paired_margin"].dropna().to_numpy()
+        vals = -df.loc[(df["dataset"] == row["dataset"]) & (df["budget"] == row["budget"]), "paired_margin"].dropna().to_numpy()
         mu = float(vals.mean())
         if len(vals) > 1:
             se = float(vals.std(ddof=1) / math.sqrt(len(vals)))
@@ -260,10 +262,10 @@ def plot_seed_margins(seed: pd.DataFrame, out_dir: Path) -> None:
     ax.axhline(0.0, color=ZERO_COLOR, lw=1.0, linestyle="--")
     ax.set_xticks(np.arange(len(regimes)))
     ax.set_xticklabels(regimes["label"], rotation=35, ha="right")
-    ax.set_ylabel("Seed-level paired margin")
-    ax.set_title("Every split seed remains below the strongest challenger")
+    ax.set_ylabel("Baseline MAE $-$ TRACE-BiOpt MAE")
+    ax.set_title("Every split seed favors TRACE-BiOpt over the strongest challenger")
     ax.grid(axis="y", color=GRID_COLOR, linewidth=0.8)
-    ax.text(0.0, -0.27, "Dots are split seeds; diamonds show mean ± 1.96 SE.", transform=ax.transAxes, ha="left", va="top", fontsize=7.5)
+    ax.text(0.0, -0.27, "Positive values indicate TRACE-BiOpt advantage; diamonds show mean ± 1.96 SE.", transform=ax.transAxes, ha="left", va="top", fontsize=7.5)
     save_figure(fig, out_dir / "fig_trace_biopt_seed_margins_v2")
 
 

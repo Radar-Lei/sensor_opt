@@ -1,4 +1,4 @@
 dataset,budget_pct,best_baseline_layout,best_baseline_label,trace_unique_nodes,baseline_unique_nodes,overlap_unique_nodes,union_unique_nodes,unique_jaccard_overlap,trace_always_selected_nodes,baseline_always_selected_nodes
-PeMS7_1026,10,swap_from_greedy_a_trace,Swap from A-trace,275,246,210,311,0.675241,12,20
-PeMS7_228,10,validation_swap_selected,Prev. TRACE-SL,94,74,39,129,0.302326,0,0
+PeMS7_1026,10,swap_from_greedy_a_trace,Swap from A-trace,291,246,198,339,0.584071,11,20
+PeMS7_228,10,validation_swap_selected,Prev. TRACE-SL,58,74,32,100,0.320000,5,0
 Seattle,10,rcss_selected,RCSS,142,100,63,179,0.351955,0,3

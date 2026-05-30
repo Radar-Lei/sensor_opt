@@ -18,6 +18,10 @@ ROOT = Path(__file__).resolve().parents[1]
 TRACE_RESULTS = ROOT / "TRC-23-02333" / "trace_sl_results"
 CURRENT_BEST = TRACE_RESULTS / "current_best_trace_biopt_evidence"
 STAGE15 = TRACE_RESULTS / "stage15_biopt_allbudget_10seed_v2"
+STAGE16_SWEEP = TRACE_RESULTS / "stage16_calibrated_trace_sweep"
+STAGE16_PROBE = TRACE_RESULTS / "stage16_calibrated_trace_probe"
+PEMS228_PROBE = TRACE_RESULTS / "stage15_biopt_pems228_10_risksource_probe"
+SOURCE_ROOTS = [STAGE16_SWEEP, STAGE16_PROBE, PEMS228_PROBE]
 OUT_SUMMARY = CURRENT_BEST / "trace_biopt_layout_fingerprint_summary.csv"
 OUT_FIG = ROOT / "paper" / "figures" / "fig_trace_biopt_layout_fingerprints.pdf"
 
@@ -72,10 +76,30 @@ def spectral_coords(similarity: np.ndarray) -> np.ndarray:
     return coords
 
 
-def collect_frequency(dataset: str, budget: float, layout_type: str) -> Counter:
+def stage15_layout_path(dataset: str, split_seed: int) -> Path:
+    return STAGE15 / RESULT_DIR[dataset] / f"seed_{split_seed}" / "layouts.json"
+
+
+def resolve_trace_layout_path(dataset: str, budget: float, evidence_source: str, split_seed: int) -> tuple[Path, str]:
+    if evidence_source == "stage15_main":
+        return stage15_layout_path(dataset, split_seed), "stage15_main"
+    if evidence_source.startswith("stage16_replaceable:"):
+        root_name = evidence_source.split(":", 1)[1]
+        for base in SOURCE_ROOTS:
+            candidate = base / root_name / f"seed_{split_seed}" / "layouts.json"
+            if candidate.exists():
+                return candidate, root_name
+        raise FileNotFoundError(f"could not resolve Stage16 layouts for {dataset} {budget}: {evidence_source}")
+    raise ValueError(f"unsupported evidence source: {evidence_source}")
+
+
+def collect_frequency(dataset: str, budget: float, layout_type: str, trace_evidence_source: str | None = None) -> Counter:
     counter: Counter[int] = Counter()
     for seed in range(25, 35):
-        path = STAGE15 / RESULT_DIR[dataset] / f"seed_{seed}" / "layouts.json"
+        if layout_type == "trace_biopt":
+            path, _ = resolve_trace_layout_path(dataset, budget, trace_evidence_source or "stage15_main", seed)
+        else:
+            path = STAGE15 / RESULT_DIR[dataset] / f"seed_{seed}" / "layouts.json"
         rows = json.loads(path.read_text(encoding="utf-8"))
         match = next(
             row for row in rows
@@ -97,8 +121,9 @@ def main() -> int:
         row = row_lookup[dataset]
         baseline = row["best_baseline_layout"]
         baseline_label = BASELINE_LABEL.get(baseline, baseline.replace("_", " "))
+        evidence_source = row["evidence_source"]
         coords = spectral_coords(dataset_similarity(dataset))
-        trace_freq = collect_frequency(dataset, 0.1, "trace_biopt")
+        trace_freq = collect_frequency(dataset, 0.1, "trace_biopt", trace_evidence_source=evidence_source)
         base_freq = collect_frequency(dataset, 0.1, baseline)
         trace_nodes = set(trace_freq)
         base_nodes = set(base_freq)

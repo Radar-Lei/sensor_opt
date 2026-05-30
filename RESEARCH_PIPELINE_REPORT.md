@@ -2,11 +2,11 @@
 
 **Current method**: TRACE-BiOpt — Recoverability-Driven Bilevel Transportation Network Design for Sparse Traffic Sensor Siting.
 **Target venue**: Transportation Research Part B: Methodological (Elsevier CAS template).
-**Date**: 2026-05-28
+**Date**: 2026-05-30
 **Pipeline stage**: TRACE-BiOpt evidence complete, manuscript compiled, submission-ready.
 **Aggregate claim status**: `supported_submission_ready`
 
-## Current Status (2026-05-28)
+## Current Status (2026-05-30)
 
 The project has evolved from the original TRACE-SL/RCSS candidate-pool framework into TRACE-BiOpt, a recoverability-driven bilevel optimization method. The key transition:
 
