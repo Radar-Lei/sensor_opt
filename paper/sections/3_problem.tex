@@ -42,9 +42,15 @@ Training data estimate reconstruction ingredients such as means, covariances or 
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{figures/fig1_workflow.pdf}
-\caption{TRACE-BiOpt workflow. The design protocol separates training-derived reconstruction ingredients, bilevel layout optimization on validation data, and held-out deployment evaluation.}
-\label{fig:workflow}
+\includegraphics[width=\linewidth]{figures/fig1_trace_biopt_framework_v2.pdf}
+\caption{
+TRACE-BiOpt framework. The method optimizes a single recoverability-driven
+bilevel sensor-layout objective: a transparent GLS/MAP lower-level
+reconstruction is embedded inside an upper-level hidden-state risk objective
+with posterior-uncertainty, tail-risk, and spatial-redundancy terms. Baselines
+are used only for held-out evaluation and do not enter the solver.
+}
+\label{fig:trace-biopt-framework}
 \end{figure}
 
 For a candidate layout $\calS$, the primary test metric is hidden-component MAE,

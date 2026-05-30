@@ -10,6 +10,18 @@ Training data fit reconstruction ingredients; validation data drive the
 TRACE-BiOpt objective and baseline selection rules; test data are used only for
 final hidden-state reconstruction reporting.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_network_case_overview.pdf}
+\caption{
+Network cases used in the numerical experiments. PeMS7\_228 and Seattle are
+shown using available geographic station/cabinet coordinates, while
+PeMS7\_1026 is shown using a spectral embedding of its distance matrix for
+visualization. Each point is a candidate sensor location.
+}
+\label{fig:network-cases}
+\end{figure}
+
 \paragraph{Current-best evidence chain.}
 The reported results use a \emph{current-best} evidence chain that combines
 Stage15 and Stage16 calibrated runs under a predefined replacement gate.
@@ -117,19 +129,18 @@ calibration-sensitive rather than a contradiction of the formulation.
 
 \subsection{Paired margins}
 
-Figure~\ref{fig:trace-biopt-paired-margins} opens the same current-best result
-at split level instead of staying at row means. Every one of the 90 current-best
-seed-level paired margins is below zero, so the 9/9 paired-dominance statement
-is not carried by opposite-sign cancellations. The narrowest cluster appears on
-PeMS7\_1026 at 30\%, where the margins stay negative but lie closest to zero,
-matching its role as the most search- and calibration-sensitive row. The
-largest mean paired margin now appears on PeMS7\_228 at 30\%, and the mid/high-budget
-PeMS7\_228 rows remain below the previous TRACE-SL swap family on every split.
+Figure~\ref{fig:trace-biopt-paired-margins} presents the paired current-best dominance margins across all tested regimes. Each row shows the mean paired delta between TRACE-BiOpt and the row-wise strongest pre-registered challenger, with approximate 95\% confidence intervals. All nine margins favor TRACE-BiOpt, and the right-side labels disclose which challenger is strongest on each row.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_paired_margins.pdf}
-\caption{Seed-level current-best paired margins against the row-specific strongest pre-registered non-BiOpt baseline. Each point is one split seed's TRACE-BiOpt minus strongest-baseline held-out GLS/MAP MAE, so negative values favor TRACE-BiOpt. Blue points come from promoted Stage16 calibrated reruns; gray points come from the retained Stage15 main-evidence rows. Black diamonds mark row means.}
+\includegraphics[width=\linewidth]{figures/fig_trace_biopt_margin_forest_v2.pdf}
+\caption{
+Paired held-out GLS/MAP MAE margins between the strongest pre-registered
+non-BiOpt challenger and TRACE-BiOpt. Positive values indicate that
+TRACE-BiOpt has lower error. Error bars show approximate 95\% confidence
+intervals over the ten split seeds. All nine tested dataset--budget regimes
+favor TRACE-BiOpt under the current-best evidence chain.
+}
 \label{fig:trace-biopt-paired-margins}
 \end{figure}
 
