@@ -94,36 +94,23 @@ point explicit: the best-baseline table is not hiding weaker rows. When all 22
 registered layouts are written out, TRACE-BiOpt still ranks first on every
 dataset-budget row of the current-best chain.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_full_baseline_heatmap.pdf}
-\caption{Current-best 22-method baseline heatmap. Each panel corresponds to one dataset; columns are sensor budgets, cell color is baseline MAE minus TRACE-BiOpt MAE, and the number inside each cell is the within-row rank. Nonnegative cells therefore indicate that the corresponding baseline does not beat TRACE-BiOpt on that dataset-budget row. The highlighted TRACE-BiOpt row stays rank 1 in all nine cells.}
-\label{fig:trace-biopt-full-baseline-heatmap}
-\end{figure}
+The full 22-method dominance heatmap is deferred to Appendix~\ref{sec:appendix-full-baseline} for readability.
 
-Figure~\ref{fig:trace-biopt-full-baseline-heatmap} presents the full 22-method
-registry as a dominance heatmap. Every non-TRACE-BiOpt cell remains nonnegative,
-so no registered baseline undercuts TRACE-BiOpt on any of the nine
-dataset-budget rows. The figure therefore makes the main empirical claim
-transparent: Table~\ref{tab:trace-biopt-dominance} is a compression of a full
-matrix in which the highlighted TRACE-BiOpt row remains rank 1 in all nine
-tested dataset-budget cells.
-
-\subsection{Performance curves}
+\subsection{Strongest-challenger envelope}
 
 Figure~\ref{fig:trace-biopt-current-best-curves} compresses the same
-current-best evidence into dataset-wise budget curves. TRACE-BiOpt stays below
+current-best evidence into a strongest-challenger envelope: for each sensor budget, the envelope traces the strongest pre-registered non-BiOpt comparator, which may differ across budgets. TRACE-BiOpt stays below
 the row-specific strongest pre-registered non-BiOpt comparator at every budget
 on all three networks. The largest gaps appear on PeMS7\_1026 at 10\% and
-20\%, the Seattle curves show a steady advantage against RCSS and the previous
-TRACE-SL swap family, and the narrowest curve gap appears on PeMS7\_1026 at
+20\%, the Seattle envelope shows a steady advantage against RCSS and the previous
+TRACE-SL swap family, and the narrowest gap appears on PeMS7\_1026 at
 30\%, matching the later diagnosis that this row is search- and
 calibration-sensitive rather than a contradiction of the formulation.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_current_best_curves.pdf}
-\caption{Current-best performance curves across sensor budgets. Each panel plots TRACE-BiOpt against the row-specific strongest pre-registered non-BiOpt baseline from the current-best evidence chain. TRACE-BiOpt remains the lower-MAE curve on every dataset-budget row.}
+\caption{Strongest-challenger envelope across sensor budgets. Each panel plots TRACE-BiOpt against the row-specific strongest pre-registered non-BiOpt baseline from the current-best evidence chain. The strongest challenger may differ across budgets. TRACE-BiOpt remains the lower-MAE curve on every dataset-budget row.}
 \label{fig:trace-biopt-current-best-curves}
 \end{figure}
 

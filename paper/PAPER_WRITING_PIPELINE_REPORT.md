@@ -1,10 +1,10 @@
 # Paper Writing Pipeline Report
 
-**Input**: `gpt_pro_suggestion_round1.md`, `TRACE_BIOPT_SPEC.md`, and Stage15 TRACE-BiOpt evidence
+**Input**: `gpt_pro_suggestion_round1.md`, `TRACE_BIOPT_SPEC.md`, and Stage15/Stage16 TRACE-BiOpt evidence
 **Venue**: Transportation Research Part B: Methodological
 **Assurance**: submission
 **Submission-ready**: yes (post-hardening)
-**Date**: 2026-05-28
+**Date**: 2026-05-30
 
 ## Pipeline Summary
 
@@ -29,13 +29,13 @@
 | Title/abstract | Reframed the paper as `TRACE-BiOpt: Bilevel Reconstruction-Aware Traffic Sensor Layout Optimization`. |
 | Method | Replaced the pool/selector main story with one robust bilevel reconstruction-risk objective and deterministic exchange solver. |
 | Theory | Added theorem-level statements for MAP closed form/stability, posterior trace Bayes risk, all-layout validation generalization, and exchange stationarity. |
-| Results | Added Stage15 ten-seed best-baseline dominance table over PeMS7_228, PeMS7_1026, Seattle, and 10/20/30% budgets. |
+| Results | Added Stage15/Stage16 ten-seed best-baseline dominance table over PeMS7_228, PeMS7_1026, Seattle, and 10/20/30% budgets. |
 | Mechanism diagnostics | Added auditable Stage15 diagnostics for strongest-comparator gating, paired-test strength, weakest-row disclosure, comparator hardness, and certificate alignment. |
 | Baseline registry | Added a generated 21-row appendix registry for every fixed non-BiOpt Stage15 comparator and each comparator's best-row count. |
 | Optimization diagnostics | Added Stage15 solver-history diagnostics for construction/warm-start objective drops, exchange refinement, and monotone accepted objective histories over 90 runs. |
-| Search-budget probe | Added a generated PeMS7\_1026 30\% weak-row diagnostic over the original ten Stage15 split seeds; larger same-objective exchange search improves TRACE-BiOpt MAE by 0.0312 on average, wins 10/10 seeds, and reports paired t-test `p=1.5e-05` without replacing the Stage15 main table. |
-| Calibration-risk probe | Added `--trace-biopt-risk-source train_val` and a PeMS7\_228 10\% row-level diagnostic; train+validation calibrated risk with complete one-exchange search wins 10/10 seeds, improves mean margin to -0.1022, and reports paired t-test `p=6.4e-05` without replacing the Stage15 main table. |
-| Stage16 calibrated probe | Added a PeMS7\_1026 30\% calibrated-risk diagnostic; train+validation calibrated risk with scalable active-set search wins 10/10 seeds, improves mean margin to -0.0372, and reports paired t-test `p=4.6e-05` without replacing the Stage15 main table. |
+| Search-budget probe | Added a generated PeMS7\_1026 30\% weak-row diagnostic over the original ten Stage15 split seeds; larger same-objective exchange search improves TRACE-BiOpt MAE by 0.0312 on average, wins 10/10 seeds, and reports paired t-test `p=1.5e-05`; the Stage16 promotion gate applied to all nine rows. |
+| Calibration-risk probe | Added `--trace-biopt-risk-source train_val` and a PeMS7\_228 10\% row-level diagnostic; train+validation calibrated risk with complete one-exchange search wins 10/10 seeds, improves mean margin to -0.1022, and reports paired t-test `p=6.4e-05`; the Stage16 promotion gate applied to all nine rows. |
+| Stage16 calibrated probe | Added a PeMS7\_1026 30\% calibrated-risk diagnostic; train+validation calibrated risk with scalable active-set search wins 10/10 seeds, improves mean margin to -0.0372, and reports paired t-test `p=4.6e-05`; the Stage16 promotion gate applied to all nine rows. |
 | Robustness routing | Added a bounded Stage14 PeMS7_228 stress-test routing table for failure, noise, missingness, cost, and chronological-shift evidence. |
 | Related work | Expanded TR-B positioning with verified OD count-location, link-flow observability, path reconstruction, partial-observability, sensor-reliability references, and a method-positioning table. |
 | Claim boundary | Preserved limits: pre-registered non-BiOpt baselines only, tested regimes only, Holm-corrected scoped claims only. |

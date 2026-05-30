@@ -58,6 +58,7 @@ choosing a favorable baseline after seeing the results.
 \input{tables/table_trace_biopt_baseline_registry}
 
 \section{Full baseline matrix}
+\label{sec:appendix-full-baseline}
 
 The registry table shows which comparators are in scope. Table~\ref{tab:trace-biopt-full-baseline-matrix}
 shows the stronger empirical fact needed for the headline claim: not only does
@@ -66,6 +67,21 @@ entire current-best matrix is written out against all 21 pre-registered
 non-BiOpt baselines.
 
 \input{tables/table_trace_biopt_full_baseline_matrix}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_full_baseline_heatmap.pdf}
+\caption{Current-best 22-method baseline heatmap. Each panel corresponds to one dataset; columns are sensor budgets, cell color is baseline MAE minus TRACE-BiOpt MAE, and the number inside each cell is the within-row rank. Nonnegative cells therefore indicate that the corresponding baseline does not beat TRACE-BiOpt on that dataset-budget row. The highlighted TRACE-BiOpt row stays rank 1 in all nine cells.}
+\label{fig:trace-biopt-full-baseline-heatmap}
+\end{figure}
+
+Figure~\ref{fig:trace-biopt-full-baseline-heatmap} presents the full 22-method
+registry as a dominance heatmap. Every non-TRACE-BiOpt cell remains nonnegative,
+so no registered baseline undercuts TRACE-BiOpt on any of the nine
+dataset-budget rows. The figure therefore makes the main empirical claim
+transparent: the main-text dominance table is a compression of a full
+matrix in which the highlighted TRACE-BiOpt row remains rank 1 in all nine
+tested dataset-budget cells.
 
 \section{Solver-scope and certificate disclosure}
 
