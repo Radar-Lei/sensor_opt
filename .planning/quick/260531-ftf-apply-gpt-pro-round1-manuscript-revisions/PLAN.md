@@ -1,7 +1,7 @@
 ---
 quick_id: 260531-ftf
 slug: apply-gpt-pro-round1-manuscript-revisions
-status: in_progress
+status: complete
 date: 2026-05-31
 ---
 
@@ -15,6 +15,7 @@ Scope:
 - Simplify the main-text optimization figure so only the objective-descent view stays in the body.
 - Unify scoped-claim wording across abstract, introduction, results, and conclusion.
 - Soften conclusion language around bounded exact benchmarks and solver certificates.
+- Reconcile manuscript math/theory wording with the audited local implementation and current-best evidence, without rerunning experiments unless the project root shows newer required results.
 - Recompile the paper and inspect the rendered PDF.
 
 Verification:

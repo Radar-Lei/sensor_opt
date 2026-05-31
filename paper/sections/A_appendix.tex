@@ -165,19 +165,21 @@ For the objective decomposition itself, the proof burden is mostly semantic:
 each term in $J(\calS)$ corresponds to a design goal that would otherwise be
 handled separately by ad hoc layout rules. The Huber validation loss measures
 hidden-state reconstruction quality directly, the posterior-trace term controls
-average hidden uncertainty, the CVaR term penalizes tail risk across traffic
-scenarios, and the spatial term prevents pathological concentration of sensors.
+average posterior uncertainty under the fitted precision model, the CVaR term
+penalizes tail risk across traffic scenarios, and the spatial term prevents
+pathological concentration of sensors.
 What matters is that all four terms are optimized jointly inside one
 budget-feasible design problem rather than used to populate a selector
 registry.
 
 For the posterior trace identity, the proof follows the standard conditional
 Gaussian calculation: under a fixed linear observation model and squared-error
-loss, the conditional mean minimizes expected squared error and the residual
-covariance over hidden components is the posterior covariance. Taking the trace
-gives the expected squared Euclidean reconstruction error over hidden
-components. This statement is tied to squared loss and the fitted
-linear-Gaussian model.
+loss, the conditional mean minimizes expected squared error and the full-state
+residual covariance is the posterior covariance. Taking the trace gives the
+expected squared Euclidean reconstruction error over the full state. The
+hidden-block version follows by projecting that residual with the hidden-state
+mask. This statement is tied to squared loss and the fitted linear-Gaussian
+model.
 
 For the all-layout validation bound, the proof uses a concentration inequality
 for each fixed size-$k$ layout and then unions over

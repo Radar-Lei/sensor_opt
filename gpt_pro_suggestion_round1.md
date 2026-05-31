@@ -1,207 +1,194 @@
-我看了你发的渲染版 PDF。结论很明确：**你对框架图的判断是对的；现在这张 Figure 1 必须换掉。论文主线和结果已经比较强，但版式和图表分层还需要最后一轮硬化，尤其是为了投 TR-B。**
+我又看了一轮新的 `main1.pdf` 渲染版，也按你的要求用 **GitHub 工具连接器**看了仓库里的 LaTeX、理论 contract 和源码实现。结论先说清楚：
 
-## 1. 框架图：必须换成你指定的那张，而且论文里应明确按这张非 AI 图替换
+**主线和大部分数学理论没有看到"致命错误"；但现在确实还有几处数学符号/实现/论文公式不完全一致的问题，投稿前必须修。排版方面也还没完全到 TR-B 投稿稿质感，主要集中在 Figure 1、Figure 4、Figure A.2/A.7/A.8。**
 
-现在 PDF 第 6 页的 Figure 1 确实还是"代码/脚本生成的流程图"：小字很多、模块边框很硬、视觉上更像 pipeline debug 图，不是你指定要放进论文正文的那张框架图。你说"论文里面的框架图必须替换为那个那个，并不是 AI 生成的"，这个要求需要直接落到正文源码，而不是只停留在建议层。
+## 1. 排版：这版比前一版好，但仍有几个 P0/P1 问题
 
-这次正确的处理方式不是再讨论 AI artwork 风险，而是**直接让论文正文切换到你指定的那张非 AI 框架图**。提交层面仍然只需要满足 Elsevier/TR-B 的常规 artwork 要求：图文件清晰、字号可读、分辨率足够、单独归档即可。([ScienceDirect][1])
+**Figure 1 仍然建议换。** PDF 第 6 页的框架图视觉上已经能读，但它还是"JPG 插入"的流程图，不是真正的矢量图。LaTeX 里现在明确插的是 `figures/fig1_trace_biopt_framework_v2.jpg`。 我用 PDF 工具看了对象，page 6 是 JPEG image object，不是纯 vector。作为第一张方法图，这个最好还是重画成矢量版，或者至少用高质量 PDF/SVG 导出版本。现在这张可以作为内部稿，但正式投稿版建议不要保留这种 raster/JPEG 主框架图。
 
-建议把论文实际使用的文件固定为：
+**Figure 3 现在基本可以。** 第 12 页的 paired margin forest plot 已经把符号方向改对了：横轴是 strongest non-BiOpt baseline MAE − TRACE-BiOpt MAE，正值代表 TRACE-BiOpt 更好。图面目前能支撑主 claim，右侧 strongest challenger 列也没有前一版那么挤。
 
-```text
-paper/figures/fig1_trace_biopt_framework_v2.jpg
-```
+**Figure 4 还有挤压。** 第 16 页的 Figure 4 只有 objective descent 三个 panel，方向对；但图和 caption 的距离偏紧，x-axis label 贴得太近，整体像从脚本图硬塞进正文。建议把图高度稍微加大，或者主文只保留更简洁的三条曲线版，把 accepted-step mix 彻底留在 Appendix。
 
-而不是再新起一个 `gptpro` 命名。这样正文、图文件和你指定的版本能保持一一对应。
+**Figure A.2 还需要修。** 第 38 页的 strongest-challenger envelope 图，顶部 legend 和 panel title 靠得很近，红色 challenger label 有贴边/接近裁切的问题。这个图已经在 Appendix，问题不致命，但最好加 y-axis headroom，并把 legend 放到图下或 caption 里。
 
-LaTeX 里应直接插入这张指定图，而不是继续引用脚本导出的老 `pdf/png` 版本：
+**Appendix maps 明显好多了。** 第 42–43 页的 Figure A.5/A.6 已经没有 raw debug label，caption 也解释了 dotted edges 只是 visual aids，不代表完整道路拓扑，这个处理是对的。
 
-```latex
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.98\linewidth]{figures/fig1_trace_biopt_framework_v2.jpg}
-  \caption{
-  TRACE-BiOpt framework. The method optimizes a single recoverability-driven
-  bilevel sensor-layout objective: a transparent GLS/MAP lower-level reconstruction
-  is embedded inside an upper-level hidden-state risk objective with posterior
-  uncertainty, tail-risk, and spatial-redundancy terms. Baselines are used only
-  for held-out evaluation and do not enter the solver.
-  }
-  \label{fig:trace-biopt-framework}
-\end{figure}
-```
+## 2. 理论公式：大方向没错，但有 5 个需要修的"不一致点"
 
-这样做有两个直接效果：
+### 2.1 `M_S` 的符号必须统一
 
-1. 论文正文会真正显示你指定的框架图。
-2. Figure 1 不再受旧的 code-generated `fig1_trace_biopt_framework_v2.pdf/png` 产物影响。
+现在论文里 `M_S` 有时像"矩形选择矩阵"，有时又像"对角 mask"。比如 lower-level 里写 `M_s(z-x_t)`，posterior term 又写 `(I-M_S)\Sigma(I-M_S)`。如果 `M_S` 是 (k×n) 的选择矩阵，`I-M_S` 就没有维度意义；如果它是 (n×n) 的 diagonal mask，那 lower-level 写法成立，但需要明确说明。
 
-## 2. 版式总体：主文现在太像"审计包"，不是不能投，但要压缩
+仓库理论 contract 里写的是 "diagonal/selection observation operator"，这说明你们自己也知道这里有歧义。 论文正文最好改成两个符号：
 
-你说"很多图表好像都在附录里面"，我看下来实际情况是：核心 Figure 3 和 Figure 4 在正文，full heatmap、layout maps、mechanism diagnostics 等在 Appendix；这个分配方向是对的。但是问题在于，**正文后半部分有大量 table block**，从 Table 1 到 Table 23 连续堆在参考文献之后、Appendix 之前，看起来像"表格附录提前出现了"。
+$$
+D_S=\operatorname{diag}(\mathbf{1}_{i\in S}),\qquad D_H=I-D_S.
+$$
 
-这会给 TR-B reviewer 两个印象：
+然后 lower-level 写成：
 
-第一，证据很足；
-第二，论文不像一篇正常的 methodological paper，而像一个 audit report。
+$$
+\frac12|D_S(z-x_t)|_{R^{-1}}^2
+$$
 
-我建议主文只保留这些：
+posterior hidden trace 写成：
 
-1. Figure 1：框架图，换成你指定的 GPT Pro 设计稿/人工矢量重绘版。
-2. Figure 2：三组网络 case。
-3. Figure 3：paired margin forest plot，这个是现在最强的主结果图。
-4. Table 6：strongest-challenger dominance table。
-5. Table 7：all-baseline Holm-corrected significance posture。
-6. 一个 theory summary table 或 exchange/solver diagnostic table，最多保留一个。
+$$
+\operatorname{tr}(D_H\Sigma_{\mathrm{post}}(S)D_H).
+$$
 
-其他表，尤其 Table 9–23，建议大部分移到 Appendix 或 Supplement。TR-B/Elsevier 指南也建议表格 sparingly 使用，避免重复正文已经说清楚的结果。([ScienceDirect][1])
+这样不会被审稿人抓维度错误。
 
-## 3. 图面逐项判断
+### 2.2 posterior trace：论文写 hidden trace，但源码算的是 full trace
 
-**Figure 1：必须替换。**
-当前这张不是你要的框架图，而且图内文字太多。它是最大 P0 问题。
+这是我这次检查里最重要的理论/实现不一致。
 
-**Figure 2：可以保留。**
-网络 case 图基本可用。caption 已经说明 PeMS7_1026 是 distance-matrix embedding，PeMS7_228 和 Seattle 使用地理坐标，这个解释是必要的。
+论文 Section 4 里 posterior term 写的是 hidden-state uncertainty：
 
-**Figure 3：主结果图很好，应该保留正文。**
-现在横轴是 "Strongest non-BiOpt baseline MAE − TRACE-BiOpt MAE"，正值表示 TRACE-BiOpt 更好，这个方向是对的。所有九行都在正值区域，和你的主 claim 强绑定。这个图比普通 MAE curve 更适合 TR-B，因为它直接展示 paired dominance。
+$$
+\Phi_{\mathrm{post}}(S)=\operatorname{tr}((I-M_S)\Sigma_{\mathrm{post}}(S)(I-M_S)).
+$$
 
-**Figure 4：信息有用，但还偏挤。**
-上排 objective descent 很好；下排 accepted steps 里的小字标注如 "exchange-only / forward+exchange" 太小，容易显得像脚本输出。建议正文只保留上排 objective descent，accepted-step mix 移 Appendix，或者重画成更简洁的 bar plot。
+LaTeX 源码也是这么写的。 但 GitHub 源码里的 `posterior_trace_for_layout` 实际返回的是 **full posterior trace**，也就是整个 posterior inverse 的 trace，没有把 hidden complement 单独取出来。 scenario CVaR trace 也是对这些 full traces 做 upper-tail average。
 
-**Figure A.1 full baseline heatmap：放 Appendix 是对的。**
-它太密，不适合正文。但它作为防 cherry-picking 的证据很重要，应该保留 Appendix。
+这不是说方法错了，但论文公式必须和实现一致。现在有两个选择：
 
-**Figure A.2 strongest-challenger envelope：可保留 Appendix。**
-它说明不同 budget 的 strongest challenger 可能不同。caption 已经解释这一点，方向对。
+**推荐的低风险选择：不重跑实验，改论文表述。**
+把 posterior/cvar 项写成 normalized full-state posterior uncertainty certificate：
 
-**Figure A.3/A.4：Appendix 合适。**
-mechanism-alignment 和 seed-25 heatmap 都是机制诊断，不应抢主文位置。
+$$
+\Phi_{\mathrm{post}}^{\mathrm{full}}(S)=\frac{1}{n}\operatorname{tr}(\Sigma_{\mathrm{post}}(S)).
+$$
 
-**Figure A.5/A.6：现在比上一版干净很多。**
-sensor maps 和 layout fingerprints 已经没有 debug label。Figure A.5 caption 也说明 dotted edges 只是 visual aids，不是完整 road topology，这个很好。
+Theorem 2 可以写成 full-state Bayes risk identity：
 
-**Figure A.7/A.8：Appendix 可留，但最好拆页。**
-现在两个图挤在最后一页，A.7 的 legend 和 x-label 有点挤。不是致命问题，但投稿版最好拆开。
+$$
+\mathbb{E}|x-\mathbb{E}[x\mid y_S]|_2^2=\operatorname{tr}(\Sigma_{\mathrm{post}}(S)),
+$$
 
-## 4. Claim 强不强？
+然后补一句：hidden-block version follows by replacing $x$ with $x_H$ and $\Sigma_{\mathrm{post}}$ with its hidden block. 这样和源码、证据链一致，不需要重跑。
 
-**强，但必须 scoped。**
+**如果坚持 hidden posterior trace，就必须改源码并重跑 current-best evidence。**
+否则论文声称优化 hidden trace，但实际 evidence 是 full trace objective 跑出来的，会有审稿风险。
 
-现在最强的 claim 是：
+### 2.3 Section 3 和 Section 4 的 trace normalization 不一致
 
-> TRACE-BiOpt 在 PeMS7_228、PeMS7_1026、Seattle 三个网络，10%、20%、30% 三个预算，共九个 dataset-budget regimes 上，相对 21 个 pre-registered non-BiOpt baselines，都取得最低 mean held-out GLS/MAP MAE；Holm-corrected paired tests 后没有 tied 或 better challenger。
+Section 3 里 upper-level objective 写了：
 
-这个 claim 是强的。主表里九行全部是 10/10 paired wins，而且 hardest challenger 也没有在 Holm correction 后存活。这个对于 TR-B 来说已经很有说服力。
+$$
+\beta \frac{\mathrm{posterior\_trace}(S)}{|V|}+\gamma \frac{\mathrm{CVaR}_{\alpha}(\mathrm{scenario\_trace}(S))}{|V|}.
+$$
 
-但不要写这些：
+这个和源码一致：`trace_biopt_objective` 里 posterior trace 和 scenario CVaR 都除以 `n_nodes`。 但 Section 4 里定义：
 
-* "beats all baselines"
-* "globally optimal"
-* "universally robust"
-* "dominates all methods"
-* "generalizes to all networks"
-* "theory proves MAE improvement"
+$$
+J(S)=\hat R_v^{Huber}(S)+\beta\Phi_{post}(S)+\gamma\Phi_{tail}(S)+\cdots
+$$
 
-正确写法是：
+随后 $\Phi_{post}$ 没有除以 $|V|$。
 
-> against 21 pre-registered non-BiOpt baselines in the tested regimes.
+建议直接改成：
 
-这句话要在 abstract、Introduction、Results、Conclusion 里保持完全一致。
+$$
+\Phi_{\mathrm{post}}(S)=\frac{1}{|\mathcal V|}\operatorname{tr}(\Sigma_{\mathrm{post}}(S)),
+$$
 
-## 5. Contribution 强不强？
+或者 hidden 版本：
 
-**现在 contribution 是够 TR-B 的。**
+$$
+\Phi_{\mathrm{post}}(S)=\frac{1}{|\mathcal V|}\operatorname{tr}(D_H\Sigma_{\mathrm{post}}(S)D_H).
+$$
 
-强点有三个：
+同理，tail term 也加 $/|\mathcal V|$。这样 Section 3、Section 4、源码三者一致。
 
-第一，问题定位对了。你不是在做"传感器放哪儿覆盖更多点"，而是把 sparse sensor siting 写成 recoverability-driven transportation network design。这个 framing 对 TR-B 是合适的。
+### 2.4 Huber loss 需要明确定义，避免标准 Huber 缩放歧义
 
-第二，方法不是 pool selector。论文已经明确写成一个统一目标：hidden Huber reconstruction loss + posterior uncertainty + CVaR tail risk + spatial redundancy。这个比旧 TRACE-SL/RCSS candidate-pool story 强很多。
+源码的 `smooth_l1_mean` 实际实现是：
 
-第三，有理论支撑。MAP closed form/stability、posterior trace Bayes risk、all-layout validation generalization、exchange certificate、CVaR epigraph，这套理论包足够支撑 methodological contribution。
+$$
+\rho_\delta(e)=\begin{cases}\frac{e^2}{2\delta}, & |e|\le \delta,\\|e|-\frac{\delta}{2}, & |e|>\delta.\end{cases}
+$$
 
-现在需要避免的问题是：正文里不要反复使用 "audited contract / current-best evidence chain / claim boundary" 这种工程审计语言。保留边界意识是对的，但主文要更像 TR-B 方法论文：交通问题、数学 formulation、算法、理论、结果、机制、限制。
+代码里对应的是 `0.5 * quadratic**2 / delta + linear`。 hidden Huber 的实现也是同一形式。
 
-## 6. Methodology 强不强？
+这个是常见的 smooth-L1 / Huberized absolute loss，没有问题。但论文现在只说 "Huber penalty"，没有公式。建议在 Section 4.2 加一句定义，否则有审稿人会默认标准 Huber：
 
-**methodology 是强的，但有几个地方要继续守边界。**
+$$
+\rho_\delta(e)=\frac12 e^2 \quad (|e|\le\delta),\quad\delta(|e|-\delta/2) \quad (|e|>\delta),
+$$
 
-强项：
+那就和源码缩放不一致。
 
-* lower-level GLS/MAP 是透明 inverse problem，不是黑箱模型；
-* upper-level objective 直接面向 hidden-state reconstruction；
-* baselines 不进入 solver；
-* deterministic initialization + exchange refinement 有清楚的 solver 路径；
-* exchange certificate 明确说明局部/搜索邻域范围；
-* bounded exact-subnetwork benchmark 作为补充证据有价值。
+### 2.5 CVaR 的 $\alpha$ 和源码里的 `tail_fraction` 要对齐
 
-需要守住的边界：
+理论里 CVaR epigraph 写成：
 
-* exchange solver 不是全局 MIP optimum；
-* PeMS7_1026 的大网络行仍然是 search-budget-sensitive；
-* posterior trace theorem 是 Gaussian squared-error risk identity，不等于真实交通 MAE 必然下降；
-* robustness section 不能说 TRACE-BiOpt 在 stress tests 全面赢，因为 bounded stress frontier 里一些 slice 是 graph-spectral baseline 更强；
-* exact 27/27 subnetwork result 只能说明 bounded 16-node subnetworks，不代表全网 exact optimality。
+$$
+\tau+\frac{1}{(1-\alpha)|\mathcal T_v|}\sum_t(\ell_t(S)-\tau)_+.
+$$
 
-这些 caveat 现在正文里基本都有，但 Conclusion 里要特别小心，不要把 exact-subnetwork benchmark 和 full-network stationarity 写得像同一个 guarantee。
+这个公式本身是对的。 但源码实际用的是 `cvar_tail_fraction`，即直接取 largest tail fraction 的平均。
 
-## 7. 关于"很多图表在附录"的处理
+所以论文需要明确：
 
-我建议不要把所有图表搬回正文。相反，**主文应该更少、更强。**
+$$
+q = 1-\alpha,
+$$
 
-正文主图表应该回答四个问题：
+其中 $q$ 是 implementation 中的 `cvar_tail_fraction`。例如 `tail_fraction=0.1` 对应的是 $\mathrm{CVaR}_{0.9}$，不是 $\mathrm{CVaR}_{0.1}$。
 
-1. 方法是什么？
-   Figure 1.
+## 3. Lower-level MAP / GLS 这块基本是对的
 
-2. 数据网络是什么？
-   Figure 2.
+这部分我比较放心。论文里的 closed form：
 
-3. 是否赢了最强 challenger？
-   Figure 3 + Table 6.
+$$
+A(S)=M_S^\top R^{-1}M_S+\lambda_QQ+\lambda_LL+\epsilon I,\quad b_t(S)=M_S^\top R^{-1}M_Sx_t+\lambda_QQ\mu_t
+$$
 
-4. 是否不是偶然/不是单一 baseline？
-   Table 7 或 compact heatmap，二选一。
+和理论 contract 是一致的。 LaTeX 里也对应这个写法。 源码 `solve_quadratic` 实际求的是：
 
-Appendix 回答 reviewer 的细问：
+$$
+(\text{matrix}+\operatorname{diag}(\text{selector}))z=\text{matrix}\cdot\mu + \text{selector}\odot y,
+$$
 
-* full 22-method matrix；
-* baseline registry；
-* provenance；
-* exact subnetwork benchmark；
-* solver scale；
-* exchange gap；
-* weight sensitivity；
-* layout maps；
-* hidden-node error slices。
+代码里表现为 `lhs = matrix + np.diag(selector)`，以及 `rhs[:, sensors] += selector[sensors] * observed_z[:, sensors]`。 这和"prior precision + observed sensor quadratic term"的 MAP/GLS 结构一致。
 
-这样会更像一篇 TR-B 论文，而不是把所有 audit artifact 都塞进主文。
+这里唯一需要注意的是：论文写了 $\lambda_QQ+\lambda_LL+\epsilon I$，而当前实现主要通过 `gls_matrix`/precision matrix 进入；如果当前 evidence 里 $\lambda_L=0$ 或 Laplacian 已被并入 matrix，就没问题。但最好在论文里说"the implemented GLS/MAP precision may instantiate this regularizer through the fitted precision and/or graph penalty"，避免让人以为源码里一定显式加了 $L$。
 
-## 8. 投稿前最小修改清单
+## 4. 理论 theorem 本身有没有明显错？
 
-按优先级：
+我没看到定理层面的硬错，但建议按下面方式收紧：
 
-1. **替换 Figure 1。** 用你说的 GPT Pro 框架图；投稿版最好人工重绘成矢量图。
-2. **停止 code-generated framework 脚本覆盖 Figure 1。**
-3. **压缩正文表格。** Table 9–23 大部分移 Appendix/Supplement。
-4. **Figure 4 简化。** 正文只保留 objective descent，accepted-step mix 移 Appendix。
-5. **Figure A.7/A.8 拆开或增加垂直空间。**
-6. **全文统一 claim wording。** 永远写 "21 pre-registered non-BiOpt baselines in tested regimes"。
-7. **Conclusion 降一点语气。** 不要让 exact-subnetwork benchmark 听起来像 full-network global certificate。
-8. **补投稿材料。** cover letter、highlights、CRediT、declaration of interest、data availability、AI-assisted writing declaration。
-9. **确认 abstract ≤250 words、highlights 3–5 条且每条 ≤85 characters。** 你现在 abstract 和 highlights 基本满足这个要求。
-10. **如果最终使用任何 AI 生成图像，务必重新核对 Elsevier artwork/GenAI policy。** 这点很关键。([ScienceDirect][1])
+Theorem 1 的 closed form / stability 是成立的，前提是 $R\succ0$ 且 prior-plus-ridge precision 正定。理论 contract 也明确有这个条件。
 
-## 最终判断
+Theorem 2 的 posterior trace Bayes risk identity 是成立的，但要把"full trace vs hidden trace vs implementation full trace"说清楚。现在源码 evidence 用 full trace，所以论文最好不要把 objective 写成 hidden posterior trace，除非重跑。
 
-这篇文章的**研究主线、claim、contribution、methodology 都已经够强，可以冲 TR-B**。现在最大的短板不是科学内容，而是 Figure 1 和论文呈现方式。
+Theorem 3 的 uniform validation generalization bound 形式是对的：Hoeffding + union bound over $\binom{n}{k}$，得到 $k\log(en/k)$ 这一项。论文 proof 也正是这么写的，并且加了 temporal dependence 下要用 independent blocks/effective sample size 的 caveat。 这个没问题。
 
-你现在最该做的不是再加实验，而是：
+Theorem 4 的 exchange certificate 是对的，而且源码也确实是 deterministic one-swap exchange：初始化后每轮枚举 searched add/remove active sets，接受严格更优 swap，否则 stop。 论文已经说明它只证明 searched-neighborhood stationarity，不证明 global optimality。 这个边界写得对。
 
-> 换掉框架图，压缩正文图表，把 audit 证据放到 Appendix/Supplement，保持 scoped claim，然后补齐投稿材料。
+## 5. 我建议你现在马上改的最小清单
 
-修完这些，我认为就可以进入 TR-B 投稿前最后格式检查阶段。
+**数学/理论 P0：**
 
-[1]: https://www.sciencedirect.com/journal/transportation-research-part-b-methodological/publish/guide-for-authors "Guide for authors - Transportation Research Part B: Methodological - ISSN 0191-2615 | ScienceDirect.com by Elsevier"
+1. 引入 $D_S$ 和 $D_H$，不要继续让 `M_S` 同时扮演 rectangular selector 和 diagonal mask。
+2. 决定 posterior/cvar trace 到底按源码写 full trace，还是改源码重跑 hidden trace。我的建议是不重跑，论文改成 full trace certificate。
+3. Section 4 的 $\Phi_{\mathrm{post}}$、$\Phi_{\mathrm{tail}}$ 加 $/|\mathcal V|$，和 Section 3、源码一致。
+4. 明确定义 smooth-L1/Huber $\rho_\delta$，匹配源码。
+5. CVaR 里写清楚 `tail_fraction = 1-\alpha`。
+6. Continuous relaxation 那段把 "gradient" 改成 "finite-difference projected update over a deterministic active pool"，因为源码确实是有限差分 active-pool 更新。
+
+**排版 P0/P1：**
+
+1. Figure 1 换成正式矢量版，不要用当前 JPG 主框架图。
+2. Figure 4 增加图和 caption 间距；或者主文只留 objective descent，step mix 留 Appendix。
+3. Figure A.2 重画，处理 legend/title/red labels 的贴边问题。
+4. Appendix 的 A.7/A.8 作为诊断图可以留，但最好拆得更松一些。
+5. Full heatmap 留 Appendix，不要搬回正文。
+
+## 6. 最终判断
+
+**这版不是"理论错了"，但也还不能说数学已经完全封口。** 最关键的问题是：论文公式现在说 hidden posterior trace，而源码 evidence 实际是 full posterior trace。这个必须统一。统一之后，MAP closed form、Bayes risk identity、uniform generalization、exchange certificate 这些理论大体是稳的。
+
+我建议下一轮不要再大改实验；直接做一次 **math-consistency patch + figure hardening**。修完上面这几个点后，我会更放心地把它视为 TR-B 投稿前最终稿。

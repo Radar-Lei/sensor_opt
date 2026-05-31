@@ -18,6 +18,9 @@ The narrow claim of Section~4 can be stated in one place: one fixed-infrastructu
 
 For a fixed layout $\calS$, TRACE-BiOpt reconstructs the full state from the
 selected sensors through the GLS/MAP problem in Section~\ref{sec:problem}. Let
+$M_{\calS}$ denote the row-selection observation operator, let
+$D_{\calS}=M_{\calS}^{\top}M_{\calS}$ be the induced diagonal observation mask,
+and let $D_{\calH}=I-D_{\calS}$ be the hidden-state projector. Then
 \[
     A(\calS)
     =
@@ -49,7 +52,16 @@ $\calH(\calS)=\calV\setminus\calS$ and the validation hidden reconstruction loss
     \sum_{i\in\calH(\calS)}
     \rho_{\delta}\!\left(x_{ti}-\hat{x}_{ti}(\calS)\right),
 \]
-where $\rho_{\delta}$ is the Huber penalty. TRACE-BiOpt augments this direct
+where
+\[
+    \rho_{\delta}(e)
+    =
+    \begin{cases}
+        \dfrac{e^2}{2\delta}, & |e|\le \delta,\\[4pt]
+        |e|-\dfrac{\delta}{2}, & |e|>\delta,
+    \end{cases}
+\]
+which matches the smooth-L1 scaling used in the implementation. TRACE-BiOpt augments this direct
 reconstruction-risk term with uncertainty, tail-risk, and spatial redundancy
 terms:
 \[
@@ -60,23 +72,29 @@ terms:
     +\gamma\,\Phi_{\mathrm{tail}}(\calS)
     +\eta\,\Omega_{\mathrm{spatial}}(\calS).
 \]
-The posterior term is
+The implementation and current-best evidence use the normalized full-state
+posterior trace
 \[
     \Phi_{\mathrm{post}}(\calS)
     =
-    \tr\!\left(
-        (I-M_{\calS})
-        \Sigma_{\mathrm{post}}(\calS)
-        (I-M_{\calS})
-    \right),
+    \frac{1}{|\calV|}\tr\!\left(\Sigma_{\mathrm{post}}(\calS)\right),
 \]
-so the design explicitly penalizes hidden-state uncertainty left after the
-chosen sensors are observed. The tail term uses scenario losses
-$\ell_t(\calS)=\tr((I-M_{\calS})\Sigma^{(t)}_{\mathrm{post}}(\calS)(I-M_{\calS}))$
+so the design explicitly penalizes posterior uncertainty left under the fitted
+precision model after the chosen sensors are observed. The tail term uses
+scenario losses
+\[
+    \ell_t(\calS)
+    =
+    \frac{1}{|\calV|}\tr\!\left(\Sigma^{(t)}_{\mathrm{post}}(\calS)\right)
+\]
 and applies a scenario-CVaR penalty
-$\Phi_{\mathrm{tail}}(\calS)=\mathrm{CVaR}_{\alpha}(\ell_t(\calS))$ to discourage
+$\Phi_{\mathrm{tail}}(\calS)=\mathrm{CVaR}_{1-q}(\ell_t(\calS))$ to discourage
 layouts that look acceptable on average but leave large reconstruction risk in
-bad traffic regimes. The spatial term $\Omega_{\mathrm{spatial}}(\calS)$ is a
+bad traffic regimes. Here $q$ is the implementation tail fraction
+(\texttt{cvar\_tail\_fraction}); the reported runs use $q=0.25$, so the tail
+term averages the worst 25\% of sampled scenario traces. A hidden-block
+variant can be written as $\tr(D_{\calH}\Sigma_{\mathrm{post}}D_{\calH})/|\calV|$,
+but that is not the audited objective used in the current experiments. The spatial term $\Omega_{\mathrm{spatial}}(\calS)$ is a
 deterministic redundancy penalty built from graph distances and recoverability
 certificates; it prevents the solver from spending the whole budget on a
 single dense corridor when a more distributed layout improves hidden-network
@@ -120,14 +138,18 @@ The continuous relaxation is an initializer, not a separate method. It solves
     \mathbf{1}^{\top}s=k,
 \]
 where the same reconstruction-risk ingredients are evaluated with fractional
-observation weights. TRACE-BiOpt then performs projected updates
+observation weights. TRACE-BiOpt then performs deterministic active-pool
+finite-difference projected updates
 \[
     s^{(m+1)}
     =
     \Pi_{\{s\in[0,1]^{|\calV|}:\,\mathbf{1}^{\top}s=k\}}
-    \left(s^{(m)}-\alpha_m\nabla \tilde J(s^{(m)})\right),
+    \left(s^{(m)}-\alpha_m\hat g^{(m)}\right),
 \]
-rounds by deterministic top-$k$, and hands the resulting discrete layout to
+where $\hat g^{(m)}$ is a forward finite-difference surrogate evaluated only on
+a deterministic active node pool selected from the current relaxed scores and
+posterior-priority heuristics. The method then rounds by deterministic top-$k$
+and hands the resulting discrete layout to
 the same exchange-refinement stage. This keeps the algorithmic story unified:
 continuous optimization supplies a warm start for the same bilevel objective,
 while the final accepted layout is always the output of deterministic discrete
@@ -205,7 +227,7 @@ $A(\calS)\hat{x}_t(\calS)=b_t(\calS)$. Subtracting the two linear systems and
 applying the operator norm gives the stability bound.
 \end{proof}
 
-\begin{theorem}[Posterior trace as Bayes squared reconstruction risk]
+\begin{theorem}[Posterior trace as Bayes squared reconstruction risk certificate]
 \label{thm:trace-risk}
 Under the linear-Gaussian model with positive definite $\Sigma$ and $R_{\calS}$,
 $x\sim\mathcal{N}(\mu,\Sigma)$, $y_{\calS}=M_{\calS}x+\varepsilon$,
@@ -215,19 +237,23 @@ $\varepsilon\sim\mathcal{N}(0,R_{\calS})$, the posterior covariance is
     =
     (\Sigma^{-1}+M_{\calS}^{\top}R_{\calS}^{-1}M_{\calS})^{-1}.
 \]
-For the hidden set $\calH=\calV\setminus\calS$, where $\Sigma_{\calH|\calS}$ is
-the hidden block of $\Sigma_{\mathrm{post}}(\calS)$,
+Then
 \[
-    \E\!\left[\|x_{\calH}-\E[x_{\calH}\mid y_{\calS}]\|_2^2\right]
+    \E\!\left[\|x-\E[x\mid y_{\calS}]\|_2^2\right]
     =
-    \tr(\Sigma_{\calH|\calS}).
+    \tr(\Sigma_{\mathrm{post}}(\calS)).
 \]
+If one instead studies hidden components only, the same identity holds after
+replacing $x$ with $D_{\calH}x$ and $\Sigma_{\mathrm{post}}(\calS)$ with
+$D_{\calH}\Sigma_{\mathrm{post}}(\calS)D_{\calH}$.
 \end{theorem}
 
 \begin{proof}
 For squared loss, the conditional expectation is the Bayes estimator. The
-conditional residual has covariance $\Sigma_{\calH|\calS}$; taking the trace of
-the second moment gives the expected squared reconstruction error.
+conditional residual has covariance $\Sigma_{\mathrm{post}}(\calS)$; taking the
+trace of the second moment gives the expected squared reconstruction error.
+Applying the same argument to the projected hidden vector
+$D_{\calH}x-D_{\calH}\E[x\mid y_{\calS}]$ gives the hidden-block variant.
 \end{proof}
 
 \begin{theorem}[Uniform validation generalization over size-$k$ layouts]
