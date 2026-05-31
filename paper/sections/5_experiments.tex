@@ -22,8 +22,8 @@ visualization. Each point is a candidate sensor location.
 \label{fig:network-cases}
 \end{figure}
 
-\paragraph{Current-best evidence chain.}
-The reported results use a \emph{current-best} evidence chain that combines
+\paragraph{Combined evidence path.}
+The reported results use a combined evidence path that merges
 Stage15 and Stage16 calibrated runs under a predefined replacement gate.
 Stage15 refers to the original ten-split production run under the default
 TRACE-BiOpt configuration; Stage16 refers to calibrated reruns that estimate
@@ -35,8 +35,8 @@ held-out MAE and improves the paired win count on the same ten seeds.
 Eight of the nine dataset-budget rows are promoted Stage16 rows.
 Seattle 10\% remains on the Stage15 lane because its Stage16 candidate did not
 pass the replacement gate---the calibrated rerun did not improve the already
-strong Stage15 result.  This fail-closed rule prevents weaker reruns from
-replacing audited ten-seed evidence and preserves the same external comparison
+strong Stage15 result. This replacement rule prevents weaker reruns from
+overwriting the original ten-seed result and preserves the same external comparison
 protocol across all rows.
 
 The primary metric is hidden-component MAE under the transparent GLS/MAP
@@ -57,17 +57,11 @@ TRACE-BiOpt solver. They are evaluation rows used to test whether one
 recoverability-driven bilevel objective is strong enough to beat the best
 available non-BiOpt comparator.
 
-\input{tables/table_trace_biopt_baseline_family_screen}
-
-Table~\ref{tab:trace-biopt-baseline-family-screen} confirms that the comparison
-class is broad and competitive. The 21 pre-registered baselines span 11
-families, and the family that most often comes closest is the prior
-TRACE-SL / RCSS family, which supplies 8/9 strongest-mean challengers and
-7/9 hardest corrected challengers. Even so, that family still leaves zero
-surviving challenger after Holm correction, with its closest current-best gap
-remaining at $-0.0375$ MAE. No other family contributes more than one
-strongest-mean row, and only the scenario-risk and simple-heuristic families
-appear once each as the hardest corrected family.
+Appendix Table~\ref{tab:trace-biopt-baseline-family-screen} summarizes the
+same registry at the family level. The main point is that the comparison class
+is neither narrow nor artificially weak: the 21 pre-registered baselines span
+11 families, and the closest challengers usually come from the previous
+TRACE-SL / RCSS family rather than from an easy straw-man comparator.
 
 \subsection{Best-baseline dominance}
 
@@ -84,28 +78,25 @@ validation-swap TRACE-SL route is strongest on the remaining seven rows.
 The strongest paired evidence now includes PeMS7\_1026, PeMS7\_228, and
 Seattle at all three budgets. On all nine rows TRACE-BiOpt wins all ten paired
 splits, and paired $p$ values range from $9.81\times 10^{-8}$ to $0.0021$.
-The previously weakest current-best row, PeMS7\_228 at 10\%, is now backed by
+The previously weakest reported row, PeMS7\_228 at 10\%, is now backed by
 the calibrated full-search rerun and improves from a mixed 7/10 paired result
-to a 10/10 paired win. The current-best chain therefore supports submission-ready
+to a 10/10 paired win. The combined evidence path therefore supports submission-ready
 paired dominance on every tested dataset-budget row.
 
 Appendix Table~\ref{tab:trace-biopt-full-baseline-matrix} makes the stronger
 point explicit: the best-baseline table is not hiding weaker rows. When all 22
 registered layouts are written out, TRACE-BiOpt still ranks first on every
-dataset-budget row of the current-best chain.
+dataset-budget row of the reported nine-regime comparison set.
 
 The full 22-method dominance heatmap is deferred to Appendix~\ref{sec:appendix-full-baseline} for readability.
 
 \subsection{Strongest-challenger envelope}
 
-Figure~\ref{fig:trace-biopt-current-best-curves} compresses the same
-current-best evidence into a strongest-challenger envelope: for each sensor budget, the envelope traces the strongest pre-registered non-BiOpt comparator, which may differ across budgets. TRACE-BiOpt stays below
-the row-specific strongest pre-registered non-BiOpt comparator at every budget
-on all three networks. The largest gaps appear on PeMS7\_1026 at 10\% and
-20\%, the Seattle envelope shows a steady advantage against RCSS and the previous
-TRACE-SL swap family, and the narrowest gap appears on PeMS7\_1026 at
-30\%, matching the later diagnosis that this row is search- and
-calibration-sensitive rather than a contradiction of the formulation.
+The full strongest-challenger envelope is moved to
+Appendix~\ref{sec:appendix-challenger-envelope}. That view is still useful for
+showing how the row-specific strongest baseline may change with budget, but the
+paired-margin forest plot is the cleaner main-text display because it
+compresses all nine regimes without repeating line charts.
 
 \subsection{Paired margins}
 
@@ -120,8 +111,8 @@ non-BiOpt challenger and TRACE-BiOpt.  The horizontal axis shows
 $\text{Challenger MAE} - \text{TRACE-BiOpt MAE}$, so that positive values
 indicate lower error for TRACE-BiOpt.  Error bars show approximate 95\%
 confidence intervals over the ten split seeds.  All nine tested
-dataset--budget regimes favor TRACE-BiOpt under the current-best evidence
-chain.
+dataset--budget regimes favor TRACE-BiOpt in the reported nine-regime
+comparison set.
 }
 \label{fig:trace-biopt-paired-margins}
 \end{figure}
@@ -144,30 +135,20 @@ one-sided Wilcoxon $p$ value stays below 0.005 on all 189 comparisons.
 
 \input{tables/table_trace_biopt_significance_posture}
 
-Table~\ref{tab:trace-biopt-challenger-posture} makes one further point that
-the main dominance table and the corrected significance screen should not
-hide. On 6/9 current-best rows, the strongest mean challenger and the hardest
-challenger after Holm correction come from different baseline families. This
-is exactly what one would expect if TRACE-BiOpt is not merely tuned against
-one convenient comparator: PeMS7\_1026 at 10\% is closest in mean MAE to Swap
-from A-trace but hardest after correction against the previous TRACE-SL
-route, while Seattle at 10\% is closest in mean MAE to RCSS but hardest after
-correction against Multistart validation-swap. The all-baseline screen
-therefore does more than ratify the primary table. It shows that no single
-baseline family remains the unique near-miss once both mean ranking and
-multiplicity-corrected paired inference are made explicit.
+Appendix Table~\ref{tab:trace-biopt-challenger-posture} records the family-wise
+near-miss structure behind this corrected screen. On 6/9 rows, the strongest
+mean challenger and the hardest challenger after Holm correction come from
+different baseline families, which confirms that the result is not tuned to one
+convenient comparator.
 
-\input{tables/table_trace_biopt_challenger_posture}
-
-The empirical evidence can be read as a layered assessment: the baseline registry breadth (Table~\ref{tab:trace-biopt-baseline-family-screen}), the best-challenger dominance (Table~\ref{tab:trace-biopt-dominance}), the all-baseline corrected significance screen (Table~\ref{tab:trace-biopt-significance-posture}), and the family-level near-miss structure (Table~\ref{tab:trace-biopt-challenger-posture}). Together, these layers show that TRACE-BiOpt outperforms all 21 pre-registered non-BiOpt baselines in the tested regimes, with no surviving challenger after Holm-corrected paired tests across all 189 comparisons.
+The empirical evidence can be read as a layered assessment: the baseline registry breadth (Table~\ref{tab:trace-biopt-baseline-family-screen}), the best-challenger dominance (Table~\ref{tab:trace-biopt-dominance}), the all-baseline corrected significance screen (Table~\ref{tab:trace-biopt-significance-posture}), and the family-level near-miss structure (Table~\ref{tab:trace-biopt-challenger-posture}). Together, these layers show that TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered non-BiOpt baselines in the tested regimes, with no surviving challenger after Holm-corrected paired tests across all 189 comparisons.
 
 % Comparison ladder table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
 \subsection{Comparison with the previous TRACE-SL evidence}
 
-\input{tables/table_external}
-
-The earlier Stage12 TRACE-SL tables remain useful as a diagnostic history, but
+Appendix Table~\ref{tab:external} retains the earlier Stage12 TRACE-SL summary
+as a diagnostic history, but
 they are no longer the main method claim. They showed why the method pivot was
 necessary: on some low-budget external rows, internal A-trace, RCSS, or
 multistart validation-swap variants were competitive with the older
@@ -176,10 +157,8 @@ selection logic with
 one bilevel objective and then testing against those same strong variants as
 baselines.
 
-\subsection{Claim boundary}
-
 The current-best results support the following aggregate statement: across
-the tested datasets and 10/20/30\% budgets, TRACE-BiOpt has the lowest mean
-held-out GLS/MAP MAE against the 21 pre-registered non-BiOpt baselines in the
-tested regimes. They do not support claims of global optimality, dominance over
-untested baselines, or universal cross-network generalization.
+the tested datasets and 10/20/30\% budgets, TRACE-BiOpt achieves the lowest
+mean held-out GLS/MAP MAE against 21 pre-registered non-BiOpt baselines in the
+tested regimes. These results do not support claims of global optimality,
+dominance over untested baselines, or universal cross-network generalization.

@@ -34,7 +34,8 @@ recoverability. Seattle is the cleanest low-variance case, with
 the strongest-baseline margin widening from 0.056 to 0.094 as the budget
 increases.
 
-\input{tables/table_trace_biopt_budget_phasing}
+Appendix Table~\ref{tab:trace-biopt-budget-phasing} gives the full staged
+budget-phasing readout.
 
 The scope of the empirical claim is stated alongside the result. The paper reports row-wise lowest held-out GLS/MAP MAE against the row-wise strongest pre-registered non-BiOpt challenger on the tested dataset-budget rows, and shows that Holm-corrected one-sided paired tests over the 189 row-baseline comparisons leave no statistically tied or significantly better pre-registered challenger. The dominance statement is therefore limited to the 21 pre-registered non-BiOpt baselines in the tested regimes; it does not imply dominance over untested layout families or universal cross-network generalization.
 
@@ -50,22 +51,23 @@ at 10\%, 560 at 20\%, and 4,368 at 30\% per anchor. Across the resulting
 with zero objective gap. This narrows the solver limitation in a useful way:
 on small connected subnetworks, the implemented forward-plus-exchange route is
 already exact under the paper's own objective. It does not remove the
-full-network caveat, and it does not upgrade Seattle 10\% from fail-closed
-evidence to a promoted row.
+full-network caveat, and it does not upgrade Seattle 10\% from its retained
+original row to a promoted calibrated rerun.
 
-\input{tables/table_trace_biopt_exact_subnetwork}
+Appendix Table~\ref{tab:trace-biopt-exact-subnetwork} reports the full
+exact-subnetwork benchmark.
 
-Several limitations define the claim boundary. First, the empirical evidence covers only the three tested traffic networks, three budget levels, ten split seeds, and the declared GLS/MAP reconstruction protocol. Second, the comparison is limited to the 21 pre-registered non-BiOpt baselines in the current-best evidence chain; TRACE-BiOpt is not tested against layout families outside this registry. Third, the implemented exchange solver is local to the searched deterministic one-swap neighborhood and does not certify global optimality over all $\binom{|\calV|}{k}$ layouts. Fourth, posterior trace is a Gaussian squared-error uncertainty certificate under scoped GLS/MAP assumptions; it is not a theorem that MAE must improve on non-Gaussian traffic data. Fifth, because traffic observations are temporally dependent, the validation generalization bound should be interpreted with independent blocks or an effective sample size rather than with the raw daily count. Sixth, the robustness results are bounded stress screens against a fixed set of perturbation types and magnitudes, not a certification of robustness under all possible disturbances. Seventh, raw PeMS and Seattle traffic datasets are not redistributed with the repository; reproducibility requires local placement of the datasets as documented in the README. Eighth, the computational burden of posterior and exchange operations grows with network size and sensor budget, which limits straightforward scaling to very large networks without further algorithmic work.
+Several limitations define the claim boundary. First, the empirical evidence covers only the three tested traffic networks, three budget levels, ten split seeds, and the declared GLS/MAP reconstruction protocol. Second, the comparison is limited to the 21 pre-registered non-BiOpt baselines in the tested regimes; TRACE-BiOpt is not tested against layout families outside this registry. Third, the implemented exchange solver is local to the searched deterministic one-swap neighborhood and does not certify global optimality over all $\binom{|\calV|}{k}$ layouts. Fourth, posterior trace is a Gaussian squared-error uncertainty certificate under scoped GLS/MAP assumptions; it is not a theorem that MAE must improve on non-Gaussian traffic data. Fifth, because traffic observations are temporally dependent, the validation generalization bound should be interpreted with independent blocks or an effective sample size rather than with the raw daily count. Sixth, the robustness results are bounded stress screens against a fixed set of perturbation types and magnitudes, not a certification of robustness under all possible disturbances. Seventh, raw PeMS and Seattle traffic datasets are not redistributed with the repository; reproducibility requires local placement of the datasets as documented in the README. Eighth, the computational burden of posterior and exchange operations grows with network size and sensor budget, which limits straightforward scaling to very large networks without further algorithmic work.
 
-The empirical claim is intentionally scoped. It concerns three traffic networks, three budget levels, ten split seeds, the declared GLS/MAP reconstruction protocol, and the 21 pre-registered non-BiOpt baselines in the current-best evidence chain. It does not imply dominance over untested layout families or universal cross-network generalization.
+The empirical claim is intentionally scoped. It concerns three traffic networks, three budget levels, ten split seeds, the declared GLS/MAP reconstruction protocol, and 21 pre-registered non-BiOpt baselines in the tested regimes. It does not imply dominance over untested layout families or universal cross-network generalization.
 
 These limitations are methodological guardrails rather than defects. They make
 the manuscript falsifiable: a reviewer can trace each claim to a table,
-theorem statement, or explicit caveat. The current-best evidence chain
-provides paired dominance on every tested row, no surviving pre-registered challenger after 189
-Holm-corrected paired comparisons, and explicit boundaries around
-untested baselines, searched-neighborhood stationarity rather than global optimality, and unproved robustness outside
-the tested perturbation slices. Future work should study stronger exchange
+theorem statement, or explicit caveat. The paper therefore pairs dominance on
+every tested row with explicit boundaries around untested baselines,
+searched-neighborhood stationarity rather than global optimality, and
+robustness claims that remain limited to the reported perturbation slices.
+Future work should study stronger exchange
 neighborhoods, approximation properties under traffic-specific covariance
 structure, larger exact mixed-integer or exhaustive benchmarks beyond the
 16-node subnetworks, and deployment studies with real maintenance,
@@ -84,4 +86,4 @@ strongest pre-registered competitor inside the 21-baseline / 11-family
 comparison class rather than against a fixed weak baseline. That is more
 useful to a TR-B reader than a maximalist ``wins everywhere forever'' slogan.
 
-The submission package therefore treats reproducibility as part of the method. Paper-visible numbers are generated from machine-readable artifacts, the main caveats are repeated where they affect interpretation, and the source separates manuscript prose from raw traffic datasets. This structure is intended to make later revisions local: if a reviewer questions a number, baseline, or scope statement, the corresponding row in the evidence index identifies the source artifact to inspect.
+The submission package therefore treats reproducibility as part of the method. Paper-visible numbers are generated from machine-readable artifacts, the main caveats are repeated where they affect interpretation, and the source separates manuscript prose from raw traffic datasets. This structure is intended to make later revisions local: if a reviewer questions a number, baseline, or scope statement, the evidence index identifies the source artifact to inspect.

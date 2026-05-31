@@ -8,10 +8,9 @@ method components to be defended as a selector stack. They are comparator
 mechanisms used to show that the bilevel objective is not merely selecting the
 best historical heuristic. Table~\ref{tab:ablation} therefore remains only as
 PeMS7\_228 Stage12 background on the historical heuristic ladder, not as the
-main method-facing ablation result.
-
-\input{tables/table_ablation}
-\input{tables/table_trace_biopt_route_ablation}
+main method-facing ablation result. The legacy component ladder is kept in
+Appendix Table~\ref{tab:ablation}, and the TRACE-BiOpt route-ablation slices
+are reported in Appendix Table~\ref{tab:trace-biopt-route-ablation}.
 
 The Stage15 evidence uses these mechanisms more stringently: the strongest
 non-BiOpt row in each dataset-budget group becomes the best-baseline comparator
@@ -39,16 +38,14 @@ return to the old selector-centered narrative.
 
 \subsection{Mechanism diagnostics}
 
-\input{tables/table_trace_biopt_mechanism}
-
-Table~\ref{tab:trace-biopt-mechanism} summarizes the mechanism evidence that
-connects the optimization formulation to the current best main-table outcomes. The first
+Appendix Table~\ref{tab:trace-biopt-mechanism} summarizes the mechanism evidence that
+connects the optimization formulation to the reported main-table outcomes. The first
 diagnostic is adversarial: the comparator is the row-specific best baseline,
 not a single convenient baseline. The second separates mean dominance from
 paired-split strength, so split-level support remains visible rather than being
 averaged away. The third now records how the weakest rows were handled: the
 current weakest margin row on PeMS7\_1026 30\% is already a promoted
-calibrated-rerun row, and the same current-best chain also absorbed the
+calibrated-rerun row, and the same reported evidence path also absorbed the
 PeMS7\_228 10\% low-budget calibration rerun. The fourth shows that the best comparator is
 usually a strong TRACE-SL-family or RCSS-family layout. The fifth
 links the posterior/certificate quantities back to held-out MAE under the same
@@ -98,7 +95,7 @@ informative and should be combined with it inside one unified objective.
 
 Figure~\ref{fig:trace-biopt-sensor-maps} puts the same low-budget evidence back
 onto network coordinates rather than leaving it in an abstract layout table.
-This is the transport-facing reading of the current-best chain. On PeMS7\_228
+This is the transport-facing reading of the reported evidence path. On PeMS7\_228
 and Seattle, where released cabinet or station coordinates are available, the
 promoted TRACE-BiOpt layouts visibly distribute low-budget sensors across
 recoverability-critical corridors rather than intensifying one local detector
@@ -160,11 +157,11 @@ nodes instead of being carried by one or two extreme error spikes.
 
 \subsection{Optimization diagnostics}
 
-\input{tables/table_trace_biopt_optimization}
-\input{tables/table_trace_biopt_solver_scale}
-% Initializer table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-% Compute table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
-\input{tables/table_trace_biopt_exchange_certificate}
+% Detailed solver tables moved to the appendix to keep the main text focused.
+
+Appendix Tables~\ref{tab:trace-biopt-optimization}--\ref{tab:trace-biopt-exchange-certificate}
+report the optimization history, solver scale, and exchange-certificate
+summaries.
 
 Table~\ref{tab:trace-biopt-optimization} reports the optimization history
 recorded by TRACE-BiOpt during Stage15. Across the 90 dataset-budget-seed runs,
@@ -235,8 +232,8 @@ stationarity certificate.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_objective_descent.pdf}
-\caption{Current-best TRACE-BiOpt objective descent and accepted-step mix. The top row shows the mean relative objective gap remaining over normalized accepted-update progress; the bottom row stacks the mean accepted forward/warm-start and exchange steps for each budget.}
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_objective_descent_top.png}
+\caption{Current-best TRACE-BiOpt objective descent. Each panel shows the mean relative objective gap remaining over normalized accepted-update progress for the three tested budgets. The accepted-step mix is deferred to Appendix Figure~\ref{fig:trace-biopt-objective-descent-full} so the main text keeps the convergence pattern readable.}
 \label{fig:trace-biopt-objective-descent}
 \end{figure*}
 
@@ -252,6 +249,10 @@ same search-budget-sensitive story seen in Tables~\ref{tab:trace-biopt-optimizat
 and~\ref{tab:trace-biopt-solver-scale}: large-network rows do not need a new
 method family, but they do need a stronger warm start plus a visibly longer
 exchange tail under the same TRACE-BiOpt objective.
+
+Appendix Figure~\ref{fig:trace-biopt-objective-descent-full} keeps the full
+accepted-step mix for readers who want the forward-versus-exchange breakdown by
+budget.
 
 Figure~\ref{fig:trace-biopt-exchange-gap-curves} isolates the accepted
 exchange phase itself. The promoted PeMS7\_1026 rows remain the clearest
@@ -338,9 +339,7 @@ correct reading is therefore not ``larger CVaR is always better,'' but
 ``tail-risk weighting should remain bounded and regime-calibrated inside one
 TRACE-BiOpt objective.''
 
-\input{tables/table_trace_biopt_search_probe}
-
-Table~\ref{tab:trace-biopt-search-probe} is a diagnostic follow-up on the
+Appendix Table~\ref{tab:trace-biopt-search-probe} is a diagnostic follow-up on the
 weakest main row, PeMS7\_1026 at 30\%. It keeps the TRACE-BiOpt objective
 unchanged and increases only deterministic exchange-search pools and iterations
 over the original ten Stage15 split seeds. The probe improves TRACE-BiOpt MAE
@@ -353,9 +352,7 @@ replacement, it supports the interpretation that the original weakest row was
 search-budget limited; it is not used to replace
 Table~\ref{tab:trace-biopt-dominance}.
 
-\input{tables/table_trace_biopt_calibration_probe}
-
-Table~\ref{tab:trace-biopt-calibration-probe} records the calibrated rerun that
+Appendix Table~\ref{tab:trace-biopt-calibration-probe} records the calibrated rerun that
 now supplies the current-best evidence for PeMS7\_228 at 10\%. The original
 failure mode was that, with only two validation days, the upper-level
 reconstruction loss could prefer layouts whose validation MAE was lower but
@@ -370,9 +367,7 @@ low-budget calibration-risk refinement is no longer just a diagnostic
 hypothesis: it is the evidence route currently used for the PeMS7\_228 10\%
 main-table row.
 
-\input{tables/table_trace_biopt_stage16_calibrated_probe}
-
-Table~\ref{tab:trace-biopt-stage16-calibrated-probe} applies the same
+Appendix Table~\ref{tab:trace-biopt-stage16-calibrated-probe} applies the same
 calibration-risk refinement to the weakest margin row, PeMS7\_1026 at 30\%.
 Because the network has 1026 nodes, this rerun uses the scalable active-set
 exchange search rather than complete exchange enumeration. The calibrated
@@ -383,13 +378,11 @@ t-test $p=4.6e{-}05$ and Wilcoxon signed-rank $p=0.0010$. Together with
 Table~\ref{tab:trace-biopt-calibration-probe}, this shows that calibrated
 upper-level risk estimation is not a one-row patch: it resolves the original
 PeMS7\_228 10\% mixed row and also strengthens the weakest remaining margin
-row on PeMS7\_1026 30\%. The current-best evidence chain already promotes both
-completed reruns. The current-best evidence chain now promotes all
-Stage16 calibrated rows; Seattle 10\% remains on the Stage15 lane.
+row on PeMS7\_1026 30\%. Both completed reruns are now promoted into the main
+results, while Seattle 10\% remains on the original Stage15 row because its
+calibrated alternative did not improve the ten-seed outcome.
 
-\input{tables/table_trace_biopt_regime_lessons}
-
-Table~\ref{tab:trace-biopt-regime-lessons} compresses these row-level
+Appendix Table~\ref{tab:trace-biopt-regime-lessons} compresses these row-level
 diagnostics into a regime taxonomy. It shows which rows are
 currently best interpreted as calibration-sensitive, which are search-budget
 sensitive, and which already show stable dominance over the prior TRACE-SL or

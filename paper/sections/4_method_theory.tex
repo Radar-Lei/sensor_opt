@@ -8,9 +8,9 @@ transparent lower-level reconstruction problem, and one deterministic
 optimization pipeline. The older TRACE-SL validation-swap layout is retained
 only as a pre-registered comparator in the experiments, and the full
 21-baseline / 11-family registry stays outside the solver as an external
-audited comparison class rather than an internal candidate pool.
+comparison class rather than an internal candidate pool.
 
-The narrow claim of Section~4 can be stated in one place: one fixed-infrastructure decision, one transparent inverse problem, one unified recoverability-driven objective, one deterministic solver route, one external audited comparison class, and explicit non-claims around global exactness.
+The narrow claim of Section~4 can be stated in one place: one fixed-infrastructure decision, one transparent inverse problem, one unified recoverability-driven objective, one deterministic solver route, one external comparison class, and explicit non-claims around global exactness.
 
 % Method contract table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
@@ -262,11 +262,16 @@ traffic data, the same expression should be read with independent validation
 blocks or an effective sample size under mixing assumptions.
 \end{proof}
 
-\input{tables/table_trace_biopt_generalization_burden}
+\input{tables/table_theory}
 
-Table~\ref{tab:trace-biopt-generalization-burden} turns
+Table~\ref{tab:theory} summarizes the scoped formal statements that the main
+text relies on. The detailed burden and bridge diagnostics that connect these
+statements to individual experimental regimes are deferred to the appendix so
+that the main body keeps its focus on formulation and results.
+
+Appendix Table~\ref{tab:trace-biopt-generalization-burden} turns
 Theorem~\ref{thm:uniform-layout} into a row-level burden diagnostic for the
-actual current-best evidence chain. All nine main rows use the same two-day
+current nine-regime experiment set. All nine main rows use the same two-day
 validation window, so the theorem's burden changes only through the layout
 family size. Under that fixed $n_v=576$ window, the uniform deviation factor is
 materially looser on PeMS7\_1026 than on PeMS7\_228: the current-best
@@ -275,7 +280,7 @@ PeMS7\_228 10\% is only 0.263. The correct reading is limited but useful. This
 does not prove which row must win empirically, but it does explain why the
 largest-network, higher-budget rows place more strain on a fixed validation
 window and therefore benefit most from calibrated reruns or stronger exchange
-search under the same audited TRACE-BiOpt objective.
+search under the same TRACE-BiOpt objective.
 
 \begin{theorem}[TRACE-BiOpt exchange certificate]
 \label{thm:exchange}
@@ -381,14 +386,8 @@ network-design method with a coherent tail-risk term. It does not prove exact gl
 \paragraph{Scope of the theoretical statements.}
 The preceding statements support TRACE-BiOpt as a transparent and analyzable network-design procedure, but they do not by themselves prove empirical dominance on arbitrary traffic networks. The posterior-trace identity is a Gaussian squared-error Bayes-risk statement; the paper's main empirical metric is held-out hidden-state MAE under real traffic data. The all-layout generalization bound quantifies the statistical burden of validating size-$k$ layouts and should be read with independent validation blocks or an effective sample size for temporally dependent traffic. The exchange result certifies stationarity only over the searched one-exchange neighborhood, and becomes a full one-exchange certificate only when the full neighborhood is enumerated and the exchange gap is zero. These boundaries are why the empirical claim is stated only for the tested networks, budgets, seeds, estimator, and pre-registered comparison family.
 
-\input{tables/table_theory}
-
-Table~\ref{tab:trace-biopt-theory-bridge} turns the theorem list into a
-theory-to-evidence bridge. The point is not to claim that a diagnostic table
-proves a theorem. The point is to make the manuscript transparent end to end:
-each formal statement is paired with a visible current-best evidence lane and
-a bounded interpretation. In other words, the paper does not ask a reader to
-trust that theorems and experiments happen to point in the same direction; it
-shows where that contact actually occurs in the current-best chain.
-
-\input{tables/table_trace_biopt_theory_bridge}
+Appendix Table~\ref{tab:trace-biopt-theory-bridge} then records the
+theory-to-evidence bridge in one place. That table is intentionally
+supplementary: its role is to document how each theorem informs the empirical
+reading, not to compete with the main experimental tables for front-screen
+attention.

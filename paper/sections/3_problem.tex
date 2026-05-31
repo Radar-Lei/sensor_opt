@@ -12,7 +12,7 @@ Given a candidate set $\calV$, a sensor budget $k$, training data $\calD_{\mathr
 is small for a reconstruction loss $\ell$. The empirical paper metric uses hidden-component MAE on $\calD_{\mathrm{te}}$ after $\hat{\calS}$ and all layout-selection rules are fixed.
 \end{definition}
 
-The definition above makes explicit that Section~3 is about one deployment-time network-design decision, one hidden-state recoverability target, one bilevel stochastic structure, one split discipline, and one external audited comparison class, not a generic sparse-sensor benchmark setup.
+The definition above makes explicit that Section~3 is about one deployment-time network-design decision, one hidden-state recoverability target, one bilevel stochastic structure, one split discipline, and one external comparison class, not a generic sparse-sensor benchmark setup.
 
 % Problem contract table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
@@ -36,13 +36,13 @@ The upper-level design objective is
     +\gamma\,\frac{\operatorname{CVaR}_{\alpha}(\mathrm{scenario\_trace}(\calS))}{|\calV|}
     +\eta\,\Omega_{\mathrm{spatial}}(\calS).
 \]
-The first term is validation hidden-state reconstruction loss with a Huber penalty, the second is a posterior uncertainty certificate, the third penalizes tail reconstruction risk across traffic scenarios, and the fourth discourages spatial redundancy. All four terms are part of one objective. Baseline layouts are not candidates inside TRACE-BiOpt. They define an external audited comparison class that is consulted only after the layout rule is frozen and held-out reconstruction error is measured.
+The first term is validation hidden-state reconstruction loss with a Huber penalty, the second is a posterior uncertainty certificate, the third penalizes tail reconstruction risk across traffic scenarios, and the fourth discourages spatial redundancy. All four terms are part of one objective. Baseline layouts are not candidates inside TRACE-BiOpt. They define an external comparison class that is consulted only after the layout rule is frozen and held-out reconstruction error is measured.
 
 Training data estimate reconstruction ingredients such as means, covariances or precisions, graph operators, shrinkage levels, and regularization. Validation data evaluate the upper-level objective and deterministic exchange refinements. Test data are used only after the layout rule is fixed. This split discipline prevents validation reconstruction error from being treated as final deployment evidence.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/fig1_trace_biopt_framework_v2.pdf}
+\includegraphics[width=0.98\linewidth]{figures/fig1_trace_biopt_framework_v2.jpg}
 \caption{
 TRACE-BiOpt framework. The method optimizes a single recoverability-driven
 bilevel sensor-layout objective: a transparent GLS/MAP lower-level

@@ -1,104 +1,64 @@
 Cover Letter
 ============
 
-[AUTHOR NAME]
-[AFFILIATION]
-[ADDRESS]
-[EMAIL]
+[Corresponding Author Name]
+[Affiliation]
+[Address]
+[Email]
 
-[DATE]
+[Date]
 
-Professor [EDITOR NAME], Editor-in-Chief
+Editor-in-Chief
 Transportation Research Part B: Methodological
 Elsevier
 
-Dear Professor [EDITOR NAME],
+Dear Editor,
 
-RE: Submission of manuscript entitled "TRACE-SL: Transparent Reconstruction-Aware
-Sensor Placement for Full-Network Traffic State Estimation"
+Please consider our manuscript, "TRACE-BiOpt: Recoverability-Driven Bilevel
+Transportation Network Design for Sparse Traffic Sensor Siting," for
+publication in Transportation Research Part B: Methodological.
 
-We are pleased to submit the enclosed manuscript for consideration for publication
-in Transportation Research Part B: Methodological.
+This paper studies sparse traffic sensor siting as a fixed-infrastructure
+transportation network design problem. Given a sensor budget, the goal is to
+choose a long-lived sensor layout that improves reconstruction of the hidden
+traffic network state under a transparent GLS/MAP estimator. We propose
+TRACE-BiOpt, a bilevel stochastic optimization method whose lower level is a
+transparent inverse problem and whose upper level combines hidden-state
+reconstruction loss, posterior uncertainty, CVaR tail risk, and spatial
+redundancy regularization. The solver uses deterministic initialization and
+one-exchange refinement under the same objective; pre-registered baselines are
+not used as method candidates.
 
-SUMMARY OF CONTRIBUTIONS
-------------------------
+The manuscript contributes:
 
-This paper addresses the fundamental problem of optimally placing sparse traffic
-sensors to enable accurate, transparent, and certifiable reconstruction of
-full-network traffic states. Our contributions are as follows:
+1. a recoverability-driven bilevel formulation for sparse traffic sensor
+   siting;
+2. a deterministic solver with scale-adaptive initialization and exchange
+   refinement under one objective;
+3. a scoped theory package covering MAP stability, posterior-risk
+   interpretation, all-layout validation generalization, CVaR interpretation,
+   and exchange-stationarity certification; and
+4. a reproducible empirical evaluation on PeMS7_228, PeMS7_1026, and Seattle
+   at 10%, 20%, and 30% budgets over ten split seeds.
 
-1. We formulate sensor placement as a bilevel network design problem, where the
-   upper level selects sensor locations to minimize reconstruction uncertainty
-   and the lower level performs transparent, closed-form traffic state estimation
-   via generalized least squares (GLS) and graph signal processing (GSP) methods.
+Under the stated GLS/MAP protocol, TRACE-BiOpt achieves the lowest mean
+held-out hidden-state MAE against 21 pre-registered non-BiOpt baselines in the
+tested regimes. Holm-corrected paired tests over the 189 row-baseline
+comparisons leave no statistically tied or significantly better pre-registered
+challenger. The claims are explicitly scoped to the tested regimes and do not
+assert global layout optimality, universal robustness, or dominance over
+untested methods.
 
-2. We develop a reconstruction-aware candidate selection (RCSS) framework that
-   integrates posterior-trace certificates, scenario-based robustness scores, and
-   validation-aware swap refinement, enabling data-driven selection among diverse
-   candidate layouts without requiring black-box surrogate models.
+We believe the paper fits Transportation Research Part B because it develops a
+mathematical and algorithmic method for transportation network design under
+partial observation, with transparent reconstruction, risk-aware optimization,
+and reproducible statistical evaluation.
 
-3. We provide theoretical analysis of the posterior error certificate, establishing
-   conditions under which the certificate serves as a reliable predictor of
-   out-of-sample reconstruction accuracy.
-
-4. We conduct extensive computational experiments on three benchmark networks
-   (PeMS7 with 228 nodes, PeMS7 with 1,026 nodes, and the Seattle heterogeneous
-   highway network), demonstrating that our approach consistently outperforms
-   established baselines including random, degree-based, variance-based, and
-   coverage-based placement strategies, with statistically significant improvements
-   confirmed through paired tests.
-
-SUITABILITY FOR TRANSPORTATION RESEARCH PART B
------------------------------------------------
-
-We believe this manuscript is well suited for Transportation Research Part B:
-Methodological for the following reasons:
-
-- The paper contributes a principled optimization methodology for a core
-  transportation system design problem (sensor network design), which aligns
-  with TR-B's focus on methodological advances in transportation.
-
-- The bilevel optimization formulation, posterior certificate theory, and robust
-  candidate selection framework constitute significant methodological innovations
-  that extend beyond incremental empirical improvements.
-
-- The rigorous computational experimentation across multiple real-world networks,
-  combined with statistical validation and ablation studies, meets the high
-  evidence standards expected by the journal.
-
-- The transparent, closed-form nature of the reconstruction framework offers
-  practical advantages for transportation agencies that require interpretable
-  and auditable sensor placement decisions.
-
-DECLARATIONS
-------------
-
-We confirm that:
-
-- This manuscript has not been published elsewhere and is not under consideration
-  by any other journal.
-
-- All authors have approved the manuscript and agree with its submission to
-  Transportation Research Part B: Methodological.
-
-- All authors have contributed significantly to the work and agree to be
-  accountable for the content.
-
-- The authors have no competing interests to declare.
-
-- All data used in this study are publicly available, as detailed in the Data
-  Availability Statement included with the manuscript.
-
-We believe this work makes substantial methodological contributions to the
-transportation sensor network design literature and would be of significant
-interest to the readership of Transportation Research Part B. We look forward
-to your consideration of this manuscript.
-
-Thank you for your time and consideration.
+We confirm that this manuscript is not under consideration elsewhere, and that
+all authors have approved the submission.
 
 Sincerely,
 
-[AUTHOR NAME]
-[Corresponding Author]
-[AFFILIATION]
-[EMAIL]
+[Corresponding Author Name]
+[Affiliation]
+[Email]

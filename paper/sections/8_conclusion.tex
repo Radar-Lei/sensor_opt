@@ -5,7 +5,7 @@ TRACE-BiOpt reframes sparse traffic sensor deployment as a recoverability-driven
 
 That is also the comparison class the paper asks a reviewer to use: fixed-infrastructure transportation network design under downstream recoverability, not estimator tuning, benchmark-style model ranking, or post-hoc layout selection.
 
-The method combines hidden Huber reconstruction loss, posterior uncertainty, scenario tail risk, and spatial regularization in one objective, then applies deterministic initialization and exchange refinement under that objective. Across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets, TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against all 21 pre-registered non-BiOpt baselines in the tested regimes. Holm-corrected one-sided paired tests across all 189 comparisons leave no pre-registered challenger tied or better after Holm correction. Separately, a bounded exact benchmark confirms 27/27 exact hits on deterministic 16-node subnetworks with zero objective gap, establishing bounded small-subnetwork reconstruction accuracy. The exchange solver further provides a searched-neighborhood stationarity certificate for every reported layout.
+The method combines hidden Huber reconstruction loss, posterior uncertainty, scenario tail risk, and spatial regularization in one objective, then applies deterministic initialization and exchange refinement under that objective. Across PeMS7\_228, PeMS7\_1026, and Seattle at 10\%, 20\%, and 30\% budgets, TRACE-BiOpt achieves the lowest mean held-out GLS/MAP MAE against 21 pre-registered non-BiOpt baselines in the tested regimes. Holm-corrected one-sided paired tests across all 189 comparisons leave no pre-registered challenger tied or better after Holm correction. Separately, the bounded exact benchmark exact-hits 27/27 deterministic 16-node subnetworks under the same objective, which serves as a small-scale solver cross-check rather than a full-network optimality claim. The exchange solver provides a searched-neighborhood stationarity certificate, not a global certificate.
 
 Stated compactly, the paper shows that one fixed-infrastructure
 transportation network-design method built around a transparent inverse
@@ -13,7 +13,7 @@ problem can achieve formulation consistency, theory-backed guarantees,
 bounded deployment-stress behavior, and multiplicity-robust statistical
 evidence on the tested traffic networks.
 
-These results translate into network-level planning guidance: treat PeMS7\_1026 as a search-budget-sensitive large network, PeMS7\_228 as an expansion-friendly calibrated rollout, and Seattle as a conservative staged-rollout case: promoted current-best evidence supports the 20/30\% rows, while the 10\% row remains on the audited Stage15 lane after the Stage16 promotion gate failed closed.
+These results translate into network-level planning guidance: treat PeMS7\_1026 as a search-budget-sensitive large network, PeMS7\_228 as an expansion-friendly calibrated rollout, and Seattle as a conservative staged-rollout case. The calibrated reruns support all six PeMS rows and Seattle 20/30\%, while Seattle 10\% remains on the original ten-seed route because its calibrated alternative did not improve the held-out result.
 
 % Planning takeaways table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 

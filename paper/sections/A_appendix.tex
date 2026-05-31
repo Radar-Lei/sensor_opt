@@ -58,6 +58,18 @@ row-specific best comparator. The paper claim therefore does not depend on
 choosing a favorable baseline after seeing the results.
 
 \input{tables/table_trace_biopt_baseline_registry}
+\input{tables/table_trace_biopt_baseline_family_screen}
+\input{tables/table_trace_biopt_challenger_posture}
+
+\FloatBarrier
+\section{Historical TRACE-SL background}
+
+The earlier Stage12 TRACE-SL tables are retained here as historical context for
+the method pivot. They remain useful for showing which low-budget rows were
+still vulnerable before TRACE-BiOpt replaced the validation-swap selector
+logic, but they are not part of the main empirical claim.
+
+\input{tables/table_external}
 
 \FloatBarrier
 \section{Full baseline matrix}
@@ -212,6 +224,10 @@ methodologically cleaner than folding them into an over-broad ``convergence''
 statement that could be mistaken for exact optimality.
 
 \FloatBarrier
+\input{tables/table_trace_biopt_generalization_burden}
+\input{tables/table_trace_biopt_theory_bridge}
+
+\FloatBarrier
 \section{Challenger envelope curves}
 \label{sec:appendix-challenger-envelope}
 
@@ -230,6 +246,10 @@ on all three networks.
 \FloatBarrier
 \section{Mechanism diagnostic figures}
 \label{sec:appendix-mechanism-diagnostics}
+
+\input{tables/table_ablation}
+\input{tables/table_trace_biopt_route_ablation}
+\input{tables/table_trace_biopt_mechanism}
 
 \begin{figure*}[t]
 \centering
@@ -267,6 +287,18 @@ on all three networks.
 \section{Solver diagnostics}
 \label{sec:appendix-solver-diagnostics}
 
+\input{tables/table_trace_biopt_optimization}
+\input{tables/table_trace_biopt_solver_scale}
+\input{tables/table_trace_biopt_exchange_certificate}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_objective_descent.pdf}
+\caption{Current-best TRACE-BiOpt objective descent and accepted-step mix. The top row shows the mean relative objective gap remaining over normalized accepted-update progress; the bottom row stacks the mean accepted forward/warm-start and exchange steps for each budget.}
+\label{fig:trace-biopt-objective-descent-full}
+\end{figure*}
+
+\FloatBarrier
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_exchange_gap_curves.pdf}
@@ -274,9 +306,21 @@ on all three networks.
 \label{fig:trace-biopt-exchange-gap-curves}
 \end{figure*}
 
+\FloatBarrier
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.98\linewidth]{figures/fig_trace_biopt_objective_mix.pdf}
 \caption{Current-best TRACE-BiOpt final-objective composition. Each bar shows the mean weighted share of the accepted final objective coming from hidden Huber reconstruction loss, posterior trace, scenario-CVaR trace, and spatial regularization over the ten split-specific runs of that row.}
 \label{fig:trace-biopt-objective-mix}
 \end{figure*}
+
+\input{tables/table_trace_biopt_search_probe}
+\input{tables/table_trace_biopt_calibration_probe}
+\input{tables/table_trace_biopt_stage16_calibrated_probe}
+\input{tables/table_trace_biopt_regime_lessons}
+
+\FloatBarrier
+\section{Budget phasing and bounded exact benchmark}
+
+\input{tables/table_trace_biopt_budget_phasing}
+\input{tables/table_trace_biopt_exact_subnetwork}
