@@ -122,7 +122,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing current-best TRACE-BiOpt initializer posture. The table compresses the nine row-level solver traces into three regime-level readings so the deterministic algorithm is visible as a size-adaptive solver family rather than as one opaque search trace.}",
         "\\label{tab:trace-biopt-initializer-posture}",

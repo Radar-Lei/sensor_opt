@@ -88,7 +88,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing deployment stress posture from the bounded Stage14 PeMS7\\_228 frontier. The table translates the stress-frontier winners and gap sizes into operational reading rather than into TRACE-BiOpt dominance claims.}",
         "\\label{tab:trace-biopt-deployment-stress-posture}",

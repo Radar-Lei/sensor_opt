@@ -87,7 +87,7 @@ def write_tex(rows: list[dict[str, object]]) -> None:
     if not all(math.isfinite(value) for value in [paired_t_p, wilcoxon_p, improvement_p]):
         raise ValueError("Non-finite search-probe p-value")
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{PeMS7\\_1026 30\\% weak-row enhanced-search evidence over the original Stage15 ten split seeds. The enhanced TRACE-BiOpt rerun keeps the same objective and increases only deterministic exchange-search pools/iterations. Baseline values are the seed-matched pre-registered non-BiOpt rows from the Stage15 evidence path. This row-level diagnostic strengthens the weakest regime but does not replace the full nine-regime Stage15 main table.}",
         "\\label{tab:trace-biopt-search-probe}",

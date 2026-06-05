@@ -158,7 +158,7 @@ def summarize(rows: list[dict[str, object]]) -> list[dict[str, object]]:
 
 def write_tex(rows: list[dict[str, object]]) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{TRACE-BiOpt optimization diagnostics from Stage15 histories, including searched one-exchange coverage and stop certificates.}",
         "\\label{tab:trace-biopt-optimization}",

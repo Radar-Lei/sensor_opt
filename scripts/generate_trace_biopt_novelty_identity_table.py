@@ -86,7 +86,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing identity test for TRACE-BiOpt. Each row states a plausible misreading of the paper and the paper-visible feature that prevents that misreading from being the right interpretation.}",
         "\\label{tab:trace-biopt-novelty-identity}",

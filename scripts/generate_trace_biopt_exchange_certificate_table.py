@@ -79,7 +79,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Current-best TRACE-BiOpt exchange-gap certificate posture by dataset-budget row.}",
         "\\label{tab:trace-biopt-exchange-certificate}",

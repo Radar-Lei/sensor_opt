@@ -86,7 +86,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing TRACE-BiOpt claim-boundary matrix. The table states what each evidence lane supports and what the manuscript explicitly refuses to claim.}",
         "\\label{tab:trace-biopt-claim-boundary-matrix}",

@@ -35,6 +35,7 @@ Last activity: 2026-05-28 — Tightened the discussion, conclusion, and TRACE_BI
 
 | Date | Quick ID | Slug | Summary |
 |------|----------|------|---------|
+| 2026-06-05 | 260605-vfu | latex-float-pos | Converted paper figure/table floats and generator outputs to CAS `pos=htbp` syntax, added local float barriers so main-text tables stay before references instead of flushing to the end, and rebuilt `paper/main.pdf` successfully to 49 pages. |
 | 2026-05-28 | 260528-cmr | tighten-discussion-conclusion-comparison-class | Tightened the discussion, conclusion, and method specification to the stronger external audited comparison-class contract wording, regenerated the discussion-boundary table, extended the claim audit to machine-check the new closing and spec language, and revalidated the full 56-page submission chain with a clean LaTeX log. |
 | 2026-05-28 | 260528-cdg | add-audited-comparison-ladder | Added a Section 5 audited comparison-ladder table plus generator, wired it into the refresh chain, extended the claim audit to verify all six ladder steps and the new experiments prose, and revalidated the full 56-page submission chain with a clean LaTeX log. |
 | 2026-05-28 | 260528-c7p | tighten-front-screen-comparison-class-contract | Tightened the front-screen and closing comparison-class wording so the manuscript now states the stronger all-baseline audited evidence contract rather than only strongest-baseline dominance, extended the claim audit to machine-check it, and revalidated the full 55-page submission chain with a clean LaTeX log. |

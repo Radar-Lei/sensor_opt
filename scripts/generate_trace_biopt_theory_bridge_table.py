@@ -105,7 +105,7 @@ def build_rows() -> list[dict[str, str]]:
 
 def write_tex(rows: list[dict[str, str]]) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Theory-to-evidence bridge for TRACE-BiOpt. The table does not claim that empirical diagnostics prove the theorems. It shows that each formal statement is tied to a visible current-best evidence lane and a bounded reviewer-facing interpretation.}",
         "\\label{tab:trace-biopt-theory-bridge}",

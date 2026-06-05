@@ -1,7 +1,7 @@
 <!-- ARIS-CODEX:BEGIN -->
 ## ARIS Codex Skill Scope
 ARIS Codex packages installed in this project: skills-codex
-Managed entries: 77
+Managed entries: 79
 Manifest: `.aris/installed-skills-codex.txt`
 ARIS repo root: `/home/samuel/aris_repo`
 Project skill path: `.agents/skills/<skill-name>`

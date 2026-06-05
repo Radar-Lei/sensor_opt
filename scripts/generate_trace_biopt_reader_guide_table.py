@@ -89,7 +89,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Front-page reviewer guide for TRACE-BiOpt. The table answers the first-screen questions that determine whether the manuscript reads as a transport-network design paper rather than as a layout benchmark, and it makes the audited comparison-class contract visible on the front page.}",
         "\\label{tab:trace-biopt-reader-guide}",

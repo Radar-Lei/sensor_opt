@@ -161,7 +161,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing current-best low-budget layout-consensus posture. Mean pairwise Jaccard is computed across all 45 split-seed layout pairs within the same method family on the current-best 10\\% rows. This is bounded mechanism evidence about layout-family coherence, not a new dominance table.}",
         "\\label{tab:trace-biopt-layout-consensus-posture}",

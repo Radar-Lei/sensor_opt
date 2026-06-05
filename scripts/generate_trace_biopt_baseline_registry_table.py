@@ -80,7 +80,7 @@ def main() -> int:
 
     summary = "; ".join(f"{category}: {count}" for category, count in sorted(category_counts.items()))
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Pre-registered non-BiOpt baseline registry used by the Stage15 dominance gate.}",
         "\\label{tab:trace-biopt-baseline-registry}",

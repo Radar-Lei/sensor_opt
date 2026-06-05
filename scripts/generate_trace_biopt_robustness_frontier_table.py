@@ -113,7 +113,7 @@ def write_csv(path: Path, rows: list[dict[str, str]]) -> None:
 
 def write_tex(rows: list[dict[str, str]]) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Stage14 PeMS7\\_228 stress frontier over perturbation, cost, and temporal-shift slices. Lower MAE is better.}",
         "\\label{tab:trace-biopt-robustness-frontier}",

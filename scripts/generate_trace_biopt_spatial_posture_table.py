@@ -195,7 +195,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing current-best low-budget spatial posture. Pairwise and nearest-neighbor deltas are TRACE-BiOpt minus the row-wise strongest baseline, computed on the same split-specific layouts with dataset-native graph-distance matrices. This is bounded mechanism evidence for the spatial regularization term, not a new dominance table.}",
         "\\label{tab:trace-biopt-spatial-posture}",

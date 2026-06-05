@@ -86,7 +86,7 @@ def main() -> int:
     ]
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing contribution stack of TRACE-BiOpt. The table compresses the formulation, algorithm, theory, evidence, and claim-discipline layers that make the paper more than a baseline selector.}",
         "\\label{tab:trace-biopt-contribution-stack}",

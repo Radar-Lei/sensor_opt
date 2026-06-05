@@ -78,7 +78,7 @@ def write_tex(rows: list[dict[str, object]]) -> None:
         raise ValueError("Non-finite Stage16 calibrated-probe p-value")
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{PeMS7\\_1026 30\\% Stage16 calibrated-risk diagnostic over the original Stage15 ten split seeds. The rerun uses the same train+validation risk-source refinement as Table~\\ref{tab:trace-biopt-calibration-probe} with scalable active-set exchange search for the 1026-node network. Baseline values are seed-matched pre-registered non-BiOpt rows from the Stage15 evidence path. This row-level diagnostic strengthens the weakest main-table regime but does not replace the full nine-regime Stage15 main table.}",
         "\\label{tab:trace-biopt-stage16-calibrated-probe}",

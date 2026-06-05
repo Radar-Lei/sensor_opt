@@ -195,7 +195,7 @@ def write_csv(path: Path, rows: list[dict[str, object]], fields: list[str]) -> N
 
 def write_tex(rows: list[dict[str, object]]) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Current-best TRACE-BiOpt solver scale by dataset-budget row.}",
         "\\label{tab:trace-biopt-solver-scale}",

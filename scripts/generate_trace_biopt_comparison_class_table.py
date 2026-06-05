@@ -86,7 +86,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{TRACE-BiOpt comparison-class contract. The table states how a TR-B reader should classify the paper before entering the detailed literature split.}",
         "\\label{tab:trace-biopt-comparison-class-contract}",

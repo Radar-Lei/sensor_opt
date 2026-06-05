@@ -10,7 +10,7 @@ Training data fit reconstruction ingredients; validation data drive the
 TRACE-BiOpt objective and baseline selection rules; test data are used only for
 final hidden-state reconstruction reporting.
 
-\begin{figure}[t]
+\begin{figure}[pos=htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig_network_case_overview.pdf}
 \caption{
@@ -66,6 +66,7 @@ TRACE-SL / RCSS family rather than from an easy straw-man comparator.
 \subsection{Best-baseline dominance}
 
 \input{tables/table_trace_biopt_dominance}
+\FloatBarrier
 
 Table~\ref{tab:trace-biopt-dominance} is the primary result.
 Across all nine dataset-budget regimes, TRACE-BiOpt has
@@ -102,7 +103,7 @@ compresses all nine regimes without repeating line charts.
 
 Figure~\ref{fig:trace-biopt-paired-margins} presents the paired current-best dominance margins across all tested regimes. Each row shows the mean paired delta between TRACE-BiOpt and the row-wise strongest pre-registered challenger, with approximate 95\% confidence intervals. All nine margins favor TRACE-BiOpt, and the right-side labels disclose which challenger is strongest on each row.
 
-\begin{figure}[t]
+\begin{figure}[pos=htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/fig_trace_biopt_margin_forest_v2.pdf}
 \caption{
@@ -134,6 +135,7 @@ $p_{\mathrm{Holm}}=0.0026$. As a nonparametric robustness check, the raw
 one-sided Wilcoxon $p$ value stays below 0.005 on all 189 comparisons.
 
 \input{tables/table_trace_biopt_significance_posture}
+\FloatBarrier
 
 Appendix Table~\ref{tab:trace-biopt-challenger-posture} records the family-wise
 near-miss structure behind this corrected screen. On 6/9 rows, the strongest

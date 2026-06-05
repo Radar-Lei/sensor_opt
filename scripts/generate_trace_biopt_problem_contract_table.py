@@ -83,7 +83,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{TRACE-BiOpt problem contract. The table compresses the Section~3 problem definition into the deployment-time decision, hidden-state target, bilevel structure, split discipline, external comparison class, and explicit scope that a reviewer should carry into the method and experiments.}",
         "\\label{tab:trace-biopt-problem-contract}",

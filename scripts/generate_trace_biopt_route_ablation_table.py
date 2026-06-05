@@ -109,7 +109,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing TRACE-BiOpt route-ablation slices. Unlike the legacy TRACE-SL component table, these rows stay inside the current TRACE-BiOpt objective family and ask which route ingredient is being removed or weakened on the rows that mattered most to the final claim chain.}",
         "\\label{tab:trace-biopt-route-ablation}",

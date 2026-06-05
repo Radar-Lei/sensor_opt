@@ -82,7 +82,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Network-level planning takeaways from the TRACE-BiOpt current-best evidence chain. Rather than restating dominance, the table translates each tested network into a transport-planning posture for staged deployment decisions.}",
         "\\label{tab:trace-biopt-planning-takeaways}",

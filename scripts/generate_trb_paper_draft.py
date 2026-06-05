@@ -355,7 +355,7 @@ def table_main_results() -> str:
         "multistart_swap_by_validation",
     ]
     lines = [
-        r"\begin{table*}[t]",
+        r"\begin{table*}[pos=htbp]",
         r"\centering",
         r"\caption{PeMS7\_228 Stage12 held-out GLS/MAP MAE. Lower is better. Paired $p$ values compare TRACE-SL with the listed baseline on the same ten splits.}",
         r"\label{tab:main-results}",
@@ -399,7 +399,7 @@ def table_main_results() -> str:
 def table_external() -> str:
     rows = sorted(external_main_rows(), key=lambda r: (r["dataset"], float(r["budget"])))
     lines = [
-        r"\begin{table}[t]",
+        r"\begin{table}[pos=htbp]",
         r"\centering",
         r"\caption{External Stage12 evidence. TRACE-SL is evaluated on ten splits for each dataset and budget.}",
         r"\label{tab:external}",
@@ -443,7 +443,7 @@ def table_ablation() -> str:
     }
     keep.sort(key=lambda r: order[r["layout_type"]])
     lines = [
-        r"\begin{table}[t]",
+        r"\begin{table}[pos=htbp]",
         r"\centering",
         r"\caption{Component ablation at the 30\% PeMS7\_228 budget. Lower MAE is better.}",
         r"\label{tab:ablation}",
@@ -466,7 +466,7 @@ def table_ablation() -> str:
 def table_theory() -> str:
     rows = read_csv(PAPER_SOURCES / "theory_statement_contract.csv")
     lines = [
-        r"\begin{table*}[t]",
+        r"\begin{table*}[pos=htbp]",
         r"\centering",
         r"\caption{Scoped theoretical statements used in the manuscript. Each statement is intentionally bounded by its assumptions and non-claim boundary.}",
         r"\label{tab:theory}",
@@ -498,14 +498,14 @@ def generate_tables() -> None:
         write(FIG_DIR / name, content)
     includes = r"""% Auto-generated snippets for TRACE-SL TR Part B draft.
 
-\begin{figure}[t]
+\begin{figure}[pos=htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1_workflow.pdf}
 \caption{TRACE-SL workflow. The design protocol separates training-derived reconstruction ingredients, validation-based layout selection, and held-out deployment evaluation.}
 \label{fig:workflow}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[pos=htbp]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig2_main_mae.pdf}
 \caption{Held-out PeMS7\_228 GLS/MAP reconstruction MAE across sensor budgets. TRACE-SL refers to the validation-aware selected layout.}
@@ -688,7 +688,7 @@ The workload can be decomposed into candidate generation, candidate scoring, and
 
 \input{tables/table_external}
 
-\begin{figure}[t]
+\begin{figure}[pos=htbp]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/fig2_main_mae.pdf}
 \caption{Held-out PeMS7\_228 GLS/MAP reconstruction MAE across sensor budgets. TRACE-SL refers to the validation-aware selected layout.}

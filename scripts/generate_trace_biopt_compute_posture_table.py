@@ -212,7 +212,7 @@ def write_csv(path: Path, rows: list[dict[str, object]], fieldnames: list[str]) 
 
 def write_tex(rows: list[dict[str, object]]) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Current-best TRACE-BiOpt compute posture by source route.}",
         "\\label{tab:trace-biopt-compute-posture}",

@@ -107,7 +107,7 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 def write_tex(rows: list[dict[str, object]]) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Single-seed certificate-removal probe on stable Seattle diagnostic slices. The completed diagnostic route keeps the split seed and strong-search budget used during method diagnosis, but sets $(\\beta,\\gamma,\\eta)=(0,0,0)$ and routes the objective through reconstruction-only optimization. Lower MAE is better.}",
         "\\label{tab:trace-biopt-certificate-removal-probe}",

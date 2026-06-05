@@ -118,7 +118,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Theorem~\\ref{thm:uniform-layout} burden factors under the common two-day validation window used by the current-best evidence chain.}",
         "\\label{tab:trace-biopt-generalization-burden}",

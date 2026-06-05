@@ -114,7 +114,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Reviewer-facing TRACE-BiOpt design and deployment protocol. The table compresses the current-best evidence chain into claim-facing operating rules for calibration, search scaling, certificate weighting, and bounded stress interpretation.}",
         "\\label{tab:trace-biopt-design-protocol}",

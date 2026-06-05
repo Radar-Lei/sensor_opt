@@ -140,7 +140,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Current-best MAP stability posture against the row-wise strongest baseline.}",
         "\\label{tab:trace-biopt-map-stability}",

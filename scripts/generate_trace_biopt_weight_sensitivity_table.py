@@ -159,7 +159,7 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 def write_tex(rows: list[dict[str, object]]) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Regime-specific TRACE-BiOpt objective-weight sensitivity slices. Lower MAE is better. These rows are mechanism evidence only: the Seattle rows are bounded same-split diagnostic slices around the stable certificate-weighted Seattle route, while the PeMS7\\_228 10\\% weak row uses the promoted calibrated current-best route.}",
         "\\label{tab:trace-biopt-weight-sensitivity}",

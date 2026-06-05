@@ -1,7 +1,7 @@
 version	1
 repo_root	/home/samuel/aris_repo
 project_root	/home/samuel/projects/sensor_opt
-generated	2026-06-05T14:35:11Z
+generated	2026-05-26T10:02:16Z
 packages	skills-codex
 kind	name	source_rel	target_rel	mode
 skill	ablation-planner	skills/skills-codex/ablation-planner	.agents/skills/ablation-planner	symlink
@@ -37,7 +37,6 @@ skill	invention-structuring	skills/skills-codex/invention-structuring	.agents/sk
 skill	jurisdiction-format	skills/skills-codex/jurisdiction-format	.agents/skills/jurisdiction-format	symlink
 skill	kill-argument	skills/skills-codex/kill-argument	.agents/skills/kill-argument	symlink
 skill	mermaid-diagram	skills/skills-codex/mermaid-diagram	.agents/skills/mermaid-diagram	symlink
-skill	meta-apply	skills/skills-codex/meta-apply	.agents/skills/meta-apply	symlink
 skill	meta-optimize	skills/skills-codex/meta-optimize	.agents/skills/meta-optimize	symlink
 skill	monitor-experiment	skills/skills-codex/monitor-experiment	.agents/skills/monitor-experiment	symlink
 skill	novelty-check	skills/skills-codex/novelty-check	.agents/skills/novelty-check	symlink
@@ -81,5 +80,4 @@ skill	specification-writing	skills/skills-codex/specification-writing	.agents/sk
 skill	system-profile	skills/skills-codex/system-profile	.agents/skills/system-profile	symlink
 skill	training-check	skills/skills-codex/training-check	.agents/skills/training-check	symlink
 skill	vast-gpu	skills/skills-codex/vast-gpu	.agents/skills/vast-gpu	symlink
-skill	wiki-enrich	skills/skills-codex/wiki-enrich	.agents/skills/wiki-enrich	symlink
 skill	writing-systems-papers	skills/skills-codex/writing-systems-papers	.agents/skills/writing-systems-papers	symlink

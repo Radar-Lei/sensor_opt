@@ -90,7 +90,7 @@ def main() -> int:
         writer.writerows(summary)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Robustness evidence routing from Stage14 PeMS7\\_228 stress tests.}",
         "\\label{tab:robustness-routing}",

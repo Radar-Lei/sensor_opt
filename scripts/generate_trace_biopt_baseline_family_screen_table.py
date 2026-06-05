@@ -121,7 +121,7 @@ def build_frame() -> pd.DataFrame:
 
 def write_tex(frame: pd.DataFrame) -> None:
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Family-level screen of the pre-registered non-BiOpt comparison class. The table compresses the 21 audited baselines into method families and reports how often each family supplies the strongest mean challenger or the hardest challenger after Holm correction. Every family still leaves zero surviving tied-or-better challenger after corrected paired tests.}",
         "\\label{tab:trace-biopt-baseline-family-screen}",

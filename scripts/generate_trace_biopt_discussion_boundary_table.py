@@ -77,7 +77,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Discussion-facing TRACE-BiOpt boundary table.}",
         "\\label{tab:trace-biopt-discussion-boundary}",

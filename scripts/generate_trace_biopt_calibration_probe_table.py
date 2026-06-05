@@ -84,7 +84,7 @@ def write_tex(rows: list[dict[str, object]]) -> None:
         raise ValueError("Non-finite calibration-probe p-value")
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{PeMS7\\_228 10\\% low-budget calibration-risk diagnostic over the original Stage15 ten split seeds. The calibrated TRACE-BiOpt rerun keeps a single reconstruction-aware objective, estimates upper-level reconstruction risk on train+validation days, lowers certificate weights, and uses complete one-exchange search. Baseline values are the seed-matched pre-registered non-BiOpt rows from the Stage15 evidence path. This rerun now supplies the current-best evidence for the PeMS7\\_228 10\\% row while leaving the other dataset-budget rows on their own evidence paths.}",
         "\\label{tab:trace-biopt-calibration-probe}",

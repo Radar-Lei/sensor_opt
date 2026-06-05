@@ -108,7 +108,7 @@ def main() -> int:
         writer.writerows(rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Mechanism diagnostics for TRACE-BiOpt from the current best evidence chain.}",
         "\\label{tab:trace-biopt-mechanism}",

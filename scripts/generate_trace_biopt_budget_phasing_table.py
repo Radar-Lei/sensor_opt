@@ -137,7 +137,7 @@ def main() -> int:
         writer.writerows(out_rows)
 
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Current-best TRACE-BiOpt budget-phasing posture. Each row turns the 10\\%, 20\\%, and 30\\% current-best curves into a staged deployment readout rather than another dominance table.}",
         "\\label{tab:trace-biopt-budget-phasing}",

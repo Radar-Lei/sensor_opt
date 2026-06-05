@@ -84,7 +84,7 @@ def build_frame() -> pd.DataFrame:
 def write_tex(frame: pd.DataFrame) -> None:
     mismatch_count = int((frame["same_family"] == "No").sum())
     lines = [
-        "\\begin{table*}[t]",
+        "\\begin{table*}[pos=htbp]",
         "\\centering",
         "\\caption{Strongest-mean versus hardest-corrected challenger posture. The main dominance table names the best mean-MAE challenger in each row, while the corrected all-baseline screen identifies the challenger with the largest surviving Holm-adjusted paired $p$ value. When the two differ, TRACE-BiOpt is not only ahead of one convenient baseline family; distinct challenger families are closest under mean ranking and corrected paired inference.}",
         "\\label{tab:trace-biopt-challenger-posture}",
