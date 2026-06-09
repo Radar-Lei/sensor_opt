@@ -46,7 +46,7 @@
     },
     {
       "check": "manuscript_no_longer_minimal_draft",
-      "evidence": "Core paper text has 7205 words across main theory/results/discussion/appendix.",
+      "evidence": "Core paper text has 7890 words across main theory/results/discussion/appendix.",
       "severity_if_unresolved": "minor",
       "status": "answered_by_current_text"
     }
@@ -55,7 +55,7 @@
     "answered_by_current_text": 8
   },
   "critical_unresolved": [],
-  "generated_at": "2026-05-27T22:30:50Z",
+  "generated_at": "2026-06-05T15:51:44Z",
   "net_assessment": "The worst scope/evidence attack is answered by current text for submission-gate purposes; remaining risks are author metadata and optional external human review.",
   "unresolved": [],
   "verdict": "PASS"

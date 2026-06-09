@@ -82,15 +82,26 @@ the posterior covariance is
 Sigma_{post}(S) = (Sigma^{-1} + M_S' R_S^{-1} M_S)^{-1}.
 ```
 
-For the hidden node set `H = V \\ S`,
+For the full state,
 
 ```text
-E ||x_H - E[x_H | y_S]||_2^2 = tr(Sigma_{H|S}).
+E ||x - E[x | y_S]||_2^2 = tr(Sigma_{post}(S)).
 ```
 
-Thus the posterior trace term in `J(S)` is a Bayes-risk certificate, not an
-arbitrary proxy. In the implementation, `posterior_trace_per_node` is the
-normalized computable version of this certificate.
+Thus the implemented posterior certificate
+`|V|^{-1} tr(Sigma_post(S))` is a normalized full-state Bayes squared
+reconstruction-risk certificate, not an arbitrary proxy. The hidden-block
+identity follows by projection:
+
+```text
+E ||D_H x - D_H E[x | y_S]||_2^2
+  = tr(D_H Sigma_{post}(S) D_H).
+```
+
+That projected hidden-block trace is a useful variant for interpretation, but
+it is not the audited objective used by the current evidence chain. In the
+implementation, `posterior_trace_per_node` is the normalized computable
+full-state version of this certificate.
 
 ## Theorem T3: Uniform Generalization Over All Size-k Layouts
 

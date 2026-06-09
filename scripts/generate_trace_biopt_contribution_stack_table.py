@@ -70,7 +70,7 @@ def main() -> int:
         },
         {
             "layer": "Theory",
-            "statement": "The scoped theory package covers MAP closed form and stability, Bayes-risk meaning of posterior trace, a formal CVaR tail-risk epigraph, uniform validation generalization over all size-$k$ layouts, finite descent, and a searched-neighborhood exchange certificate.",
+            "statement": "The formal theory package covers MAP closed form and stability, Bayes-risk meaning of the normalized full-state posterior trace, a formal CVaR tail-risk epigraph, uniform validation generalization over all size-$k$ layouts, finite descent, and a searched-neighborhood exchange certificate.",
             "importance": "The method contributes analyzable optimization structure and a coherent tail-risk term for a principled bilevel stochastic design method rather than only empirical search heuristics.",
         },
         {

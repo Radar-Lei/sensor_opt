@@ -35,9 +35,9 @@ The manuscript contributes:
    siting;
 2. a deterministic solver with scale-adaptive initialization and exchange
    refinement under one objective;
-3. a scoped theory package covering MAP stability, posterior-risk
-   interpretation, all-layout validation generalization, CVaR interpretation,
-   and exchange-stationarity certification; and
+3. a formal theory package covering MAP stability, normalized full-state
+   posterior-risk interpretation, all-layout validation generalization, CVaR
+   interpretation, and exchange-stationarity certification; and
 4. a reproducible empirical evaluation on PeMS7_228, PeMS7_1026, and Seattle
    at 10%, 20%, and 30% budgets over ten split seeds.
 

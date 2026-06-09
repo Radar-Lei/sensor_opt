@@ -1,5 +1,5 @@
 dataset,evidence_source,source_root,route_label,covered_current_best_rows,run_budget_count,source_scope,split_seed,wall_clock_minutes,peak_rss_mb,exchange_steps
-PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,25,1432.191384633382,530.043,8
+PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,25,13979.801469814778,526.66,8
 PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,26,11.315629017353057,1642.598,8
 PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,27,12.030200167496998,1635.871,8
 PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,28,11.22608078320821,1635.535,8
@@ -9,7 +9,7 @@ PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval
 PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,32,12.849315965175629,1644.082,8
 PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,33,11.57415069739024,1634.238,8
 PeMS7_1026,stage16_replaceable:pems1026_30_trainval_lowcert,pems1026_30_trainval_lowcert,PeMS7_1026 calibrated rerun (30%),30%,1,single-budget calibrated rerun,34,11.894401069482168,1643.477,8
-PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,25,1241.3933370669683,530.043,40
+PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,25,13789.002672449747,526.66,40
 PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,26,32.96549789905548,3083.422,40
 PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,27,32.70082019964854,2991.043,38
 PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,28,40.953353464603424,2986.191,37
@@ -19,7 +19,7 @@ PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_2
 PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,32,41.02760926882426,3056.246,40
 PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,33,39.87109261751175,3021.32,38
 PeMS7_1026,stage16_replaceable:pems7_1026_10_20_posterior_iter20,pems7_1026_10_20_posterior_iter20,PeMS7_1026 calibrated rerun (10/20%),10/20%,2,paired-budget calibrated rerun,34,41.0044891834259,3095.344,40
-PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,25,815.4211762150129,530.043,20
+PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,25,13363.031611080964,526.66,20
 PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,26,37.29678204854329,1622.059,24
 PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,27,89.85596764882406,1621.695,24
 PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,28,67.76645246744155,1583.949,22
@@ -29,7 +29,7 @@ PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsea
 PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,32,33.22455008427302,1622.285,23
 PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,33,32.69910826683044,1622.258,24
 PeMS7_228,stage16_replaceable:pems7_228_20_30_fullsearch,pems7_228_20_30_fullsearch,PeMS7_228 calibrated rerun (20/30%),20/30%,2,paired-budget calibrated rerun,34,31.883336599667867,1622.051,24
-PeMS7_228,stage16_replaceable:train_val_lowcert_delta1_fullsearch,train_val_lowcert_delta1_fullsearch,PeMS7_228 calibrated rerun (10%),10%,1,single-budget calibrated rerun,25,1448.5916695515314,530.043,4
+PeMS7_228,stage16_replaceable:train_val_lowcert_delta1_fullsearch,train_val_lowcert_delta1_fullsearch,PeMS7_228 calibrated rerun (10%),10%,1,single-budget calibrated rerun,25,13996.201921300093,526.66,4
 PeMS7_228,stage16_replaceable:train_val_lowcert_delta1_fullsearch,train_val_lowcert_delta1_fullsearch,PeMS7_228 calibrated rerun (10%),10%,1,single-budget calibrated rerun,26,1.3432328502337139,391.113,7
 PeMS7_228,stage16_replaceable:train_val_lowcert_delta1_fullsearch,train_val_lowcert_delta1_fullsearch,PeMS7_228 calibrated rerun (10%),10%,1,single-budget calibrated rerun,27,0.8825381676355998,349.277,5
 PeMS7_228,stage16_replaceable:train_val_lowcert_delta1_fullsearch,train_val_lowcert_delta1_fullsearch,PeMS7_228 calibrated rerun (10%),10%,1,single-budget calibrated rerun,28,1.1209519982337952,391.164,7
@@ -49,7 +49,7 @@ Seattle,stage15_main,stage15_main,Seattle Stage15 main route (10%),10%,3,all-bud
 Seattle,stage15_main,stage15_main,Seattle Stage15 main route (10%),10%,3,all-budget main-evidence run,32,3.2033392667770384,509.207,15
 Seattle,stage15_main,stage15_main,Seattle Stage15 main route (10%),10%,3,all-budget main-evidence run,33,3.126538284619649,485.219,14
 Seattle,stage15_main,stage15_main,Seattle Stage15 main route (10%),10%,3,all-budget main-evidence run,34,2.943591217199961,495.262,13
-Seattle,stage16_replaceable:seattle_10_20_30_trainval,seattle_10_20_30_trainval,Seattle calibrated rerun (20/30%),20/30%,3,multi-budget calibrated rerun,25,321.48445901473366,530.043,9
+Seattle,stage16_replaceable:seattle_10_20_30_trainval,seattle_10_20_30_trainval,Seattle calibrated rerun (20/30%),20/30%,3,multi-budget calibrated rerun,25,12869.094593580563,526.66,9
 Seattle,stage16_replaceable:seattle_10_20_30_trainval,seattle_10_20_30_trainval,Seattle calibrated rerun (20/30%),20/30%,3,multi-budget calibrated rerun,26,1.6384729862213134,493.25,14
 Seattle,stage16_replaceable:seattle_10_20_30_trainval,seattle_10_20_30_trainval,Seattle calibrated rerun (20/30%),20/30%,3,multi-budget calibrated rerun,27,2.002550466855367,561.617,20
 Seattle,stage16_replaceable:seattle_10_20_30_trainval,seattle_10_20_30_trainval,Seattle calibrated rerun (20/30%),20/30%,3,multi-budget calibrated rerun,28,1.1454397201538087,428.281,10

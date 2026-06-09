@@ -44,13 +44,19 @@ problem:
 
 - `hidden_huber_reconstruction_loss(S)`: validation hidden-state reconstruction
   loss under the transparent estimator;
-- `posterior_trace(S)`: average hidden uncertainty certificate;
+- `posterior_trace(S) / n`: normalized full-state posterior trace
+  `|V|^{-1} tr(Sigma_post(S))`, the implemented posterior certificate;
 - `scenario_cvar_trace(S)`: coherent tail-risk penalty across traffic regimes
   under the paper's formal CVaR epigraph;
 - `spatial_redundancy_penalty(S)`: discourages overly concentrated layouts.
 
 This is a recoverability-driven network-design objective, not a coverage-only,
 observability-only, or posterior-certificate-only criterion.
+
+The audited implementation evaluates the posterior certificate on the full
+state. A hidden-block posterior trace,
+`tr(D_h(S) Sigma_post(S) D_h(S))`, is a projected variant useful for
+interpretation, but it is not the current evidence-chain objective.
 
 ## 3. Lower-Level Transparent Reconstruction
 

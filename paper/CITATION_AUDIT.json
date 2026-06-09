@@ -2,68 +2,68 @@
   "audit_skill": "citation-audit",
   "audited_input_hashes": {
     ".aris/citation-audit/contexts.txt": "sha256:7da970b26e3b5ceab5549a594abacfba8f9f37f0fe961d5f22e5772e2a17ad77",
-    ".aris/citation-audit/fresh_web_sources.json": "sha256:c2be4feca547677131b694b74a8aad5120eb8c1c42669abaafb8297ce2474c41",
-    "main.tex": "sha256:7b376404df08626acbaecaa7ace3fd9141d9fb04b91849fefa5775eec809b469",
-    "references.bib": "sha256:491d1d92a92eb1c72853e77382f44df3fc375c34152775a2e03cb07fc6485a75",
-    "sections/0_abstract.tex": "sha256:f128d5cdc1f3bf4d59c9bf6537fb25c0134937ccbf67097f3c22babd7e4b1165",
-    "sections/1_introduction.tex": "sha256:c689a305ac0567a645f605035c0f4b810969e376bcac5ba74812ac6347fced53",
-    "sections/2_related_work.tex": "sha256:e6fdc8d7ac8c86a704b1ec14b2b475e8a3efaf2024bbc82e2aeed0432e8e2d50",
-    "sections/3_problem.tex": "sha256:0debadc335d04656bd102910bb5752bf28cd0f80ce9f665245018d9be7f9ee54",
-    "sections/4_method_theory.tex": "sha256:cc2e332243e4f56f4b13b426c5683f17e2abbaab2cd329720bbaeac83b332364",
-    "sections/5_experiments.tex": "sha256:ca33b81482d59bdb57c7dd7a0b7d471e387a148be30bd14b2160572232aad32d",
-    "sections/6_ablation_robustness.tex": "sha256:d17596a43acb99147bc1041d21c09129e00cddfcc86d1988df46e6ccce640d13",
-    "sections/7_discussion.tex": "sha256:3c206b2d50995a8708c9c85177f8ebdd62cf347535cf0be909f19134f2d81bf7",
-    "sections/7_robustness.tex": "sha256:ccd411668eacd69cacb89f7e70a5ee4e7a2c12ab0dbb3c920ec121fc756e4db7",
-    "sections/8_conclusion.tex": "sha256:af81ba7c0e4afb1b14df9a19d921080101a981d024f37a584986d085432e76d5",
-    "sections/A_appendix.tex": "sha256:441ae3f17e80119be4a30c1e619da6e8da42ffa141116d2682b47e0132420eb5",
-    "tables/table_ablation.tex": "sha256:f5ccaf3e710a24439d525820c3cf46038f3e2f8baa0d3bff78bc98ca3745ae32",
-    "tables/table_external.tex": "sha256:13c06aabdd3320b61c2ddc8a32baaef4c3997ea45505e124776961e39707e4ff",
-    "tables/table_main_results.tex": "sha256:b03fd73788f70dde969590ed460d1d80999927c09cbec0643a9b3b3acb54d678",
-    "tables/table_method_positioning.tex": "sha256:b22265ab382adbea17febdd30c438b2f87267459245c32622af91bab3b525703",
-    "tables/table_robustness_routing.tex": "sha256:97285ebf2ffe4d869e6653eed3800681773b85358f39262f74831833b289f045",
-    "tables/table_theory.tex": "sha256:e9d08ef265215f128b387e0eb4fa14a545dd350c3b766d73d04b89ae5f8a1737",
-    "tables/table_trace_biopt_baseline_family_screen.tex": "sha256:acf8c91585b30ab5a67a725b2e686e46fd06fd8c5509c0cb6962e1a9a8a2835f",
-    "tables/table_trace_biopt_baseline_registry.tex": "sha256:c03d06055ceb457ea1285ac16b752ac44a276ecd3a65069cc8d25a9b421ecac7",
-    "tables/table_trace_biopt_budget_phasing.tex": "sha256:9dac6749460550dd03e32e65281623ad53f314233f42960bd827ee6c96ae8afa",
-    "tables/table_trace_biopt_calibration_probe.tex": "sha256:0e9c5e26fdb27575e1fc83d93b985e860fec921bcb990086af431cccf02b51cc",
-    "tables/table_trace_biopt_certificate_removal_probe.tex": "sha256:8d3918204669a7375775f504af36105d2d7db51c83ba469b49c04b574a66f997",
-    "tables/table_trace_biopt_challenger_posture.tex": "sha256:89cca5cf7185722d1e661a470c9872e32527472158f5e953466cceccb2f43245",
-    "tables/table_trace_biopt_claim_boundary_matrix.tex": "sha256:fbad03bb265138aced2da07006348e87c400d195dab88d1d961d0404bcb62baa",
-    "tables/table_trace_biopt_comparison_class_contract.tex": "sha256:1d0270575fb5bbf6b16dedf17d7cc22fe8bbf07605bb9078b6b830b157f53cba",
-    "tables/table_trace_biopt_comparison_ladder.tex": "sha256:815ef8f1f6f909321d6ae24dd544ddb5088ec3aba7626ecc74e3e0a03a2c67e6",
-    "tables/table_trace_biopt_compute_posture.tex": "sha256:3dd7cb03d372009f8f659eeed30643f1f30e4d27c835f0fa87a752b043bda43c",
-    "tables/table_trace_biopt_contribution_stack.tex": "sha256:1b1300e8c5d3868ce6d53bc7114c810b728ff59ce1abe07fffb3049fd112d3aa",
-    "tables/table_trace_biopt_current_best_provenance.tex": "sha256:cecef031909c650d8ea02203c747725363f8edf5652ee26270868bf76ecda834",
-    "tables/table_trace_biopt_deployment_stress_posture.tex": "sha256:3bbf032423f0ec68f15b7fb5f3772932df27bafa6fb9e15288fef60d55263a95",
-    "tables/table_trace_biopt_design_protocol.tex": "sha256:4b761f8323977a9fb33b251c611a1a4a2624307071582541c4c5cc2873e83d97",
-    "tables/table_trace_biopt_discussion_boundary.tex": "sha256:9354db6f5676083168be6849b200d252726d07eb3eb1b4f2e5778d93c179ccab",
-    "tables/table_trace_biopt_dominance.tex": "sha256:18dc79ea0065840869e99933e55cdb5f507e78b949053fb7c13a2eb60f1d65eb",
-    "tables/table_trace_biopt_exact_subnetwork.tex": "sha256:0d4412c757c3f0234c28f899e07085dc15cb74752460587d8eb804355be6f7ce",
-    "tables/table_trace_biopt_exchange_certificate.tex": "sha256:6b8d232fd04ec4f3b40b97b70bc2e7a917e86903a4c33d5cca2a0ceefb6b0427",
-    "tables/table_trace_biopt_full_baseline_matrix.tex": "sha256:0b40c7ce3e15569019840030ca9e7817c30344902a9448825c92622a03b88b86",
-    "tables/table_trace_biopt_generalization_burden.tex": "sha256:61a62107e8a37b00d5e7e030429a8dda0ab49d7aeba7b573ca2fbebb42aab4b7",
-    "tables/table_trace_biopt_initializer_posture.tex": "sha256:d89c7ec91e229cf38bc08e7aa52780588569274eb3cbd3434577f6096891ebf2",
-    "tables/table_trace_biopt_layout_consensus_posture.tex": "sha256:507705d6ee0eea891e41834f218a6e6c633cdbf27bbfaf9e7ceed8fc85397398",
-    "tables/table_trace_biopt_map_stability_posture.tex": "sha256:1cbba3c17dea6462f9879c5bac31a051a7d7238893029239d9d1475b5099209d",
-    "tables/table_trace_biopt_mechanism.tex": "sha256:aa65cfb955d824b1da4b78754cef16b4eb85d602f47a2d36c72902e590a53ef6",
-    "tables/table_trace_biopt_method_contract.tex": "sha256:5a1ef08c6c866d559e679022d07796d8931b7398617f764ef1d344c6eb26fcfb",
-    "tables/table_trace_biopt_novelty_identity.tex": "sha256:5591826ef1dd509c0877ead3143ee72ad43d1ab0d6c5f9fe8cf2363f6605bd64",
-    "tables/table_trace_biopt_optimization.tex": "sha256:0d1275abf8279f7320198552f9573ef898084a60083797573e600b6711bd0d1e",
-    "tables/table_trace_biopt_planning_takeaways.tex": "sha256:ecc719a7199d1e6adffadc0829546ab7d204f086d45b3b80c4dd72fec0bc27d9",
-    "tables/table_trace_biopt_posterior_risk_posture.tex": "sha256:a5afcb4e8d56128942ffc12362d757985e40bcf6d9cafe5c12de1d6c4456d4b8",
-    "tables/table_trace_biopt_problem_contract.tex": "sha256:5b0ab4f16f47fb17d75b99f04691777eaff98653eff4e550f3a55d2e1532ed40",
-    "tables/table_trace_biopt_reader_guide.tex": "sha256:178d2a22a5ceb5b7fad2e61a0887c7e24cc97b58cad373cef6db99811f2112cd",
-    "tables/table_trace_biopt_regime_lessons.tex": "sha256:880dd71b900dfdc3d24e518317473378d1c34d70cce6b397bd5d559063fe2854",
-    "tables/table_trace_biopt_robustness_frontier.tex": "sha256:2192fa7bc5ab453bc38a61af423d37c4f6524d8fede89f8a5f4d2db57cccdc4d",
-    "tables/table_trace_biopt_route_ablation.tex": "sha256:ca9617236677e85d5c44bf23de6a998f630780409ffbbbf63a3a566e2c620be5",
-    "tables/table_trace_biopt_search_probe.tex": "sha256:4eb965bc24324ef839ccb50db66e9bc4fe8b47673599067451da0e99b44f6a4a",
-    "tables/table_trace_biopt_significance_posture.tex": "sha256:a40ca8bb52d99b2f8b8afae88f0e6e812f59c4e08ccfd62cd8878d703be7ea46",
-    "tables/table_trace_biopt_solver_scale.tex": "sha256:f52d60d786a195ac0e086687072ce7b08af518e7a3173fed69f0f1015eedfb7a",
-    "tables/table_trace_biopt_spatial_posture.tex": "sha256:bb0532ebfc862992d1b7d322d07bb907337e3d4aa504d5e5f49503ee56585eb2",
-    "tables/table_trace_biopt_stage16_calibrated_probe.tex": "sha256:483c20d897f3a9e190b37e03269402b1f2cbcff8a51da2d9cd6983f3997a11aa",
-    "tables/table_trace_biopt_tail_risk_posture.tex": "sha256:615a9147e39608047c5ee651a1cf90031f6f3e16381bfb6c9c0825d24679bb35",
-    "tables/table_trace_biopt_theory_bridge.tex": "sha256:3bde4671e65473fe1af164ff7c61c697c3896fa00209cc9e0b66963b97353c8d",
-    "tables/table_trace_biopt_weight_sensitivity.tex": "sha256:20030af773d40f8b7ff6b15148aac5f385918f473104f8cc67248ccf3da33e6c"
+    ".aris/citation-audit/fresh_web_sources.json": "sha256:3fd62ecc0a11d160cb135fec851318262dfc15ee241f0f294f803d1b47492d34",
+    "main.tex": "sha256:61ccf07af0529bd7b6e0e110b5168776f0fe846d70f86f5db03ff4b6b36ab264",
+    "references.bib": "sha256:3b3470ae63d4dc52fdf4b3a9e47dbd353086bdcfe384449ad5261936d110f21b",
+    "sections/0_abstract.tex": "sha256:89cfd9ca11de99a3c5847bfede2b77dd763591700f9a316a16a26aa160f8036c",
+    "sections/1_introduction.tex": "sha256:206b7c099dca516a4a66611c68d199939c5cb7289e75620b3c183f3663aa82ed",
+    "sections/2_related_work.tex": "sha256:db443d962c3cf9971801fdd4e4b019dfbca517a979746f35aae4e8e789a5e5e1",
+    "sections/3_problem.tex": "sha256:04c3d0e187e9e58b30dce7a87e9b05a35f26b99b2090afa7f71de619021610bf",
+    "sections/4_method_theory.tex": "sha256:ed791180e2c2c9af0a173f0e2949c26a07198f2eca1b2559a57836774c60c162",
+    "sections/5_experiments.tex": "sha256:0e1737ed51095b635b726dca3ed3681810168b30f8b38906086103ccd9cb428a",
+    "sections/6_ablation_robustness.tex": "sha256:6fbb025019ee04c9812170f6fd26c6bd0253c6292186f85c020bec69e49637b2",
+    "sections/7_discussion.tex": "sha256:fc4d239223ea79eb91ddd433bafa4fe7c2c71a526c9ddf84f220a64a67bd2818",
+    "sections/7_robustness.tex": "sha256:51b519c80c17f15b7d2bb40e1d2d4683af71ec3e1edba6844bd8651cc5f33e6e",
+    "sections/8_conclusion.tex": "sha256:2a1984d4dab46ee303e44197a89d958e467fe260fafbec6667b8b7bb4f454808",
+    "sections/A_appendix.tex": "sha256:1e6fd965374b884bac69a473765cdfb04df5b344e8289c381d9881508e2f553e",
+    "tables/table_ablation.tex": "sha256:1aeb3f811e3b0ebc931c92a5c20fd81384943466b231e8b6e4ea0ca28019b2d9",
+    "tables/table_external.tex": "sha256:26cb6f0311061299ecec9b0fe7e1481662c35b11a2d27df9ee930c06300bbe57",
+    "tables/table_main_results.tex": "sha256:40bac715b2d58accbe62a51754ce22a51e66d94c8e12359326190ed590c6e311",
+    "tables/table_method_positioning.tex": "sha256:b67ebfdafff72446611ef1e5ec94a7962ad4a775dab99f2c52f8ece0820a5377",
+    "tables/table_robustness_routing.tex": "sha256:7f910ef9da415f435876a7a2cbba39310d1697dc942e80059bbbc03c7b59dfa5",
+    "tables/table_theory.tex": "sha256:3d56d4b335710ad16b47470451671a6564b1be11b64a57913cd6d576e7d01cb8",
+    "tables/table_trace_biopt_baseline_family_screen.tex": "sha256:09daf7e8ad627a4fe1c057bd2f7c9dcc0d44d98493cd4194a8bcede2a65381fe",
+    "tables/table_trace_biopt_baseline_registry.tex": "sha256:6798ec8a4a693c9226bff6cbbe70741c1a60a1b313317c88d4385736ced6c0e3",
+    "tables/table_trace_biopt_budget_phasing.tex": "sha256:0b1753d98366f3b85f41c269f0366b08be738df4fc160cd3a1d2cb9abcd69e80",
+    "tables/table_trace_biopt_calibration_probe.tex": "sha256:5d08a18a6e45f2d8b34292b847537ede9eb6ec3d15f30186bff9ab23dec7bdd1",
+    "tables/table_trace_biopt_certificate_removal_probe.tex": "sha256:0c10adbd41738dd211e6a65551f189c30c622839a0f642592bb1d41ef064980b",
+    "tables/table_trace_biopt_challenger_posture.tex": "sha256:6c09f779492eca7bc3409633b5c4764ec5bc1b80a94df19cdcac8111594f0335",
+    "tables/table_trace_biopt_claim_boundary_matrix.tex": "sha256:ee79cd496a4b80bc7e56ffed138a194bde3d797c8cfeeb7d2e8c27401f952609",
+    "tables/table_trace_biopt_comparison_class_contract.tex": "sha256:6961ce997309ce68819d465f9789da550440aa6e7074e20e1a0aa05b200eda53",
+    "tables/table_trace_biopt_comparison_ladder.tex": "sha256:dcb22e16d7f47f2170923d4131e4a7bd303a5c4dd2948fa25fb24aef2da0d95b",
+    "tables/table_trace_biopt_compute_posture.tex": "sha256:7bf104634c634d87fe448576cf0d68501ee14890785c90d0ba75fe969a7e8bfb",
+    "tables/table_trace_biopt_contribution_stack.tex": "sha256:f48a2f0a21fb9d27d27fe21bd9249a3a1d7c9c31c3d587efb4a61222068bc65f",
+    "tables/table_trace_biopt_current_best_provenance.tex": "sha256:f816164f50229a31e0443927acc7c10cfe3009ffc9ec8343670ac001410b75c4",
+    "tables/table_trace_biopt_deployment_stress_posture.tex": "sha256:bfc9fb2528f712263df07dc09a8876cc5481cb97087648e03fc7f92f607946e9",
+    "tables/table_trace_biopt_design_protocol.tex": "sha256:28794c5317ba592479e07f34af4ca66c66b49099f54c9d0cc3e15396ab7875f7",
+    "tables/table_trace_biopt_discussion_boundary.tex": "sha256:f50af58bea7d237addc77848d26dba7ff24db6aed7c1a867fc80b227262bf331",
+    "tables/table_trace_biopt_dominance.tex": "sha256:d9951dbecfe9decbe1354042f972df7d4e92b3a307ad17534284c94569ac0a3b",
+    "tables/table_trace_biopt_exact_subnetwork.tex": "sha256:eb19496d68f093bce129d256a0b2c3b538596292704b4d95c1bdaa5ef0e299e3",
+    "tables/table_trace_biopt_exchange_certificate.tex": "sha256:6549caf1a32e26021086f856f0ecec65a7e42d44026cd8534a6065c0c1cfc4d8",
+    "tables/table_trace_biopt_full_baseline_matrix.tex": "sha256:9d2914bdb8d050004f8f95e1ee3698ff54a428ce6fe4121c55ec591cc0fa6bf8",
+    "tables/table_trace_biopt_generalization_burden.tex": "sha256:b9acfc98226b6f60f8ba3517a7d4896b395d474c3c245f3629a5c4a942c6bb38",
+    "tables/table_trace_biopt_initializer_posture.tex": "sha256:ef2072790dc21981ee36720f04e7814c4e096afe0b9968d525514a9fac9fea92",
+    "tables/table_trace_biopt_layout_consensus_posture.tex": "sha256:1116116e67867aecc978fce097fcdc720041e2d6c952a7f16d32767c19f2e98b",
+    "tables/table_trace_biopt_map_stability_posture.tex": "sha256:ac5a34bb404e2656978edc1b3b7f592e58116fcf0cefeeb8670bd2166d1503e0",
+    "tables/table_trace_biopt_mechanism.tex": "sha256:dc3d2da032b0f06cd36ce38cee1cf557197c9e11f3b6c5e1122a1d2c0e5f9179",
+    "tables/table_trace_biopt_method_contract.tex": "sha256:e5f747752889f26cc6bbdf2d2efd7200ec20d4b6044c4546c2e54c7fcaa88d15",
+    "tables/table_trace_biopt_novelty_identity.tex": "sha256:0f74a93588871c4e0fba1c50190921baa3190a904ee242397bf2f154b1c04fa8",
+    "tables/table_trace_biopt_optimization.tex": "sha256:3cbc330a3ef7cad11adcfe63d55506c4e9414af56ba406a977fe530c928003ca",
+    "tables/table_trace_biopt_planning_takeaways.tex": "sha256:57434491c96f56e5a6ee51a02507eddfaa9a17e80e49c780638133aa7b9b7d08",
+    "tables/table_trace_biopt_posterior_risk_posture.tex": "sha256:86e53f10c708c9ed6805d972c01209fd10d65ebb8a7dbc9ce8a4cd180ccd202b",
+    "tables/table_trace_biopt_problem_contract.tex": "sha256:05b3a3d8b8e3b867312946db2a6ac9b282daadfdb15512de4970f78b33df3f23",
+    "tables/table_trace_biopt_reader_guide.tex": "sha256:2b505209c74a9e24b85cd47a7ea80318dcb201079715ab0c6f14448962205c63",
+    "tables/table_trace_biopt_regime_lessons.tex": "sha256:d125cd751506bfdbd3fa6deb5ab209c1136235a2c38c362286e664f3a47bf20c",
+    "tables/table_trace_biopt_robustness_frontier.tex": "sha256:19f3f9e006132e88917e9c82472ab93f3ed41a30140ee38a9eba53ae81513df3",
+    "tables/table_trace_biopt_route_ablation.tex": "sha256:0b7ec9adb7caef792af4bd7738b8139348d246a284b51abe9f86ee81cc1e0511",
+    "tables/table_trace_biopt_search_probe.tex": "sha256:ea063e7ddceb32c14c3fdcd2ed37975c91e24a1900b664dafdc447c88865bc67",
+    "tables/table_trace_biopt_significance_posture.tex": "sha256:9b015a13089735d393c4db3d943283e112fc4e2f6b825ad097bfbca2750e009c",
+    "tables/table_trace_biopt_solver_scale.tex": "sha256:479b0a86b2ce4e2272942e8d4df49e8375b8d564532dfe1a9c5c1d5c7a29e8bb",
+    "tables/table_trace_biopt_spatial_posture.tex": "sha256:48b18df4dd59b66a26170f7e0d22400d0225600ae7b8134a62415bbe7140559c",
+    "tables/table_trace_biopt_stage16_calibrated_probe.tex": "sha256:be56ff88bf0bf4018cecb8850f816bc1e61d2d7e7f323bb4c525b24a1ca62275",
+    "tables/table_trace_biopt_tail_risk_posture.tex": "sha256:be4e4b78b65ce8be66928bae7e384681244b28701767fc384e4518bb545b6f57",
+    "tables/table_trace_biopt_theory_bridge.tex": "sha256:60f6d302dda159661ada0abc45df9bf14b76e902e19c5ccd8a3ce44c144bad10",
+    "tables/table_trace_biopt_weight_sensitivity.tex": "sha256:8d0c2dfc5be59b99cf1f7a028c0300b8c3f79af34b74215575b920e99a265251"
   },
   "details": {
     "bib_keys": [
@@ -84,6 +84,7 @@
       "li2012opre",
       "li2018dcrnn",
       "manohar2018sparse",
+      "meng2008bilevel",
       "minguez2010plate",
       "ng2012synergistic",
       "rinaldi2017route",
@@ -118,6 +119,7 @@
       "li2012opre",
       "li2018dcrnn",
       "manohar2018sparse",
+      "meng2008bilevel",
       "minguez2010plate",
       "ng2012synergistic",
       "rinaldi2017route",
@@ -136,7 +138,7 @@
     ],
     "counts": {
       "FIX": 0,
-      "KEEP": 32,
+      "KEEP": 33,
       "REMOVE": 0,
       "REPLACE": 0
     },
@@ -163,14 +165,8 @@
     "per_entry": [
       {
         "context": "SUPPORTS",
-        "key": "yang1998optimal",
-        "source": "https://doi.org/10.1016/S0191-2615(97)00016-7",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "ehlert2006optimisation",
-        "source": "https://doi.org/10.1016/j.trb.2005.06.001",
+        "key": "anis2016sampling",
+        "source": "https://doi.org/10.1109/TSP.2016.2546233",
         "verdict": "KEEP"
       },
       {
@@ -181,104 +177,20 @@
       },
       {
         "context": "SUPPORTS",
-        "key": "minguez2010plate",
-        "source": "https://doi.org/10.1016/j.trb.2009.07.008",
+        "key": "chen2015sampling",
+        "source": "https://doi.org/10.1109/TSP.2015.2469645",
         "verdict": "KEEP"
       },
       {
         "context": "SUPPORTS",
-        "key": "li2011reliable",
-        "source": "https://doi.org/10.1016/j.trb.2010.04.005",
+        "key": "coric2012traffic",
+        "source": "https://doi.org/10.3141/2315-13",
         "verdict": "KEEP"
       },
       {
         "context": "SUPPORTS",
-        "key": "ng2012synergistic",
-        "source": "https://doi.org/10.1016/j.trb.2012.02.001",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "simonelli2012od",
-        "source": "https://doi.org/10.1016/j.trb.2012.08.007",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "viti2014partial",
-        "source": "https://doi.org/10.1016/j.trb.2014.08.002",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "rinaldi2017route",
-        "source": "https://doi.org/10.1016/j.trb.2017.08.007",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "xu2016robust",
-        "source": "https://doi.org/10.1016/j.trb.2016.03.006",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "salari2019failure",
-        "source": "https://doi.org/10.1016/j.trb.2019.01.004",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "yu2023robustness",
-        "source": "https://doi.org/10.1016/j.trb.2023.102849",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "rodriguez2019turning",
-        "source": "https://doi.org/10.1016/j.trb.2018.12.005",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "zhu2022nslp",
-        "source": "https://doi.org/10.1016/j.ejor.2021.10.038",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "zhuo2024revisiting",
-        "source": "https://doi.org/10.1016/j.trb.2024.103099",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "zhu2014estimation",
-        "source": "https://doi.org/10.3141/2443-04",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "li2012opre",
-        "source": "https://doi.org/10.1287/opre.1120.1082",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "gentili2011survey",
-        "source": "https://doi.org/10.3141/2243-13",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "hu2009identification",
-        "source": "https://doi.org/10.1016/j.trb.2009.02.008",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "he2013graphical",
-        "source": "https://doi.org/10.1016/j.trb.2013.02.006",
+        "key": "ehlert2006optimisation",
+        "source": "https://doi.org/10.1016/j.trb.2005.06.001",
         "verdict": "KEEP"
       },
       {
@@ -295,14 +207,20 @@
       },
       {
         "context": "SUPPORTS",
-        "key": "coric2012traffic",
-        "source": "https://doi.org/10.3141/2315-13",
+        "key": "gentili2011survey",
+        "source": "https://doi.org/10.3141/2243-13",
         "verdict": "KEEP"
       },
       {
         "context": "SUPPORTS",
-        "key": "seo2017survey",
-        "source": "https://doi.org/10.1016/j.arcontrol.2017.03.005",
+        "key": "he2013graphical",
+        "source": "https://doi.org/10.1016/j.trb.2013.02.006",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "hu2009identification",
+        "source": "https://doi.org/10.1016/j.trb.2009.02.008",
         "verdict": "KEEP"
       },
       {
@@ -325,20 +243,14 @@
       },
       {
         "context": "SUPPORTS",
-        "key": "chen2015sampling",
-        "source": "https://doi.org/10.1109/TSP.2015.2469645",
+        "key": "li2011reliable",
+        "source": "https://doi.org/10.1016/j.trb.2010.04.005",
         "verdict": "KEEP"
       },
       {
         "context": "SUPPORTS",
-        "key": "anis2016sampling",
-        "source": "https://doi.org/10.1109/TSP.2016.2546233",
-        "verdict": "KEEP"
-      },
-      {
-        "context": "SUPPORTS",
-        "key": "manohar2018sparse",
-        "source": "https://doi.org/10.1109/MCS.2018.2810460",
+        "key": "li2012opre",
+        "source": "https://doi.org/10.1287/opre.1120.1082",
         "verdict": "KEEP"
       },
       {
@@ -349,13 +261,109 @@
       },
       {
         "context": "SUPPORTS",
+        "key": "manohar2018sparse",
+        "source": "https://doi.org/10.1109/MCS.2018.2810460",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "meng2008bilevel",
+        "source": "https://doi.org/10.1287/trsc.35.1.21.10143",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "minguez2010plate",
+        "source": "https://doi.org/10.1016/j.trb.2009.07.008",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "ng2012synergistic",
+        "source": "https://doi.org/10.1016/j.trb.2012.02.001",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "rinaldi2017route",
+        "source": "https://doi.org/10.1016/j.trb.2017.08.007",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "rodriguez2019turning",
+        "source": "https://doi.org/10.1016/j.trb.2018.12.005",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "salari2019failure",
+        "source": "https://doi.org/10.1016/j.trb.2019.01.004",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "seo2017survey",
+        "source": "https://doi.org/10.1016/j.arcontrol.2017.03.005",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "simonelli2012od",
+        "source": "https://doi.org/10.1016/j.trb.2012.08.007",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "viti2014partial",
+        "source": "https://doi.org/10.1016/j.trb.2014.08.002",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "xu2016robust",
+        "source": "https://doi.org/10.1016/j.trb.2016.03.006",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "yang1998optimal",
+        "source": "https://doi.org/10.1016/S0191-2615(97)00016-7",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
         "key": "yu2018stgcn",
         "source": "https://doi.org/10.24963/ijcai.2018/505",
         "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "yu2023robustness",
+        "source": "https://doi.org/10.1016/j.trb.2023.102849",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "zhu2014estimation",
+        "source": "https://doi.org/10.3141/2443-04",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "zhu2022nslp",
+        "source": "https://doi.org/10.1016/j.ejor.2021.10.038",
+        "verdict": "KEEP"
+      },
+      {
+        "context": "SUPPORTS",
+        "key": "zhuo2024revisiting",
+        "source": "https://doi.org/10.1016/j.trb.2024.103099",
+        "verdict": "KEEP"
       }
     ],
-    "total_cited_entries": 32,
-    "total_entries": 32,
+    "total_cited_entries": 33,
+    "total_entries": 33,
     "uncited_bib_keys": [],
     "web_audit_type": "fresh_web_current_agent",
     "web_keys": [
@@ -376,6 +384,7 @@
       "li2012opre",
       "li2018dcrnn",
       "manohar2018sparse",
+      "meng2008bilevel",
       "minguez2010plate",
       "ng2012synergistic",
       "rinaldi2017route",
@@ -393,7 +402,7 @@
       "zhuo2024revisiting"
     ]
   },
-  "generated_at": "2026-05-27T22:30:49Z",
+  "generated_at": "2026-06-05T15:51:44Z",
   "reason_code": "fresh_web_metadata_and_context_audit_passed",
   "reviewer_model": "codex-current-agent-with-web",
   "reviewer_reasoning": "Fresh web/DOI/publisher metadata and citation-context audit performed inline; independent reviewer agent was not spawned due runtime constraints.",

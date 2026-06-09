@@ -1,4 +1,4 @@
-\section{TRACE-BiOpt method and scoped theory}
+\section{TRACE-BiOpt method and theoretical properties}
 \label{sec:method}
 
 TRACE-BiOpt is a single recoverability-driven bilevel stochastic
@@ -10,7 +10,7 @@ only as a pre-registered comparator in the experiments, and the full
 21-baseline / 11-family registry stays outside the solver as an external
 comparison class rather than an internal candidate pool.
 
-The narrow claim of Section~4 can be stated in one place: one fixed-infrastructure decision, one transparent inverse problem, one unified recoverability-driven objective, one deterministic solver route, one external comparison class, and explicit non-claims around global exactness.
+Section~4 establishes the method contract in one place: one fixed-infrastructure decision, one transparent inverse problem, one unified recoverability-driven objective, one deterministic solver route, and one external comparison class that stays outside the solver.
 
 % Method contract table moved to supplementary material (SUBMISSION_EVIDENCE_INDEX.md)
 
@@ -245,7 +245,9 @@ Then
 \]
 If one instead studies hidden components only, the same identity holds after
 replacing $x$ with $D_{\calH}x$ and $\Sigma_{\mathrm{post}}(\calS)$ with
-$D_{\calH}\Sigma_{\mathrm{post}}(\calS)D_{\calH}$.
+$D_{\calH}\Sigma_{\mathrm{post}}(\calS)D_{\calH}$. Equivalently, the hidden
+block covariance is
+$\Sigma_{\calH|\calS}=D_{\calH}\Sigma_{\mathrm{post}}(\calS)D_{\calH}$.
 \end{theorem}
 
 \begin{proof}
@@ -253,7 +255,7 @@ For squared loss, the conditional expectation is the Bayes estimator. The
 conditional residual has covariance $\Sigma_{\mathrm{post}}(\calS)$; taking the
 trace of the second moment gives the expected squared reconstruction error.
 Applying the same argument to the projected hidden vector
-$D_{\calH}x-D_{\calH}\E[x\mid y_{\calS}]$ gives the hidden-block variant.
+$D_{\calH}x-D_{\calH}\E[x\mid y_{\calS}]$ gives the hidden block variant.
 \end{proof}
 
 \begin{theorem}[Uniform validation generalization over size-$k$ layouts]
@@ -291,8 +293,8 @@ blocks or an effective sample size under mixing assumptions.
 \input{tables/table_theory}
 \FloatBarrier
 
-Table~\ref{tab:theory} summarizes the scoped formal statements that the main
-text relies on. The detailed burden and bridge diagnostics that connect these
+Table~\ref{tab:theory} summarizes the formal properties that the main text
+relies on. The detailed burden and bridge diagnostics that connect these
 statements to individual experimental regimes are deferred to the appendix so
 that the main body keeps its focus on formulation and results.
 

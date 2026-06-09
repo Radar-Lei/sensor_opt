@@ -1,19 +1,19 @@
 \begin{table*}[pos=htbp]
 \centering
-\caption{Scoped theoretical statements used in the TRACE-BiOpt manuscript. Each statement is intentionally bounded by its assumptions and non-claim boundary.}
+\caption{Formal properties of TRACE-BiOpt. Each guarantee is interpreted under the stated modeling and solver assumptions.}
 \label{tab:theory}
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.39\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}}
 \toprule
-Statement & Scoped content & Non-claim boundary \\
+Property & Guarantee & Assumptions and interpretation \\
 \midrule
-MAP closed form and stability & For a fixed layout, the regularized GLS/MAP lower-level problem is strongly convex and has the closed-form solution $A(\calS)^{-1}b_t(\calS)$ with a Lipschitz stability bound. & does not make the traffic data Gaussian or prove empirical MAE improvement by itself \\
-posterior trace Bayes risk & Under the stated linear-Gaussian squared-error model, the normalized full-state posterior covariance trace equals conditional expected squared reconstruction error, and the hidden-block variant follows by projection. & does not convert posterior trace into an MAE guarantee for non-Gaussian traffic data \\
-uniform layout generalization & For all size-$k$ layouts, bounded validation risk uniformly concentrates around deployment risk at rate $\sqrt{(k\log(e|\calV|/k)+\log(1/\delta))/n_v}$. & depends on independent blocks or effective sample size and an optimization-gap term \\
-continuous-relaxation consistency & The capped-simplex relaxation and deterministic top-$k$ rounding produce a budget-feasible warm start whose accepted layout is still optimized under the same discrete TRACE-BiOpt objective $J(\calS)$. & does not create a second evidence-backed solver claim or guarantee that relaxed warm starts dominate the audited `auto` initializer \\
-deterministic descent and finite termination & If every accepted exchange decreases $J$ by at least the declared tolerance, the accepted TRACE-BiOpt path is monotone and terminates in finitely many steps over the finite budget-feasible layout family. & does not imply polynomial-time global optimization or optimality beyond the searched neighborhood \\
-exchange certificate & If TRACE-BiOpt stops because no searched one-exchange move improves $J$, the returned layout is stationary for the deterministic searched one-exchange active-set neighborhood up to tolerance. & does not assert global optimality outside the searched neighborhood \\
-CVaR tail-risk epigraph & Scenario-CVaR admits the standard Rockafellar--Uryasev epigraph form, so the TRACE-BiOpt tail term is a coherent penalty on sampled upper-tail reconstruction risk rather than an ad hoc average-risk proxy. & does not certify robustness against all perturbations or untested traffic regimes \\
+MAP closed form and stability & For a fixed layout, the regularized GLS/MAP lower-level problem is strongly convex and has the closed-form solution $A(\calS)^{-1}b_t(\calS)$ with a Lipschitz stability bound. & Requires positive-definite observation noise and regularized prior-plus-graph precision; this analytic estimator property is separate from empirical MAE dominance. \\
+posterior trace Bayes risk & Under the stated linear-Gaussian squared-error model, the normalized full-state posterior covariance trace equals conditional expected squared reconstruction error, and the hidden-block variant follows by projection. & Interprets the implemented full-state posterior certificate under squared loss; it does not convert posterior trace into an MAE guarantee for non-Gaussian traffic data. \\
+uniform layout generalization & For all size-$k$ layouts, bounded validation risk uniformly concentrates around deployment risk at rate $\sqrt{(k\log(e|\calV|/k)+\log(1/\delta))/n_v}$. & Uses independent validation blocks or effective sample size and includes the solver optimization-gap term. \\
+continuous-relaxation consistency & The capped-simplex relaxation and deterministic top-$k$ rounding produce a budget-feasible warm start whose accepted layout is still optimized under the same discrete TRACE-BiOpt objective $J(\calS)$. & Treats relaxation as a warm start for the same objective; relaxed-rounding-specific empirical dominance requires matching evidence. \\
+deterministic descent and finite termination & If every accepted exchange decreases $J$ by at least the declared tolerance, the accepted TRACE-BiOpt path is monotone and terminates in finitely many steps over the finite budget-feasible layout family. & Certifies descent of the implemented search path, with optimality interpreted through the searched neighborhood certificate. \\
+exchange certificate & If TRACE-BiOpt stops because no searched one-exchange move improves $J$, the returned layout is stationary for the deterministic searched one-exchange active-set neighborhood up to tolerance. & Applies to the evaluated active-set neighborhood, or to the full one-exchange neighborhood only when all swaps are enumerated. \\
+CVaR tail-risk epigraph & Scenario-CVaR admits the standard Rockafellar--Uryasev epigraph form, so the TRACE-BiOpt tail term is a coherent penalty on sampled upper-tail reconstruction risk rather than an ad hoc average-risk proxy. & Interprets tail risk for the sampled scenario family and the reported perturbation screens. \\
 \bottomrule
 \end{tabular}
 \end{table*}
